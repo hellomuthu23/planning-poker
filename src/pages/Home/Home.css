@@ -1,0 +1,8 @@
+.Home {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border: 1px solid white;
+  padding: 150px;
+  justify-content: space-evenly;
+}

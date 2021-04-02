@@ -1,0 +1,19 @@
+.PlayersContainer {
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  overflow: auto;
+}
+
+.Player {
+  padding: 20px;
+  border: 1px solid grey;
+  min-width: 150px;
+  display: flex;
+  flex-direction: column;
+  font-size: medium;
+}
+
+h4 {
+  text-align: center;
+}
