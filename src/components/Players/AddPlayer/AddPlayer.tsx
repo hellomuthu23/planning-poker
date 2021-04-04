@@ -1,7 +1,9 @@
 import { ChangeEvent, FormEvent, useContext, useState } from 'react';
+import { ulid } from 'ulid';
 import { GameContext } from '../../../state/context';
 import { addPlayer } from '../../../state/reducer';
-import { Player, Status } from '../../../state/state';
+import { Player } from '../../../types/player';
+import { Status } from '../../../types/status';
 
 export const AddPlayer = () => {
   const { dispatch } = useContext(GameContext);
@@ -11,7 +13,7 @@ export const AddPlayer = () => {
   };
   const handleSubmit = (event: FormEvent) => {
     const player: Player = {
-      id: +new Date(),
+      id: ulid(),
       name: playerName,
       status: Status.NotStarted,
     };

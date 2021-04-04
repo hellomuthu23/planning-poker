@@ -1,30 +1,16 @@
-import Button from '@material-ui/core/Button';
-import React, { useState } from 'react';
+import React from 'react';
 import { CreateGame } from '../../components/Poker/CreateGame/CreateGame';
+import { JoinGame } from '../../components/Poker/JoinGame/JoinGame';
 import { Toolbar } from '../../components/Toolbar/Toolbar';
 import './Home.css';
 
 export const Home = () => {
-  const [showCreateNewGame, setShowCreateNewGame] = useState(false);
   return (
     <>
       <Toolbar />
       <div className='Home'>
-        {!showCreateNewGame && (
-          <>
-            <Button
-              variant='contained'
-              color='primary'
-              onClick={() => setShowCreateNewGame(true)}
-            >
-              Create New Game
-            </Button>
-            <Button variant='contained' color='primary'>
-              Join a Game
-            </Button>
-          </>
-        )}
-        {showCreateNewGame && <CreateGame />}
+        <CreateGame />
+        <JoinGame />
       </div>
     </>
   );

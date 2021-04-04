@@ -1,0 +1,12 @@
+.textField {
+  width: 100%;
+  padding-bottom: 30px;
+}
+
+.button {
+  width: 100%;
+}
+
+.card {
+  border: 1px solid lightgray;
+}

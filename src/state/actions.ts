@@ -1,9 +1,10 @@
-import { Player } from './state';
+import { Player } from '../types/player';
 
 export enum ActionType {
   AddPlayer,
   SetPlayerValue,
   ResetGame,
+  FinishGame,
 }
 
 export interface AddPlayer {
@@ -13,11 +14,15 @@ export interface AddPlayer {
 
 export interface SetPlayerValue {
   type: ActionType.SetPlayerValue;
-  payload: { id: number; value: number };
+  payload: { id: string; value: number };
 }
 
 export interface ResetGame {
   type: ActionType.ResetGame;
 }
 
-export type GameActions = AddPlayer | SetPlayerValue | ResetGame;
+export interface FinishGame {
+  type: ActionType.FinishGame;
+}
+
+export type GameActions = AddPlayer | SetPlayerValue | ResetGame | FinishGame;

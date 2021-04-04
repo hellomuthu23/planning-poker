@@ -1,25 +1,43 @@
-import { Player, GameState, Status, initialGameState } from './state';
+import { updateGame } from '../repository/games';
+import { Game } from '../types/game';
+import { Player } from '../types/player';
+import { Status } from '../types/status';
 import {
   ActionType,
   AddPlayer,
+  FinishGame,
   GameActions,
   ResetGame,
   SetPlayerValue,
 } from './actions';
 
-export function gameReducer(state: GameState, action: GameActions): GameState {
+export function gameReducer(state: Game, action: GameActions): Game {
   switch (action.type) {
     case ActionType.AddPlayer:
-      return { ...state, players: [action.payload, ...state.players] };
+      const updateState = {
+        ...state,
+        players: [action.payload, ...state.players],
+      };
+      updateGame(updateState);
+      return updateState;
     case ActionType.ResetGame:
-      return {
-        ...initialGameState,
+      const updatedState = {
+        ...state,
         players: state.players.map((player) => ({
           ...player,
           status: Status.NotStarted,
           value: 0,
         })),
       };
+      updateGame(updatedState);
+      return updatedState;
+    case ActionType.FinishGame:
+      const finishedState = {
+        ...state,
+        gameStatus: Status.Finished,
+      };
+      updateGame(finishedState);
+      return finishedState;
     case ActionType.SetPlayerValue:
       let newState = {
         ...state,
@@ -33,34 +51,35 @@ export function gameReducer(state: GameState, action: GameActions): GameState {
             : player
         ),
       };
-
-      return {
+      newState = {
         ...newState,
-        winner: getWinner(newState.players),
+        average: getAverage(newState.players),
         gameStatus: getGameStatus(newState),
       };
+      updateGame(newState);
+      return newState;
 
     default:
       return state;
   }
 }
 
-const getWinner = (players: Player[]): Player | null => {
-  let winnerValue = 0;
-  let winner = null;
+const getAverage = (players: Player[]): number => {
+  let values = 0;
+  let numberOfPlayersPlayed = 0;
   players.forEach((player) => {
-    if (player.value && player.value > winnerValue) {
-      winner = player;
-      winnerValue = player.value || 0;
+    if (player.status === Status.Finished && player.value) {
+      values = values + player.value;
+      numberOfPlayersPlayed++;
     }
   });
-  return winner;
+  return values / numberOfPlayersPlayed;
 };
 
-const getGameStatus = (state: GameState): Status => {
+const getGameStatus = (state: Game): Status => {
   const totalPlayers = state.players.length;
   let numberOfPlayersPlayed = 0;
-  state.players.forEach((player) => {
+  state.players.forEach((player: Player) => {
     if (player.status === Status.Finished) {
       numberOfPlayersPlayed++;
     }
@@ -80,11 +99,15 @@ export const addPlayer = (player: Player): AddPlayer => ({
   payload: player,
 });
 
-export const setPlayerValue = (id: number, value: number): SetPlayerValue => ({
+export const setPlayerValue = (id: string, value: number): SetPlayerValue => ({
   type: ActionType.SetPlayerValue,
   payload: { id, value },
 });
 
 export const resetGame = (): ResetGame => ({
   type: ActionType.ResetGame,
+});
+
+export const finishGame = (): FinishGame => ({
+  type: ActionType.FinishGame,
 });
