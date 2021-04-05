@@ -2,19 +2,19 @@ import { Button, Card, CardContent } from '@material-ui/core';
 import React, { useContext } from 'react';
 import { GameContext } from '../../../state/context';
 import { finishGame, resetGame } from '../../../state/reducer';
-import './RevealCard.css';
+import './GameController.css';
 
-export const RevealCard = () => {
+export const GameController = () => {
   const { state, dispatch } = useContext(GameContext);
   const endGame = () => {
     dispatch(finishGame());
   };
   const copyInviteLink = () => {
     const dummy = document.createElement('input'),
-      text = window.location.href;
-      document.body.appendChild(dummy);
-      dummy.value = text;
-      dummy.select();
+      text = window.location.href + '/join';
+    document.body.appendChild(dummy);
+    dummy.value = text;
+    dummy.select();
     document.execCommand('copy');
     document.body.removeChild(dummy);
   };

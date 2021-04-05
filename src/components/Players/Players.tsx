@@ -2,9 +2,9 @@ import React, { useContext } from 'react';
 import { GameContext } from '../../state/context';
 import { setPlayerValue } from '../../state/reducer';
 import { Player } from '../../types/player';
+import { GameController } from '../Poker/GameController/GameController';
 import { PlayerCard } from './PlayerCard/PlayerCard';
 import './Players.css';
-import { RevealCard } from './RevealCard/RevealCard';
 
 export const Players = () => {
   const { state, dispatch } = useContext(GameContext);
@@ -20,7 +20,7 @@ export const Players = () => {
             <PlayerCard key={player.id} player={player} />
           ))}
       </div>
-      <RevealCard />
+      <GameController />
       <div className='PlayersContainer'>
         {state &&
           state.players.map((player: Player) => (

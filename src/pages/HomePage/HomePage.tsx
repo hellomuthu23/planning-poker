@@ -1,13 +1,11 @@
 import React from 'react';
 import { CreateGame } from '../../components/Poker/CreateGame/CreateGame';
 import { JoinGame } from '../../components/Poker/JoinGame/JoinGame';
-import { Toolbar } from '../../components/Toolbar/Toolbar';
-import './Home.css';
+import './HomePage.css';
 
-export const Home = () => {
+export const HomePage = () => {
   return (
     <>
-      <Toolbar />
       <div className='Home'>
         <CreateGame />
         <JoinGame />
@@ -16,4 +14,4 @@ export const Home = () => {
   );
 };
 
-export default Home;
+export default HomePage;

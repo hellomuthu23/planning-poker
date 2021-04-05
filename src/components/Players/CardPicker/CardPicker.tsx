@@ -2,6 +2,7 @@ import { Card, CardContent, Typography } from '@material-ui/core';
 import React, { useContext } from 'react';
 import { GameContext } from '../../../state/context';
 import { setPlayerValue } from '../../../state/reducer';
+import { Player } from '../../../types/player';
 import './CardPicker.css';
 
 export interface CardConfig {
@@ -34,7 +35,7 @@ export const CardPicker = () => {
           variant='outlined'
           onClick={() => playPlayer(card)}
           key={card.value}
-          style={{ background: card.color }}
+          style={getCardStyle(state.players[0], card)}
         >
           <CardContent className='CardContent'>
             <Typography className='CardContentTop'>{card.value}</Typography>
@@ -47,4 +48,15 @@ export const CardPicker = () => {
       ))}
     </div>
   );
+};
+
+const getCardStyle = (player: Player, card: CardConfig) => {
+  if (player.value !== undefined && player.value === card.value) {
+    return {
+      marginTop: '0px',
+      background: card.color,
+      border: '1px dashed #333',
+    };
+  }
+  return { background: card.color };
 };

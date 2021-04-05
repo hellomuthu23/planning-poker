@@ -57,3 +57,29 @@ export const updateGame = (updatedGame: Game): boolean => {
   localStorage.setItem('games', JSON.stringify(res));
   return true;
 };
+
+export const joinGame = (gameId: string, playerName: string): boolean => {
+  let games: Game[] = [];
+  const store = localStorage.getItem('games');
+  if (store) {
+    games = JSON.parse(store);
+  }
+  const joiningGame = games.find((game) => game.id === gameId);
+
+  if (!joiningGame) {
+    console.log('Game not found');
+    return false;
+  }
+  const newPlayer = { name: playerName, id: ulid(), status: Status.NotStarted };
+  joiningGame.players.push(newPlayer);
+
+  const res = games.map((game: Game) => {
+    if (game.id === gameId) {
+      return joiningGame;
+    }
+    return game;
+  });
+
+  localStorage.setItem('games', JSON.stringify(res));
+  return true;
+};
