@@ -16,9 +16,12 @@ export const Poker = () => {
   );
 
   useEffect(() => {
-    setGame(getGame(id));
-    setCurrentPlayerId(getCurrentPlayerId(id));
-    setIsLoading(false);
+    async function fetchData(id: string) {
+      setGame(await getGame(id));
+      setCurrentPlayerId(getCurrentPlayerId(id));
+      setIsLoading(false);
+    }
+    fetchData(id);
   }, [id]);
 
   if (loading) {

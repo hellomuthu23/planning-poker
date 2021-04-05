@@ -17,13 +17,12 @@ export const CreateGame = () => {
   const [gameName, setGameName] = useState('End Game');
   const [createdBy, setCreatedBy] = useState('SuperHero');
   const handleSubmit = (event: FormEvent) => {
+    event.preventDefault();
     const game: NewGame = {
       name: gameName,
       createdBy: createdBy,
       createdAt: new Date(),
     };
-    console.log(game);
-    event.preventDefault();
     const newGameId = addNewGame(game);
     history.push(`/game/${newGameId}`);
   };

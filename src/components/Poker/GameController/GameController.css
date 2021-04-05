@@ -1,14 +1,14 @@
-.RevealArea {
+.GameController {
   display: flex;
   justify-content: center;
 }
 
-.RevealCard {
+.GameControllerCard {
   width: 100%;
   border: 1px dashed grey;
 }
 
-.RevealCardContentArea {
+.GameControllerCardContentArea {
   display: flex;
   flex-direction: row;
   justify-content: space-around;

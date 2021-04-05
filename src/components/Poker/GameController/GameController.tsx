@@ -5,7 +5,7 @@ import { finishGame, resetGame } from '../../../state/reducer';
 import './GameController.css';
 
 export const GameController = () => {
-  const { state, dispatch } = useContext(GameContext);
+  const { dispatch } = useContext(GameContext);
   const endGame = () => {
     dispatch(finishGame());
   };
@@ -19,9 +19,9 @@ export const GameController = () => {
     document.body.removeChild(dummy);
   };
   return (
-    <div className='RevealArea'>
-      <Card variant='outlined' className='RevealCard'>
-        <CardContent className='RevealCardContentArea'>
+    <div className='GameController'>
+      <Card variant='outlined' className='GameControllerCard'>
+        <CardContent className='GameControllerCardContentArea'>
           <Button
             variant='contained'
             color='secondary'
