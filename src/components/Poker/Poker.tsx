@@ -1,20 +1,33 @@
-import { Typography } from '@material-ui/core';
-import React from 'react';
+import { CircularProgress, Typography } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getGame } from '../../repository/games';
+import { getCurrentPlayerId, getGame } from '../../repository/games';
+import { Game } from '../../types/game';
 import { GameArea } from './GameArea/GameArea';
 import './Poker.css';
 
 export const Poker = () => {
   let { id } = useParams<{ id: string }>();
-  console.log(id);
-  const game = getGame(id);
-  console.log(game);
 
+  const [game, setGame] = useState<Game | undefined>(undefined);
+  const [loading, setIsLoading] = useState(true);
+  const [currentPlayerId, setCurrentPlayerId] = useState<string | undefined>(
+    undefined
+  );
+
+  useEffect(() => {
+    setGame(getGame(id));
+    setCurrentPlayerId(getCurrentPlayerId(id));
+    setIsLoading(false);
+  }, [id]);
+
+  if (loading) {
+    return <CircularProgress />;
+  }
   return (
     <>
-      {game ? (
-        <GameArea game={game} />
+      {game && currentPlayerId ? (
+        <GameArea game={game} currentPlayerId={currentPlayerId} />
       ) : (
         <Typography> Game not found</Typography>
       )}

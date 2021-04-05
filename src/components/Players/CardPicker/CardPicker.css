@@ -5,6 +5,7 @@
   flex-direction: row;
   overflow: auto;
   width: 100%;
+  justify-content: center;
 }
 
 .CardPicker {

@@ -1,7 +1,10 @@
 import { ulid } from 'ulid';
 import { Game, NewGame } from '../types/game';
+import { PlayerGame } from '../types/player';
 import { Status } from '../types/status';
 
+const gamesStoreName = 'games';
+const playerGamesStoreName = 'playerGames';
 export const addNewGame = (newGame: NewGame): string => {
   const game: Game = {
     ...newGame,
@@ -14,19 +17,20 @@ export const addNewGame = (newGame: NewGame): string => {
   };
 
   let games: Game[] = [];
-  const store = localStorage.getItem('games');
+  const store = localStorage.getItem(gamesStoreName);
   if (store) {
     games = JSON.parse(store);
   }
 
   games.push(game);
-  localStorage.setItem('games', JSON.stringify(games));
+  updatePlayerGames(game.id, game.players[0].id);
+  localStorage.setItem(gamesStoreName, JSON.stringify(games));
   return game.id;
 };
 
 export const getGame = (id: string): Game | undefined => {
   let games: Game[] = [];
-  const store = localStorage.getItem('games');
+  const store = localStorage.getItem(gamesStoreName);
   if (store) {
     games = JSON.parse(store);
   }
@@ -60,7 +64,7 @@ export const updateGame = (updatedGame: Game): boolean => {
 
 export const joinGame = (gameId: string, playerName: string): boolean => {
   let games: Game[] = [];
-  const store = localStorage.getItem('games');
+  const store = localStorage.getItem(gamesStoreName);
   if (store) {
     games = JSON.parse(store);
   }
@@ -80,6 +84,31 @@ export const joinGame = (gameId: string, playerName: string): boolean => {
     return game;
   });
 
-  localStorage.setItem('games', JSON.stringify(res));
+  updatePlayerGames(gameId, newPlayer.id);
+  localStorage.setItem(gamesStoreName, JSON.stringify(res));
+
   return true;
+};
+
+const updatePlayerGames = (gameId: string, playerId: string) => {
+  let playerGames: PlayerGame[] = [];
+  const store = localStorage.getItem(playerGamesStoreName);
+  if (store) {
+    playerGames = JSON.parse(store);
+  }
+  playerGames.push({ gameId, playerId });
+
+  localStorage.setItem(playerGamesStoreName, JSON.stringify(playerGames));
+};
+
+export const getCurrentPlayerId = (gameId: string): string | undefined => {
+  let playerGames: PlayerGame[] = [];
+  const store = localStorage.getItem(playerGamesStoreName);
+
+  if (store) {
+    playerGames = JSON.parse(store);
+  }
+  const game = playerGames.find((playerGame) => playerGame.gameId === gameId);
+
+  return game && game.playerId;
 };

@@ -2,7 +2,7 @@ import { Card, CardContent, Typography } from '@material-ui/core';
 import React, { useContext } from 'react';
 import { GameContext } from '../../../state/context';
 import { setPlayerValue } from '../../../state/reducer';
-import { Player } from '../../../types/player';
+import { Game } from '../../../types/game';
 import './CardPicker.css';
 
 export interface CardConfig {
@@ -22,10 +22,13 @@ export const cards: CardConfig[] = [
   { value: 89, color: '#FFCCCC' },
 ];
 
-export const CardPicker = () => {
+interface CardPickerProps {
+  currentPlayerId: string;
+}
+export const CardPicker: React.FC<CardPickerProps> = ({ currentPlayerId }) => {
   const { state, dispatch } = useContext(GameContext);
   const playPlayer = (card: CardConfig) => {
-    dispatch(setPlayerValue(state.players[0].id, card.value));
+    dispatch(setPlayerValue(currentPlayerId, card.value));
   };
   return (
     <div className='CardPickerContainer'>
@@ -35,7 +38,7 @@ export const CardPicker = () => {
           variant='outlined'
           onClick={() => playPlayer(card)}
           key={card.value}
-          style={getCardStyle(state.players[0], card)}
+          style={getCardStyle(state, currentPlayerId, card)}
         >
           <CardContent className='CardContent'>
             <Typography className='CardContentTop'>{card.value}</Typography>
@@ -50,8 +53,9 @@ export const CardPicker = () => {
   );
 };
 
-const getCardStyle = (player: Player, card: CardConfig) => {
-  if (player.value !== undefined && player.value === card.value) {
+const getCardStyle = (game: Game, playerId: string, card: CardConfig) => {
+  const player = game.players.find((player) => player.id === playerId);
+  if (player && player.value !== undefined && player.value === card.value) {
     return {
       marginTop: '0px',
       background: card.color,

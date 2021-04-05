@@ -19,7 +19,7 @@ export const JoinGame: React.FC<JoinGameProps> = ({ gameId }) => {
 
   const [joinGameId, setJoinGameId] = useState(gameId);
   const [playerName, setPlayerName] = useState('');
-  const [gameFound, setIsGameFound] = useState(false);
+  const [gameFound, setIsGameFound] = useState(true);
   useEffect(() => {
     if (gameId) {
       if (getGame(gameId)) {
@@ -29,10 +29,12 @@ export const JoinGame: React.FC<JoinGameProps> = ({ gameId }) => {
   }, [gameId]);
 
   const handleSubmit = (event: FormEvent) => {
-    const res = joinGame(joinGameId, playerName);
-    setIsGameFound(res);
-    if (res) {
-      history.push(`/game/${joinGameId}`);
+    if (joinGameId) {
+      const res = joinGame(joinGameId, playerName);
+      setIsGameFound(res);
+      if (res) {
+        history.push(`/game/${joinGameId}`);
+      }
     }
     event.stopPropagation();
   };
@@ -44,7 +46,10 @@ export const JoinGame: React.FC<JoinGameProps> = ({ gameId }) => {
         <CardContent>
           <TextField
             error={!gameFound}
-            helperText='Game not found, check your game Id or create a new game'
+            helperText={
+              gameId &&
+              'Game not found, check your game Id or create a new game'
+            }
             className='textField'
             required
             id='filled-required'

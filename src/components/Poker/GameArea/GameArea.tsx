@@ -8,20 +8,21 @@ import './GameArea.css';
 
 interface GameAreaProps {
   game: Game;
+  currentPlayerId: string;
 }
-export const GameArea: React.FC<GameAreaProps> = ({ game }) => {
+export const GameArea: React.FC<GameAreaProps> = ({
+  game,
+  currentPlayerId,
+}) => {
   const [state, dispatch] = useReducer(gameReducer, game);
 
   return (
     <GameContext.Provider value={{ state, dispatch }}>
       <div className='ContentArea'>
         <Players />
-        {/* <div className='RightPanel'>
-          <AddPlayer />
-        </div> */}
       </div>
       <div className='Footer'>
-        <CardPicker />
+        <CardPicker currentPlayerId={currentPlayerId} />
       </div>
     </GameContext.Provider>
   );

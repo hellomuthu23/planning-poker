@@ -6,3 +6,8 @@ export interface Player {
   status: Status;
   value?: number;
 }
+
+export interface PlayerGame {
+  gameId: string;
+  playerId: string;
+}
