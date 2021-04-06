@@ -1,7 +1,7 @@
 import { CircularProgress, Typography } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getCurrentPlayerId, getGame } from '../../repository/games';
+import { getCurrentPlayerId, streamGame } from '../../service/games';
 import { Game } from '../../types/game';
 import { GameArea } from './GameArea/GameArea';
 import './Poker.css';
@@ -17,7 +17,14 @@ export const Poker = () => {
 
   useEffect(() => {
     async function fetchData(id: string) {
-      setGame(await getGame(id));
+      streamGame(id).onSnapshot((snapshot) => {
+        snapshot.docChanges().forEach((change: any) => {
+          const data = change.doc.data();
+          if (data) {
+            setGame(data);
+          }
+        });
+      });
       setCurrentPlayerId(getCurrentPlayerId(id));
       setIsLoading(false);
     }
@@ -27,6 +34,7 @@ export const Poker = () => {
   if (loading) {
     return <CircularProgress />;
   }
+
   return (
     <>
       {game && currentPlayerId ? (

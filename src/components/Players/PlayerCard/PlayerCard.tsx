@@ -1,28 +1,26 @@
 import { Card, CardContent, CardHeader, Typography } from '@material-ui/core';
-import React, { useContext } from 'react';
-import { GameContext } from '../../../state/context';
+import React from 'react';
 import { Game } from '../../../types/game';
 import { Player } from '../../../types/player';
 import { Status } from '../../../types/status';
 import { cards } from '../CardPicker/CardPicker';
 import './PlayerCard.css';
 interface PlayerCardProps {
+  game: Game;
   player: Player;
 }
 
-export const PlayerCard: React.FC<PlayerCardProps> = ({ player }) => {
-  const { state } = useContext(GameContext);
-
+export const PlayerCard: React.FC<PlayerCardProps> = ({ game, player }) => {
   return (
     <Card
       variant='outlined'
       className='PlayerCard'
-      style={{ background: getCardColor(state, player.value) }}
+      style={{ background: getCardColor(game, player.value) }}
     >
       <CardHeader className='PlayerCardTitle' title={player.name} />
       <CardContent className='PlayerCardContent'>
         <Typography variant='h2' className='PlayerCardContentMiddle'>
-          {getCardValue(player, state)}
+          {getCardValue(player, game)}
         </Typography>
       </CardContent>
     </Card>

@@ -1,7 +1,6 @@
 import { Card, CardContent, Typography } from '@material-ui/core';
-import React, { useContext } from 'react';
-import { GameContext } from '../../../state/context';
-import { setPlayerValue } from '../../../state/reducer';
+import React from 'react';
+import { updatePlayerValue } from '../../../service/games';
 import { Game } from '../../../types/game';
 import './CardPicker.css';
 
@@ -23,12 +22,15 @@ export const cards: CardConfig[] = [
 ];
 
 interface CardPickerProps {
+  game: Game;
   currentPlayerId: string;
 }
-export const CardPicker: React.FC<CardPickerProps> = ({ currentPlayerId }) => {
-  const { state, dispatch } = useContext(GameContext);
-  const playPlayer = (card: CardConfig) => {
-    dispatch(setPlayerValue(currentPlayerId, card.value));
+export const CardPicker: React.FC<CardPickerProps> = ({
+  game,
+  currentPlayerId,
+}) => {
+  const playPlayer = (gameId: string, playerId: string, card: CardConfig) => {
+    updatePlayerValue(gameId, playerId, card.value);
   };
   return (
     <div className='CardPickerContainer'>
@@ -36,9 +38,9 @@ export const CardPicker: React.FC<CardPickerProps> = ({ currentPlayerId }) => {
         <Card
           className='CardPicker'
           variant='outlined'
-          onClick={() => playPlayer(card)}
+          onClick={() => playPlayer(game.id, currentPlayerId, card)}
           key={card.value}
-          style={getCardStyle(state, currentPlayerId, card)}
+          style={getCardStyle(game, currentPlayerId, card)}
         >
           <CardContent className='CardContent'>
             <Typography className='CardContentTop'>{card.value}</Typography>

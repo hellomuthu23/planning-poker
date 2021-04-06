@@ -1,14 +1,14 @@
 import { Button, Card, CardContent } from '@material-ui/core';
-import React, { useContext } from 'react';
-import { GameContext } from '../../../state/context';
-import { finishGame, resetGame } from '../../../state/reducer';
+import React from 'react';
+import { finishGame, resetGame } from '../../../service/games';
+import { Game } from '../../../types/game';
 import './GameController.css';
 
-export const GameController = () => {
-  const { dispatch } = useContext(GameContext);
-  const endGame = () => {
-    dispatch(finishGame());
-  };
+interface GameControllerProps {
+  game: Game;
+}
+
+export const GameController: React.FC<GameControllerProps> = ({ game }) => {
   const copyInviteLink = () => {
     const dummy = document.createElement('input'),
       text = window.location.href + '/join';
@@ -25,7 +25,7 @@ export const GameController = () => {
           <Button
             variant='contained'
             color='secondary'
-            onClick={() => endGame()}
+            onClick={() => finishGame(game.id)}
             className='RevealButton'
           >
             Reveal
@@ -34,7 +34,7 @@ export const GameController = () => {
             className='NewGameButton'
             variant='contained'
             color='primary'
-            onClick={() => dispatch(resetGame())}
+            onClick={() => resetGame(game.id)}
           >
             Start New Game
           </Button>

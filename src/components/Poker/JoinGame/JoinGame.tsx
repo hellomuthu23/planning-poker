@@ -8,7 +8,7 @@ import {
 } from '@material-ui/core';
 import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { getGame, joinGame } from '../../../repository/games';
+import { getGame, joinGame } from '../../../service/games';
 import './JoinGame.css';
 
 interface JoinGameProps {

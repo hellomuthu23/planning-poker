@@ -8,7 +8,7 @@ import {
 } from '@material-ui/core';
 import React, { ChangeEvent, FormEvent, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { addNewGame } from '../../../repository/games';
+import { addNewGame } from '../../../service/games';
 import { NewGame } from '../../../types/game';
 import './CreateGame.css';
 
@@ -16,6 +16,7 @@ export const CreateGame = () => {
   const history = useHistory();
   const [gameName, setGameName] = useState('End Game');
   const [createdBy, setCreatedBy] = useState('SuperHero');
+
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
     const game: NewGame = {

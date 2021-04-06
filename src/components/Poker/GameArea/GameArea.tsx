@@ -1,6 +1,4 @@
-import React, { useReducer } from 'react';
-import { GameContext } from '../../../state/context';
-import { gameReducer } from '../../../state/reducer';
+import React from 'react';
 import { Game } from '../../../types/game';
 import { CardPicker } from '../../Players/CardPicker/CardPicker';
 import { Players } from '../../Players/Players';
@@ -14,17 +12,15 @@ export const GameArea: React.FC<GameAreaProps> = ({
   game,
   currentPlayerId,
 }) => {
-  const [state, dispatch] = useReducer(gameReducer, game);
-
   return (
-    <GameContext.Provider value={{ state, dispatch }}>
+    <>
       <div className='ContentArea'>
-        <Players />
+        <Players game={game} />
       </div>
       <div className='Footer'>
-        <CardPicker currentPlayerId={currentPlayerId} />
+        <CardPicker game={game} currentPlayerId={currentPlayerId} />
       </div>
-    </GameContext.Provider>
+    </>
   );
 };
 

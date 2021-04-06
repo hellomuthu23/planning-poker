@@ -6,10 +6,8 @@ import './JoinGamePage.css';
 export const JoinGamePage = () => {
   let { id } = useParams<{ id: string }>();
   return (
-    <>
-      <div className='Home'>
-        <JoinGame gameId={id} />
-      </div>
-    </>
+    <div className='Home'>
+      <JoinGame gameId={id} />
+    </div>
   );
 };

@@ -5,12 +5,10 @@ import './HomePage.css';
 
 export const HomePage = () => {
   return (
-    <>
-      <div className='Home'>
-        <CreateGame />
-        <JoinGame />
-      </div>
-    </>
+    <div className='Home'>
+      <CreateGame />
+      <JoinGame />
+    </div>
   );
 };
 
