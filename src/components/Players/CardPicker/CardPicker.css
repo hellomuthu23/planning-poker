@@ -1,0 +1,47 @@
+.CardPickerContainer {
+  bottom: 0;
+  padding: 2px 20px 2px 20px;
+  display: flex;
+  flex-direction: row;
+  overflow: auto;
+  width: 100%;
+  justify-content: center;
+}
+
+.CardPicker {
+  min-width: 130px;
+  max-height: 180px;
+  margin: 10px;
+  cursor: pointer;
+  background-color: #00ff99;
+}
+
+.CardPicker:hover {
+  box-shadow: 0 0px 12px 0 lightgrey;
+}
+
+.CardContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding-bottom: 20px !important;
+}
+
+.CardContentTop {
+  text-align: left;
+}
+
+.CardContentMiddle {
+  padding: 20px 0 20px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.CardContentBottom {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 25px;
+  text-align: right;
+}

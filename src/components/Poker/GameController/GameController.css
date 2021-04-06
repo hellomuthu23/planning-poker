@@ -1,0 +1,22 @@
+.GameController {
+  display: flex;
+  justify-content: center;
+}
+
+.GameControllerCard {
+  width: 100%;
+  border: 1px dashed grey;
+}
+
+.GameControllerCardContentArea {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 30px;
+  padding-bottom: 30px !important;
+}
+
+.RevealButton,
+.NewGameButton {
+  margin-right: 10px;
+}

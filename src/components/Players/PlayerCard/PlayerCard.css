@@ -1,0 +1,20 @@
+.PlayerCard {
+  width: 150px;
+  height: 180px;
+  margin: 10px;
+  background-color: lightblue;
+}
+
+.PlayerCardTitle {
+  text-align: center;
+}
+.PlayerCardContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.PlayerCardContentMiddle {
+  display: flex;
+  justify-content: center;
+}
