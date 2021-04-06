@@ -1,4 +1,1 @@
-
-
-token: 1//09MEW57oqYyMgCgYIARAAGAkSNwF-L9Irmercig2WLI5FsLmSBl6kqygbErV_MgXl7Rds9WA9wRmyUHSYbsQJqoKJjsnkQ4idLUI
-
+# Planning Poker app
