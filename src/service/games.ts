@@ -103,6 +103,7 @@ export const finishGame = async (gameId: string) => {
   if (game) {
     const updatedGame = {
       ...game,
+      average: getAverage(game.players),
       gameStatus: Status.Finished,
     };
     updateGame(updatedGame);
@@ -160,7 +161,6 @@ export const updatePlayerValue = async (
     };
     const updatedGame2 = {
       ...updatedGame,
-      average: getAverage(updatedGame.players),
       gameStatus: getGameStatus(updatedGame),
     };
     updateGame(updatedGame2);
