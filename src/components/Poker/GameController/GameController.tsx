@@ -1,4 +1,10 @@
-import { Button, Card, CardContent } from '@material-ui/core';
+import {
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  Typography,
+} from '@material-ui/core';
 import React from 'react';
 import { finishGame, resetGame } from '../../../service/games';
 import { Game } from '../../../types/game';
@@ -21,6 +27,18 @@ export const GameController: React.FC<GameControllerProps> = ({ game }) => {
   return (
     <div className='GameController'>
       <Card variant='outlined' className='GameControllerCard'>
+        <CardHeader
+          title={game.name}
+          action={
+            <Typography
+              className='GameControllerCardHeaderAverage'
+              variant='h5'
+            >
+              Average: {game.average}
+            </Typography>
+          }
+          className='GameControllerCardTitle'
+        ></CardHeader>
         <CardContent className='GameControllerCardContentArea'>
           <Button
             variant='contained'
