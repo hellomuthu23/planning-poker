@@ -29,13 +29,16 @@ export const GameController: React.FC<GameControllerProps> = ({ game }) => {
       <Card variant='outlined' className='GameControllerCard'>
         <CardHeader
           title={game.name}
+          titleTypographyProps={{ variant: 'body1' }}
           action={
-            <Typography
-              className='GameControllerCardHeaderAverage'
-              variant='h5'
-            >
-              Average: {game.average}
-            </Typography>
+            <div className='GameControllerCardHeaderAverageContainer'>
+              <Typography className='GameControllerCardHeaderAverage'>
+                Average:
+              </Typography>
+              <Typography className='GameControllerCardHeaderAverageValue'>
+                {game.average}
+              </Typography>
+            </div>
           }
           className='GameControllerCardTitle'
         ></CardHeader>
