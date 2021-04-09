@@ -6,7 +6,6 @@ import './App.css';
 import { Toolbar } from './components/Toolbar/Toolbar';
 import { GamePage } from './pages/GamePage/GamePage';
 import HomePage from './pages/HomePage/HomePage';
-import { JoinGamePage } from './pages/JoinGamePage/JoinGamePage';
 import { theme } from './service/theme';
 
 function App() {
@@ -14,13 +13,12 @@ function App() {
     <ThemeProvider theme={theme}>
       <StylesProvider injectFirst>
         <CssBaseline />
-
         <Router>
           <Toolbar />
           <Switch>
-            <Route exact path='/' component={HomePage} />
-            <Route path='/game/:id/join' component={JoinGamePage} />
             <Route path='/game/:id' component={GamePage} />
+            <Route path='/join/:id' component={HomePage} />
+            <Route exact path='/*' component={HomePage} />
           </Switch>
         </Router>
       </StylesProvider>

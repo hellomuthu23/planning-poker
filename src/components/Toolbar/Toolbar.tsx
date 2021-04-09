@@ -1,35 +1,45 @@
+import { Button } from '@material-ui/core';
 import AppBar from '@material-ui/core/AppBar';
-import { makeStyles } from '@material-ui/core/styles';
 import AppToolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import HomeIcon from '@material-ui/icons/Home';
+import GamesIcon from '@material-ui/icons/Games';
 import React from 'react';
-
-const useStyles = makeStyles((theme) => ({
-  icon: {
-    marginRight: theme.spacing(2),
-  },
-  header: {
-    cursor: 'pointer',
-    display: 'contents',
-  },
-}));
-
+import { useHistory } from 'react-router-dom';
+import './Toolbar.css';
 export const title = 'Planing Poker';
 
 export const Toolbar = () => {
-  const classes = useStyles();
+  const history = useHistory();
   return (
-    <AppBar position='relative'>
+    <AppBar
+      position='relative'
+      style={{
+        color: 'black',
+        background: 'transparent',
+        boxShadow: 'none',
+        flexGrow: 1,
+      }}
+    >
       <AppToolbar>
-        <div
-          className={classes.header}
-          onClick={() => (window.location.href = '/')}
-        >
-          <HomeIcon className={classes.icon} />
-          <Typography variant='h6' color='inherit' noWrap>
-            {title}
-          </Typography>
+        <div className='HeaderContainer'>
+          <div
+            className='HeaderLeftContainer'
+            onClick={() => (window.location.href = '/')}
+          >
+            <GamesIcon className='HeaderIcon' />
+            <Typography variant='h6' color='inherit' noWrap>
+              {title}
+            </Typography>
+          </div>
+          <div>
+            <Button color='inherit' onClick={() => history.push('/')}>
+              New Session
+            </Button>
+            <Button color='inherit' onClick={() => history.push('/join')}>
+              Join Session
+            </Button>
+            <Button color='inherit'>About</Button>
+          </div>
         </div>
       </AppToolbar>
     </AppBar>

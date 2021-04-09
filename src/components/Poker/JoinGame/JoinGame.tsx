@@ -7,30 +7,28 @@ import {
   TextField,
 } from '@material-ui/core';
 import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { getGame, joinGame } from '../../../service/games';
 import './JoinGame.css';
 
-interface JoinGameProps {
-  gameId?: string | '';
-}
-export const JoinGame: React.FC<JoinGameProps> = ({ gameId }) => {
+export const JoinGame = () => {
   const history = useHistory();
+  let { id } = useParams<{ id: string }>();
 
-  const [joinGameId, setJoinGameId] = useState(gameId);
+  const [joinGameId, setJoinGameId] = useState(id);
   const [playerName, setPlayerName] = useState('');
   const [gameFound, setIsGameFound] = useState(true);
 
   useEffect(() => {
     async function fetchData() {
-      if (gameId) {
-        if (await getGame(gameId)) {
+      if (joinGameId) {
+        if (await getGame(joinGameId)) {
           setIsGameFound(true);
         }
       }
     }
     fetchData();
-  }, [gameId]);
+  }, [joinGameId]);
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
@@ -46,28 +44,29 @@ export const JoinGame: React.FC<JoinGameProps> = ({ gameId }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Card className='card'>
-        <CardHeader title='Join a Game' />
-        <CardContent>
+      <Card variant='outlined' className='JoinGameCard'>
+        <CardHeader
+          className='JoinGameCardHeader'
+          title='Join a Session'
+          titleTypographyProps={{ variant: 'h4' }}
+        />
+        <CardContent className='JoinGameCardContent'>
           <TextField
             error={!gameFound}
-            helperText={
-              !gameFound &&
-              'Game not found, check your game Id or create a new game'
-            }
-            className='textField'
+            helperText={!gameFound && 'Session not found, check the ID'}
+            className='JoinGameTextField'
             required
             id='filled-required'
-            label='Game ID'
+            label='Session ID'
             placeholder='xyz...'
-            defaultValue={gameId}
+            defaultValue={joinGameId}
             variant='outlined'
             onChange={(event: ChangeEvent<HTMLInputElement>) =>
               setJoinGameId(event.target.value)
             }
           />
           <TextField
-            className='textField'
+            className='JoinGameTextField'
             required
             id='filled-required'
             label='Your Name'
@@ -78,12 +77,12 @@ export const JoinGame: React.FC<JoinGameProps> = ({ gameId }) => {
             }
           />
         </CardContent>
-        <CardActions>
+        <CardActions className='JoinGameCardAction'>
           <Button
             type='submit'
             variant='contained'
             color='primary'
-            className='button'
+            className='JoinGameButton'
           >
             Join
           </Button>

@@ -1,8 +1,18 @@
-.Home {
+.HomePage {
   display: flex;
   flex-direction: row;
-  height: 100%;
+  height: 92vh;
   border: 1px solid white;
-  padding-top: 150px;
+  padding-right: 50px;
   justify-content: space-evenly;
+  background-image: url(./../../background.jpg);
+  background-size: 60%;
+  background-repeat: no-repeat;
+  background-position: left;
+}
+
+.HomePageLeft {
+  /* background-image: url(../../background.jpg); */
+  background-size: cover;
+  width: 1000px;
 }
