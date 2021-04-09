@@ -30,14 +30,18 @@ export const CreateGame = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Card className='card'>
-        <CardHeader title='Create New Game' />
-        <CardContent>
+      <Card variant='outlined' className='CreateGameCard'>
+        <CardHeader
+          className='CreateGameCardHeader'
+          title='Create New Session'
+          titleTypographyProps={{ variant: 'h4' }}
+        />
+        <CardContent className='CreateGameCardContent'>
           <TextField
-            className='textField'
+            className='CreateGameTextField'
             required
             id='filled-required'
-            label='Game Name'
+            label='Session Name'
             defaultValue={gameName}
             variant='outlined'
             onChange={(event: ChangeEvent<HTMLInputElement>) =>
@@ -45,7 +49,7 @@ export const CreateGame = () => {
             }
           />
           <TextField
-            className='textField'
+            className='CreateGameTextField'
             required
             id='filled-required'
             label='Your Name'
@@ -56,12 +60,12 @@ export const CreateGame = () => {
             }
           />
         </CardContent>
-        <CardActions>
+        <CardActions className='CreateGameCardAction'>
           <Button
             type='submit'
             variant='contained'
             color='primary'
-            className='button'
+            className='CreateGameButton'
           >
             Create
           </Button>

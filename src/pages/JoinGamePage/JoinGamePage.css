@@ -1,8 +1,0 @@
-.Home {
-  display: flex;
-  flex-direction: row;
-  height: 100%;
-  border: 1px solid white;
-  padding-top: 150px;
-  justify-content: space-evenly;
-}

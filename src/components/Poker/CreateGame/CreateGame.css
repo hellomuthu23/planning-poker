@@ -1,12 +1,28 @@
-.textField {
-  width: 100%;
+.CreateGameTextField {
+  width: 70%;
   padding-bottom: 30px;
 }
 
-.button {
-  width: 100%;
+.CreateGameButton {
+  color: white;
+  width: 70%;
+  border-radius: 40px;
 }
 
-.card {
-  border: 1px solid lightgray;
+.CreateGameCard {
+  background: transparent;
+  margin-top: 100px;
+  border: none !important;
+}
+
+.CreateGameCardHeader {
+  text-align: center;
+}
+
+.CreateGameCardContent {
+  text-align: center;
+}
+
+.CreateGameCardAction {
+  justify-content: center;
 }

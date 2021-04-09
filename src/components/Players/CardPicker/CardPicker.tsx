@@ -10,15 +10,16 @@ export interface CardConfig {
 }
 export const cards: CardConfig[] = [
   { value: 0, color: 'white' },
-  { value: 1, color: '#CCFFFF' },
-  { value: 3, color: '#CCFFFF' },
-  { value: 5, color: '#CCFFFF' },
-  { value: 8, color: '#CCFFFF' },
-  { value: 13, color: '#FFCCCC' },
-  { value: 21, color: '#FFCCCC' },
-  { value: 34, color: '#FFCCCC' },
-  { value: 55, color: '#FFCCCC' },
-  { value: 89, color: '#FFCCCC' },
+  { value: 1, color: '#9EC8FE' },
+  { value: 2, color: '#9EC8FE' },
+  { value: 3, color: '#A3DFF2' },
+  { value: 5, color: '#A3DFF2' },
+  { value: 8, color: '#9DD49A' },
+  { value: 13, color: '#9DD49A' },
+  { value: 21, color: '#F4DD94' },
+  { value: 34, color: '#F4DD94' },
+  { value: 55, color: '#F39893' },
+  { value: 89, color: '#F39893' },
 ];
 
 interface CardPickerProps {

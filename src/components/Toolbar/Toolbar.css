@@ -1,0 +1,16 @@
+.HeaderContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.HeaderLeftContainer {
+  display: flex;
+  cursor: pointer;
+}
+
+.HeaderIcon {
+  color: #75a1de;
+  margin-top: 4px;
+  margin-right: 5px;
+}
