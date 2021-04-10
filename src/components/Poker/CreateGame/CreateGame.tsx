@@ -4,6 +4,7 @@ import {
   CardActions,
   CardContent,
   CardHeader,
+  Grow,
   TextField,
 } from '@material-ui/core';
 import React, { ChangeEvent, FormEvent, useState } from 'react';
@@ -29,48 +30,50 @@ export const CreateGame = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <Card variant='outlined' className='CreateGameCard'>
-        <CardHeader
-          className='CreateGameCardHeader'
-          title='Create New Session'
-          titleTypographyProps={{ variant: 'h4' }}
-        />
-        <CardContent className='CreateGameCardContent'>
-          <TextField
-            className='CreateGameTextField'
-            required
-            id='filled-required'
-            label='Session Name'
-            defaultValue={gameName}
-            variant='outlined'
-            onChange={(event: ChangeEvent<HTMLInputElement>) =>
-              setGameName(event.target.value)
-            }
+    <Grow in={true} timeout={1000}>
+      <form onSubmit={handleSubmit}>
+        <Card variant='outlined' className='CreateGameCard'>
+          <CardHeader
+            className='CreateGameCardHeader'
+            title='Create New Session'
+            titleTypographyProps={{ variant: 'h4' }}
           />
-          <TextField
-            className='CreateGameTextField'
-            required
-            id='filled-required'
-            label='Your Name'
-            defaultValue={createdBy}
-            variant='outlined'
-            onChange={(event: ChangeEvent<HTMLInputElement>) =>
-              setCreatedBy(event.target.value)
-            }
-          />
-        </CardContent>
-        <CardActions className='CreateGameCardAction'>
-          <Button
-            type='submit'
-            variant='contained'
-            color='primary'
-            className='CreateGameButton'
-          >
-            Create
-          </Button>
-        </CardActions>
-      </Card>
-    </form>
+          <CardContent className='CreateGameCardContent'>
+            <TextField
+              className='CreateGameTextField'
+              required
+              id='filled-required'
+              label='Session Name'
+              defaultValue={gameName}
+              variant='outlined'
+              onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                setGameName(event.target.value)
+              }
+            />
+            <TextField
+              className='CreateGameTextField'
+              required
+              id='filled-required'
+              label='Your Name'
+              defaultValue={createdBy}
+              variant='outlined'
+              onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                setCreatedBy(event.target.value)
+              }
+            />
+          </CardContent>
+          <CardActions className='CreateGameCardAction'>
+            <Button
+              type='submit'
+              variant='contained'
+              color='primary'
+              className='CreateGameButton'
+            >
+              Create
+            </Button>
+          </CardActions>
+        </Card>
+      </form>
+    </Grow>
   );
 };

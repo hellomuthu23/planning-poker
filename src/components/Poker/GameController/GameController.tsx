@@ -16,10 +16,10 @@ interface GameControllerProps {
 
 export const GameController: React.FC<GameControllerProps> = ({ game }) => {
   const copyInviteLink = () => {
-    const dummy = document.createElement('input'),
-      text = window.location.href + '/join';
+    const dummy = document.createElement('input');
+    const url = `${window.location.origin}/join/${game.id}`;
     document.body.appendChild(dummy);
-    dummy.value = text;
+    dummy.value = url;
     dummy.select();
     document.execCommand('copy');
     document.body.removeChild(dummy);

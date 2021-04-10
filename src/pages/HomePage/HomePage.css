@@ -1,38 +1,33 @@
 .HomePage {
   display: flex;
   flex-direction: column;
-  height: 92vh;
 }
 
 .HomePageMainContent {
-  margin-top: 50px;
+  margin-top: 20px;
   display: flex;
   flex: 1 1 100%;
   flex-direction: row;
   justify-content: space-evenly;
-  height: 70%;
 }
 
 .HomePageLeft {
-  margin-left: 20px;
   display: flex;
   background-image: url(./../../background.jpg);
   background-size: contain;
   background-repeat: no-repeat;
   background-position: left;
-  width: 60%;
+  width: 40%;
 }
 
 .HomePageRight {
-  margin-top: 50px;
+  margin-top: 20px;
   display: flex;
   align-items: top;
 }
 
 .HomePageInfoSection {
-  margin-top: 10px;
+  margin-top: 20px;
   display: flex;
   justify-content: center;
-  opacity: 1;
-  transition: 0.4s opacity ease-in-out 0.1s;
 }
