@@ -27,7 +27,7 @@ export const Toolbar = () => {
             onClick={() => (window.location.href = '/')}
           >
             <GamesIcon className='HeaderIcon' />
-            <Typography variant='h6' color='inherit' noWrap>
+            <Typography variant='h5' color='inherit' noWrap>
               {title}
             </Typography>
           </div>

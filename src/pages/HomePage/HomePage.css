@@ -1,18 +1,38 @@
 .HomePage {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   height: 92vh;
-  border: 1px solid white;
-  padding-right: 50px;
+}
+
+.HomePageMainContent {
+  margin-top: 50px;
+  display: flex;
+  flex: 1 1 100%;
+  flex-direction: row;
   justify-content: space-evenly;
-  background-image: url(./../../background.jpg);
-  background-size: 60%;
-  background-repeat: no-repeat;
-  background-position: left;
+  height: 70%;
 }
 
 .HomePageLeft {
-  /* background-image: url(../../background.jpg); */
-  background-size: cover;
-  width: 1000px;
+  margin-left: 20px;
+  display: flex;
+  background-image: url(./../../background.jpg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: left;
+  width: 60%;
+}
+
+.HomePageRight {
+  margin-top: 50px;
+  display: flex;
+  align-items: top;
+}
+
+.HomePageInfoSection {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  opacity: 1;
+  transition: 0.4s opacity ease-in-out 0.1s;
 }
