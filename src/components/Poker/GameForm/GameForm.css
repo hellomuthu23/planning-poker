@@ -1,0 +1,28 @@
+.GameFormTextField {
+  width: 70%;
+  padding-bottom: 30px;
+}
+
+.GameFormButton {
+  color: white;
+  width: 70%;
+  border-radius: 40px;
+}
+
+.GameFormCard {
+  background: transparent;
+  margin-top: 100px;
+  border: none !important;
+}
+
+.GameFormCardHeader {
+  text-align: center;
+}
+
+.GameFormCardContent {
+  text-align: center;
+}
+
+.GameFormCardAction {
+  justify-content: center;
+}
