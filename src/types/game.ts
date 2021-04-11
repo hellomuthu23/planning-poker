@@ -8,6 +8,7 @@ export interface Game {
   average: number;
   gameStatus: Status;
   createdBy: string;
+  createdById: string;
   createdAt: Date;
   updatedAt?: Date;
 }

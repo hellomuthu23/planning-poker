@@ -22,9 +22,13 @@ import './GameController.css';
 
 interface GameControllerProps {
   game: Game;
+  currentPlayerId: string;
 }
 
-export const GameController: React.FC<GameControllerProps> = ({ game }) => {
+export const GameController: React.FC<GameControllerProps> = ({
+  game,
+  currentPlayerId,
+}) => {
   const history = useHistory();
   const [showCopiedMessage, setShowCopiedMessage] = useState(false);
   const copyInviteLink = () => {
@@ -37,10 +41,14 @@ export const GameController: React.FC<GameControllerProps> = ({ game }) => {
     document.body.removeChild(dummy);
     setShowCopiedMessage(true);
   };
+
   const joinGame = () => {
     history.push(`/join/${game.id}`);
   };
 
+  const isModerator = (moderatorId: string, currentPlayerId: string) => {
+    return moderatorId === currentPlayerId;
+  };
   return (
     <Grow in={true} timeout={2000}>
       <div className='GameController'>
@@ -50,7 +58,10 @@ export const GameController: React.FC<GameControllerProps> = ({ game }) => {
             titleTypographyProps={{ variant: 'h6' }}
             action={
               <div className='GameControllerCardHeaderAverageContainer'>
-                <Typography className='GameControllerCardHeaderAverage'>
+                <Typography
+                  variant='subtitle1'
+                  className='GameControllerCardHeaderStatusValue'
+                >
                   {game.gameStatus}
                 </Typography>
                 <Divider
@@ -58,9 +69,7 @@ export const GameController: React.FC<GameControllerProps> = ({ game }) => {
                   orientation='vertical'
                   flexItem
                 />
-                <Typography className='GameControllerCardHeaderAverage'>
-                  Average:
-                </Typography>
+                <Typography>Average:</Typography>
                 <Typography className='GameControllerCardHeaderAverageValue'>
                   {game.average || 0}
                 </Typography>
@@ -69,22 +78,30 @@ export const GameController: React.FC<GameControllerProps> = ({ game }) => {
             className='GameControllerCardTitle'
           ></CardHeader>
           <CardContent className='GameControllerCardContentArea'>
-            <div className='GameControllerButtonContainer'>
-              <div className='GameControllerButton'>
-                <IconButton color='primary' onClick={() => finishGame(game.id)}>
-                  <VisibilityIcon fontSize='large' color='error' />
-                </IconButton>
-              </div>
-              <Typography variant='caption'>Reveal</Typography>
-            </div>
-            <div className='GameControllerButtonContainer'>
-              <div className='GameControllerButton'>
-                <IconButton onClick={() => resetGame(game.id)}>
-                  <RefreshIcon fontSize='large' color='primary' />
-                </IconButton>
-              </div>
-              <Typography variant='caption'>Restart</Typography>
-            </div>
+            {isModerator(game.createdById, currentPlayerId) && (
+              <>
+                <div className='GameControllerButtonContainer'>
+                  <div className='GameControllerButton'>
+                    <IconButton
+                      color='primary'
+                      onClick={() => finishGame(game.id)}
+                    >
+                      <VisibilityIcon fontSize='large' color='error' />
+                    </IconButton>
+                  </div>
+                  <Typography variant='caption'>Reveal</Typography>
+                </div>
+
+                <div className='GameControllerButtonContainer'>
+                  <div className='GameControllerButton'>
+                    <IconButton onClick={() => resetGame(game.id)}>
+                      <RefreshIcon fontSize='large' color='primary' />
+                    </IconButton>
+                  </div>
+                  <Typography variant='caption'>Restart</Typography>
+                </div>
+              </>
+            )}
             <div className='GameControllerButtonContainer'>
               <div className='GameControllerButton'>
                 <IconButton onClick={() => joinGame()}>
