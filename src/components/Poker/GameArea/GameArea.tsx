@@ -2,6 +2,7 @@ import React from 'react';
 import { Game } from '../../../types/game';
 import { CardPicker } from '../../Players/CardPicker/CardPicker';
 import { Players } from '../../Players/Players';
+import { GameController } from '../GameController/GameController';
 import './GameArea.css';
 
 interface GameAreaProps {
@@ -16,6 +17,7 @@ export const GameArea: React.FC<GameAreaProps> = ({
     <>
       <div className='ContentArea'>
         <Players game={game} />
+        <GameController game={game} />
       </div>
       <div className='Footer'>
         <CardPicker game={game} currentPlayerId={currentPlayerId} />
