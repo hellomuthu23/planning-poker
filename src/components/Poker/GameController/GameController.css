@@ -5,7 +5,6 @@
 }
 
 .GameControllerCard {
-  /* border: 1px dashed grey; */
   border-radius: 5px;
   background-color: #e7edf3;
 }
@@ -27,9 +26,7 @@
   justify-content: flex-start;
   padding: 0px;
   padding-left: 20px;
-  border-bottom: 1px solid grey;
-  /* font-style: italic; */
-  color: #3e6aab;
+  border-bottom: 1px solid #75a1de;
   font-weight: bold;
 }
 

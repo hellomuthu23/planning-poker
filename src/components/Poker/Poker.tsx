@@ -1,6 +1,6 @@
 import { CircularProgress, Typography } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { getCurrentPlayerId, streamGame } from '../../service/games';
 import { Game } from '../../types/game';
 import { GameArea } from './GameArea/GameArea';
@@ -8,7 +8,7 @@ import './Poker.css';
 
 export const Poker = () => {
   let { id } = useParams<{ id: string }>();
-
+  const history = useHistory();
   const [game, setGame] = useState<Game | undefined>(undefined);
   const [loading, setIsLoading] = useState(true);
   const [currentPlayerId, setCurrentPlayerId] = useState<string | undefined>(
@@ -17,22 +17,31 @@ export const Poker = () => {
 
   useEffect(() => {
     async function fetchData(id: string) {
+      setIsLoading(true);
       streamGame(id).onSnapshot((snapshot) => {
         snapshot.docChanges().forEach((change: any) => {
           const data = change.doc.data();
           if (data) {
             setGame(data);
+            setIsLoading(false);
           }
         });
       });
-      setCurrentPlayerId(getCurrentPlayerId(id));
-      setIsLoading(false);
+      const currentPlayerId = getCurrentPlayerId(id);
+      if (!currentPlayerId) {
+        history.push(`/join/${id}`);
+      }
+      setCurrentPlayerId(currentPlayerId);
     }
     fetchData(id);
-  }, [id]);
+  }, [id, history]);
 
   if (loading) {
-    return <CircularProgress />;
+    return (
+      <div className='PokerLoading'>
+        <CircularProgress />
+      </div>
+    );
   }
 
   return (
