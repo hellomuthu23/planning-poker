@@ -1,11 +1,13 @@
 .GameController {
   display: flex;
   justify-content: center;
+  margin-bottom: 20px;
 }
 
 .GameControllerCard {
-  width: 100%;
-  border: 1px dashed grey;
+  /* border: 1px dashed grey; */
+  border-radius: 5px;
+  background-color: #e7edf3;
 }
 
 .GameControllerCardContentArea {
@@ -21,20 +23,34 @@
   justify-content: flex-start;
   padding: 0px;
   padding-left: 20px;
-  border-bottom: 1px dashed grey;
+  border-bottom: 1px solid grey;
   font-style: italic;
   font-size: smaller;
 }
 
-.RevealButton,
-.NewGameButton {
-  margin-right: 10px;
+.GameControllerButtonContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.GameControllerButtonContainer:not(:last-child) {
+  margin-right: 30px;
+}
+
+.GameControllerButton {
+  display: flex;
+  border-radius: 50%;
+  background-color: white;
+}
+.GameControllerButton:hover {
+  box-shadow: rgb(171 207 248) 0px 0px 0px 6px;
 }
 
 .GameControllerCardHeaderAverageContainer {
   display: flex;
   flex-direction: row;
-  padding-right: 20px;
   margin: 0;
 }
 

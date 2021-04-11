@@ -1,7 +1,6 @@
 .ContentArea {
   display: flex;
-  flex-direction: row;
-  width: 100%;
+  flex-direction: column;
   min-height: 60%;
   border: 1px solid white;
   overflow: auto;

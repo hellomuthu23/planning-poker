@@ -9,8 +9,8 @@
 }
 
 .CardPicker {
-  min-width: 130px;
-  max-height: 180px;
+  min-width: 100px;
+  max-height: 140px;
   margin: 10px;
   cursor: pointer;
   background-color: #00ff99;
@@ -32,7 +32,7 @@
 }
 
 .CardContentMiddle {
-  padding: 20px 0 20px 0;
+  padding: 18px 0 18px 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
