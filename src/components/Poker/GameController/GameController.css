@@ -24,8 +24,9 @@
   padding: 0px;
   padding-left: 20px;
   border-bottom: 1px solid grey;
-  font-style: italic;
-  font-size: smaller;
+  /* font-style: italic; */
+  color: #3e6aab;
+  font-weight: bold;
 }
 
 .GameControllerButtonContainer {
@@ -51,7 +52,7 @@
 .GameControllerCardHeaderAverageContainer {
   display: flex;
   flex-direction: row;
-  margin: 0;
+  margin: 3px;
 }
 
 .GameControllerCardHeaderAverageValue {

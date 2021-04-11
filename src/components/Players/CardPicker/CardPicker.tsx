@@ -1,4 +1,4 @@
-import { Card, CardContent, Typography } from '@material-ui/core';
+import { Card, CardContent, Grow, Typography } from '@material-ui/core';
 import React from 'react';
 import { updatePlayerValue } from '../../../service/games';
 import { Game } from '../../../types/game';
@@ -9,7 +9,7 @@ export interface CardConfig {
   color: string;
 }
 export const cards: CardConfig[] = [
-  { value: 0, color: 'white' },
+  { value: 0, color: '#F4F7FA' },
   { value: 1, color: '#9EC8FE' },
   { value: 2, color: '#9EC8FE' },
   { value: 3, color: '#A3DFF2' },
@@ -34,29 +34,34 @@ export const CardPicker: React.FC<CardPickerProps> = ({
     updatePlayerValue(gameId, playerId, card.value);
   };
   return (
-    <div className='CardPickerContainer'>
-      {cards.map((card: CardConfig) => (
-        <Card
-          className='CardPicker'
-          variant='outlined'
-          onClick={() => playPlayer(game.id, currentPlayerId, card)}
-          key={card.value}
-          style={getCardStyle(game, currentPlayerId, card)}
-        >
-          <CardContent className='CardContent'>
-            <Typography className='CardContentTop' variant='caption'>
-              {card.value}
-            </Typography>
-            <Typography className='CardContentMiddle' variant='h4'>
-              {card.value}
-            </Typography>
-            <Typography className='CardContentBottom' variant='caption'>
-              {card.value}
-            </Typography>
-          </CardContent>
-        </Card>
-      ))}
-    </div>
+    <Grow in={true} timeout={4000}>
+      <div>
+        <div className='CardPickerContainer'>
+          {cards.map((card: CardConfig) => (
+            <Card
+              className='CardPicker'
+              variant='outlined'
+              onClick={() => playPlayer(game.id, currentPlayerId, card)}
+              key={card.value}
+              style={getCardStyle(game, currentPlayerId, card)}
+            >
+              <CardContent className='CardContent'>
+                <Typography className='CardContentTop' variant='caption'>
+                  {card.value}
+                </Typography>
+                <Typography className='CardContentMiddle' variant='h4'>
+                  {card.value}
+                </Typography>
+                <Typography className='CardContentBottom' variant='caption'>
+                  {card.value}
+                </Typography>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+        <Typography>Click on the card to vote</Typography>
+      </div>
+    </Grow>
   );
 };
 
