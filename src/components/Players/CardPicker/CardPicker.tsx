@@ -2,6 +2,7 @@ import { Card, CardContent, Grow, Typography } from '@material-ui/core';
 import React from 'react';
 import { updatePlayerValue } from '../../../service/games';
 import { Game } from '../../../types/game';
+import { Status } from '../../../types/status';
 import './CardPicker.css';
 
 export interface CardConfig {
@@ -31,7 +32,9 @@ export const CardPicker: React.FC<CardPickerProps> = ({
   currentPlayerId,
 }) => {
   const playPlayer = (gameId: string, playerId: string, card: CardConfig) => {
-    updatePlayerValue(gameId, playerId, card.value);
+    if (game.gameStatus !== Status.Finished) {
+      updatePlayerValue(gameId, playerId, card.value);
+    }
   };
   return (
     <Grow in={true} timeout={4000}>
@@ -43,7 +46,10 @@ export const CardPicker: React.FC<CardPickerProps> = ({
               variant='outlined'
               onClick={() => playPlayer(game.id, currentPlayerId, card)}
               key={card.value}
-              style={getCardStyle(game, currentPlayerId, card)}
+              style={{
+                ...getCardStyle(game, currentPlayerId, card),
+                pointerEvents: getPointerEvent(game),
+              }}
             >
               <CardContent className='CardContent'>
                 <Typography className='CardContentTop' variant='caption'>
@@ -75,4 +81,11 @@ const getCardStyle = (game: Game, playerId: string, card: CardConfig) => {
     };
   }
   return { background: card.color };
+};
+
+const getPointerEvent = (game: Game) => {
+  if (game.gameStatus === Status.Finished) {
+    return 'none';
+  }
+  return 'inherit';
 };
