@@ -128,7 +128,6 @@ const getAverage = (players: Player[]): number => {
 };
 
 const getGameStatus = (state: Game): Status => {
-  const totalPlayers = state.players.length;
   let numberOfPlayersPlayed = 0;
   state.players.forEach((player: Player) => {
     if (player.status === Status.Finished) {
@@ -137,9 +136,6 @@ const getGameStatus = (state: Game): Status => {
   });
   if (numberOfPlayersPlayed === 0) {
     return Status.Started;
-  }
-  if (totalPlayers === numberOfPlayersPlayed) {
-    return Status.Finished;
   }
   return Status.InProgress;
 };
