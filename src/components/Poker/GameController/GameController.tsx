@@ -69,8 +69,11 @@ export const GameController: React.FC<GameControllerProps> = ({
                   orientation='vertical'
                   flexItem
                 />
-                <Typography>Average:</Typography>
-                <Typography className='GameControllerCardHeaderAverageValue'>
+                <Typography variant='subtitle1'>Average:</Typography>
+                <Typography
+                  variant='subtitle1'
+                  className='GameControllerCardHeaderAverageValue'
+                >
                   {game.average || 0}
                 </Typography>
               </div>

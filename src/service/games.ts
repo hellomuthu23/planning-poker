@@ -124,7 +124,7 @@ const getAverage = (players: Player[]): number => {
       numberOfPlayersPlayed++;
     }
   });
-  return values / numberOfPlayersPlayed;
+  return Math.round(values / numberOfPlayersPlayed);
 };
 
 const getGameStatus = (state: Game): Status => {

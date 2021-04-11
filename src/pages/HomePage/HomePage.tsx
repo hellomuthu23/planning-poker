@@ -7,7 +7,6 @@ import './HomePage.css';
 
 export const HomePage = () => {
   const isJoin = useRouteMatch('/join');
-  console.log(isJoin);
   return (
     <div className='HomePage'>
       <div className='HomePageMainContent'>
