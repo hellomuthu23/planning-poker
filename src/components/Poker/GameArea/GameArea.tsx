@@ -17,7 +17,7 @@ export const GameArea: React.FC<GameAreaProps> = ({
     <>
       <div className='ContentArea'>
         <Players game={game} />
-        <GameController game={game} />
+        <GameController game={game} currentPlayerId={currentPlayerId} />
       </div>
       <div className='Footer'>
         <CardPicker game={game} currentPlayerId={currentPlayerId} />

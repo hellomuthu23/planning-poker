@@ -11,14 +11,18 @@ import { Status } from '../types/status';
 
 const playerGamesStoreName = 'playerGames';
 export const addNewGame = (newGame: NewGame): string => {
+  const player = {
+    name: newGame.createdBy,
+    id: ulid(),
+    status: Status.NotStarted,
+  };
   const game: Game = {
     ...newGame,
     id: ulid(),
     average: 0,
+    createdById: player.id,
     gameStatus: Status.Started,
-    players: [
-      { name: newGame.createdBy, id: ulid(), status: Status.NotStarted },
-    ],
+    players: [player],
   };
 
   updatePlayerGames(game.id, game.players[0].id);
