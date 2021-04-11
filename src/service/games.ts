@@ -15,7 +15,7 @@ export const addNewGame = (newGame: NewGame): string => {
     ...newGame,
     id: ulid(),
     average: 0,
-    gameStatus: Status.NotStarted,
+    gameStatus: Status.Started,
     players: [
       { name: newGame.createdBy, id: ulid(), status: Status.NotStarted },
     ],
@@ -87,6 +87,7 @@ export const resetGame = async (gameId: string) => {
     const updatedGame = {
       ...game,
       average: 0,
+      gameStatus: Status.Started,
       players: game.players.map((player) => ({
         ...player,
         status: Status.NotStarted,
@@ -131,7 +132,7 @@ const getGameStatus = (state: Game): Status => {
     }
   });
   if (numberOfPlayersPlayed === 0) {
-    return Status.NotStarted;
+    return Status.Started;
   }
   if (totalPlayers === numberOfPlayersPlayed) {
     return Status.Finished;

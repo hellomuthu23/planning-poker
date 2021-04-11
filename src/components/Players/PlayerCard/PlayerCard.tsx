@@ -15,7 +15,9 @@ export const PlayerCard: React.FC<PlayerCardProps> = ({ game, player }) => {
     <Card
       variant='outlined'
       className='PlayerCard'
-      style={{ background: getCardColor(game, player.value) }}
+      style={{
+        background: getCardColor(game, player.value),
+      }}
     >
       <CardHeader
         className='PlayerCardTitle'
@@ -40,7 +42,7 @@ const getCardColor = (game: Game, value: number | undefined): string => {
 };
 
 const getCardValue = (player: Player, game: Game) => {
-  if (game.gameStatus === Status.InProgress) {
+  if (game.gameStatus !== Status.Finished) {
     return player.status === Status.Finished ? '👍' : '🤔';
   }
   if (game.gameStatus === Status.Finished) {
