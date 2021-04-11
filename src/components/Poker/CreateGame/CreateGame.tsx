@@ -15,7 +15,7 @@ import './CreateGame.css';
 
 export const CreateGame = () => {
   const history = useHistory();
-  const [gameName, setGameName] = useState('End Game');
+  const [gameName, setGameName] = useState('Avengers');
   const [createdBy, setCreatedBy] = useState('SuperHero');
 
   const handleSubmit = (event: FormEvent) => {
