@@ -18,6 +18,10 @@
   padding-bottom: 30px !important;
 }
 
+.GameControllerDivider {
+  margin: 0px 10px 0px 10px;
+}
+
 .GameControllerCardTitle {
   display: flex;
   justify-content: flex-start;

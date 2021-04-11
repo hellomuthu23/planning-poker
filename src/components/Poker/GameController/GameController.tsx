@@ -2,6 +2,7 @@ import {
   Card,
   CardContent,
   CardHeader,
+  Divider,
   Grow,
   IconButton,
   Snackbar,
@@ -49,6 +50,14 @@ export const GameController: React.FC<GameControllerProps> = ({ game }) => {
             titleTypographyProps={{ variant: 'h6' }}
             action={
               <div className='GameControllerCardHeaderAverageContainer'>
+                <Typography className='GameControllerCardHeaderAverage'>
+                  {game.gameStatus}
+                </Typography>
+                <Divider
+                  className='GameControllerDivider'
+                  orientation='vertical'
+                  flexItem
+                />
                 <Typography className='GameControllerCardHeaderAverage'>
                   Average:
                 </Typography>
