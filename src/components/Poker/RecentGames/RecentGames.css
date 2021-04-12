@@ -1,0 +1,31 @@
+.RecentGamesCard {
+  width: 450px;
+  min-width: 120px;
+  margin: 10px;
+  margin-top: 40px;
+  background-color: lightblue;
+  overflow: initial;
+  background: #ffffff;
+  transition: 0.3s;
+  border-radius: 4px;
+}
+
+.RecentGamesCardTitle {
+  display: flex;
+  text-align: center;
+  border-radius: 16px;
+  border: 2px solid #75a1de;
+  background-color: white;
+  margin: -20px auto 0;
+  width: 88%;
+  padding: 16px;
+  height: 40px;
+}
+
+.MuiCardHeader-content {
+  width: 100%;
+}
+
+.RecentGamesTableContainer {
+  max-height: 250px;
+}

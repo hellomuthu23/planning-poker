@@ -1,32 +1,96 @@
-import { Slide, Typography } from '@material-ui/core';
+import { Divider, Grid, Slide, Typography } from '@material-ui/core';
 import React from 'react';
 import { useRouteMatch } from 'react-router-dom';
 import { CreateGame } from '../../components/Poker/CreateGame/CreateGame';
 import { JoinGame } from '../../components/Poker/JoinGame/JoinGame';
+import { RecentGames } from '../../components/Poker/RecentGames/RecentGames';
+import LandingImage from './../../background.jpg';
 import './HomePage.css';
-
 export const HomePage = () => {
   const isJoin = useRouteMatch('/join');
   return (
-    <div className='HomePage'>
-      <div className='HomePageMainContent'>
-        <Slide direction='right' in={true} timeout={1000}>
-          <div className='HomePageLeft'></div>
-        </Slide>
+    <>
+      <Grid
+        container
+        direction='column'
+        justify='center'
+        alignItems='center'
+        spacing={2}
+      >
+        <Grid
+          container
+          item
+          sm={12}
+          lg={9}
+          justify='center'
+          alignItems='center'
+          spacing={3}
+        >
+          <Grid item sm={12} lg={6}>
+            <Slide direction='right' in={true} timeout={1000}>
+              <div className='HomePageContainer'>
+                <Typography variant='h5'>
+                  Free Planning Poker App to estimate user stories for your
+                  Agile/Scrum teams.
+                </Typography>
+                <img alt='Free Planning Poker App' src={LandingImage}></img>
+                <Typography variant='subtitle1'>
+                  Create a session and invite your team members to estimate user
+                  stories efficiently.
+                </Typography>
+              </div>
+            </Slide>
+          </Grid>
+          <Grid item sm={12} lg={6}>
+            <div className='HomePageContainer'>
+              {isJoin ? <JoinGame /> : <CreateGame />}
+            </div>
+          </Grid>
+        </Grid>
+        <Grid
+          container
+          item
+          sm={12}
+          lg={9}
+          justify='center'
+          alignItems='center'
+          spacing={3}
+        >
+          <Grid item sm={12} lg={6}>
+            <Divider variant='middle'></Divider>
+          </Grid>
+        </Grid>
 
-        <div className='HomePageRight'>
-          {isJoin ? <JoinGame /> : <CreateGame />}
-        </div>
-      </div>
-      <div className='HomePageInfoSection'>
-        <Slide in={true} direction='up' timeout={2000}>
-          <Typography>
-            Free Planning Poker App to estimate user stories. Create a session
-            and invite your team members to estimate user stories efficiently.
-          </Typography>
-        </Slide>
-      </div>
-    </div>
+        <Grid
+          container
+          item
+          sm={12}
+          lg={9}
+          justify='center'
+          alignItems='center'
+          spacing={3}
+        >
+          <Grid item sm={12} lg={6}>
+            <Slide in={true} direction='up' timeout={2000}>
+              <div className='HomePageContainer'>
+                <RecentGames />
+              </div>
+            </Slide>
+          </Grid>
+
+          <Grid item sm={12} lg={6}>
+            <Slide in={true} direction='up' timeout={2000}>
+              <div className='HomePageContainer'>
+                <Typography>
+                  Here is your recent Planning/Refinement sessions, click on the
+                  row to join the session again.
+                </Typography>
+              </div>
+            </Slide>
+          </Grid>
+        </Grid>
+      </Grid>
+    </>
   );
 };
 
