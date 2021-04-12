@@ -178,3 +178,24 @@ export const addPlayer = async (gameId: string, player: Player) => {
     updateGame(updatedGame);
   }
 };
+
+export const getPlayerRecentGames = async (): Promise<Game[]> => {
+  let playerGames: PlayerGame[] = [];
+  let games: Game[] = [];
+  const store = localStorage.getItem(playerGamesStoreName);
+
+  if (store) {
+    playerGames = JSON.parse(store);
+  }
+  console.log(store);
+
+  await Promise.all(
+    playerGames.map(async (playerGame: PlayerGame) => {
+      const game = await getGame(playerGame.gameId);
+      game && games.push(game);
+    })
+  );
+
+  games.sort((a: Game, b: Game) => +b.createdAt - +a.createdAt);
+  return games;
+};

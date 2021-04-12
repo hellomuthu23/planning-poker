@@ -3,6 +3,7 @@ import React from 'react';
 import { useRouteMatch } from 'react-router-dom';
 import { CreateGame } from '../../components/Poker/CreateGame/CreateGame';
 import { JoinGame } from '../../components/Poker/JoinGame/JoinGame';
+import { RecentGames } from '../../components/Poker/RecentGames/RecentGames';
 import './HomePage.css';
 
 export const HomePage = () => {
@@ -18,13 +19,22 @@ export const HomePage = () => {
           {isJoin ? <JoinGame /> : <CreateGame />}
         </div>
       </div>
-      <div className='HomePageInfoSection'>
-        <Slide in={true} direction='up' timeout={2000}>
-          <Typography>
-            Free Planning Poker App to estimate user stories. Create a session
-            and invite your team members to estimate user stories efficiently.
-          </Typography>
-        </Slide>
+      <div>
+        <div className='HomePageInfoSection'>
+          <Slide in={true} direction='up' timeout={2000}>
+            <div>
+              <RecentGames />
+            </div>
+          </Slide>
+        </div>
+        <div className='RecentGamesSection'>
+          <Slide in={true} direction='up' timeout={2000}>
+            <Typography>
+              Free Planning Poker App to estimate user stories. Create a session
+              and invite your team members to estimate user stories efficiently.
+            </Typography>
+          </Slide>
+        </div>
       </div>
     </div>
   );
