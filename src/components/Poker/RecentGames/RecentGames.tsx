@@ -41,7 +41,7 @@ export const RecentGames = () => {
               <TableRow>
                 <TableCell>Name</TableCell>
                 <TableCell>Created By</TableCell>
-                <TableCell>Created At</TableCell>
+                <TableCell></TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -51,8 +51,8 @@ export const RecentGames = () => {
                     <TableCell component='th' scope='row'>
                       {recentGame.name}
                     </TableCell>
-                    <TableCell align='right'>{recentGame.createdBy}</TableCell>
-                    <TableCell align='right'>Enter</TableCell>
+                    <TableCell align='left'>{recentGame.createdBy}</TableCell>
+                    <TableCell align='left'></TableCell>
                   </TableRow>
                 ))}
             </TableBody>
