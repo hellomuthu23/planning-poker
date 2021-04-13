@@ -1,6 +1,7 @@
 import { Divider, Grid, Slide, Typography } from '@material-ui/core';
 import React from 'react';
 import { useRouteMatch } from 'react-router-dom';
+import { Footer } from '../../components/Footer/Footer';
 import { CreateGame } from '../../components/Poker/CreateGame/CreateGame';
 import { JoinGame } from '../../components/Poker/JoinGame/JoinGame';
 import { RecentGames } from '../../components/Poker/RecentGames/RecentGames';
@@ -30,14 +31,12 @@ export const HomePage = () => {
           <Grid item sm={12} lg={6}>
             <Slide direction='down' in={true} timeout={1000}>
               <div className='HomePageContainer'>
-                <Typography variant='h5'>
-                  Free Planning Poker App to estimate user stories for your
-                  Agile/Scrum teams.
-                </Typography>
+                <Typography variant='h5'>Free Planning Poker App</Typography>
                 <img alt='Free Planning Poker App' src={LandingImage}></img>
                 <Typography variant='subtitle1'>
-                  Create a session and invite your team members to estimate user
-                  stories efficiently.
+                  Free / Open sourced Planning Poker Web App to estimate user
+                  stories for your Agile/Scrum teams. Create a session and
+                  invite your team members to estimate user stories efficiently.
                 </Typography>
               </div>
             </Slide>
@@ -84,7 +83,7 @@ export const HomePage = () => {
           <Grid item sm={12} lg={6}>
             <Slide in={true} direction='up' timeout={1000}>
               <div className='HomePageContainer'>
-                <Typography variant='h5'>
+                <Typography variant='subtitle1'>
                   Here is your recent Planning/Refinement sessions, click on the
                   session name to join the session again.
                 </Typography>
@@ -119,8 +118,9 @@ export const HomePage = () => {
           <Grid item sm={12} lg={6}>
             <Slide in={true} direction='up' timeout={1000}>
               <div className='HomePageContainer'>
-                <Typography variant='h5'>
-                  Intuitive UI Design for voting the story points, showing team
+                <Typography variant='h5'> Intuitive UI Design</Typography>
+                <Typography variant='subtitle1'>
+                  Beautiful design for voting the story points, showing team
                   members voting status with emojis(👍 - Voting Done, 🤔 - Yet
                   to Vote). Session Moderator has full control on revealing
                   story points and restarting the session.
@@ -142,6 +142,7 @@ export const HomePage = () => {
           </Grid>
         </Grid>
       </Grid>
+      <Footer />
     </>
   );
 };
