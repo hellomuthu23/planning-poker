@@ -29,3 +29,7 @@
 .RecentGamesTableContainer {
   max-height: 250px;
 }
+
+.RecentGamesTableRow {
+  cursor: pointer;
+}

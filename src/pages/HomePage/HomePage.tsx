@@ -58,7 +58,7 @@ export const HomePage = () => {
           spacing={3}
         >
           <Grid item sm={12} lg={6}>
-            <Slide in={true} direction='up' timeout={2000}>
+            <Slide in={true} direction='up' timeout={1000}>
               <Divider variant='middle'></Divider>
             </Slide>
           </Grid>
@@ -74,7 +74,7 @@ export const HomePage = () => {
           spacing={3}
         >
           <Grid item sm={12} lg={6}>
-            <Slide in={true} direction='up' timeout={2000}>
+            <Slide in={true} direction='up' timeout={1000}>
               <div className='HomePageContainer'>
                 <RecentGames />
               </div>
@@ -82,7 +82,7 @@ export const HomePage = () => {
           </Grid>
 
           <Grid item sm={12} lg={6}>
-            <Slide in={true} direction='up' timeout={2000}>
+            <Slide in={true} direction='up' timeout={1000}>
               <div className='HomePageContainer'>
                 <Typography variant='h5'>
                   Here is your recent Planning/Refinement sessions, click on the
@@ -102,7 +102,7 @@ export const HomePage = () => {
           spacing={3}
         >
           <Grid item sm={12} lg={6}>
-            <Slide in={true} direction='up' timeout={2000}>
+            <Slide in={true} direction='up' timeout={1000}>
               <Divider variant='middle'></Divider>
             </Slide>
           </Grid>
@@ -117,7 +117,7 @@ export const HomePage = () => {
           spacing={3}
         >
           <Grid item sm={12} lg={6}>
-            <Slide in={true} direction='up' timeout={2000}>
+            <Slide in={true} direction='up' timeout={1000}>
               <div className='HomePageContainer'>
                 <Typography variant='h5'>
                   Intuitive UI Design for voting the story points, showing team
@@ -130,7 +130,7 @@ export const HomePage = () => {
           </Grid>
 
           <Grid item sm={12} lg={6}>
-            <Slide in={true} direction='up' timeout={2000}>
+            <Slide in={true} direction='up' timeout={1000}>
               <div className='HomePageContainer'>
                 <img
                   className='SessionImage'
