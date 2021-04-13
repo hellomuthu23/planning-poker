@@ -1,4 +1,6 @@
-import { Button, Divider, Slide, Typography } from '@material-ui/core';
+import { Divider, Link, Slide, Typography } from '@material-ui/core';
+import CopyrightIcon from '@material-ui/icons/Copyright';
+import EmailIcon from '@material-ui/icons/EmailOutlined';
 import React from 'react';
 import './Footer.css';
 
@@ -9,18 +11,23 @@ export const Footer = () => {
         <div>
           <Divider variant='middle'></Divider>
           <div className='FooterContainer'>
-            <Typography>@copyright hellomuthu23</Typography>
+            <div className='FooterItemContainer'>
+              <CopyrightIcon />
+              <Typography variant='body2'>hellomuthu23</Typography>
+            </div>
+
             <Divider orientation='vertical' flexItem></Divider>
-            <Typography>Feedback: hellomuthu23@gmail.com</Typography>
+            <div className='FooterItemContainer'>
+              <EmailIcon />
+              <Typography variant='body2'>
+                Feedback: hellomuthu23@gmail.com
+              </Typography>
+            </div>
+
             <Divider orientation='vertical' flexItem></Divider>
-            <Button
-              onClick={() =>
-                (window.location.href =
-                  'https://github.com/hellomuthu23/planning-poker/issues')
-              }
-            >
-              Submit Issue
-            </Button>
+            <Link href='https://github.com/hellomuthu23/planning-poker/issues'>
+              Submit an Issue
+            </Link>
           </div>
         </div>
       </Slide>
