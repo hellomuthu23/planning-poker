@@ -1,8 +1,3 @@
-.HomePage {
-  display: flex;
-  flex-direction: column;
-}
-
 .HomePageContainer {
   padding: 25px;
   display: flex;
@@ -12,7 +7,8 @@
 }
 
 .SessionImage {
+  margin-top: -10px;
   height: 400px;
   width: 600px;
-  transform: perspective(600px) rotateY(-30deg);
+  transform: perspective(900px) rotateY(-20deg);
 }
