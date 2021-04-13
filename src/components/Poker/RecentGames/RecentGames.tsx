@@ -10,11 +10,13 @@ import {
   TableRow,
 } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { getPlayerRecentGames } from '../../../service/games';
 import { Game } from '../../../types/game';
 import './RecentGames.css';
 
 export const RecentGames = () => {
+  const history = useHistory();
   const [recentGames, setRecentGames] = useState<Game[] | undefined>(undefined);
 
   useEffect(() => {
@@ -47,7 +49,12 @@ export const RecentGames = () => {
             <TableBody>
               {recentGames &&
                 recentGames.map((recentGame) => (
-                  <TableRow key={recentGame.id}>
+                  <TableRow
+                    hover
+                    key={recentGame.id}
+                    className='RecentGamesTableRow'
+                    onClick={() => history.push(`game/${recentGame.id}`)}
+                  >
                     <TableCell component='th' scope='row'>
                       {recentGame.name}
                     </TableCell>

@@ -3,6 +3,7 @@ import AppBar from '@material-ui/core/AppBar';
 import AppToolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import GamesIcon from '@material-ui/icons/Games';
+import GithubIcon from '@material-ui/icons/GitHub';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import './Toolbar.css';
@@ -40,7 +41,15 @@ export const Toolbar = () => {
                 <Button color='inherit' onClick={() => history.push('/join')}>
                   Join Session
                 </Button>
-                <Button color='inherit'>About</Button>
+                <Button
+                  color='inherit'
+                  onClick={() =>
+                    (window.location.href =
+                      'https://github.com/hellomuthu23/planning-poker')
+                  }
+                >
+                  <GithubIcon></GithubIcon>
+                </Button>
               </div>
             </div>
           </AppToolbar>
