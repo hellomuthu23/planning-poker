@@ -34,7 +34,7 @@ export const HomePage = () => {
                 <Typography variant='h5'>Free Planning Poker App</Typography>
                 <img alt='Free Planning Poker App' src={LandingImage}></img>
                 <Typography variant='subtitle1'>
-                  Free / Open sourced Planning Poker Web App to estimate user
+                  Free / Open source Planning Poker Web App to estimate user
                   stories for your Agile/Scrum teams. Create a session and
                   invite your team members to estimate user stories efficiently.
                 </Typography>
