@@ -9,7 +9,8 @@ import {
 } from '@material-ui/core';
 import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import { getGame, joinGame } from '../../../service/games';
+import { getGame } from '../../../service/games';
+import { addPlayerToGame } from '../../../service/players';
 import './JoinGame.css';
 
 export const JoinGame = () => {
@@ -34,7 +35,7 @@ export const JoinGame = () => {
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
     if (joinGameId) {
-      const res = await joinGame(joinGameId, playerName);
+      const res = await addPlayerToGame(joinGameId, playerName);
       setIsGameFound(res);
       if (res) {
         console.log('nav');

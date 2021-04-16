@@ -8,10 +8,11 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  Typography,
 } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { getPlayerRecentGames } from '../../../service/games';
+import { getPlayerRecentGames } from '../../../service/players';
 import { Game } from '../../../types/game';
 import './RecentGames.css';
 
@@ -47,6 +48,13 @@ export const RecentGames = () => {
               </TableRow>
             </TableHead>
             <TableBody>
+              {!recentGames ||
+                (recentGames && recentGames.length === 0 && (
+                  <Typography variant='body2'>
+                    No recent sessions found
+                  </Typography>
+                ))}
+
               {recentGames &&
                 recentGames.map((recentGame) => (
                   <TableRow

@@ -1,7 +1,8 @@
 import { Card, CardContent, Grow, Typography } from '@material-ui/core';
 import React from 'react';
-import { updatePlayerValue } from '../../../service/games';
+import { updatePlayerValue } from '../../../service/players';
 import { Game } from '../../../types/game';
+import { Player } from '../../../types/player';
 import { Status } from '../../../types/status';
 import './CardPicker.css';
 
@@ -25,10 +26,12 @@ export const cards: CardConfig[] = [
 
 interface CardPickerProps {
   game: Game;
+  players: Player[];
   currentPlayerId: string;
 }
 export const CardPicker: React.FC<CardPickerProps> = ({
   game,
+  players,
   currentPlayerId,
 }) => {
   const playPlayer = (gameId: string, playerId: string, card: CardConfig) => {
@@ -47,7 +50,7 @@ export const CardPicker: React.FC<CardPickerProps> = ({
               onClick={() => playPlayer(game.id, currentPlayerId, card)}
               key={card.value}
               style={{
-                ...getCardStyle(game, currentPlayerId, card),
+                ...getCardStyle(players, currentPlayerId, card),
                 pointerEvents: getPointerEvent(game),
               }}
             >
@@ -71,8 +74,12 @@ export const CardPicker: React.FC<CardPickerProps> = ({
   );
 };
 
-const getCardStyle = (game: Game, playerId: string, card: CardConfig) => {
-  const player = game.players.find((player) => player.id === playerId);
+const getCardStyle = (
+  players: Player[],
+  playerId: string,
+  card: CardConfig
+) => {
+  const player = players.find((player) => player.id === playerId);
   if (player && player.value !== undefined && player.value === card.value) {
     return {
       marginTop: '-2px',
