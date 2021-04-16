@@ -33,6 +33,9 @@ export const Toolbar = () => {
                 <Typography variant='h5' color='inherit' noWrap>
                   {title}
                 </Typography>
+                <Typography variant='caption' color='inherit' noWrap>
+                  (beta)
+                </Typography>
               </div>
               <div>
                 <Button color='inherit' onClick={() => history.push('/')}>
