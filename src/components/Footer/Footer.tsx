@@ -12,14 +12,16 @@ export const Footer = () => {
           <Divider variant='middle'></Divider>
           <div className='FooterContainer'>
             <div className='FooterItemContainer'>
-              <CopyrightIcon />
-              <Typography variant='body2'>hellomuthu23</Typography>
+              <CopyrightIcon color='secondary' fontSize='small' />
+              <Typography color='textSecondary' variant='body2'>
+                hellomuthu23
+              </Typography>
             </div>
 
             <Divider orientation='vertical' flexItem></Divider>
             <div className='FooterItemContainer'>
-              <EmailIcon />
-              <Typography variant='body2'>
+              <EmailIcon color='secondary' fontSize='small' />
+              <Typography color='textSecondary' variant='body2'>
                 Feedback: hellomuthu23@gmail.com
               </Typography>
             </div>

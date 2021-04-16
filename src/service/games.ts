@@ -187,7 +187,6 @@ export const getPlayerRecentGames = async (): Promise<Game[]> => {
   if (store) {
     playerGames = JSON.parse(store);
   }
-  console.log(store);
 
   await Promise.all(
     playerGames.map(async (playerGame: PlayerGame) => {
