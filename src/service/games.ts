@@ -1,121 +1,84 @@
 import { ulid } from 'ulid';
 import {
-  addData,
-  getData,
+  addGameToStore,
+  addPlayerToGameInStore,
+  getGameFromStore,
+  getPlayersFromStore,
   streamData,
-  updateData,
+  streamPlayersFromStore,
+  updateGameDataInStore,
 } from '../repository/firebase';
-import { Game, NewGame } from '../types/game';
-import { Player, PlayerGame } from '../types/player';
+import { NewGame } from '../types/game';
+import { Player } from '../types/player';
 import { Status } from '../types/status';
+import { resetPlayers, updatePlayerGames } from './players';
 
-const playerGamesStoreName = 'playerGames';
-export const addNewGame = (newGame: NewGame): string => {
+export const addNewGame = async (newGame: NewGame): Promise<string> => {
   const player = {
     name: newGame.createdBy,
     id: ulid(),
     status: Status.NotStarted,
   };
-  const game: Game = {
+  const gameData = {
     ...newGame,
     id: ulid(),
     average: 0,
     createdById: player.id,
     gameStatus: Status.Started,
-    players: [player],
   };
+  await addGameToStore(gameData.id, gameData);
+  await addPlayerToGameInStore(gameData.id, player);
+  updatePlayerGames(gameData.id, player.id);
 
-  updatePlayerGames(game.id, game.players[0].id);
-  addData(game);
-  return game.id;
+  return gameData.id;
 };
 
 export const streamGame = (id: string) => {
   return streamData(id);
 };
 
+export const streamPlayers = (id: string) => {
+  return streamPlayersFromStore(id);
+};
+
 export const getGame = (id: string) => {
-  return getData(id);
+  return getGameFromStore(id);
 };
 
-export const updateGame = (updatedGame: Game): boolean => {
-  updateData(updatedGame);
-  return true;
-};
-
-export const joinGame = async (
+export const updateGame = async (
   gameId: string,
-  playerName: string
+  updatedGame: any
 ): Promise<boolean> => {
-  const joiningGame = await getData(gameId);
-
-  if (!joiningGame) {
-    console.log('Game not found');
-    return false;
-  }
-  const newPlayer = { name: playerName, id: ulid(), status: Status.NotStarted };
-  joiningGame.players.push(newPlayer);
-
-  updatePlayerGames(gameId, newPlayer.id);
-  await updateData(joiningGame);
-
+  await updateGameDataInStore(gameId, updatedGame);
   return true;
-};
-
-const updatePlayerGames = (gameId: string, playerId: string) => {
-  let playerGames: PlayerGame[] = [];
-  const store = localStorage.getItem(playerGamesStoreName);
-  if (store) {
-    playerGames = JSON.parse(store);
-  }
-  playerGames.push({ gameId, playerId });
-
-  localStorage.setItem(playerGamesStoreName, JSON.stringify(playerGames));
-};
-
-export const getCurrentPlayerId = (gameId: string): string | undefined => {
-  let playerGames: PlayerGame[] = [];
-  const store = localStorage.getItem(playerGamesStoreName);
-
-  if (store) {
-    playerGames = JSON.parse(store);
-  }
-  const game = playerGames.find((playerGame) => playerGame.gameId === gameId);
-
-  return game && game.playerId;
 };
 
 export const resetGame = async (gameId: string) => {
-  const game = await getGame(gameId);
+  const game = await getGameFromStore(gameId);
   if (game) {
     const updatedGame = {
-      ...game,
       average: 0,
       gameStatus: Status.Started,
-      players: game.players.map((player) => ({
-        ...player,
-        status: Status.NotStarted,
-        value: 0,
-      })),
     };
-    updateGame(updatedGame);
+    updateGame(gameId, updatedGame);
+    await resetPlayers(gameId);
   }
 };
 
 export const finishGame = async (gameId: string) => {
-  const game = await getGame(gameId);
+  const game = await getGameFromStore(gameId);
+  const players = await getPlayersFromStore(gameId);
 
-  if (game) {
+  if (game && players) {
     const updatedGame = {
-      ...game,
-      average: getAverage(game.players),
+      average: getAverage(players),
       gameStatus: Status.Finished,
     };
-    updateGame(updatedGame);
+    updateGame(gameId, updatedGame);
   }
 };
 
-const getAverage = (players: Player[]): number => {
+export const getAverage = (players: Player[]): number => {
   let values = 0;
   let numberOfPlayersPlayed = 0;
   players.forEach((player) => {
@@ -127,9 +90,9 @@ const getAverage = (players: Player[]): number => {
   return Math.round(values / numberOfPlayersPlayed);
 };
 
-const getGameStatus = (state: Game): Status => {
+export const getGameStatus = (players: Player[]): Status => {
   let numberOfPlayersPlayed = 0;
-  state.players.forEach((player: Player) => {
+  players.forEach((player: Player) => {
     if (player.status === Status.Finished) {
       numberOfPlayersPlayed++;
     }
@@ -140,61 +103,20 @@ const getGameStatus = (state: Game): Status => {
   return Status.InProgress;
 };
 
-export const updatePlayerValue = async (
-  gameId: string,
-  playerId: string,
-  value: number
-) => {
+export const updateGameStatus = async (gameId: string): Promise<boolean> => {
   const game = await getGame(gameId);
-
-  if (game) {
-    const updatedGame = {
-      ...game,
-      players: game.players.map((player: Player) =>
-        player.id === playerId
-          ? {
-              ...player,
-              value: value,
-              status: Status.Finished,
-            }
-          : player
-      ),
-    };
-    const updatedGame2 = {
-      ...updatedGame,
-      gameStatus: getGameStatus(updatedGame),
-    };
-    updateGame(updatedGame2);
+  if (!game) {
+    console.log('Game not found');
+    return false;
   }
-};
-
-export const addPlayer = async (gameId: string, player: Player) => {
-  const game = await getGame(gameId);
-  if (game) {
-    const updatedGame = {
-      ...game,
-      players: [player, ...game.players],
+  const players = await getPlayersFromStore(gameId);
+  if (players) {
+    const status = getGameStatus(players);
+    const dataToUpdate = {
+      gameStatus: status,
     };
-    updateGame(updatedGame);
+    const result = await updateGameDataInStore(gameId, dataToUpdate);
+    return result;
   }
-};
-
-export const getPlayerRecentGames = async (): Promise<Game[]> => {
-  let playerGames: PlayerGame[] = [];
-  let games: Game[] = [];
-  const store = localStorage.getItem(playerGamesStoreName);
-
-  if (store) {
-    playerGames = JSON.parse(store);
-  }
-
-  await Promise.all(
-    playerGames.map(async (playerGame: PlayerGame) => {
-      const game = await getGame(playerGame.gameId);
-      game && games.push(game);
-    })
-  );
-
-  games.sort((a: Game, b: Game) => +b.createdAt - +a.createdAt);
-  return games;
+  return false;
 };

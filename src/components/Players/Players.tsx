@@ -7,12 +7,13 @@ import './Players.css';
 
 interface PlayersProps {
   game: Game;
+  players: Player[];
 }
-export const Players: React.FC<PlayersProps> = ({ game }) => {
+export const Players: React.FC<PlayersProps> = ({ game, players }) => {
   return (
     <Grow in={true} timeout={800}>
       <div className='PlayersContainer'>
-        {game.players.map((player: Player) => (
+        {players.map((player: Player) => (
           <PlayerCard key={player.id} game={game} player={player} />
         ))}
       </div>

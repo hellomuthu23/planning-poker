@@ -12,7 +12,7 @@ import {
 } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { getPlayerRecentGames } from '../../../service/games';
+import { getPlayerRecentGames } from '../../../service/players';
 import { Game } from '../../../types/game';
 import './RecentGames.css';
 

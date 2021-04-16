@@ -1,8 +1,10 @@
 import { CircularProgress, Typography } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import { getCurrentPlayerId, streamGame } from '../../service/games';
+import { streamGame, streamPlayers } from '../../service/games';
+import { getCurrentPlayerId } from '../../service/players';
 import { Game } from '../../types/game';
+import { Player } from '../../types/player';
 import { GameArea } from './GameArea/GameArea';
 import './Poker.css';
 
@@ -10,6 +12,7 @@ export const Poker = () => {
   let { id } = useParams<{ id: string }>();
   const history = useHistory();
   const [game, setGame] = useState<Game | undefined>(undefined);
+  const [players, setPlayers] = useState<Player[] | undefined>(undefined);
   const [loading, setIsLoading] = useState(true);
   const [currentPlayerId, setCurrentPlayerId] = useState<string | undefined>(
     undefined
@@ -19,14 +22,22 @@ export const Poker = () => {
     async function fetchData(id: string) {
       setIsLoading(true);
       streamGame(id).onSnapshot((snapshot) => {
-        snapshot.docChanges().forEach((change: any) => {
-          const data = change.doc.data();
+        if (snapshot.exists) {
+          const data = snapshot.data();
           if (data) {
-            setGame(data);
+            setGame(data as Game);
             setIsLoading(false);
           }
-        });
+        }
       });
+      streamPlayers(id).onSnapshot((snapshot) => {
+        const players: Player[] = [];
+        snapshot.forEach((snapshot) => {
+          players.push(snapshot.data() as Player);
+        });
+        setPlayers(players);
+      });
+
       const currentPlayerId = getCurrentPlayerId(id);
       if (!currentPlayerId) {
         history.push(`/join/${id}`);
@@ -46,8 +57,12 @@ export const Poker = () => {
 
   return (
     <>
-      {game && currentPlayerId ? (
-        <GameArea game={game} currentPlayerId={currentPlayerId} />
+      {game && players && currentPlayerId ? (
+        <GameArea
+          game={game}
+          players={players}
+          currentPlayerId={currentPlayerId}
+        />
       ) : (
         <Typography> Game not found</Typography>
       )}
