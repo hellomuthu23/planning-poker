@@ -105,9 +105,11 @@ const getCardStyle = (
   const player = players.find((player) => player.id === playerId);
   if (player && player.value !== undefined && player.value === card.value) {
     return {
-      marginTop: '-2px',
+      marginTop: '-15px',
+      zIndex: '5',
       background: card.color,
-      border: '1.5px solid #333',
+      border: '2px solid black',
+      boxShadow: '0 0px 12px 0 grey',
     };
   }
   return { background: card.color };
