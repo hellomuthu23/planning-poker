@@ -1,6 +1,5 @@
 import { Divider, Link, Slide, Typography } from '@material-ui/core';
 import CopyrightIcon from '@material-ui/icons/Copyright';
-import EmailIcon from '@material-ui/icons/EmailOutlined';
 import React from 'react';
 import './Footer.css';
 
@@ -20,7 +19,6 @@ export const Footer = () => {
 
             <Divider orientation='vertical' flexItem></Divider>
             <div className='FooterItemContainer'>
-              <EmailIcon color='secondary' fontSize='small' />
               <Typography color='textSecondary' variant='body2'>
                 Feedback: hellomuthu23@gmail.com
               </Typography>
