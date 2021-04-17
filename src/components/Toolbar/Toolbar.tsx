@@ -7,7 +7,7 @@ import GithubIcon from '@material-ui/icons/GitHub';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import './Toolbar.css';
-export const title = 'Planing Poker';
+export const title = 'Planning Poker';
 
 export const Toolbar = () => {
   const history = useHistory();
