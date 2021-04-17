@@ -106,7 +106,7 @@ const getCardStyle = (
   if (player && player.value !== undefined && player.value === card.value) {
     return {
       marginTop: '-15px',
-      zIndex: '5',
+      zIndex: 5,
       background: card.color,
       border: '2px solid black',
       boxShadow: '0 0px 12px 0 grey',
