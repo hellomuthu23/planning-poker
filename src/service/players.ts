@@ -80,6 +80,7 @@ export const updatePlayerGames = (gameId: string, playerId: string) => {
   }
 
   playerGames.push({ gameId, playerId });
+
   localStorage.setItem(playerGamesStoreName, JSON.stringify(playerGames));
 };
 
