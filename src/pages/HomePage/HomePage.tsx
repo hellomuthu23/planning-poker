@@ -8,6 +8,7 @@ import { RecentGames } from '../../components/Poker/RecentGames/RecentGames';
 import LandingImage from './../../images/background.jpg';
 import SessionControllerImage from './../../images/Session.jpg';
 import './HomePage.css';
+
 export const HomePage = () => {
   const isJoin = useRouteMatch('/join');
   return (
@@ -73,7 +74,7 @@ export const HomePage = () => {
           spacing={3}
         >
           <Grid item sm={12} lg={6}>
-            <Slide in={true} direction='up' timeout={1000}>
+            <Slide in={true} direction='up' timeout={1500}>
               <div className='HomePageContainer'>
                 <RecentGames />
               </div>
@@ -81,7 +82,7 @@ export const HomePage = () => {
           </Grid>
 
           <Grid item sm={12} lg={6}>
-            <Slide in={true} direction='up' timeout={1000}>
+            <Slide in={true} direction='up' timeout={1500}>
               <div className='HomePageContainer'>
                 <Typography variant='subtitle1'>
                   Here is your recent Planning/Refinement sessions, click on the
@@ -101,7 +102,7 @@ export const HomePage = () => {
           spacing={3}
         >
           <Grid item sm={12} lg={6}>
-            <Slide in={true} direction='up' timeout={1000}>
+            <Slide in={true} direction='up' timeout={2000}>
               <Divider variant='middle'></Divider>
             </Slide>
           </Grid>
@@ -116,7 +117,7 @@ export const HomePage = () => {
           spacing={3}
         >
           <Grid item sm={12} lg={6}>
-            <Slide in={true} direction='up' timeout={1000}>
+            <Slide in={true} direction='up' timeout={2000}>
               <div className='HomePageContainer'>
                 <Typography variant='h5'> Intuitive UI Design</Typography>
                 <Typography variant='subtitle1'>
@@ -130,7 +131,7 @@ export const HomePage = () => {
           </Grid>
 
           <Grid item sm={12} lg={6}>
-            <Slide in={true} direction='up' timeout={1000}>
+            <Slide in={true} direction='up' timeout={2000}>
               <div className='HomePageContainer'>
                 <img
                   className='SessionImage'
