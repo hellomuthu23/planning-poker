@@ -3,15 +3,15 @@
   padding: 2px 20px 2px 20px;
   display: flex;
   flex-direction: row;
-  overflow: auto;
   width: 100%;
   justify-content: center;
 }
 
 .CardPicker {
   min-width: 100px;
+  max-width: 100px;
   max-height: 140px;
-  margin: 10px;
+  margin-top: 10px;
   cursor: pointer;
   background-color: #00ff99;
 }
@@ -28,6 +28,7 @@
 }
 
 .CardContentTop {
+  margin-top: -5px;
   text-align: left;
 }
 

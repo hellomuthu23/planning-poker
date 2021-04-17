@@ -1,4 +1,4 @@
-import { Card, CardContent, Grow, Typography } from '@material-ui/core';
+import { Card, CardContent, Grid, Slide, Typography } from '@material-ui/core';
 import React from 'react';
 import { updatePlayerValue } from '../../../service/players';
 import { Game } from '../../../types/game';
@@ -40,37 +40,46 @@ export const CardPicker: React.FC<CardPickerProps> = ({
     }
   };
   return (
-    <Grow in={true} timeout={4000}>
-      <div>
-        <div className='CardPickerContainer'>
-          {cards.map((card: CardConfig) => (
-            <Card
-              className='CardPicker'
-              variant='outlined'
-              onClick={() => playPlayer(game.id, currentPlayerId, card)}
-              key={card.value}
-              style={{
-                ...getCardStyle(players, currentPlayerId, card),
-                pointerEvents: getPointerEvent(game),
-              }}
-            >
-              <CardContent className='CardContent'>
-                <Typography className='CardContentTop' variant='caption'>
-                  {card.value}
-                </Typography>
-                <Typography className='CardContentMiddle' variant='h4'>
-                  {card.value}
-                </Typography>
-                <Typography className='CardContentBottom' variant='caption'>
-                  {card.value}
-                </Typography>
-              </CardContent>
-            </Card>
+    // <Grow in={true} timeout={4000}>
+    <div>
+      <div className='CardPickerContainer'>
+        <Grid container spacing={1} sm={6} lg={12}>
+          {cards.map((card: CardConfig, index) => (
+            <Grid key={card.value} item xs>
+              <Slide in={true} direction={'right'} timeout={(1000 * index) / 2}>
+                <Card
+                  className='CardPicker'
+                  variant='outlined'
+                  onClick={() => playPlayer(game.id, currentPlayerId, card)}
+                  style={{
+                    ...getCardStyle(players, currentPlayerId, card),
+                    pointerEvents: getPointerEvent(game),
+                  }}
+                >
+                  <CardContent className='CardContent'>
+                    <Typography className='CardContentTop' variant='caption'>
+                      {card.value}
+                    </Typography>
+                    <Typography className='CardContentMiddle' variant='h4'>
+                      {card.value}
+                    </Typography>
+                    <Typography className='CardContentBottom' variant='caption'>
+                      {card.value}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Slide>
+            </Grid>
           ))}
-        </div>
-        <Typography>Click on the card to vote</Typography>
+        </Grid>
       </div>
-    </Grow>
+      <Typography variant='h6'>
+        {game.gameStatus !== Status.Finished
+          ? 'Click on the card to vote'
+          : 'Session not ready for Voting! Wait for moderator to start'}
+      </Typography>
+    </div>
+    // </Grow>
   );
 };
 
@@ -84,7 +93,7 @@ const getCardStyle = (
     return {
       marginTop: '-2px',
       background: card.color,
-      border: '1px solid #333',
+      border: '1.5px solid #333',
     };
   }
   return { background: card.color };
