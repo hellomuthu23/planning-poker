@@ -3,6 +3,7 @@ import firebase from 'firebase/app';
 import 'firebase/firestore';
 import { Game } from '../types/game';
 import { Player } from '../types/player';
+
 const firebaseConfig = {
   apiKey: 'AIzaSyDynbX3QT9x8e8qMtTsD6vnVMD6wHXe4Ug',
   authDomain: 'planning-poker-b946f.firebaseapp.com',
