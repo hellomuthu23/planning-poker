@@ -50,7 +50,7 @@ export const CardPicker: React.FC<CardPickerProps> = ({
     <Grow in={true} timeout={1000}>
       <div>
         <div className='CardPickerContainer'>
-          <Grid container spacing={1}>
+          <Grid container spacing={4} justify='center'>
             {cards.map((card: CardConfig, index) => (
               <Grid key={card.value} item xs>
                 <Slide
