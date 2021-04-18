@@ -2,6 +2,9 @@
 
 Free / Open source Scrum/Agile Planning Poker Web App to estimate user stories for the Agile/Scrum teams. Create session and invite team members to estimate user stories efficiently. Intuitive UI/UX for voting the story points, showing team members voting status with emojis(👍 - Voting Done, 🤔 - Yet to Vote). Session Moderator has full control on revealing story points and restarting the session.
 
+## Live Site 
+- https://planning-poker-agile.web.app/
+
 ## Home Page
 
 <img src="docs/HomePage.jpg"  />
