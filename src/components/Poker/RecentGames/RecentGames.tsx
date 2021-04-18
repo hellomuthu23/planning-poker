@@ -67,7 +67,7 @@ export const RecentGames = () => {
                     hover
                     key={recentGame.id}
                     className='RecentGamesTableRow'
-                    onClick={() => history.push(`game/${recentGame.id}`)}
+                    onClick={() => history.push(`/game/${recentGame.id}`)}
                   >
                     <TableCell>{recentGame.name}</TableCell>
                     <TableCell align='left'>{recentGame.createdBy}</TableCell>
