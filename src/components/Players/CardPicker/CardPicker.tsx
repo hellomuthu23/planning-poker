@@ -109,7 +109,7 @@ const getCardStyle = (
       marginTop: '-15px',
       zIndex: 5,
       background: card.color,
-      border: '2px solid black',
+      border: '2px dashed black',
       boxShadow: '0 0px 12px 0 grey',
     };
   }
