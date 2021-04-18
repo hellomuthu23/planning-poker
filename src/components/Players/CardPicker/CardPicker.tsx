@@ -50,7 +50,7 @@ export const CardPicker: React.FC<CardPickerProps> = ({
     <Grow in={true} timeout={1000}>
       <div>
         <div className='CardPickerContainer'>
-          <Grid container spacing={1} sm={6} lg={12}>
+          <Grid container spacing={1}>
             {cards.map((card: CardConfig, index) => (
               <Grid key={card.value} item xs>
                 <Slide
@@ -59,6 +59,7 @@ export const CardPicker: React.FC<CardPickerProps> = ({
                   timeout={(1000 * index) / 2}
                 >
                   <Card
+                    id={`card-${card.value}`}
                     className='CardPicker'
                     variant='outlined'
                     onClick={() => playPlayer(game.id, currentPlayerId, card)}
