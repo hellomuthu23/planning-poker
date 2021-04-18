@@ -1,11 +1,12 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
+import React from 'react';
 import App from './App';
+jest.mock('./service/players');
+jest.mock('./service/games');
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(
-    /React useReducer and useContext example Poker App/i
-  );
-  expect(linkElement).toBeInTheDocument();
-});
+describe('App', () =>
+  it('Should display toolbar with header', () => {
+    render(<App />);
+    const toolBarHeader = screen.getByText('Planning Poker');
+    expect(toolBarHeader).toBeInTheDocument();
+  }));

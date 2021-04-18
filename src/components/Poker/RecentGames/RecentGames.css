@@ -33,3 +33,7 @@
 .RecentGamesTableRow {
   cursor: pointer;
 }
+
+.RecentGamesCardContent {
+  text-align: center;
+}

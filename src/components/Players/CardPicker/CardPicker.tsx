@@ -1,4 +1,11 @@
-import { Card, CardContent, Grid, Slide, Typography } from '@material-ui/core';
+import {
+  Card,
+  CardContent,
+  Grid,
+  Grow,
+  Slide,
+  Typography,
+} from '@material-ui/core';
 import React from 'react';
 import { updatePlayerValue } from '../../../service/players';
 import { Game } from '../../../types/game';
@@ -40,46 +47,54 @@ export const CardPicker: React.FC<CardPickerProps> = ({
     }
   };
   return (
-    // <Grow in={true} timeout={4000}>
-    <div>
-      <div className='CardPickerContainer'>
-        <Grid container spacing={1} sm={6} lg={12}>
-          {cards.map((card: CardConfig, index) => (
-            <Grid key={card.value} item xs>
-              <Slide in={true} direction={'right'} timeout={(1000 * index) / 2}>
-                <Card
-                  className='CardPicker'
-                  variant='outlined'
-                  onClick={() => playPlayer(game.id, currentPlayerId, card)}
-                  style={{
-                    ...getCardStyle(players, currentPlayerId, card),
-                    pointerEvents: getPointerEvent(game),
-                  }}
+    <Grow in={true} timeout={1000}>
+      <div>
+        <div className='CardPickerContainer'>
+          <Grid container spacing={4} justify='center'>
+            {cards.map((card: CardConfig, index) => (
+              <Grid key={card.value} item xs>
+                <Slide
+                  in={true}
+                  direction={'right'}
+                  timeout={(1000 * index) / 2}
                 >
-                  <CardContent className='CardContent'>
-                    <Typography className='CardContentTop' variant='caption'>
-                      {card.value}
-                    </Typography>
-                    <Typography className='CardContentMiddle' variant='h4'>
-                      {card.value}
-                    </Typography>
-                    <Typography className='CardContentBottom' variant='caption'>
-                      {card.value}
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Slide>
-            </Grid>
-          ))}
-        </Grid>
+                  <Card
+                    id={`card-${card.value}`}
+                    className='CardPicker'
+                    variant='outlined'
+                    onClick={() => playPlayer(game.id, currentPlayerId, card)}
+                    style={{
+                      ...getCardStyle(players, currentPlayerId, card),
+                      pointerEvents: getPointerEvent(game),
+                    }}
+                  >
+                    <CardContent className='CardContent'>
+                      <Typography className='CardContentTop' variant='caption'>
+                        {card.value}
+                      </Typography>
+                      <Typography className='CardContentMiddle' variant='h4'>
+                        {card.value}
+                      </Typography>
+                      <Typography
+                        className='CardContentBottom'
+                        variant='caption'
+                      >
+                        {card.value}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Slide>
+              </Grid>
+            ))}
+          </Grid>
+        </div>
+        <Typography variant='h6'>
+          {game.gameStatus !== Status.Finished
+            ? 'Click on the card to vote'
+            : 'Session not ready for Voting! Wait for moderator to start'}
+        </Typography>
       </div>
-      <Typography variant='h6'>
-        {game.gameStatus !== Status.Finished
-          ? 'Click on the card to vote'
-          : 'Session not ready for Voting! Wait for moderator to start'}
-      </Typography>
-    </div>
-    // </Grow>
+    </Grow>
   );
 };
 
@@ -91,9 +106,11 @@ const getCardStyle = (
   const player = players.find((player) => player.id === playerId);
   if (player && player.value !== undefined && player.value === card.value) {
     return {
-      marginTop: '-2px',
+      marginTop: '-15px',
+      zIndex: 5,
       background: card.color,
-      border: '1.5px solid #333',
+      border: '2px dashed black',
+      boxShadow: '0 0px 12px 0 grey',
     };
   }
   return { background: card.color };

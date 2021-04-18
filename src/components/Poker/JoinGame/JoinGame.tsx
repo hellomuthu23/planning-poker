@@ -10,7 +10,10 @@ import {
 import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { getGame } from '../../../service/games';
-import { addPlayerToGame } from '../../../service/players';
+import {
+  addPlayerToGame,
+  isCurrentPlayerInGame,
+} from '../../../service/players';
 import './JoinGame.css';
 
 export const JoinGame = () => {
@@ -26,11 +29,14 @@ export const JoinGame = () => {
       if (joinGameId) {
         if (await getGame(joinGameId)) {
           setIsGameFound(true);
+          if (isCurrentPlayerInGame(joinGameId)) {
+            history.push(`/game/${joinGameId}`);
+          }
         }
       }
     }
     fetchData();
-  }, [joinGameId]);
+  }, [joinGameId, history]);
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
@@ -38,7 +44,6 @@ export const JoinGame = () => {
       const res = await addPlayerToGame(joinGameId, playerName);
       setIsGameFound(res);
       if (res) {
-        console.log('nav');
         history.push(`/game/${joinGameId}`);
       }
     }

@@ -6,12 +6,15 @@ import {
   getPlayersFromStore,
   updatePlayerInStore,
 } from '../repository/firebase';
+import {
+  getPlayerGamesFromCache,
+  isGameInPlayerCache,
+  updatePlayerGamesInCache,
+} from '../repository/localStorage';
 import { Game } from '../types/game';
 import { Player, PlayerGame } from '../types/player';
 import { Status } from '../types/status';
 import { updateGameStatus } from './games';
-
-const playerGamesStoreName = 'playerGames';
 
 export const addPlayer = async (gameId: string, player: Player) => {
   const game = await getGameFromStore(gameId);
@@ -41,13 +44,8 @@ export const updatePlayerValue = async (
 };
 
 export const getPlayerRecentGames = async (): Promise<Game[]> => {
-  let playerGames: PlayerGame[] = [];
+  let playerGames: PlayerGame[] = getPlayerGamesFromCache();
   let games: Game[] = [];
-  const store = localStorage.getItem(playerGamesStoreName);
-
-  if (store) {
-    playerGames = JSON.parse(store);
-  }
 
   await Promise.all(
     playerGames.map(async (playerGame: PlayerGame) => {
@@ -61,27 +59,23 @@ export const getPlayerRecentGames = async (): Promise<Game[]> => {
 };
 
 export const getCurrentPlayerId = (gameId: string): string | undefined => {
-  let playerGames: PlayerGame[] = [];
-  const store = localStorage.getItem(playerGamesStoreName);
+  let playerGames: PlayerGame[] = getPlayerGamesFromCache();
 
-  if (store) {
-    playerGames = JSON.parse(store);
-  }
   const game = playerGames.find((playerGame) => playerGame.gameId === gameId);
 
   return game && game.playerId;
 };
 
 export const updatePlayerGames = (gameId: string, playerId: string) => {
-  let playerGames: PlayerGame[] = [];
-  const store = localStorage.getItem(playerGamesStoreName);
-  if (store) {
-    playerGames = JSON.parse(store);
-  }
+  let playerGames: PlayerGame[] = getPlayerGamesFromCache();
 
   playerGames.push({ gameId, playerId });
 
-  localStorage.setItem(playerGamesStoreName, JSON.stringify(playerGames));
+  updatePlayerGamesInCache(playerGames);
+};
+
+export const isCurrentPlayerInGame = (gameId: string): boolean => {
+  return isGameInPlayerCache(gameId);
 };
 
 export const addPlayerToGame = async (

@@ -10,8 +10,8 @@ import {
 } from '@material-ui/core';
 import { blue, green } from '@material-ui/core/colors';
 import RefreshIcon from '@material-ui/icons/Autorenew';
+import ExitToApp from '@material-ui/icons/ExitToApp';
 import LinkIcon from '@material-ui/icons/Link';
-import PersonAdd from '@material-ui/icons/PersonAdd';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import Alert from '@material-ui/lab/Alert';
 import React, { useState } from 'react';
@@ -42,8 +42,8 @@ export const GameController: React.FC<GameControllerProps> = ({
     setShowCopiedMessage(true);
   };
 
-  const joinGame = () => {
-    history.push(`/join/${game.id}`);
+  const leaveGame = () => {
+    history.push(`/`);
   };
 
   const isModerator = (moderatorId: string, currentPlayerId: string) => {
@@ -107,11 +107,11 @@ export const GameController: React.FC<GameControllerProps> = ({
             )}
             <div className='GameControllerButtonContainer'>
               <div className='GameControllerButton'>
-                <IconButton onClick={() => joinGame()}>
-                  <PersonAdd fontSize='large' style={{ color: green[500] }} />
+                <IconButton onClick={() => leaveGame()}>
+                  <ExitToApp fontSize='large' style={{ color: green[500] }} />
                 </IconButton>
               </div>
-              <Typography variant='caption'>Join</Typography>
+              <Typography variant='caption'>Exit</Typography>
             </div>
             <div
               title='Copy invite link'

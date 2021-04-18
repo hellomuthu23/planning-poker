@@ -7,7 +7,7 @@ import GithubIcon from '@material-ui/icons/GitHub';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import './Toolbar.css';
-export const title = 'Planing Poker';
+export const title = 'Planning Poker';
 
 export const Toolbar = () => {
   const history = useHistory();
@@ -27,7 +27,7 @@ export const Toolbar = () => {
             <div className='HeaderContainer'>
               <div
                 className='HeaderLeftContainer'
-                onClick={() => (window.location.href = '/')}
+                onClick={() => history.push('/')}
               >
                 <GamesIcon className='HeaderIcon' />
                 <Typography variant='h5' color='inherit' noWrap>
@@ -45,6 +45,7 @@ export const Toolbar = () => {
                   Join Session
                 </Button>
                 <Button
+                  id='github-button'
                   color='inherit'
                   onClick={() =>
                     (window.location.href =

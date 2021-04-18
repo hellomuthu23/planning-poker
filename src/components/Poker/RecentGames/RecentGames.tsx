@@ -30,6 +30,16 @@ export const RecentGames = () => {
     fetchData();
   }, []);
 
+  const isEmptyRecentGames = (): boolean => {
+    if (!recentGames) {
+      return true;
+    }
+    if (recentGames && recentGames.length === 0) {
+      return true;
+    }
+    return false;
+  };
+
   return (
     <Card variant='outlined' className='RecentGamesCard'>
       <CardHeader
@@ -38,41 +48,36 @@ export const RecentGames = () => {
         titleTypographyProps={{ variant: 'h6', noWrap: true }}
       />
       <CardContent className='RecentGamesCardContent'>
-        <TableContainer className='RecentGamesTableContainer'>
-          <Table stickyHeader>
-            <TableHead>
-              <TableRow>
-                <TableCell>Name</TableCell>
-                <TableCell>Created By</TableCell>
-                <TableCell></TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {!recentGames ||
-                (recentGames && recentGames.length === 0 && (
-                  <Typography variant='body2'>
-                    No recent sessions found
-                  </Typography>
-                ))}
-
-              {recentGames &&
-                recentGames.map((recentGame) => (
+        {isEmptyRecentGames() && (
+          <Typography variant='body2'>No recent sessions found</Typography>
+        )}
+        {recentGames && recentGames.length > 0 && (
+          <TableContainer className='RecentGamesTableContainer'>
+            <Table stickyHeader>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Name</TableCell>
+                  <TableCell>Created By</TableCell>
+                  <TableCell></TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {recentGames.map((recentGame) => (
                   <TableRow
                     hover
                     key={recentGame.id}
                     className='RecentGamesTableRow'
-                    onClick={() => history.push(`game/${recentGame.id}`)}
+                    onClick={() => history.push(`/game/${recentGame.id}`)}
                   >
-                    <TableCell component='th' scope='row'>
-                      {recentGame.name}
-                    </TableCell>
+                    <TableCell>{recentGame.name}</TableCell>
                     <TableCell align='left'>{recentGame.createdBy}</TableCell>
                     <TableCell align='left'></TableCell>
                   </TableRow>
                 ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+              </TableBody>
+            </Table>
+          </TableContainer>
+        )}
       </CardContent>
     </Card>
   );
