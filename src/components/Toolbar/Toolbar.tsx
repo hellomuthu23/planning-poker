@@ -13,52 +13,42 @@ export const Toolbar = () => {
   const history = useHistory();
   return (
     <Slide direction='down' in={true} timeout={800}>
-      <div>
-        <AppBar
-          position='relative'
-          style={{
-            color: 'black',
-            background: 'transparent',
-            boxShadow: 'none',
-            flexGrow: 1,
-          }}
-        >
-          <AppToolbar>
-            <div className='HeaderContainer'>
-              <div
-                className='HeaderLeftContainer'
-                onClick={() => history.push('/')}
-              >
-                <GamesIcon className='HeaderIcon' />
-                <Typography variant='h5' color='inherit' noWrap>
-                  {title}
-                </Typography>
-                <Typography variant='caption' color='inherit' noWrap>
-                  (beta)
-                </Typography>
-              </div>
-              <div>
-                <Button color='inherit' onClick={() => history.push('/')}>
-                  New Session
-                </Button>
-                <Button color='inherit' onClick={() => history.push('/join')}>
-                  Join Session
-                </Button>
-                <Button
-                  id='github-button'
-                  color='inherit'
-                  onClick={() =>
-                    (window.location.href =
-                      'https://github.com/hellomuthu23/planning-poker')
-                  }
-                >
-                  <GithubIcon></GithubIcon>
-                </Button>
-              </div>
+      <AppBar position='sticky' className='AppBar'>
+        <AppToolbar>
+          <div className='HeaderContainer'>
+            <div
+              className='HeaderLeftContainer'
+              onClick={() => history.push('/')}
+            >
+              <GamesIcon className='HeaderIcon' />
+              <Typography variant='h5' color='inherit' noWrap>
+                {title}
+              </Typography>
+              <Typography variant='caption' color='inherit' noWrap>
+                (beta)
+              </Typography>
             </div>
-          </AppToolbar>
-        </AppBar>
-      </div>
+            <div>
+              <Button color='inherit' onClick={() => history.push('/')}>
+                New Session
+              </Button>
+              <Button color='inherit' onClick={() => history.push('/join')}>
+                Join Session
+              </Button>
+              <Button
+                id='github-button'
+                color='inherit'
+                onClick={() =>
+                  (window.location.href =
+                    'https://github.com/hellomuthu23/planning-poker')
+                }
+              >
+                <GithubIcon></GithubIcon>
+              </Button>
+            </div>
+          </div>
+        </AppToolbar>
+      </AppBar>
     </Slide>
   );
 };
