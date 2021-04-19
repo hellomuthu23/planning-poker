@@ -1,3 +1,10 @@
+.AppBar {
+  color: black;
+  box-shadow: none;
+  background-color: white;
+  flex-grow: 1;
+}
+
 .HeaderContainer {
   display: flex;
   justify-content: space-between;

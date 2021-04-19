@@ -25,9 +25,10 @@ Free / Open source Scrum/Agile Planning Poker Web App to estimate user stories f
 
 ## Tech Stack
 
-1. React - for Frontend
-2. Firestore - for Database
-3. Firebase - for hosting the site
+1. React - Frontend
+2. Material-ui - UI Components
+3. Firestore - Database
+4. Firebase - Hosting
 
 ## Pending features open to development
 
