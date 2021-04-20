@@ -46,5 +46,6 @@ Free / Open source Scrum/Agile Planning Poker Web App to estimate user stories f
 1. Add Semantic Release to generate changelog and release notes
 2. Add Github workflow for running unit tests in PR and Master pipelines
 3. Add Linter
-4. Add Prettier
-5. Add cookie notice
+4. Add missing unit tests
+5. Add Prettier
+6. Add cookie notice
