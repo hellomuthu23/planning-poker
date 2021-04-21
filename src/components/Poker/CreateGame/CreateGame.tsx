@@ -44,6 +44,7 @@ export const CreateGame = () => {
               required
               id='filled-required'
               label='Session Name'
+              placeholder='Enter a session name'
               defaultValue={gameName}
               variant='outlined'
               onChange={(event: ChangeEvent<HTMLInputElement>) =>
@@ -55,6 +56,7 @@ export const CreateGame = () => {
               required
               id='filled-required'
               label='Your Name'
+              placeholder='Enter your name'
               defaultValue={createdBy}
               variant='outlined'
               onChange={(event: ChangeEvent<HTMLInputElement>) =>
