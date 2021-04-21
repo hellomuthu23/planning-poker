@@ -32,7 +32,8 @@ describe('CardPicker component', () => {
         currentPlayerId={currentPlayerId}
       />
     );
-    cards.forEach((card) => {
+
+    cards.filter(a => a.value >= 0).forEach((card) => {
       const cardElement = cardPicker.container.querySelector(
         `#card-${card.value}`
       );
