@@ -82,7 +82,7 @@ export const getAverage = (players: Player[]): number => {
   let values = 0;
   let numberOfPlayersPlayed = 0;
   players.forEach((player) => {
-    if (player.status === Status.Finished && player.value) {
+    if (player.status === Status.Finished && player.value && player.value >= 0) {
       values = values + player.value;
       numberOfPlayersPlayed++;
     }

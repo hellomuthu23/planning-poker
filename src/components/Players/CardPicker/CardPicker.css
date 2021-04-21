@@ -11,6 +11,7 @@
   min-width: 100px;
   max-width: 100px;
   max-height: 140px;
+  min-height: 140px;
   margin-top: 10px;
   cursor: pointer;
   background-color: #00ff99;

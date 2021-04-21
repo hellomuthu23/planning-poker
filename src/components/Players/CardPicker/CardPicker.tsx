@@ -29,6 +29,7 @@ export const cards: CardConfig[] = [
   { value: 34, color: '#F4DD94' },
   { value: 55, color: '#F39893' },
   { value: 89, color: '#F39893' },
+  { value: -1, color: '#F4F7FA' },
 ];
 
 interface CardPickerProps {
@@ -69,18 +70,25 @@ export const CardPicker: React.FC<CardPickerProps> = ({
                     }}
                   >
                     <CardContent className='CardContent'>
-                      <Typography className='CardContentTop' variant='caption'>
-                        {card.value}
-                      </Typography>
-                      <Typography className='CardContentMiddle' variant='h4'>
-                        {card.value}
-                      </Typography>
-                      <Typography
-                        className='CardContentBottom'
-                        variant='caption'
-                      >
-                        {card.value}
-                      </Typography>
+                      {card.value >= 0 &&
+                        <>
+                          <Typography className='CardContentTop' variant='caption'>
+                            {card.value}
+                          </Typography>
+                          <Typography className='CardContentMiddle' variant='h4'>
+                            {card.value}
+                          </Typography>
+                          <Typography
+                            className='CardContentBottom'
+                            variant='caption'
+                          >
+                            {card.value}
+                          </Typography>
+                        </>
+                      }
+                      {card.value === -1 &&
+                        <Typography className='CardContentMiddle' variant='h2'>☕</Typography>
+                      }
                     </CardContent>
                   </Card>
                 </Slide>
