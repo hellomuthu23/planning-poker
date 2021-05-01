@@ -86,8 +86,8 @@ export const GameController: React.FC<GameControllerProps> = ({
                 <div className='GameControllerButtonContainer'>
                   <div className='GameControllerButton'>
                     <IconButton
+                      onClick={() => finishGame(game.id)} data-testid="reveal-button"
                       color='primary'
-                      onClick={() => finishGame(game.id)}
                     >
                       <VisibilityIcon fontSize='large' color='error' />
                     </IconButton>
@@ -97,7 +97,7 @@ export const GameController: React.FC<GameControllerProps> = ({
 
                 <div className='GameControllerButtonContainer'>
                   <div className='GameControllerButton'>
-                    <IconButton onClick={() => resetGame(game.id)}>
+                    <IconButton data-testid={'restart-button'} onClick={() => resetGame(game.id)}>
                       <RefreshIcon fontSize='large' color='primary' />
                     </IconButton>
                   </div>
@@ -107,7 +107,7 @@ export const GameController: React.FC<GameControllerProps> = ({
             )}
             <div className='GameControllerButtonContainer'>
               <div className='GameControllerButton'>
-                <IconButton onClick={() => leaveGame()}>
+                <IconButton data-testid='exit-button' onClick={() => leaveGame()}>
                   <ExitToApp fontSize='large' style={{ color: green[500] }} />
                 </IconButton>
               </div>
@@ -118,7 +118,7 @@ export const GameController: React.FC<GameControllerProps> = ({
               className='GameControllerButtonContainer'
             >
               <div className='GameControllerButton'>
-                <IconButton onClick={() => copyInviteLink()}>
+                <IconButton data-testid='invite-button' onClick={() => copyInviteLink()}>
                   <LinkIcon fontSize='large' style={{ color: blue[500] }} />
                 </IconButton>
               </div>

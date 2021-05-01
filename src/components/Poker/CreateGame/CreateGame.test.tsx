@@ -3,7 +3,6 @@ import userEvent from '@testing-library/user-event';
 import React from 'react';
 import { CreateGame } from './CreateGame';
 import * as gamesService from '../../../service/games';
-import { act } from 'react-dom/test-utils';
 
 jest.mock('../../../service/games');
 jest.mock('react-router-dom', () => ({
@@ -40,21 +39,13 @@ describe('CreateGame component', () => {
       />
     );
     const sessionName = screen.getByPlaceholderText('Enter a session name');
-    act(() => {
-      userEvent.type(sessionName, 'Marvels');
-    });
+    userEvent.type(sessionName, 'Marvels');
 
     const userName = screen.getByPlaceholderText('Enter your name');
-
-    act(() => {
-      userEvent.type(userName, 'Rock');
-    });
+    userEvent.type(userName, 'Rock');
 
     const createButton = screen.getByText('Create');
-
-    act(() => {
-      userEvent.click(createButton);
-    });
+    userEvent.click(createButton);
 
     expect(gamesService.addNewGame).toHaveBeenCalled();
 
