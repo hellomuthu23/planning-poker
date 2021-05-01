@@ -14,10 +14,7 @@ describe('CreateGame component', () => {
 
   it('should display correct text fields', () => {
 
-    render(
-      <CreateGame
-      />
-    );
+    render(<CreateGame />);
 
     expect(screen.getByPlaceholderText('Enter a session name')).toBeInTheDocument();
     expect(screen.getByPlaceholderText('Enter your name')).toBeInTheDocument();
@@ -25,19 +22,13 @@ describe('CreateGame component', () => {
 
   it('should display create button', () => {
 
-    render(
-      <CreateGame
-      />
-    );
+    render(<CreateGame />);
 
     expect(screen.getByRole('button')).toBeInTheDocument();
     expect(screen.getByRole('button')).toHaveTextContent('Create');
   });
-  it('should be able to create new session', () => {
-    render(
-      <CreateGame
-      />
-    );
+  it('should be able to create new session', async () => {
+    render(<CreateGame />);
     const sessionName = screen.getByPlaceholderText('Enter a session name');
     userEvent.type(sessionName, 'Marvels');
 

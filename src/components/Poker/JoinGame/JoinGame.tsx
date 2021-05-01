@@ -28,6 +28,7 @@ export const JoinGame = () => {
     async function fetchData() {
       if (joinGameId) {
         if (await getGame(joinGameId)) {
+
           setIsGameFound(true);
           if (isCurrentPlayerInGame(joinGameId)) {
             history.push(`/game/${joinGameId}`);
@@ -42,6 +43,7 @@ export const JoinGame = () => {
     event.preventDefault();
     if (joinGameId) {
       const res = await addPlayerToGame(joinGameId, playerName);
+
       setIsGameFound(res);
       if (res) {
         history.push(`/game/${joinGameId}`);
@@ -79,6 +81,7 @@ export const JoinGame = () => {
                 required
                 id='filled-required'
                 label='Your Name'
+                placeholder='Enter your name'
                 defaultValue={playerName}
                 variant='outlined'
                 onChange={(event: ChangeEvent<HTMLInputElement>) =>
