@@ -28,7 +28,6 @@ export const JoinGame = () => {
     async function fetchData() {
       if (joinGameId) {
         if (await getGame(joinGameId)) {
-
           setIsGameFound(true);
           if (isCurrentPlayerInGame(joinGameId)) {
             history.push(`/game/${joinGameId}`);
