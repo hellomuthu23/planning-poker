@@ -9,7 +9,6 @@ import { RecentGames } from './RecentGames';
 jest.mock('../../../service/players');
 const mockHistoryPush = jest.fn();
 
-document.execCommand = jest.fn();
 describe('RecentGames component', () => {
   beforeEach(() => {
     jest.spyOn(reactRouter, 'useHistory').mockReturnValue({ push: mockHistoryPush } as any);

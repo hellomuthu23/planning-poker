@@ -14,9 +14,7 @@ export const Poker = () => {
   const [game, setGame] = useState<Game | undefined>(undefined);
   const [players, setPlayers] = useState<Player[] | undefined>(undefined);
   const [loading, setIsLoading] = useState(true);
-  const [currentPlayerId, setCurrentPlayerId] = useState<string | undefined>(
-    undefined
-  );
+  const [currentPlayerId, setCurrentPlayerId] = useState<string | undefined>(undefined);
 
   useEffect(() => {
     async function fetchData(id: string) {
@@ -27,8 +25,10 @@ export const Poker = () => {
           if (data) {
             setGame(data as Game);
             setIsLoading(false);
+            return;
           }
         }
+        setIsLoading(false);
       });
       streamPlayers(id).onSnapshot((snapshot) => {
         const players: Player[] = [];
@@ -58,13 +58,9 @@ export const Poker = () => {
   return (
     <>
       {game && players && currentPlayerId ? (
-        <GameArea
-          game={game}
-          players={players}
-          currentPlayerId={currentPlayerId}
-        />
+        <GameArea game={game} players={players} currentPlayerId={currentPlayerId} />
       ) : (
-        <Typography> Game not found</Typography>
+        <Typography>Game not found</Typography>
       )}
     </>
   );
