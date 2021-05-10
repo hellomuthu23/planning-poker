@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import GamesIcon from '@material-ui/icons/Games';
 import GithubIcon from '@material-ui/icons/GitHub';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-import InputIcon from '@material-ui/icons/Input';
+import MergeTypeOutlinedIcon from '@material-ui/icons/MergeTypeOutlined';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import './Toolbar.css';
@@ -36,7 +36,7 @@ export const Toolbar = () => {
               <Button title="New Session" startIcon={<AddCircleOutlineIcon/>} color='inherit' onClick={() => history.push('/')}>
                 {!isSmallScreen ? 'New Session': null}
               </Button>
-              <Button startIcon={<InputIcon/>} size={ isSmallScreen ? "small" : "large"}  color='inherit' onClick={() => history.push('/join')}>
+              <Button startIcon={<MergeTypeOutlinedIcon/>} size={ isSmallScreen ? "small" : "large"}  color='inherit' onClick={() => history.push('/join')}>
                 {!isSmallScreen ? 'Join Session' : null}
               </Button>
               <Button
