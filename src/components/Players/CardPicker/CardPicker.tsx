@@ -87,7 +87,7 @@ export const CardPicker: React.FC<CardPickerProps> = ({
                         </>
                       }
                       {card.value === -1 &&
-                        <Typography className='CardContentMiddle' variant='h2'>☕</Typography>
+                        <Typography className='CardContentMiddle' variant='h3'>☕</Typography>
                       }
                     </CardContent>
                   </Card>
