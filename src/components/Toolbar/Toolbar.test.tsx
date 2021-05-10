@@ -12,9 +12,15 @@ jest.mock('react-router-dom', () => ({
   }),
 }));
 
+jest.mock('@material-ui/core', () => ({
+  ...jest.requireActual('@material-ui/core'),
+  useMediaQuery: () => false,
+}));
+
 describe('Toolbar component', () => {
   const { location } = window;
   beforeAll(() => {
+    // @ts-ignore
     delete window.location;
     // @ts-ignore
     window.location = { href: '' };
@@ -64,12 +70,10 @@ describe('Toolbar component', () => {
   });
   it('should navigate to github page when Github icon is clicked clicked', () => {
     const toolbar = render(<Toolbar />);
-    const title = toolbar.container.querySelector('#github-button');
+    const title = toolbar.container.querySelector('#github-button') as HTMLElement;
     act(() => {
       userEvent.click(title);
     });
-    expect(window.location.href).toEqual(
-      'https://github.com/hellomuthu23/planning-poker'
-    );
+    expect(window.location.href).toEqual('https://github.com/hellomuthu23/planning-poker');
   });
 });
