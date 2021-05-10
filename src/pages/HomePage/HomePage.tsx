@@ -1,4 +1,4 @@
-import { Divider, Grid, Slide, Typography } from '@material-ui/core';
+import { Divider, Grid, Slide, Typography, useMediaQuery } from '@material-ui/core';
 import React from 'react';
 import { useRouteMatch } from 'react-router-dom';
 import { Footer } from '../../components/Footer/Footer';
@@ -11,6 +11,8 @@ import './HomePage.css';
 
 export const HomePage = () => {
   const isJoin = useRouteMatch('/join');
+  const isSmallScreen = useMediaQuery((theme: any)  => theme.breakpoints.down("xs"));
+
   return (
     <>
       <Grid
@@ -33,7 +35,8 @@ export const HomePage = () => {
             <Slide direction='down' in={true} timeout={1000}>
               <div className='HomePageContainer'>
                 <Typography variant='h5'>Free Planning Poker App</Typography>
-                <img alt='Free Planning Poker App' src={LandingImage}></img>
+                {/* {!isSmallScreen ? <img alt='Free Planning Poker App' src={LandingImage}></img> : null} */}
+                 <img alt='Free Planning Poker App' style={{"transform": isSmallScreen? 'scale(0.5)' : 'none' }} src={LandingImage}></img>
                 <Typography variant='subtitle1'>
                   Free / Open source Planning Poker Web App to estimate user
                   stories for your Agile/Scrum teams. Create a session and
@@ -123,7 +126,8 @@ export const HomePage = () => {
                 <Typography variant='subtitle1'>
                   Beautiful design for voting the story points, showing team
                   members voting status with emojis(👍 - Voting Done, 🤔 - Yet
-                  to Vote). Session Moderator has full control on revealing
+                  to Vote). Once the card values are revealed, the card color helps to understand if the team's voting is sync or not.
+                  Session Moderator has full control on revealing
                   story points and restarting the session.
                 </Typography>
               </div>
@@ -136,6 +140,7 @@ export const HomePage = () => {
                 <img
                   className='SessionImage'
                   alt='Session controller'
+                  style={{"transform": isSmallScreen? 'scale(0.6)' : 'none' }}
                   src={SessionControllerImage}
                 ></img>
               </div>
