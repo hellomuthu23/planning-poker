@@ -14,7 +14,7 @@
   min-height: 140px;
   margin-top: 10px;
   cursor: pointer;
-  background-color: #00ff99;
+  background-color: var(--color-background-secondary);
 }
 
 .CardPicker:hover {
