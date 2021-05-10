@@ -60,7 +60,6 @@ export const GameController: React.FC<GameControllerProps> = ({
               <div className='GameControllerCardHeaderAverageContainer'>
                 <Typography
                   variant='subtitle1'
-                  className='GameControllerCardHeaderStatusValue'
                 >
                   {game.gameStatus}
                 </Typography>

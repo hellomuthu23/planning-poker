@@ -18,7 +18,7 @@ export interface CardConfig {
   color: string;
 }
 export const cards: CardConfig[] = [
-  { value: 0, color: '#F4F7FA' },
+  { value: 0, color: 'var(--color-background-secondary)' },
   { value: 1, color: '#9EC8FE' },
   { value: 2, color: '#9EC8FE' },
   { value: 3, color: '#A3DFF2' },
@@ -29,7 +29,7 @@ export const cards: CardConfig[] = [
   { value: 34, color: '#F4DD94' },
   { value: 55, color: '#F39893' },
   { value: 89, color: '#F39893' },
-  { value: -1, color: '#F4F7FA' },
+  { value: -1, color: 'var(--color-background-secondary)' },
 ];
 
 interface CardPickerProps {
@@ -87,7 +87,7 @@ export const CardPicker: React.FC<CardPickerProps> = ({
                         </>
                       }
                       {card.value === -1 &&
-                        <Typography className='CardContentMiddle' variant='h2'>☕</Typography>
+                        <Typography className='CardContentMiddle' variant='h3'>☕</Typography>
                       }
                     </CardContent>
                   </Card>
@@ -116,12 +116,12 @@ const getCardStyle = (
     return {
       marginTop: '-15px',
       zIndex: 5,
-      background: card.color,
+      backgroundColor: card.color,
       border: '2px dashed black',
       boxShadow: '0 0px 12px 0 grey',
     };
   }
-  return { background: card.color };
+  return { backgroundColor: card.color };
 };
 
 const getPointerEvent = (game: Game) => {

@@ -33,7 +33,7 @@ describe('Poker component', () => {
     });
     await waitFor(() => expect(screen.getByText('Game not found')).toBeInTheDocument());
   });
-  it.only('should display game area when game is found', async () => {
+  it('should display game area when game is found', async () => {
     const mockGame: Game = { id: 'abc', name: 'avengers', createdBy: 'IronMan', gameStatus: Status.NotStarted } as Game;
     const mockPlayers: Player[] = [
       {

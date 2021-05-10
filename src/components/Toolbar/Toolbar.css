@@ -1,8 +1,8 @@
 .AppBar {
-  color: black;
   box-shadow: none;
-  background-color: white;
+  background-color:  var(--color-background);
   flex-grow: 1;
+  white-space: nowrap;
 }
 
 .HeaderContainer {
@@ -17,7 +17,7 @@
 }
 
 .HeaderIcon {
-  color: #75a1de;
+  color: var(--color-primary);
   margin-top: 4px;
   margin-right: 5px;
 }

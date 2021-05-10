@@ -9,7 +9,8 @@ import { theme } from './service/theme';
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
+    <div className="LightTheme">
+    <ThemeProvider theme={theme} >
       <StylesProvider injectFirst>
         <CssBaseline />
         <Router>
@@ -22,6 +23,7 @@ function App() {
         </Router>
       </StylesProvider>
     </ThemeProvider>
+    </div>
   );
 }
 
