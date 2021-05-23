@@ -60,3 +60,8 @@ export const getCards = (gameType: GameType | undefined): CardConfig[] => {
       return fibonacciCards;
   }
 };
+
+export const getRandomEmoji = () => {
+  const emojis = ['☕', '🥤', '🍹', '🍸', '🍧', '🍨', '🍩', '🍎', '🧁', '🍪', '🍿', '🌮', '🍦', '🍉', '🍐', '🍰', '🍫'];
+  return emojis[Math.floor(Math.random() * emojis.length)];
+};
