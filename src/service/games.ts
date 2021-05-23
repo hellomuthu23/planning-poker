@@ -45,10 +45,7 @@ export const getGame = (id: string) => {
   return getGameFromStore(id);
 };
 
-export const updateGame = async (
-  gameId: string,
-  updatedGame: any
-): Promise<boolean> => {
+export const updateGame = async (gameId: string, updatedGame: any): Promise<boolean> => {
   await updateGameDataInStore(gameId, updatedGame);
   return true;
 };
