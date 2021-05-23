@@ -24,7 +24,7 @@ Free / Open source Scrum/Agile Planning Poker Web App to estimate user stories f
 
 ## Features
 
-1. Create new Session
+1. Create new Session(Fibonacci or TShirt size)
 2. Join Session
 3. Invite Link
 4. Session controller - Moderator can Reveal and restart the session anytime.
@@ -63,7 +63,7 @@ Free / Open source Scrum/Agile Planning Poker Web App to estimate user stories f
 
 ## Pending features open to development
 
-1. Support for custom voting options - T-Shirt sizes
+1. Support for custom voting options
 2. Remove a user in session
 3. Add timer
 4. Export options
