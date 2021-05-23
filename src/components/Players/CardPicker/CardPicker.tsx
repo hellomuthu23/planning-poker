@@ -1,52 +1,31 @@
-import {
-  Card,
-  CardContent,
-  Grid,
-  Grow,
-  Slide,
-  Typography,
-} from '@material-ui/core';
-import React from 'react';
+import { Card, CardContent, Grid, Grow, Slide, Typography } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
 import { updatePlayerValue } from '../../../service/players';
 import { Game } from '../../../types/game';
 import { Player } from '../../../types/player';
 import { Status } from '../../../types/status';
+import { CardConfig, getCards } from './CardConfigs';
 import './CardPicker.css';
-
-export interface CardConfig {
-  value: number;
-  color: string;
-}
-export const cards: CardConfig[] = [
-  { value: 0, color: 'var(--color-background-secondary)' },
-  { value: 1, color: '#9EC8FE' },
-  { value: 2, color: '#9EC8FE' },
-  { value: 3, color: '#A3DFF2' },
-  { value: 5, color: '#A3DFF2' },
-  { value: 8, color: '#9DD49A' },
-  { value: 13, color: '#9DD49A' },
-  { value: 21, color: '#F4DD94' },
-  { value: 34, color: '#F4DD94' },
-  { value: 55, color: '#F39893' },
-  { value: 89, color: '#F39893' },
-  { value: -1, color: 'var(--color-background-secondary)' },
-];
 
 interface CardPickerProps {
   game: Game;
   players: Player[];
   currentPlayerId: string;
 }
-export const CardPicker: React.FC<CardPickerProps> = ({
-  game,
-  players,
-  currentPlayerId,
-}) => {
+export const CardPicker: React.FC<CardPickerProps> = ({ game, players, currentPlayerId }) => {
+  const [randomEmoji, setRandomEmoji] = useState(getRandomEmoji);
   const playPlayer = (gameId: string, playerId: string, card: CardConfig) => {
     if (game.gameStatus !== Status.Finished) {
       updatePlayerValue(gameId, playerId, card.value);
     }
   };
+  const cards = getCards(game.gameType);
+
+  useEffect(() => {
+    if (game.gameStatus === Status.Started) {
+      setRandomEmoji(getRandomEmoji);
+    }
+  }, [game.gameStatus]);
   return (
     <Grow in={true} timeout={1000}>
       <div>
@@ -54,13 +33,9 @@ export const CardPicker: React.FC<CardPickerProps> = ({
           <Grid container spacing={4} justify='center'>
             {cards.map((card: CardConfig, index) => (
               <Grid key={card.value} item xs>
-                <Slide
-                  in={true}
-                  direction={'right'}
-                  timeout={(1000 * index) / 2}
-                >
+                <Slide in={true} direction={'right'} timeout={(1000 * index) / 2}>
                   <Card
-                    id={`card-${card.value}`}
+                    id={`card-${card.displayValue}`}
                     className='CardPicker'
                     variant='outlined'
                     onClick={() => playPlayer(game.id, currentPlayerId, card)}
@@ -70,25 +45,29 @@ export const CardPicker: React.FC<CardPickerProps> = ({
                     }}
                   >
                     <CardContent className='CardContent'>
-                      {card.value >= 0 &&
+                      {card.value >= 0 && (
                         <>
                           <Typography className='CardContentTop' variant='caption'>
-                            {card.value}
+                            {card.displayValue}
                           </Typography>
                           <Typography className='CardContentMiddle' variant='h4'>
-                            {card.value}
+                            {card.displayValue}
                           </Typography>
-                          <Typography
-                            className='CardContentBottom'
-                            variant='caption'
-                          >
-                            {card.value}
+                          <Typography className='CardContentBottom' variant='caption'>
+                            {card.displayValue}
                           </Typography>
                         </>
-                      }
-                      {card.value === -1 &&
-                        <Typography className='CardContentMiddle' variant='h3'>☕</Typography>
-                      }
+                      )}
+                      {card.value === -1 && (
+                        <Typography className='CardContentMiddle' variant='h3'>
+                          {randomEmoji}
+                        </Typography>
+                      )}
+                      {card.value === -2 && (
+                        <Typography className='CardContentMiddle' variant='h3'>
+                          ❓
+                        </Typography>
+                      )}
                     </CardContent>
                   </Card>
                 </Slide>
@@ -106,11 +85,7 @@ export const CardPicker: React.FC<CardPickerProps> = ({
   );
 };
 
-const getCardStyle = (
-  players: Player[],
-  playerId: string,
-  card: CardConfig
-) => {
+const getCardStyle = (players: Player[], playerId: string, card: CardConfig) => {
   const player = players.find((player) => player.id === playerId);
   if (player && player.value !== undefined && player.value === card.value) {
     return {
@@ -129,4 +104,9 @@ const getPointerEvent = (game: Game) => {
     return 'none';
   }
   return 'inherit';
+};
+
+const getRandomEmoji = () => {
+  const emojis = ['☕', '🥤', '🍹', '🍸', '🍧', '🍨', '🍩', '🍎', '🧁', '🍪', '🍿', '🌮', '🍦', '🍉', '🍐', '🍰', '🍫'];
+  return emojis[Math.floor(Math.random() * emojis.length)];
 };

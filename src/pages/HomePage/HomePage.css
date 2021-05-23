@@ -12,3 +12,8 @@
   width: 600px;
   transform: perspective(900px) rotateY(-20deg);
 }
+
+.HomePageImage {
+  height: 400px;
+  width: 500px;
+}

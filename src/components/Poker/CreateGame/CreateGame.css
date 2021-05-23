@@ -1,5 +1,4 @@
 .CreateGameTextField {
-  width: 70%;
   padding-bottom: 30px;
 }
 
@@ -12,6 +11,7 @@
 .CreateGameCard {
   background: transparent;
   border: none !important;
+  padding: 50px;
 }
 
 .CreateGameCardHeader {
@@ -19,6 +19,8 @@
 }
 
 .CreateGameCardContent {
+  display: flex;
+  flex-direction: column;
   text-align: center;
 }
 

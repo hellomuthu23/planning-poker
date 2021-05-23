@@ -1,9 +1,9 @@
 import { Card, CardContent, CardHeader, Typography } from '@material-ui/core';
 import React from 'react';
-import { Game } from '../../../types/game';
+import { Game, GameType } from '../../../types/game';
 import { Player } from '../../../types/player';
 import { Status } from '../../../types/status';
-import { cards } from '../CardPicker/CardPicker';
+import { getCards } from '../CardPicker/CardConfigs';
 import './PlayerCard.css';
 interface PlayerCardProps {
   game: Game;
@@ -37,7 +37,7 @@ const getCardColor = (game: Game, value: number | undefined): string => {
   if (game.gameStatus !== Status.Finished) {
     return 'var(--color-background-secondary)';
   }
-  const card = cards.find((card) => card.value === value);
+  const card = getCards(game.gameType).find((card) => card.value === value);
   return card ? card.color : 'var(--color-background-secondary)';
 };
 
@@ -49,10 +49,17 @@ const getCardValue = (player: Player, game: Game) => {
   if (game.gameStatus === Status.Finished) {
     if (player.status === Status.Finished) {
       if (player.value && player.value === -1) {
-        return '☕' // coffee emoji
+        return '☕'; // coffee emoji
       }
-      return player.value
+      return getCardDisplayValue(game.gameType, player.value);
     }
     return '🤔';
   }
+};
+
+const getCardDisplayValue = (
+  gameType: GameType | undefined,
+  cardValue: number | undefined
+): string | number | undefined => {
+  return getCards(gameType).find((card) => card.value === cardValue)?.displayValue || cardValue;
 };
