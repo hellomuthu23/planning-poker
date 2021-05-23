@@ -6,11 +6,7 @@ import {
   getPlayersFromStore,
   updatePlayerInStore,
 } from '../repository/firebase';
-import {
-  getPlayerGamesFromCache,
-  isGameInPlayerCache,
-  updatePlayerGamesInCache,
-} from '../repository/localStorage';
+import { getPlayerGamesFromCache, isGameInPlayerCache, updatePlayerGamesInCache } from '../repository/localStorage';
 import { Game } from '../types/game';
 import { Player, PlayerGame } from '../types/player';
 import { Status } from '../types/status';
@@ -23,17 +19,14 @@ export const addPlayer = async (gameId: string, player: Player) => {
   }
 };
 
-export const updatePlayerValue = async (
-  gameId: string,
-  playerId: string,
-  value: number
-) => {
+export const updatePlayerValue = async (gameId: string, playerId: string, value: number, randomEmoji: string) => {
   const player = await getPlayerFromStore(gameId, playerId);
 
   if (player) {
     const updatedPlayer = {
       ...player,
       value: value,
+      emoji: randomEmoji,
       status: Status.Finished,
     };
     await updatePlayerInStore(gameId, updatedPlayer);
@@ -78,10 +71,7 @@ export const isCurrentPlayerInGame = (gameId: string): boolean => {
   return isGameInPlayerCache(gameId);
 };
 
-export const addPlayerToGame = async (
-  gameId: string,
-  playerName: string
-): Promise<boolean> => {
+export const addPlayerToGame = async (gameId: string, playerName: string): Promise<boolean> => {
   const joiningGame = await getGameFromStore(gameId);
 
   if (!joiningGame) {

@@ -8,6 +8,7 @@ import { Player } from '../../../types/player';
 import { Status } from '../../../types/status';
 import { getCards } from './CardConfigs';
 import { CardPicker } from './CardPicker';
+import * as cardConfigs from './CardConfigs';
 
 jest.mock('../../../service/players');
 describe('CardPicker component', () => {
@@ -77,13 +78,14 @@ describe('CardPicker component', () => {
   it('should update player value when player clicks on a card', () => {
     const currentPlayerId = mockPlayers[0].id;
     const updatePlayerValueSpy = jest.spyOn(playersService, 'updatePlayerValue');
+    jest.spyOn(cardConfigs, 'getRandomEmoji').mockReturnValue('something');
     render(<CardPicker game={mockGame} players={mockPlayers} currentPlayerId={currentPlayerId} />);
     const cardValueElement = screen.queryAllByText(5);
     act(() => {
       userEvent.click(cardValueElement[0]);
     });
     expect(updatePlayerValueSpy).toHaveBeenCalled();
-    expect(updatePlayerValueSpy).toHaveBeenCalledWith(mockGame.id, currentPlayerId, 5);
+    expect(updatePlayerValueSpy).toHaveBeenCalledWith(mockGame.id, currentPlayerId, 5, 'something');
   });
 
   it('should not update player value when player clicks on a card and game is finished', () => {

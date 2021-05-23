@@ -49,7 +49,7 @@ const getCardValue = (player: Player, game: Game) => {
   if (game.gameStatus === Status.Finished) {
     if (player.status === Status.Finished) {
       if (player.value && player.value === -1) {
-        return '☕'; // coffee emoji
+        return player.emoji || '☕'; // coffee emoji
       }
       return getCardDisplayValue(game.gameType, player.value);
     }

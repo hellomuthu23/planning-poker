@@ -4,7 +4,7 @@ import { updatePlayerValue } from '../../../service/players';
 import { Game } from '../../../types/game';
 import { Player } from '../../../types/player';
 import { Status } from '../../../types/status';
-import { CardConfig, getCards } from './CardConfigs';
+import { CardConfig, getCards, getRandomEmoji } from './CardConfigs';
 import './CardPicker.css';
 
 interface CardPickerProps {
@@ -16,7 +16,7 @@ export const CardPicker: React.FC<CardPickerProps> = ({ game, players, currentPl
   const [randomEmoji, setRandomEmoji] = useState(getRandomEmoji);
   const playPlayer = (gameId: string, playerId: string, card: CardConfig) => {
     if (game.gameStatus !== Status.Finished) {
-      updatePlayerValue(gameId, playerId, card.value);
+      updatePlayerValue(gameId, playerId, card.value, randomEmoji);
     }
   };
   const cards = getCards(game.gameType);
@@ -104,9 +104,4 @@ const getPointerEvent = (game: Game) => {
     return 'none';
   }
   return 'inherit';
-};
-
-const getRandomEmoji = () => {
-  const emojis = ['☕', '🥤', '🍹', '🍸', '🍧', '🍨', '🍩', '🍎', '🧁', '🍪', '🍿', '🌮', '🍦', '🍉', '🍐', '🍰', '🍫'];
-  return emojis[Math.floor(Math.random() * emojis.length)];
 };
