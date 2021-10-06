@@ -4,9 +4,10 @@ import {
   getGameFromStore,
   getPlayerFromStore,
   getPlayersFromStore,
+  removePlayerFromGameInStore,
   updatePlayerInStore,
 } from '../repository/firebase';
-import { getPlayerGamesFromCache, isGameInPlayerCache, updatePlayerGamesInCache } from '../repository/localStorage';
+import { getPlayerGamesFromCache, updatePlayerGamesInCache } from '../repository/localStorage';
 import { Game } from '../types/game';
 import { Player, PlayerGame } from '../types/player';
 import { Status } from '../types/status';
@@ -16,6 +17,13 @@ export const addPlayer = async (gameId: string, player: Player) => {
   const game = await getGameFromStore(gameId);
   if (game) {
     addPlayerToGameInStore(gameId, player);
+  }
+};
+
+export const removePlayer = async (gameId: string, player: Player) => {
+  const game = await getGameFromStore(gameId);
+  if (game) {
+    await removePlayerFromGameInStore(gameId, player);
   }
 };
 
@@ -51,12 +59,15 @@ export const getPlayerRecentGames = async (): Promise<Game[]> => {
   return games;
 };
 
-export const getCurrentPlayerId = (gameId: string): string | undefined => {
+export const getCurrentPlayerId = async (gameId: string): Promise<string | undefined> => {
   let playerGames: PlayerGame[] = getPlayerGamesFromCache();
 
-  const game = playerGames.find((playerGame) => playerGame.gameId === gameId);
-
-  return game && game.playerId;
+  const gameInCache = playerGames.find((playerGame) => playerGame.gameId === gameId);
+  if (gameInCache && gameInCache.playerId) {
+    const isPlayerInGame = await getPlayerFromStore(gameId, gameInCache?.playerId);
+    return isPlayerInGame && gameInCache.playerId;
+  }
+  return undefined;
 };
 
 export const updatePlayerGames = (gameId: string, playerId: string) => {
@@ -67,8 +78,9 @@ export const updatePlayerGames = (gameId: string, playerId: string) => {
   updatePlayerGamesInCache(playerGames);
 };
 
-export const isCurrentPlayerInGame = (gameId: string): boolean => {
-  return isGameInPlayerCache(gameId);
+export const isCurrentPlayerInGame = async (gameId: string): Promise<boolean> => {
+  const playerId = await getCurrentPlayerId(gameId);
+  return playerId ? true : false;
 };
 
 export const addPlayerToGame = async (gameId: string, playerName: string): Promise<boolean> => {

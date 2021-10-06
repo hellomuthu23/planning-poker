@@ -5,12 +5,15 @@ import { Player } from '../../../types/player';
 import { Status } from '../../../types/status';
 import { getCards } from '../CardPicker/CardConfigs';
 import './PlayerCard.css';
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
+import { removePlayer } from '../../../service/players';
 interface PlayerCardProps {
   game: Game;
   player: Player;
+  currentPlayerId: string;
 }
 
-export const PlayerCard: React.FC<PlayerCardProps> = ({ game, player }) => {
+export const PlayerCard: React.FC<PlayerCardProps> = ({ game, player, currentPlayerId }) => {
   return (
     <Card
       variant='outlined'
@@ -24,10 +27,29 @@ export const PlayerCard: React.FC<PlayerCardProps> = ({ game, player }) => {
         title={player.name}
         titleTypographyProps={{ variant: 'subtitle2', noWrap: true }}
       />
+      {currentPlayerId === game.createdById && player.id !== game.createdById && (
+        <HighlightOffIcon
+          onClick={() => removePlayer(game.id, player)}
+          className='PlayerCardRemove'
+          color='primary'
+          fontSize='small'
+        />
+      )}
+
       <CardContent className='PlayerCardContent'>
         <Typography variant='h2' className='PlayerCardContentMiddle'>
           {getCardValue(player, game)}
         </Typography>
+
+        {/* <Button
+          size='small'
+          title='Remove user'
+          startIcon={<HighlightOffIcon />}
+          color='primary'
+          onClick={() => alert('remove')}
+        >
+          Remove
+        </Button> */}
       </CardContent>
     </Card>
   );

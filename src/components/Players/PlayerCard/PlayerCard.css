@@ -17,11 +17,21 @@
   text-align: center;
   border-radius: 16px;
   border: 2px solid var(--color-primary);
-  background-color:  var(--color-background);
+  background-color: var(--color-background);
   margin: -20px auto 0;
   width: 88%;
   padding: 16px;
   height: 40px;
+}
+
+.PlayerCardRemove {
+  flex-direction: column;
+  margin-top: -49px;
+  margin-left: 91px;
+  position: absolute;
+  background: var(--color-background);
+  border-radius: 50%;
+  cursor: pointer;
 }
 
 .MuiCardHeader-content {
@@ -36,4 +46,8 @@
 .PlayerCardContentMiddle {
   display: flex;
   justify-content: center;
+}
+
+.PlayerCardTitleButton {
+  margin-top: -39px;
 }

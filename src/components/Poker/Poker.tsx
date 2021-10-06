@@ -38,7 +38,8 @@ export const Poker = () => {
         setPlayers(players);
       });
 
-      const currentPlayerId = getCurrentPlayerId(id);
+      const currentPlayerId = await getCurrentPlayerId(id);
+      console.log('currentPlayerId', currentPlayerId);
       if (!currentPlayerId) {
         history.push(`/join/${id}`);
       }

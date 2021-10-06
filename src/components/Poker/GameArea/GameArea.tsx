@@ -11,23 +11,15 @@ interface GameAreaProps {
   players: Player[];
   currentPlayerId: string;
 }
-export const GameArea: React.FC<GameAreaProps> = ({
-  game,
-  players,
-  currentPlayerId,
-}) => {
+export const GameArea: React.FC<GameAreaProps> = ({ game, players, currentPlayerId }) => {
   return (
     <>
       <div className='ContentArea'>
-        <Players game={game} players={players} />
+        <Players game={game} players={players} currentPlayerId={currentPlayerId} />
         <GameController game={game} currentPlayerId={currentPlayerId} />
       </div>
       <div className='Footer'>
-        <CardPicker
-          game={game}
-          players={players}
-          currentPlayerId={currentPlayerId}
-        />
+        <CardPicker game={game} players={players} currentPlayerId={currentPlayerId} />
       </div>
     </>
   );
