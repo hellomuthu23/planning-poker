@@ -28,9 +28,6 @@ export const Toolbar = () => {
               <Typography variant={isSmallScreen? 'subtitle1':'h5'} color='inherit' noWrap>
                 {title}
               </Typography>
-              <Typography variant='caption' color='inherit' noWrap>
-                (beta)
-              </Typography>
             </div>
             <div>
               <Button title="New Session" startIcon={<AddCircleOutlineIcon/>} color='inherit' onClick={() => history.push('/')}>
