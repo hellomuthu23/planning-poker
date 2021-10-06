@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, Divider, Grow, IconButton, Snackbar, Typography } from '@material-ui/core';
-import { blue, green } from '@material-ui/core/colors';
+import { blue, green, orange } from '@material-ui/core/colors';
 import RefreshIcon from '@material-ui/icons/Autorenew';
 import ExitToApp from '@material-ui/icons/ExitToApp';
 import LinkIcon from '@material-ui/icons/Link';
@@ -66,7 +66,7 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
                 <div className='GameControllerButtonContainer'>
                   <div className='GameControllerButton'>
                     <IconButton onClick={() => finishGame(game.id)} data-testid='reveal-button' color='primary'>
-                      <VisibilityIcon fontSize='large' color='error' />
+                      <VisibilityIcon fontSize='large' style={{ color: green[500] }} />
                     </IconButton>
                   </div>
                   <Typography variant='caption'>Reveal</Typography>
@@ -75,7 +75,7 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
                 <div className='GameControllerButtonContainer'>
                   <div className='GameControllerButton'>
                     <IconButton data-testid={'restart-button'} onClick={() => resetGame(game.id)}>
-                      <RefreshIcon fontSize='large' color='primary' />
+                      <RefreshIcon fontSize='large' color='error' />
                     </IconButton>
                   </div>
                   <Typography variant='caption'>Restart</Typography>
@@ -85,7 +85,7 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
             <div className='GameControllerButtonContainer'>
               <div className='GameControllerButton'>
                 <IconButton data-testid='exit-button' onClick={() => leaveGame()}>
-                  <ExitToApp fontSize='large' style={{ color: green[500] }} />
+                  <ExitToApp fontSize='large' style={{ color: orange[500] }} />
                 </IconButton>
               </div>
               <Typography variant='caption'>Exit</Typography>
