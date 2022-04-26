@@ -4,6 +4,7 @@
   flex-direction: row;
   overflow: auto;
   justify-content: center;
+  margin: auto;
 }
 
 .Player {
