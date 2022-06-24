@@ -38,7 +38,7 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
     return moderatorId === currentPlayerId;
   };
   return (
-    <Grow in={true} timeout={2000}>
+    <Grow in={true} timeout={1000}>
       <div className='GameController'>
         <Card variant='outlined' className='GameControllerCard'>
           <CardHeader

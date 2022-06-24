@@ -1,18 +1,29 @@
-import { Card, CardContent, Grid, Grow, Slide, Typography } from '@material-ui/core';
-import React, { useEffect, useState } from 'react';
-import { updatePlayerValue } from '../../../service/players';
-import { Game } from '../../../types/game';
-import { Player } from '../../../types/player';
-import { Status } from '../../../types/status';
-import { CardConfig, getCards, getRandomEmoji } from './CardConfigs';
-import './CardPicker.css';
+import {
+  Card,
+  CardContent,
+  Grid,
+  Grow,
+  Slide,
+  Typography,
+} from "@material-ui/core";
+import React, { useEffect, useState } from "react";
+import { updatePlayerValue } from "../../../service/players";
+import { Game } from "../../../types/game";
+import { Player } from "../../../types/player";
+import { Status } from "../../../types/status";
+import { CardConfig, getCards, getRandomEmoji } from "./CardConfigs";
+import "./CardPicker.css";
 
 interface CardPickerProps {
   game: Game;
   players: Player[];
   currentPlayerId: string;
 }
-export const CardPicker: React.FC<CardPickerProps> = ({ game, players, currentPlayerId }) => {
+export const CardPicker: React.FC<CardPickerProps> = ({
+  game,
+  players,
+  currentPlayerId,
+}) => {
   const [randomEmoji, setRandomEmoji] = useState(getRandomEmoji);
   const playPlayer = (gameId: string, playerId: string, card: CardConfig) => {
     if (game.gameStatus !== Status.Finished) {
@@ -29,42 +40,51 @@ export const CardPicker: React.FC<CardPickerProps> = ({ game, players, currentPl
   return (
     <Grow in={true} timeout={1000}>
       <div>
-        <div className='CardPickerContainer'>
-          <Grid container spacing={4} justify='center'>
+        <div className="CardPickerContainer">
+          <Grid container spacing={4} justify="center">
             {cards.map((card: CardConfig, index) => (
-              <Grid key={card.value} item xs>
-                <Slide in={true} direction={'right'} timeout={(1000 * index) / 2}>
+              <Grid key={card.value} item>
+                <Slide in={true} direction={"right"} timeout={80 * index}>
                   <Card
                     id={`card-${card.displayValue}`}
-                    className='CardPicker'
-                    variant='outlined'
+                    className="CardPicker"
+                    variant="outlined"
                     onClick={() => playPlayer(game.id, currentPlayerId, card)}
                     style={{
                       ...getCardStyle(players, currentPlayerId, card),
                       pointerEvents: getPointerEvent(game),
                     }}
                   >
-                    <CardContent className='CardContent'>
+                    <CardContent className="CardContent">
                       {card.value >= 0 && (
                         <>
-                          <Typography className='CardContentTop' variant='caption'>
+                          <Typography
+                            className="CardContentTop"
+                            variant="caption"
+                          >
                             {card.displayValue}
                           </Typography>
-                          <Typography className='CardContentMiddle' variant='h4'>
+                          <Typography
+                            className="CardContentMiddle"
+                            variant="h4"
+                          >
                             {card.displayValue}
                           </Typography>
-                          <Typography className='CardContentBottom' variant='caption'>
+                          <Typography
+                            className="CardContentBottom"
+                            variant="caption"
+                          >
                             {card.displayValue}
                           </Typography>
                         </>
                       )}
                       {card.value === -1 && (
-                        <Typography className='CardContentMiddle' variant='h3'>
+                        <Typography className="CardContentMiddle" variant="h3">
                           {randomEmoji}
                         </Typography>
                       )}
                       {card.value === -2 && (
-                        <Typography className='CardContentMiddle' variant='h3'>
+                        <Typography className="CardContentMiddle" variant="h3">
                           ❓
                         </Typography>
                       )}
@@ -75,25 +95,29 @@ export const CardPicker: React.FC<CardPickerProps> = ({ game, players, currentPl
             ))}
           </Grid>
         </div>
-        <Typography variant='h6'>
+        <Typography variant="h6">
           {game.gameStatus !== Status.Finished
-            ? 'Click on the card to vote'
-            : 'Session not ready for Voting! Wait for moderator to start'}
+            ? "Click on the card to vote"
+            : "Session not ready for Voting! Wait for moderator to start"}
         </Typography>
       </div>
     </Grow>
   );
 };
 
-const getCardStyle = (players: Player[], playerId: string, card: CardConfig) => {
+const getCardStyle = (
+  players: Player[],
+  playerId: string,
+  card: CardConfig
+) => {
   const player = players.find((player) => player.id === playerId);
   if (player && player.value !== undefined && player.value === card.value) {
     return {
-      marginTop: '-15px',
+      marginTop: "-15px",
       zIndex: 5,
       backgroundColor: card.color,
-      border: '2px dashed black',
-      boxShadow: '0 0px 12px 0 grey',
+      border: "2px dashed black",
+      boxShadow: "0 0px 12px 0 grey",
     };
   }
   return { backgroundColor: card.color };
@@ -101,7 +125,7 @@ const getCardStyle = (players: Player[], playerId: string, card: CardConfig) => 
 
 const getPointerEvent = (game: Game) => {
   if (game.gameStatus === Status.Finished) {
-    return 'none';
+    return "none";
   }
-  return 'inherit';
+  return "inherit";
 };

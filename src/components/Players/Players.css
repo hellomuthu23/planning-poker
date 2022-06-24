@@ -1,10 +1,5 @@
 .PlayersContainer {
-  padding: 20px;
-  display: flex;
-  flex-direction: row;
-  overflow: auto;
-  justify-content: center;
-  margin: auto;
+  margin-bottom: 20px;
 }
 
 .Player {

@@ -3,14 +3,16 @@ import firebase from 'firebase/app';
 import 'firebase/firestore';
 import { Game } from '../types/game';
 import { Player } from '../types/player';
+
+console.log(process.env.REACT_APP_FIREBASE_API_KEY)
+
 const firebaseConfig = {
-  apiKey: 'AIzaSyDynbX3QT9x8e8qMtTsD6vnVMD6wHXe4Ug',
-  authDomain: 'planning-poker-b946f.firebaseapp.com',
-  projectId: 'planning-poker-b946f',
-  storageBucket: 'planning-poker-b946f.appspot.com',
-  messagingSenderId: '905950444049',
-  appId: '1:905950444049:web:e3e56171532bfe47b20fb0',
-  measurementId: 'G-LEK1503CC0',
+  apiKey: `${process.env.REACT_APP_FIREBASE_API_KEY}`,
+  authDomain: `${process.env.REACT_APP_FIREBASE_PROJECT_ID}.firebaseapp.com`,
+  projectId: `${process.env.REACT_APP_FIREBASE_PROJECT_ID}`,
+  storageBucket: `${process.env.REACT_APP_FIREBASE_PROJECT_ID}.appspot.com`,
+  messagingSenderId: `${process.env.REACT_APP_FIREBASE_SENDER_ID}`,
+  appId: `${process.env.REACT_APP_FIREBASE_APP_ID}`,
 };
 
 // Initialize Firebase

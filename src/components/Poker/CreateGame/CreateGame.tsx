@@ -9,18 +9,18 @@ import {
   Radio,
   RadioGroup,
   TextField,
-} from '@material-ui/core';
-import React, { ChangeEvent, FormEvent, useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { addNewGame } from '../../../service/games';
-import { GameType, NewGame } from '../../../types/game';
-import './CreateGame.css';
+} from "@material-ui/core";
+import React, { ChangeEvent, FormEvent, useState } from "react";
+import { useHistory } from "react-router-dom";
+import { addNewGame } from "../../../service/games";
+import { GameType, NewGame } from "../../../types/game";
+import "./CreateGame.css";
 
 export const CreateGame = () => {
   const history = useHistory();
-  const [gameName, setGameName] = useState('Avengers');
-  const [createdBy, setCreatedBy] = useState('SuperHero');
-  const [gameType, setGameType] = useState(GameType.Fibonacci);
+  const [gameName, setGameName] = useState("Sprint Planning");
+  const [createdBy, setCreatedBy] = useState("Super CDP");
+  const [gameType, setGameType] = useState(GameType.HoursSevenCards);
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
@@ -37,36 +37,40 @@ export const CreateGame = () => {
   return (
     <Grow in={true} timeout={1000}>
       <form onSubmit={handleSubmit}>
-        <Card variant='outlined' className='CreateGameCard'>
+        <Card variant="outlined" className="CreateGameCard">
           <CardHeader
-            className='CreateGameCardHeader'
-            title='Create New Session'
-            titleTypographyProps={{ variant: 'h4' }}
+            className="CreateGameCardHeader"
+            title="Create New Session"
+            titleTypographyProps={{ variant: "h4" }}
           />
-          <CardContent className='CreateGameCardContent'>
+          <CardContent className="CreateGameCardContent">
             <TextField
-              className='CreateGameTextField'
+              className="CreateGameTextField"
               required
-              id='filled-required'
-              label='Session Name'
-              placeholder='Enter a session name'
+              id="filled-required"
+              label="Session Name"
+              placeholder="Enter a session name"
               defaultValue={gameName}
-              variant='outlined'
-              onChange={(event: ChangeEvent<HTMLInputElement>) => setGameName(event.target.value)}
+              variant="outlined"
+              onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                setGameName(event.target.value)
+              }
             />
             <TextField
-              className='CreateGameTextField'
+              className="CreateGameTextField"
               required
-              id='filled-required'
-              label='Your Name'
-              placeholder='Enter your name'
+              id="filled-required"
+              label="Your Name"
+              placeholder="Enter your name"
               defaultValue={createdBy}
-              variant='outlined'
-              onChange={(event: ChangeEvent<HTMLInputElement>) => setCreatedBy(event.target.value)}
+              variant="outlined"
+              onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                setCreatedBy(event.target.value)
+              }
             />
             <RadioGroup
-              aria-label='gender'
-              name='gender1'
+              aria-label="gender"
+              name="gender1"
               value={gameType}
               onChange={(
                 event: ChangeEvent<{
@@ -76,24 +80,34 @@ export const CreateGame = () => {
               ) => setGameType(event.target.value)}
             >
               <FormControlLabel
+                value={GameType.HoursSevenCards}
+                control={<Radio color="primary" size="small" />}
+                label="Hours (7h) (0, ½, 1 2, 4, 7, 14, 21, 35, 56, 70)"
+              />
+              <FormControlLabel
                 value={GameType.Fibonacci}
-                control={<Radio color='primary' size='small' />}
-                label='Fibonacci (0, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89)'
+                control={<Radio color="primary" size="small" />}
+                label="Fibonacci (0, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89)"
               />
               <FormControlLabel
                 value={GameType.ShortFibonacci}
-                control={<Radio color='primary' size='small' />}
-                label='Short Fibonacci (0, ½, 1, 2, 3, 5, 8, 13, 20, 40, 100)'
+                control={<Radio color="primary" size="small" />}
+                label="Short Fibonacci (0, ½, 1, 2, 3, 5, 8, 13, 20, 40, 100)"
               />
               <FormControlLabel
                 value={GameType.TShirt}
-                control={<Radio color='primary' size='small' />}
-                label='T-Shirt (XXS, XS, S, M, L, XL, XXL)'
+                control={<Radio color="primary" size="small" />}
+                label="T-Shirt (XXS, XS, S, M, L, XL, XXL)"
               />
             </RadioGroup>
           </CardContent>
-          <CardActions className='CreateGameCardAction'>
-            <Button type='submit' variant='contained' color='primary' className='CreateGameButton'>
+          <CardActions className="CreateGameCardAction">
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              className="CreateGameButton"
+            >
               Create
             </Button>
           </CardActions>
