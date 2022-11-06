@@ -54,7 +54,7 @@ describe('Poker component', () => {
       } as any;
     });
 
-    jest.spyOn(playersService, 'getCurrentPlayerId').mockReturnValue('322');
+    jest.spyOn(playersService, 'getCurrentPlayerId').mockReturnValue('xx');
     act(() => {
       render(<Poker />);
     });

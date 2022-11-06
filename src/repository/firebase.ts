@@ -72,6 +72,11 @@ export const addPlayerToGameInStore = async (gameId: string, player: Player) => 
   return true;
 };
 
+export const removePlayerFromGameInStore = async (gameId: string, playerId: string) => {
+  await db.collection(gamesCollectionName).doc(gameId).collection(playersCollectionName).doc(playerId).delete();
+  return true;
+};
+
 export const updatePlayerInStore = async (gameId: string, player: Player) => {
   await db.collection(gamesCollectionName).doc(gameId).collection(playersCollectionName).doc(player.id).update(player);
 

@@ -24,6 +24,13 @@
   height: 40px;
 }
 
+.RemoveButton{
+  margin-left: -17px;
+  margin-top:-20px;
+  position: absolute;
+
+}
+
 .MuiCardHeader-content {
   width: 100%;
 }
@@ -37,3 +44,5 @@
   display: flex;
   justify-content: center;
 }
+
+

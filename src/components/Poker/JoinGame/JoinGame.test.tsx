@@ -55,12 +55,25 @@ describe('JoinGame component', () => {
     jest.spyOn(reactRouter, 'useParams').mockReturnValue({ id: gameId });
     jest.spyOn(gameService, 'getGame').mockResolvedValue({ id: gameId } as Game);
     jest.spyOn(playersService, 'addPlayerToGame').mockResolvedValue(true);
-    jest.spyOn(playersService, 'isCurrentPlayerInGame').mockReturnValue(true);
+    jest.spyOn(playersService, 'isCurrentPlayerInGame').mockResolvedValue(true);
 
     act(() => {
       render(<JoinGame />);
     });
 
     await waitFor(() => expect(mockHistoryPush).toHaveBeenCalledWith('/game/abc'));
+  });
+  it('should not automatically join the game when player it not in the game', async () => {
+    const gameId = 'abc';
+    jest.spyOn(reactRouter, 'useParams').mockReturnValue({ id: gameId });
+    jest.spyOn(gameService, 'getGame').mockResolvedValue({ id: gameId } as Game);
+    jest.spyOn(playersService, 'addPlayerToGame').mockResolvedValue(true);
+    jest.spyOn(playersService, 'isCurrentPlayerInGame').mockResolvedValue(false);
+
+    act(() => {
+      render(<JoinGame />);
+    });
+
+    expect(screen.getByPlaceholderText('Enter your name')).toBeInTheDocument();
   });
 });
