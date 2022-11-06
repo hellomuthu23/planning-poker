@@ -18,7 +18,6 @@ interface PlayerCardProps {
 export const PlayerCard: React.FC<PlayerCardProps> = ({ game, player, currentPlayerId }) => {
   const removeUser = (gameId: string, playerId: string) => {
     removePlayer(gameId, playerId);
-    return true;
   };
   const isModerator = (moderatorId: string, currentPlayerId: string) => {
     return moderatorId === currentPlayerId;

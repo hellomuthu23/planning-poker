@@ -83,12 +83,25 @@ export const isCurrentPlayerInGame = async (gameId: string): Promise<boolean> =>
   const found = playerGames.find((playerGames) => playerGames.gameId === gameId);
   if (found) {
     const player = await getPlayerFromStore(found.gameId, found.playerId);
+
+    //Remove game from cache is player is no longer in the game
     if (!player) {
-      updatePlayerGamesInCache(playerGames.filter((playerGame) => playerGame.gameId !== found.gameId));
+      removeGameFromCache(found.gameId);
+      return false;
     }
-    return player ? true : false;
+    return true;
   }
-  return found ? true : false;
+  return false;
+};
+
+export const isPlayerInGameStore = async (gameId: string, playerId: string) => {
+  const player = await getPlayerFromStore(gameId, playerId);
+  return player ? true : false;
+};
+
+export const removeGameFromCache = (gameId: string) => {
+  const playerGames = getPlayerGamesFromCache();
+  updatePlayerGamesInCache(playerGames.filter((playerGame) => playerGame.gameId !== gameId));
 };
 
 export const addPlayerToGame = async (gameId: string, playerName: string): Promise<boolean> => {

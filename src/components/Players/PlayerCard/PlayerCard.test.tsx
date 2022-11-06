@@ -1,10 +1,11 @@
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import React from 'react';
 import { Game } from '../../../types/game';
 import { Player } from '../../../types/player';
 import { Status } from '../../../types/status';
 import { PlayerCard } from './PlayerCard';
-
+import * as playerService from '../../../service/players';
 describe('PlayerCard component', () => {
   const mockGame: Game = {
     id: 'xyz',
@@ -77,5 +78,14 @@ describe('PlayerCard component', () => {
     render(<PlayerCard game={finishedGame} player={coffeePlayer} currentPlayerId={mockCurrentPlayerId} />);
 
     expect(screen.queryByTestId('remove-button')).not.toBeInTheDocument();
+  });
+  it('should call remove function on Remove action', () => {
+    const coffeePlayer = { ...mockPlayer, status: Status.InProgress };
+    const finishedGame = { ...mockGame, gameStatus: Status.Finished };
+    jest.spyOn(playerService, 'removePlayer');
+    render(<PlayerCard game={finishedGame} player={coffeePlayer} currentPlayerId={mockGame.createdById} />);
+
+    userEvent.click(screen.getByTestId('remove-button'));
+    expect(playerService.removePlayer).toHaveBeenCalledWith(finishedGame.id, coffeePlayer.id);
   });
 });

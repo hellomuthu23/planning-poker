@@ -14,9 +14,7 @@ export const getPlayerGamesFromCache = (): PlayerGame[] => {
 
 export const isGameInPlayerCache = (gameId: string): boolean => {
   const playerGames = getPlayerGamesFromCache();
-  const found = playerGames.find(
-    (playerGames) => playerGames.gameId === gameId
-  );
+  const found = playerGames.find((playerGames) => playerGames.gameId === gameId);
   if (found) {
     return true;
   }
