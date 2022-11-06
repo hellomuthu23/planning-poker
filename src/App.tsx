@@ -5,24 +5,25 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Toolbar } from './components/Toolbar/Toolbar';
 import { GamePage } from './pages/GamePage/GamePage';
 import HomePage from './pages/HomePage/HomePage';
+import JoinPage from './pages/JoinPage/JoinPage';
 import { theme } from './service/theme';
 
 function App() {
   return (
-    <div className="LightTheme">
-    <ThemeProvider theme={theme} >
-      <StylesProvider injectFirst>
-        <CssBaseline />
-        <Router>
-          <Toolbar />
-          <Switch>
-            <Route path='/game/:id' component={GamePage} />
-            <Route path='/join/:id' component={HomePage} />
-            <Route exact path='/*' component={HomePage} />
-          </Switch>
-        </Router>
-      </StylesProvider>
-    </ThemeProvider>
+    <div className='LightTheme'>
+      <ThemeProvider theme={theme}>
+        <StylesProvider injectFirst>
+          <CssBaseline />
+          <Router>
+            <Toolbar />
+            <Switch>
+              <Route path='/game/:id' component={GamePage} />
+              <Route path='/join/:id' component={JoinPage} />
+              <Route exact path='/*' component={HomePage} />
+            </Switch>
+          </Router>
+        </StylesProvider>
+      </ThemeProvider>
     </div>
   );
 }
