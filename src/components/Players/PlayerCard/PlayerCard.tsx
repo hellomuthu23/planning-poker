@@ -1,16 +1,28 @@
-import { Card, CardContent, CardHeader, Typography } from '@material-ui/core';
+import { Card, CardContent, CardHeader, IconButton, Typography } from '@material-ui/core';
 import React from 'react';
 import { Game, GameType } from '../../../types/game';
 import { Player } from '../../../types/player';
 import { Status } from '../../../types/status';
 import { getCards } from '../CardPicker/CardConfigs';
 import './PlayerCard.css';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForeverTwoTone';
+import { red } from '@material-ui/core/colors';
+import { removePlayer } from '../../../service/players';
+
 interface PlayerCardProps {
   game: Game;
   player: Player;
+  currentPlayerId: string;
 }
 
-export const PlayerCard: React.FC<PlayerCardProps> = ({ game, player }) => {
+export const PlayerCard: React.FC<PlayerCardProps> = ({ game, player, currentPlayerId }) => {
+  const removeUser = (gameId: string, playerId: string) => {
+    removePlayer(gameId, playerId);
+    return true;
+  };
+  const isModerator = (moderatorId: string, currentPlayerId: string) => {
+    return moderatorId === currentPlayerId;
+  };
   return (
     <Card
       variant='outlined'
@@ -23,6 +35,20 @@ export const PlayerCard: React.FC<PlayerCardProps> = ({ game, player }) => {
         className='PlayerCardTitle'
         title={player.name}
         titleTypographyProps={{ variant: 'subtitle2', noWrap: true }}
+        action={
+          isModerator(game.createdById, currentPlayerId) &&
+          player.id !== currentPlayerId && (
+            <IconButton
+              title='Remove'
+              className='RemoveButton'
+              onClick={() => removeUser(game.id, player.id)}
+              data-testid='remove-button'
+              color='primary'
+            >
+              <DeleteForeverIcon fontSize='small' style={{ color: red[300] }} />
+            </IconButton>
+          )
+        }
       />
       <CardContent className='PlayerCardContent'>
         <Typography variant='h2' className='PlayerCardContentMiddle'>
