@@ -82,7 +82,7 @@ describe('PlayerCard component', () => {
   it('should call remove function on Remove action', () => {
     const coffeePlayer = { ...mockPlayer, status: Status.InProgress };
     const finishedGame = { ...mockGame, gameStatus: Status.Finished };
-    jest.spyOn(playerService, 'removePlayer');
+    jest.spyOn(playerService, 'removePlayer').mockResolvedValue();
     render(<PlayerCard game={finishedGame} player={coffeePlayer} currentPlayerId={mockGame.createdById} />);
 
     userEvent.click(screen.getByTestId('remove-button'));
