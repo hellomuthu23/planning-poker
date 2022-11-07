@@ -30,6 +30,7 @@ Free / Open source Scrum/Agile Planning Poker Web App to estimate user stories f
 4. Session controller - Moderator can Reveal and restart the session anytime.
 5. Reveal - Reveal the cards for all users
 6. Voting status - Users Cards show voting status using emojis - 👍 - Voting Done, 🤔 - Yet to Vote
+7. Remove user from session
 
 ## Tech Stack
 
@@ -63,14 +64,12 @@ Free / Open source Scrum/Agile Planning Poker Web App to estimate user stories f
 
 ## Pending features open to development
 
-1. Support for custom voting options
-2. Remove a user in session
-3. Add timer
-4. Export options
-5. Preserve history of voting and show it in session
-6. Provide option to enter user story name
-7. Make the default Session name random
-8. Delete Session
+1. Add timer
+2. Export options
+3. Preserve history of voting and show it in session
+4. Provide option to enter user story name
+5. Make the default Session name random
+6. Delete Session
 
 ## Tech Depts
 
