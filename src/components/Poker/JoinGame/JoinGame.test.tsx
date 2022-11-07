@@ -25,6 +25,7 @@ describe('JoinGame component', () => {
   });
 
   it('should display join button', () => {
+    jest.spyOn(playersService, 'isCurrentPlayerInGame').mockResolvedValue(false);
     render(<JoinGame />);
 
     expect(screen.getByRole('button')).toBeInTheDocument();
