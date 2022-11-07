@@ -16,6 +16,8 @@ describe('JoinGame component', () => {
     jest.spyOn(reactRouter, 'useParams').mockReturnValue({ id: '' });
   });
   it('should display correct text fields', () => {
+    jest.spyOn(playersService, 'isCurrentPlayerInGame').mockResolvedValue(false);
+
     render(<JoinGame />);
 
     expect(screen.getByPlaceholderText('xyz...')).toBeInTheDocument();
@@ -30,6 +32,7 @@ describe('JoinGame component', () => {
   });
   it('should be able to join a session', async () => {
     jest.spyOn(playersService, 'addPlayerToGame').mockResolvedValue(true);
+    jest.spyOn(playersService, 'isCurrentPlayerInGame').mockResolvedValue(false);
     render(<JoinGame />);
     const sessionID = screen.getByPlaceholderText('xyz...');
     userEvent.clear(sessionID);
