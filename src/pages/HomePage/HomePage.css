@@ -8,12 +8,12 @@
 
 .SessionImage {
   margin-top: -10px;
-  height: 400px;
+  height: 273px;
   width: 600px;
   transform: perspective(900px) rotateY(-20deg);
 }
 
 .HomePageImage {
-  height: 400px;
+  height: 312px;
   width: 500px;
 }
