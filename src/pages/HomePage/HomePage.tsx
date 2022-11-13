@@ -15,7 +15,7 @@ export const HomePage = () => {
 
   return (
     <>
-      <Grid container direction='column' justify='center' alignItems='center' spacing={2}>
+      <Grid container direction='column' justify='center' alignItems='center'>
         <Grid container item sm={12} lg={11} justify='center' alignItems='center' spacing={3}>
           <Grid item sm={12} lg={6}>
             <Slide direction='down' in={true} timeout={1000}>
