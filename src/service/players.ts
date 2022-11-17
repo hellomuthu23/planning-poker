@@ -58,6 +58,7 @@ export const getPlayerRecentGames = async (): Promise<Game[]> => {
     })
   );
 
+  console.log({games}, +games[0].createdAt);
   games.sort((a: Game, b: Game) => +b.createdAt - +a.createdAt);
   return games;
 };
