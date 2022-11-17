@@ -11,15 +11,23 @@ import {
   TextField,
 } from '@material-ui/core';
 import React, { ChangeEvent, FormEvent, useState } from 'react';
+import { uniqueNamesGenerator, Config, starWars, colors, animals } from 'unique-names-generator';
 import { useHistory } from 'react-router-dom';
 import { addNewGame } from '../../../service/games';
 import { GameType, NewGame } from '../../../types/game';
 import './CreateGame.css';
 
+const gameNameConfig: Config = {
+  dictionaries: [colors, animals]
+}
+const userNameConfig: Config = {
+  dictionaries: [starWars]
+}
+
 export const CreateGame = () => {
   const history = useHistory();
-  const [gameName, setGameName] = useState('Avengers');
-  const [createdBy, setCreatedBy] = useState('SuperHero');
+  const [gameName, setGameName] = useState(uniqueNamesGenerator(gameNameConfig));
+  const [createdBy, setCreatedBy] = useState(uniqueNamesGenerator(userNameConfig));
   const [gameType, setGameType] = useState(GameType.Fibonacci);
 
   const handleSubmit = async (event: FormEvent) => {
