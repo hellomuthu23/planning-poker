@@ -18,7 +18,9 @@ import { GameType, NewGame } from '../../../types/game';
 import './CreateGame.css';
 
 const gameNameConfig: Config = {
-  dictionaries: [colors, animals]
+  dictionaries: [colors, animals],
+  separator: ' ',
+  style: 'capital',
 }
 const userNameConfig: Config = {
   dictionaries: [starWars]
