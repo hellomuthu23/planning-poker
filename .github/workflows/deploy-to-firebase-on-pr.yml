@@ -2,7 +2,7 @@
 # https://github.com/firebase/firebase-tools
 
 name: Deploy to Firebase on PR
-'on': pull_request
+'on': [pull_request_target, pull_request]
 env:
   REACT_APP_FB_API_KEY: '${{ secrets.REACT_APP_FB_API_KEY }}'
   REACT_APP_FB_AUTH_DOMAIN: '${{ secrets.REACT_APP_FB_AUTH_DOMAIN }}'
