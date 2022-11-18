@@ -76,7 +76,7 @@ export const CreateGame = () => {
               id='filled-required'
               label='Session Name'
               placeholder='Enter a session name'
-              value={gameName}
+              value={gameName || ''}
               onClick={() => emptyGameName()}
               variant='outlined'
               onChange={(event: ChangeEvent<HTMLInputElement>) => setGameName(event.target.value)}
@@ -87,7 +87,7 @@ export const CreateGame = () => {
               id='filled-required'
               label='Your Name'
               placeholder='Enter your name'
-              value={createdBy}
+              value={createdBy || ''}
               onClick={() => emptyCreatorName()}
               variant='outlined'
               onChange={(event: ChangeEvent<HTMLInputElement>) => setCreatedBy(event.target.value)}
