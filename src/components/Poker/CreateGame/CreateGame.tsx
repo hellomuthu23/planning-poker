@@ -31,6 +31,7 @@ export const CreateGame = () => {
   const [gameName, setGameName] = useState(uniqueNamesGenerator(gameNameConfig));
   const [createdBy, setCreatedBy] = useState(uniqueNamesGenerator(userNameConfig));
   const [gameType, setGameType] = useState(GameType.Fibonacci);
+  const [hasDefaults, setHasDefaults] = useState({ game: true, name: true });
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
@@ -42,6 +43,21 @@ export const CreateGame = () => {
     };
     const newGameId = await addNewGame(game);
     history.push(`/game/${newGameId}`);
+  };
+
+  const emptyGameName = () => {
+    if (hasDefaults.game) {
+      setGameName('');
+      hasDefaults.game = false;
+      setHasDefaults(hasDefaults);
+    }
+  };
+  const emptyCreatorName = () => {
+    if (hasDefaults.name) {
+      setCreatedBy('');
+      hasDefaults.name = false;
+      setHasDefaults(hasDefaults);
+    }
   };
 
   return (
@@ -60,7 +76,8 @@ export const CreateGame = () => {
               id='filled-required'
               label='Session Name'
               placeholder='Enter a session name'
-              defaultValue={gameName}
+              value={gameName}
+              onClick={() => emptyGameName()}
               variant='outlined'
               onChange={(event: ChangeEvent<HTMLInputElement>) => setGameName(event.target.value)}
             />
@@ -70,7 +87,8 @@ export const CreateGame = () => {
               id='filled-required'
               label='Your Name'
               placeholder='Enter your name'
-              defaultValue={createdBy}
+              value={createdBy}
+              onClick={() => emptyCreatorName()}
               variant='outlined'
               onChange={(event: ChangeEvent<HTMLInputElement>) => setCreatedBy(event.target.value)}
             />
