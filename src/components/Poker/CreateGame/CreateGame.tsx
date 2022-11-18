@@ -28,8 +28,10 @@ const userNameConfig: Config = {
 
 export const CreateGame = () => {
   const history = useHistory();
-  const [gameName, setGameName] = useState(uniqueNamesGenerator(gameNameConfig));
-  const [createdBy, setCreatedBy] = useState(uniqueNamesGenerator(userNameConfig));
+  let defaultGameName = uniqueNamesGenerator(gameNameConfig);
+  let defaultCreatorName = uniqueNamesGenerator(userNameConfig);
+  const [gameName, setGameName] = useState(defaultGameName);
+  const [createdBy, setCreatedBy] = useState(defaultCreatorName);
   const [gameType, setGameType] = useState(GameType.Fibonacci);
   const [hasDefaults, setHasDefaults] = useState({ game: true, name: true });
 
@@ -45,20 +47,8 @@ export const CreateGame = () => {
     history.push(`/game/${newGameId}`);
   };
 
-  const emptyGameName = () => {
-    if (hasDefaults.game) {
-      setGameName('');
-      hasDefaults.game = false;
-      setHasDefaults(hasDefaults);
-    }
-  };
-  const emptyCreatorName = () => {
-    if (hasDefaults.name) {
-      setCreatedBy('');
-      hasDefaults.name = false;
-      setHasDefaults(hasDefaults);
-    }
-  };
+  const emptyGameName = () => { defaultGameName = ''; };
+  const emptyCreatorName = () => { defaultCreatorName = ''; };
 
   return (
     <Grow in={true} timeout={1000}>
@@ -76,7 +66,7 @@ export const CreateGame = () => {
               id='filled-required'
               label='Session Name'
               placeholder='Enter a session name'
-              value={gameName}
+              defaultValue={gameName}
               onClick={() => emptyGameName()}
               variant='outlined'
               onChange={(event: ChangeEvent<HTMLInputElement>) => setGameName(event.target.value)}
@@ -87,7 +77,7 @@ export const CreateGame = () => {
               id='filled-required'
               label='Your Name'
               placeholder='Enter your name'
-              value={createdBy}
+              defaultValue={createdBy}
               onClick={() => emptyCreatorName()}
               variant='outlined'
               onChange={(event: ChangeEvent<HTMLInputElement>) => setCreatedBy(event.target.value)}
