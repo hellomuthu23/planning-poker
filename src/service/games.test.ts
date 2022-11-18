@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
     addNewGame,
     streamGame,
@@ -13,7 +12,6 @@ import {
 } from './games';
 import * as fb from '../repository/firebase';
 import * as players from './players';
-import * as ul from 'ulid';
 import { Status } from '../types/status';
 import { GameType } from '../types/game';
 
@@ -51,6 +49,7 @@ describe('games service', () => {
         { name: 'Jill', id: 'hill', status: Status.Started, value: 1, emoji: 'thumbsup' },
         { name: 'Humpty', id: 'dumpty', status: Status.InProgress, value: 500, emoji: 'egg' },
     ];
+    // This is required because JS is weird with its copying VS referencing. Yes could have just copy-pasted the const, but what's the fun in that
     const finishedPlayers = [ { ...mockPlayers[0] }, { ...mockPlayers[1] }, { ...mockPlayers[2] } ];
     finishedPlayers[0].status = Status.Finished;
     finishedPlayers[1].status = Status.Finished;
@@ -153,7 +152,6 @@ describe('games service', () => {
     
     describe('get the average vote', () => {
         it('should provide the average of players\' votes', () => {
-            // This is required because JS is weird with its copying VS referencing
             const expected = Math.round((finishedPlayers[0].value + finishedPlayers[1].value + finishedPlayers[2].value) / 3);
 
             const res = getAverage(finishedPlayers);
@@ -206,11 +204,12 @@ describe('games service', () => {
         it('should update the game with the new status', async () => {
             jest.spyOn(fb, 'getGameFromStore').mockResolvedValueOnce(mockGame);
             jest.spyOn(fb, 'getPlayersFromStore').mockResolvedValueOnce(mockPlayers);
-            const spy = jest.spyOn(fb, 'updateGameDataInStore');
+            const spy = jest.spyOn(fb, 'updateGameDataInStore').mockResolvedValueOnce(true);
 
             const res = await updateGameStatus(mockId);
 
             expect(spy).toHaveBeenCalledWith(mockId, { gameStatus: Status.InProgress });
+            expect(res).toBe(true);
         });
     });
 })

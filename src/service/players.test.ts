@@ -105,7 +105,7 @@ describe('Players service', () => {
             expect(spyGame).toHaveBeenCalledWith(mockGame.id);
         });
 
-        // NOTE: Shouldn't there be a case that the player doesn't get updated if the game doesn't exist?
+        // NOTE: Shouldn't there be a case that the player doesn't get updated if the game doesn't exist? Fn doesn't have that logix
         it('should not update the player if the player does not exist', async () => {
             const spyPlayer = jest.spyOn(fb, 'updatePlayerInStore');
             const spyGame = jest.spyOn(games, 'updateGameStatus');
@@ -162,7 +162,7 @@ describe('Players service', () => {
     });
 
     describe('get current player ID using the game ID', () => {
-        it('should return the player ID if the game exists', async () => {
+        it('should return the player ID if the game exists', () => {
             const mockPlayerGames = [{ gameId: mockGame.id, playerId: mockPlayer.id }];
             jest.spyOn(storage, 'getPlayerGamesFromCache').mockReturnValueOnce(mockPlayerGames);
 
@@ -171,7 +171,7 @@ describe('Players service', () => {
             expect(id).toEqual(mockPlayer.id);
         });
 
-        it('should return undefined if the game doesn\'t exist', async () => {
+        it('should return undefined if the game doesn\'t exist', () => {
             const mockPlayerGames = [{ gameId: 'banana', playerId: mockPlayer.id }];
             jest.spyOn(storage, 'getPlayerGamesFromCache').mockReturnValueOnce(mockPlayerGames);
 
@@ -182,7 +182,7 @@ describe('Players service', () => {
     });
 
     describe('update player\'s games', () => {
-        it('should add a new game to the list of games', async () => {
+        it('should add a new game to the list of games', () => {
             const newGame = { gameId: 'game', playerId: 'player' };
             const mockPlayerGames = [{ gameId: mockGame.id, playerId: mockPlayer.id }];
             jest.spyOn(storage, 'getPlayerGamesFromCache').mockReturnValueOnce(mockPlayerGames);
@@ -253,7 +253,7 @@ describe('Players service', () => {
     });
 
     describe('remove the given game from cache', () => {
-        it('should not modify cache if the given game is not in there', async () => {
+        it('should not modify cache if the given game is not in there', () => {
             const mockGames = [{ gameId: mockGame.id, playerId: mockPlayer.id }];
             jest.spyOn(storage, 'getPlayerGamesFromCache').mockReturnValueOnce(mockGames);
             const spy = jest.spyOn(storage, 'updatePlayerGamesInCache');
@@ -263,7 +263,7 @@ describe('Players service', () => {
             expect(spy).toHaveBeenCalledWith(mockGames);
         });
     
-        it('should update the cache with a new list without the given game', async () => {
+        it('should update the cache with a new list without the given game', () => {
             const mockPlayerGames = [{ gameId: 'one', playerId: 'id' }, { gameId: 'two', playerId: 'id' }];
             const filteredGames = [{ gameId: 'two', playerId: 'id' }];
             jest.spyOn(storage, 'getPlayerGamesFromCache').mockReturnValueOnce(mockPlayerGames);
