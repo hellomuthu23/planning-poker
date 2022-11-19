@@ -44,6 +44,17 @@ describe('CreateGame component', () => {
     expect(userName).toHaveValue('user name');
   });
 
+  it('should empty inputs when clicked', () => {
+    render(<CreateGame />);
+    const sessionName = screen.getByPlaceholderText('Enter a session name');
+    const userName = screen.getByPlaceholderText('Enter your name');
+    userEvent.click(sessionName);
+    userEvent.click(userName);
+
+    expect(sessionName).toHaveValue('');
+    expect(userName).toHaveValue('');
+  });
+
   it('should be able to create new session', async () => {
     render(<CreateGame />);
     const sessionName = screen.getByPlaceholderText('Enter a session name');
