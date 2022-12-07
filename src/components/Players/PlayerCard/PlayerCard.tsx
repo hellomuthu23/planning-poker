@@ -33,7 +33,7 @@ export const PlayerCard: React.FC<PlayerCardProps> = ({ game, player, currentPla
       <CardHeader
         className='PlayerCardTitle'
         title={player.name}
-        titleTypographyProps={{ variant: 'subtitle2', noWrap: true }}
+        titleTypographyProps={{ variant: 'subtitle2', noWrap: true, title: player.name }}
         action={
           isModerator(game.createdById, currentPlayerId) &&
           player.id !== currentPlayerId && (
