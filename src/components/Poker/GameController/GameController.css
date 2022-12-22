@@ -11,7 +11,8 @@
 
 .GameControllerCardContentArea {
   display: flex;
-  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 30px;
   justify-content: space-around;
   padding: 30px;
   padding-bottom: 30px !important;
@@ -35,10 +36,6 @@
   flex-direction: column;
   justify-content: center;
   text-align: center;
-}
-
-.GameControllerButtonContainer:not(:last-child) {
-  margin-right: 30px;
 }
 
 .GameControllerButton {
