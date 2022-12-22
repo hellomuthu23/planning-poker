@@ -18,9 +18,9 @@ export const Poker = () => {
 
   useEffect(() => {
     let effectCleanup = true;
-    const currentPlayerId = getCurrentPlayerId(id);
-
+    
     if(effectCleanup) {
+      const currentPlayerId = getCurrentPlayerId(id);
       if (!currentPlayerId) {
         history.push(`/join/${id}`);
       }
