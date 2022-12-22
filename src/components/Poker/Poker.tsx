@@ -17,8 +17,17 @@ export const Poker = () => {
   const [currentPlayerId, setCurrentPlayerId] = useState<string | undefined>(undefined);
 
   useEffect(() => {
-    async function fetchData(id: string) {
+    let effectCleanup = true;
+    const currentPlayerId = getCurrentPlayerId(id);
+
+    if(effectCleanup) {
+      if (!currentPlayerId) {
+        history.push(`/join/${id}`);
+      }
+      
+      setCurrentPlayerId(currentPlayerId);
       setIsLoading(true);
+
       streamGame(id).onSnapshot((snapshot) => {
         if (snapshot.exists) {
           const data = snapshot.data();
@@ -30,6 +39,7 @@ export const Poker = () => {
         }
         setIsLoading(false);
       });
+
       streamPlayers(id).onSnapshot((snapshot) => {
         const players: Player[] = [];
         snapshot.forEach((snapshot) => {
@@ -41,14 +51,9 @@ export const Poker = () => {
         }
         setPlayers(players);
       });
-
-      const currentPlayerId = getCurrentPlayerId(id);
-      if (!currentPlayerId) {
-        history.push(`/join/${id}`);
-      }
-      setCurrentPlayerId(currentPlayerId);
     }
-    fetchData(id);
+
+    return () => {effectCleanup = false};
   }, [id, history]);
 
   if (loading) {

@@ -1,14 +1,17 @@
 import { Card, CardContent, CardHeader, Divider, Grow, IconButton, Snackbar, Typography } from '@material-ui/core';
-import { blue, green, orange } from '@material-ui/core/colors';
+import { blue, green, orange, red } from '@material-ui/core/colors';
 import RefreshIcon from '@material-ui/icons/Autorenew';
 import ExitToApp from '@material-ui/icons/ExitToApp';
 import LinkIcon from '@material-ui/icons/Link';
 import VisibilityIcon from '@material-ui/icons/Visibility';
+import DeleteOutlined from '@material-ui/icons/DeleteForeverTwoTone';
 import Alert from '@material-ui/lab/Alert';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { finishGame, resetGame } from '../../../service/games';
+import { finishGame, resetGame, removeGame } from '../../../service/games';
 import { Game, GameType } from '../../../types/game';
+import { isModerator } from '../../../utils/isModerator';
+import { AlertDialog } from '../../../components/AlertDialog/AlertDialog'
 import './GameController.css';
 
 interface GameControllerProps {
@@ -34,9 +37,11 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
     history.push(`/`);
   };
 
-  const isModerator = (moderatorId: string, currentPlayerId: string) => {
-    return moderatorId === currentPlayerId;
-  };
+  const handleRemoveGame = async ( recentGameId: string ) => {
+    await removeGame(recentGameId);
+    window.location.href = '/';
+  }
+
   return (
     <Grow in={true} timeout={2000}>
       <div className='GameController'>
@@ -74,11 +79,27 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
 
                 <div className='GameControllerButtonContainer'>
                   <div className='GameControllerButton'>
-                    <IconButton data-testid={'restart-button'} onClick={() => resetGame(game.id)}>
+                    <IconButton data-testid='restart-button' onClick={() => resetGame(game.id)}>
                       <RefreshIcon fontSize='large' color='error' />
                     </IconButton>
                   </div>
                   <Typography variant='caption'>Restart</Typography>
+                </div>
+
+                <div className='GameControllerButtonContainer'>
+                  <div className='GameControllerButton'>
+                    <AlertDialog 
+                      title="Remove this game" 
+                      message={`Are you sure? That will delete this game and remove all players from the session.`} 
+                      onConfirm={() => handleRemoveGame(game.id)}
+                      data-testid='delete-button-dialog'
+                    >
+                      <IconButton>
+                        <DeleteOutlined fontSize='large' style={{ color: red[300] }} />
+                      </IconButton>
+                    </AlertDialog>
+                  </div>
+                  <Typography variant='caption'>Delete</Typography>
                 </div>
               </>
             )}

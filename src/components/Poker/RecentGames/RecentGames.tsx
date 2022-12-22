@@ -10,24 +10,32 @@ import {
   TableRow,
   Typography,
 } from '@material-ui/core';
+import { red } from '@material-ui/core/colors';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForeverTwoTone';
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { getPlayerRecentGames } from '../../../service/players';
+import { getPlayerRecentGames, getCurrentPlayerId } from '../../../service/players';
 import { Game } from '../../../types/game';
 import './RecentGames.css';
+import { removeGame } from '../../../service/games';
+import { isModerator } from '../../../utils/isModerator';
+import { AlertDialog } from '../../../components/AlertDialog/AlertDialog'
 
 export const RecentGames = () => {
   const history = useHistory();
   const [recentGames, setRecentGames] = useState<Game[] | undefined>(undefined);
 
-  useEffect(() => {
-    async function fetchData() {
-      const games = await getPlayerRecentGames();
-      if (games) {
-        setRecentGames(games);
-      }
+  async function fetchRecent() {
+    let fetchCleanup = true;
+    const games = await getPlayerRecentGames();
+    if(fetchCleanup) {
+      setRecentGames(games);
     }
-    fetchData();
+    return () => {fetchCleanup = false};
+  }
+  
+  useEffect(() => {
+    fetchRecent();
   }, []);
 
   const isEmptyRecentGames = (): boolean => {
@@ -39,6 +47,11 @@ export const RecentGames = () => {
     }
     return false;
   };
+
+  const handleRemoveGame = async ( recentGameId: string ) => {
+    await removeGame(recentGameId);
+    fetchRecent();
+  }
 
   return (
     <Card variant='outlined' className='RecentGamesCard'>
@@ -71,7 +84,18 @@ export const RecentGames = () => {
                   >
                     <TableCell>{recentGame.name}</TableCell>
                     <TableCell align='left'>{recentGame.createdBy}</TableCell>
-                    <TableCell align='left'></TableCell>
+                    {isModerator(recentGame.createdById, getCurrentPlayerId(recentGame.id)) ? 
+                      <TableCell align='center' onClick={(e) => e.stopPropagation()}>
+                        <AlertDialog 
+                          title="Remove recent game" 
+                          message={`Are you sure? That will delete the game: ${recentGame.name} and remove all players from the session.`} 
+                          onConfirm={() => handleRemoveGame(recentGame.id)}
+                        >
+                          <DeleteForeverIcon style={{ color: red[300] }} />
+                        </AlertDialog>
+                      </TableCell> : 
+                      <TableCell align='left'></TableCell> 
+                    }
                   </TableRow>
                 ))}
               </TableBody>
