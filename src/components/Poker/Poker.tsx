@@ -27,8 +27,10 @@ export const Poker = () => {
       
       setCurrentPlayerId(currentPlayerId);
       setIsLoading(true);
-
-      streamGame(id).onSnapshot((snapshot) => {
+    }
+    
+    streamGame(id).onSnapshot((snapshot) => {
+      if(effectCleanup) {
         if (snapshot.exists) {
           const data = snapshot.data();
           if (data) {
@@ -38,9 +40,11 @@ export const Poker = () => {
           }
         }
         setIsLoading(false);
-      });
+      }
+    });
 
-      streamPlayers(id).onSnapshot((snapshot) => {
+    streamPlayers(id).onSnapshot((snapshot) => {
+      if(effectCleanup) {
         const players: Player[] = [];
         snapshot.forEach((snapshot) => {
           players.push(snapshot.data() as Player);
@@ -50,8 +54,8 @@ export const Poker = () => {
           history.push(`/join/${id}`);
         }
         setPlayers(players);
-      });
-    }
+      }
+    });
 
     return () => {effectCleanup = false};
   }, [id, history]);

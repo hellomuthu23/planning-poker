@@ -24,19 +24,17 @@ import { AlertDialog } from '../../../components/AlertDialog/AlertDialog'
 export const RecentGames = () => {
   const history = useHistory();
   const [recentGames, setRecentGames] = useState<Game[] | undefined>(undefined);
+  const [reloadRecent, setReloadRecent] = useState<Boolean>(false);
 
-  async function fetchRecent() {
-    let fetchCleanup = true;
-    const games = await getPlayerRecentGames();
-    if(fetchCleanup) {
-      setRecentGames(games);
-    }
-    return () => {fetchCleanup = false};
-  }
-  
   useEffect(() => {
-    fetchRecent();
-  }, []);
+    let fetchCleanup = true;
+    getPlayerRecentGames().then(games => {
+      if(fetchCleanup) {
+        setRecentGames(games);
+      }
+    });
+    return () => {fetchCleanup = false};
+  }, [reloadRecent]);
 
   const isEmptyRecentGames = (): boolean => {
     if (!recentGames) {
@@ -50,7 +48,7 @@ export const RecentGames = () => {
 
   const handleRemoveGame = async ( recentGameId: string ) => {
     await removeGame(recentGameId);
-    fetchRecent();
+    setReloadRecent(!reloadRecent);
   }
 
   return (
