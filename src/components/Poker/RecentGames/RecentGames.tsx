@@ -25,14 +25,19 @@ export const RecentGames = () => {
   const history = useHistory();
   const [recentGames, setRecentGames] = useState<Game[] | undefined>(undefined);
   const [reloadRecent, setReloadRecent] = useState<Boolean>(false);
-
+  
   useEffect(() => {
     let fetchCleanup = true;
-    getPlayerRecentGames().then(games => {
-      if(fetchCleanup) {
+
+    async function fetchRecent() {
+      const games = await getPlayerRecentGames();
+      if (games && fetchCleanup) {
         setRecentGames(games);
-      }
-    });
+      } 
+    }
+
+    fetchRecent();
+    
     return () => {fetchCleanup = false};
   }, [reloadRecent]);
 
