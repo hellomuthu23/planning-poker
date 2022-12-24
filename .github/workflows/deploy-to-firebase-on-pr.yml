@@ -2,15 +2,15 @@
 # https://github.com/firebase/firebase-tools
 
 name: Deploy to Firebase on PR
-'on': [pull_request_target, pull_request]
+"on": pull_request_target
 env:
-  REACT_APP_FB_API_KEY: '${{ secrets.REACT_APP_FB_API_KEY }}'
-  REACT_APP_FB_AUTH_DOMAIN: '${{ secrets.REACT_APP_FB_AUTH_DOMAIN }}'
-  REACT_APP_FB_PROJECT_ID: '${{ secrets.REACT_APP_FB_PROJECT_ID }}'
-  REACT_APP_FB_STORAGE_BUCKET: '${{ secrets.REACT_APP_FB_STORAGE_BUCKET }}'
-  REACT_APP_FB_MESSAGING_SENDER_ID: '${{ secrets.REACT_APP_FB_MESSAGING_SENDER_ID }}'
-  REACT_APP_FB_APP_ID: '${{ secrets.REACT_APP_FB_APP_ID }}'
-  REACT_APP_FB_MEASUREMENT_ID: '${{ secrets.REACT_APP_FB_MEASUREMENT_ID }}'
+  REACT_APP_FB_API_KEY: "${{ secrets.REACT_APP_FB_API_KEY }}"
+  REACT_APP_FB_AUTH_DOMAIN: "${{ secrets.REACT_APP_FB_AUTH_DOMAIN }}"
+  REACT_APP_FB_PROJECT_ID: "${{ secrets.REACT_APP_FB_PROJECT_ID }}"
+  REACT_APP_FB_STORAGE_BUCKET: "${{ secrets.REACT_APP_FB_STORAGE_BUCKET }}"
+  REACT_APP_FB_MESSAGING_SENDER_ID: "${{ secrets.REACT_APP_FB_MESSAGING_SENDER_ID }}"
+  REACT_APP_FB_APP_ID: "${{ secrets.REACT_APP_FB_APP_ID }}"
+  REACT_APP_FB_MEASUREMENT_ID: "${{ secrets.REACT_APP_FB_MEASUREMENT_ID }}"
 jobs:
   build_and_preview:
     runs-on: ubuntu-latest
@@ -19,8 +19,8 @@ jobs:
       - run: yarn && yarn build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-          repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_PLANNING_POKER_B946F }}'
+          repoToken: "${{ secrets.GITHUB_TOKEN }}"
+          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_PLANNING_POKER_B946F }}"
           projectId: planning-poker-b946f
           target: planning-poker-agile
         env:
