@@ -89,8 +89,8 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
                 <div className='GameControllerButtonContainer'>
                   <div className='GameControllerButton'>
                     <AlertDialog 
-                      title="Remove this game" 
-                      message={`Are you sure? That will delete this game and remove all players from the session.`} 
+                      title="Remove this session" 
+                      message={`Are you sure? This will delete this session and remove all players.`} 
                       onConfirm={() => handleRemoveGame(game.id)}
                       data-testid='delete-button-dialog'
                     >
