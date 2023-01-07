@@ -1,4 +1,4 @@
-import { Divider, Grid, Slide, Typography, useMediaQuery } from '@material-ui/core';
+import { Divider, Grid, Slide, Typography, Box } from '@material-ui/core';
 import React from 'react';
 import { useRouteMatch } from 'react-router-dom';
 import { Footer } from '../../components/Footer/Footer';
@@ -11,23 +11,22 @@ import './HomePage.css';
 
 export const HomePage = () => {
   const isJoin = useRouteMatch('/join');
-  const isSmallScreen = useMediaQuery((theme: any) => theme.breakpoints.down('xs'));
 
   return (
     <>
       <Grid container direction='column' justify='center' alignItems='center'>
-        <Grid container item sm={12} lg={11} justify='center' alignItems='center' spacing={3}>
+        <Grid container item sm={12} lg={11} justify='center' alignItems='center'>
           <Grid item sm={12} lg={6}>
             <Slide direction='down' in={true} timeout={1000}>
               <div className='HomePageContainer'>
                 <Typography variant='h5'>Free Planning Poker App</Typography>
-                {/* {!isSmallScreen ? <img alt='Free Planning Poker App' src={LandingImage}></img> : null} */}
-                <img
-                  alt='Free Planning Poker App'
-                  className='HomePageImage'
-                  style={{ transform: isSmallScreen ? 'scale(0.5)' : 'none' }}
-                  src={LandingImage}
-                ></img>
+                <Box padding={2}>
+                  <img
+                    alt='Free Planning Poker App'
+                    className='HomePageImage'
+                    src={LandingImage}
+                  ></img>
+                </Box>
                 <Typography variant='subtitle1'>
                   Free / Open source Planning Poker Web App to estimate user stories for your Agile/Scrum teams. Create
                   a session and invite your team members to estimate user stories efficiently.
@@ -39,7 +38,7 @@ export const HomePage = () => {
             <div className='HomePageContainer'>{isJoin ? <JoinGame /> : <CreateGame />}</div>
           </Grid>
         </Grid>
-        <Grid container item sm={12} lg={9} justify='center' alignItems='center' spacing={3}>
+        <Grid container item sm={12} lg={9} justify='center' alignItems='center'>
           <Grid item sm={12} lg={6}>
             <Slide in={true} direction='up' timeout={1000}>
               <Divider variant='middle'></Divider>
@@ -47,7 +46,7 @@ export const HomePage = () => {
           </Grid>
         </Grid>
 
-        <Grid container item sm={12} lg={9} justify='center' alignItems='center' spacing={3}>
+        <Grid container item sm={12} lg={9} justify='center' alignItems='center'>
           <Grid item sm={12} lg={6}>
             <Slide in={true} direction='up' timeout={1500}>
               <div className='HomePageContainer'>
@@ -66,14 +65,14 @@ export const HomePage = () => {
             </Slide>
           </Grid>
         </Grid>
-        <Grid container item sm={12} lg={9} justify='center' alignItems='center' spacing={3}>
+        <Grid container item sm={12} lg={9} justify='center' alignItems='center'>
           <Grid item sm={12} lg={6}>
             <Slide in={true} direction='up' timeout={2000}>
               <Divider variant='middle'></Divider>
             </Slide>
           </Grid>
         </Grid>
-        <Grid container item sm={12} lg={9} justify='center' alignItems='center' spacing={3}>
+        <Grid container item sm={12} lg={9} justify='center' alignItems='center'>
           <Grid item sm={12} lg={6}>
             <Slide in={true} direction='up' timeout={2000}>
               <div className='HomePageContainer'>
@@ -91,12 +90,13 @@ export const HomePage = () => {
           <Grid item sm={12} lg={6}>
             <Slide in={true} direction='up' timeout={2000}>
               <div className='HomePageContainer'>
-                <img
-                  className='SessionImage'
-                  alt='Session controller'
-                  style={{ transform: isSmallScreen ? 'scale(0.6)' : 'none' }}
-                  src={SessionControllerImage}
-                ></img>
+                <Box padding={2}>
+                  <img
+                    className='SessionImage'
+                    alt='Session controller'
+                    src={SessionControllerImage}
+                  ></img>
+                </Box>
               </div>
             </Slide>
           </Grid>

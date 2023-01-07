@@ -8,6 +8,7 @@ import './PlayerCard.css';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForeverTwoTone';
 import { red } from '@material-ui/core/colors';
 import { removePlayer } from '../../../service/players';
+import { isModerator } from '../../../utils/isModerator';
 
 interface PlayerCardProps {
   game: Game;
@@ -19,9 +20,7 @@ export const PlayerCard: React.FC<PlayerCardProps> = ({ game, player, currentPla
   const removeUser = (gameId: string, playerId: string) => {
     removePlayer(gameId, playerId);
   };
-  const isModerator = (moderatorId: string, currentPlayerId: string) => {
-    return moderatorId === currentPlayerId;
-  };
+
   return (
     <Card
       variant='outlined'

@@ -8,12 +8,22 @@
 
 .SessionImage {
   margin-top: -10px;
-  height: 273px;
+  height: 'auto';
   width: 600px;
-  transform: perspective(900px) rotateY(-20deg);
+  transform: none;
 }
 
 .HomePageImage {
-  height: 312px;
   width: 500px;
+  height: auto;
+}
+
+@media (max-width: 480px) {
+  .HomePageImage {
+    width: 100%;
+  }
+
+  .SessionImage {
+    width: 100%;
+  }
 }

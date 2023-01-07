@@ -82,3 +82,13 @@ export const updatePlayerInStore = async (gameId: string, player: Player) => {
 
   return true;
 };
+
+export const removeGameFromStore = async (gameId: string) => {
+  await db.collection(gamesCollectionName).doc(gameId).delete();
+  await db.collection(gamesCollectionName).doc(gameId).collection(playersCollectionName).get().then(res => {
+    res.forEach(element => {
+      element.ref.delete();
+    });
+  });
+  return true;
+};
