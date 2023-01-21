@@ -25,12 +25,11 @@
 }
 
 .RemoveButton{
-  margin-left: -17px;
   margin-top: -20px;
 }
 
 .MuiCardHeader-content {
-  width: 100%;
+  width: 75% !important;
 }
 .PlayerCardContent {
   display: flex;
