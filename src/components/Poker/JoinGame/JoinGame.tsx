@@ -14,6 +14,7 @@ export const JoinGame = () => {
   const [playerName, setPlayerName] = useState('');
   const [gameFound, setIsGameFound] = useState(true);
   const [showNotExistMessage, setShowNotExistMessage] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
@@ -36,6 +37,7 @@ export const JoinGame = () => {
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
+    setLoading(true);
     if (joinGameId) {
       const res = await addPlayerToGame(joinGameId, playerName);
 
@@ -43,6 +45,7 @@ export const JoinGame = () => {
       if (res) {
         history.push(`/game/${joinGameId}`);
       }
+      setLoading(false);
     }
   };
 
@@ -81,7 +84,7 @@ export const JoinGame = () => {
               />
             </CardContent>
             <CardActions className='JoinGameCardAction'>
-              <Button type='submit' variant='contained' color='primary' className='JoinGameButton'>
+              <Button type='submit' variant='contained' color='primary' className='JoinGameButton' disabled={loading}>
                 Join
               </Button>
             </CardActions>

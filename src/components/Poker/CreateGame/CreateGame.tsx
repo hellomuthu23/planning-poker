@@ -32,9 +32,11 @@ export const CreateGame = () => {
   const [createdBy, setCreatedBy] = useState(uniqueNamesGenerator(userNameConfig));
   const [gameType, setGameType] = useState(GameType.Fibonacci);
   const [hasDefaults, setHasDefaults] = useState({ game: true, name: true });
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
+    setLoading(true);
     const game: NewGame = {
       name: gameName,
       createdBy: createdBy,
@@ -42,6 +44,9 @@ export const CreateGame = () => {
       createdAt: new Date(),
     };
     const newGameId = await addNewGame(game);
+    if(newGameId){
+      setLoading(false);
+    }
     history.push(`/game/${newGameId}`);
   };
 
@@ -121,7 +126,7 @@ export const CreateGame = () => {
             </RadioGroup>
           </CardContent>
           <CardActions className='CreateGameCardAction'>
-            <Button type='submit' variant='contained' color='primary' className='CreateGameButton'>
+            <Button type='submit' variant='contained' color='primary' className='CreateGameButton' data-testid="loading" disabled={loading}>
               Create
             </Button>
           </CardActions>
