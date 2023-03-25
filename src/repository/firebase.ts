@@ -85,10 +85,51 @@ export const updatePlayerInStore = async (gameId: string, player: Player) => {
 
 export const removeGameFromStore = async (gameId: string) => {
   await db.collection(gamesCollectionName).doc(gameId).delete();
-  await db.collection(gamesCollectionName).doc(gameId).collection(playersCollectionName).get().then(res => {
-    res.forEach(element => {
-      element.ref.delete();
+  await db
+    .collection(gamesCollectionName)
+    .doc(gameId)
+    .collection(playersCollectionName)
+    .get()
+    .then((res) => {
+      res.forEach((element) => {
+        element.ref.delete();
+      });
     });
-  });
+  return true;
+};
+
+export const removeOldGameFromStore = async () => {
+  const monthsToDelete = 6;
+  const dateObj = new Date();
+  const requiredDate = new Date(dateObj.setMonth(dateObj.getMonth() - monthsToDelete));
+  const games = await db.collection(gamesCollectionName).where('createdAt', '<', requiredDate).get();
+
+  console.log('Games length', games.docs.length);
+  if (games.docs.length > 0) {
+    const data = games.docs[0].data();
+    console.log(data);
+    console.log(games.docs[games.docs.length - 1].data());
+    console.log(data.createdAt.toDate().toString());
+    console.log(games.docs[games.docs.length - 1].data().createdAt.toDate().toString());
+    const gamesCollection: any = [];
+
+    games.forEach((game) => {
+      gamesCollection.push(game);
+    });
+    for (let game of gamesCollection) {
+      console.log('Deleting:', game.data().name);
+      const players = await game.ref.collection(playersCollectionName).get();
+      const playersCollection: any = [];
+      players.forEach((player: Player) => {
+        playersCollection.push(player);
+      });
+      for (let player of playersCollection) {
+        await player.ref.delete();
+      }
+      await game.ref.delete();
+      console.log('deleted');
+    }
+  }
+
   return true;
 };
