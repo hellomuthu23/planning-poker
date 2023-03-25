@@ -13,6 +13,7 @@ jest.mock('react-router-dom', () => ({
 describe('Footer component', () => {
   const { location } = window;
   beforeAll(() => {
+    // @ts-ignore
     delete window.location;
     // @ts-ignore
     window.location = { href: '' };
