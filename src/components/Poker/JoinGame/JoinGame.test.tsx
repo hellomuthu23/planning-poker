@@ -1,4 +1,4 @@
-import { act, render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import reactRouter from 'react-router';
@@ -44,9 +44,7 @@ describe('JoinGame component', () => {
 
     const joinButton = screen.getByText('Join');
 
-    act(() => {
-      userEvent.click(joinButton);
-    });
+    userEvent.click(joinButton);
 
     expect(playersService.addPlayerToGame).toHaveBeenCalled();
 
@@ -61,9 +59,7 @@ describe('JoinGame component', () => {
     jest.spyOn(playersService, 'addPlayerToGame').mockResolvedValue(true);
     jest.spyOn(playersService, 'isCurrentPlayerInGame').mockResolvedValue(true);
 
-    act(() => {
-      render(<JoinGame />);
-    });
+    render(<JoinGame />);
 
     await waitFor(() => expect(mockHistoryPush).toHaveBeenCalledWith('/game/abc'));
   });
@@ -74,9 +70,7 @@ describe('JoinGame component', () => {
     jest.spyOn(playersService, 'addPlayerToGame').mockResolvedValue(true);
     jest.spyOn(playersService, 'isCurrentPlayerInGame').mockResolvedValue(false);
 
-    act(() => {
-      render(<JoinGame />);
-    });
+    render(<JoinGame />);
 
     expect(screen.getByPlaceholderText('Enter your name')).toBeInTheDocument();
   });

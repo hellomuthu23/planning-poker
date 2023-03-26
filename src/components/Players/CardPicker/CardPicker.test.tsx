@@ -1,7 +1,8 @@
+/* eslint-disable testing-library/no-node-access */
+/* eslint-disable testing-library/no-container */
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
-import { act } from 'react-dom/test-utils';
 import * as playersService from '../../../service/players';
 import { Game, GameType } from '../../../types/game';
 import { Player } from '../../../types/player';
@@ -28,19 +29,19 @@ describe('CardPicker component', () => {
   ];
   const currentPlayerId = mockPlayers[0].id;
   it('should display correct card values', () => {
-    const cardPicker = render(<CardPicker game={mockGame} players={mockPlayers} currentPlayerId={currentPlayerId} />);
+    const view = render(<CardPicker game={mockGame} players={mockPlayers} currentPlayerId={currentPlayerId} />);
 
     getCards(GameType.Fibonacci)
       .filter((a) => a.value >= 0)
       .forEach((card) => {
-        const cardElement = cardPicker.container.querySelector(`#card-${card.displayValue}`);
+        const cardElement = view.container.querySelector(`#card-${card.displayValue}`);
         expect(cardElement).toBeInTheDocument();
         const cardValueElement = screen.queryAllByText(card.value);
         expect(cardValueElement.length).toBeGreaterThan(0);
       });
   });
   it('should display correct card values for ShortFibonacci game type', () => {
-    const cardPicker = render(
+    const view = render(
       <CardPicker
         game={{ ...mockGame, gameType: GameType.ShortFibonacci }}
         players={mockPlayers}
@@ -51,14 +52,14 @@ describe('CardPicker component', () => {
     getCards(GameType.ShortFibonacci)
       .filter((a) => a.value >= 0)
       .forEach((card) => {
-        const cardElement = cardPicker.container.querySelector(`#card-${card.displayValue}`);
+        const cardElement = view.container.querySelector(`#card-${card.displayValue}`);
         expect(cardElement).toBeInTheDocument();
         const cardValueElement = screen.queryAllByText(card.displayValue);
         expect(cardValueElement.length).toBeGreaterThan(0);
       });
   });
   it('should display correct card values TShirt game type', () => {
-    const cardPicker = render(
+    const view = render(
       <CardPicker
         game={{ ...mockGame, gameType: GameType.TShirt }}
         players={mockPlayers}
@@ -69,7 +70,7 @@ describe('CardPicker component', () => {
     getCards(GameType.TShirt)
       .filter((a) => a.value >= 0)
       .forEach((card) => {
-        const cardElement = cardPicker.container.querySelector(`#card-${card.displayValue}`);
+        const cardElement = view.container.querySelector(`#card-${card.displayValue}`);
         expect(cardElement).toBeInTheDocument();
         const cardValueElement = screen.queryAllByText(card.displayValue);
         expect(cardValueElement.length).toBeGreaterThan(0);
@@ -81,9 +82,7 @@ describe('CardPicker component', () => {
     jest.spyOn(cardConfigs, 'getRandomEmoji').mockReturnValue('something');
     render(<CardPicker game={mockGame} players={mockPlayers} currentPlayerId={currentPlayerId} />);
     const cardValueElement = screen.queryAllByText(5);
-    act(() => {
-      userEvent.click(cardValueElement[0]);
-    });
+    userEvent.click(cardValueElement[0]);
     expect(updatePlayerValueSpy).toHaveBeenCalled();
     expect(updatePlayerValueSpy).toHaveBeenCalledWith(mockGame.id, currentPlayerId, 5, 'something');
   });
@@ -97,9 +96,7 @@ describe('CardPicker component', () => {
     };
     render(<CardPicker game={finishedGameMock} players={mockPlayers} currentPlayerId={currentPlayerId} />);
     const cardValueElement = screen.queryAllByText(5);
-    act(() => {
-      userEvent.click(cardValueElement[0]);
-    });
+    userEvent.click(cardValueElement[0]);
     expect(updatePlayerValueSpy).toHaveBeenCalledTimes(0);
   });
   it('should display Click on the card to vote when game is not finished', () => {
