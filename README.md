@@ -76,3 +76,4 @@ Free / Open source Scrum/Agile Planning Poker Web App to estimate user stories f
 1. Add Semantic Release to generate changelog and release notes
 2. Add missing unit tests for services
 3. Add cookie notice
+4. Switch to Vite
