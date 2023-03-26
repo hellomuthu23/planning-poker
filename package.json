@@ -16,6 +16,9 @@
     "unique-names-generator": "^4.7.1",
     "web-vitals": "^1.0.1"
   },
+  "resolutions": {
+    "postcss": "8.4.21"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
