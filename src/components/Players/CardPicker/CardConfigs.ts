@@ -24,6 +24,7 @@ export const fibonacciCards: CardConfig[] = [
 export const shortFibonacciCards: CardConfig[] = [
   { value: 0, displayValue: '0', color: 'var(--color-background-secondary)' },
   { value: 0.5, displayValue: '½', color: '#9EC8FE' },
+  { value: 1, displayValue: '1', color: '#9EC8FE' },
   { value: 2, displayValue: '2', color: '#9EC8FE' },
   { value: 3, displayValue: '3', color: '#A3DFF2' },
   { value: 5, displayValue: '5', color: '#A3DFF2' },
