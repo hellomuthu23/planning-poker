@@ -7,7 +7,8 @@ import {
   streamData,
   streamPlayersFromStore,
   updateGameDataInStore,
-  removeGameFromStore
+  removeGameFromStore,
+  removeOldGameFromStore,
 } from '../repository/firebase';
 import { NewGame } from '../types/game';
 import { Player } from '../types/player';
@@ -121,4 +122,8 @@ export const updateGameStatus = async (gameId: string): Promise<boolean> => {
 
 export const removeGame = async (gameId: string) => {
   await removeGameFromStore(gameId);
+};
+
+export const deleteOldGames = async () => {
+  await removeOldGameFromStore();
 };

@@ -1,4 +1,4 @@
-import { act, render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import React from 'react';
 import reactRouter from 'react-router';
 import * as gamesService from '../../service/games';
@@ -28,10 +28,8 @@ describe('Poker component', () => {
         onSnapshot: jest.fn(() => Promise.resolve(true)),
       } as any;
     });
-    act(() => {
-      render(<Poker />);
-    });
-    await waitFor(() => expect(screen.getByText('Game not found')).toBeInTheDocument());
+    render(<Poker />);
+    await screen.findByText('Game not found');
   });
   it('should display game area when game is found', async () => {
     const mockGame: Game = { id: 'abc', name: 'avengers', createdBy: 'IronMan', gameStatus: Status.NotStarted } as Game;
@@ -55,11 +53,9 @@ describe('Poker component', () => {
     });
 
     jest.spyOn(playersService, 'getCurrentPlayerId').mockReturnValue('xx');
-    act(() => {
-      render(<Poker />);
-    });
+    render(<Poker />);
 
-    await waitFor(() => screen.getByText(mockGame.name));
+    await screen.findByText(mockGame.name);
 
     expect(screen.getByText(mockGame.name)).toBeInTheDocument();
     expect(screen.getByText(mockGame.gameStatus)).toBeInTheDocument();

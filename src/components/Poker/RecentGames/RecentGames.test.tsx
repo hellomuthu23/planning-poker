@@ -1,4 +1,4 @@
-import { act, render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import reactRouter from 'react-router';
@@ -14,9 +14,7 @@ describe('RecentGames component', () => {
     jest.spyOn(reactRouter, 'useHistory').mockReturnValue({ push: mockHistoryPush } as any);
   });
   it('should display no recent session when no games found in user local storage', async () => {
-    act(() => {
-      render(<RecentGames />);
-    });
+    render(<RecentGames />);
     expect(screen.getByText('No recent sessions found')).toBeInTheDocument();
   });
   it('should display recent games when games found in local storage', async () => {
@@ -26,11 +24,9 @@ describe('RecentGames component', () => {
     ] as Game[];
     jest.spyOn(playersService, 'getPlayerRecentGames').mockResolvedValue(mockGames);
 
-    act(() => {
-      render(<RecentGames />);
-    });
+    render(<RecentGames />);
 
-    await waitFor(() => screen.getByText(mockGames[0].name));
+    await screen.findByText(mockGames[0].name);
 
     expect(screen.getByText(mockGames[0].name)).toBeInTheDocument();
     expect(screen.getByText(mockGames[0].createdBy)).toBeInTheDocument();
@@ -45,11 +41,9 @@ describe('RecentGames component', () => {
     ] as Game[];
     jest.spyOn(playersService, 'getPlayerRecentGames').mockResolvedValue(mockGames);
 
-    act(() => {
-      render(<RecentGames />);
-    });
+    render(<RecentGames />);
 
-    await waitFor(() => screen.getByText(mockGames[0].name));
+    await screen.findByText(mockGames[0].name);
     userEvent.click(screen.getByText(mockGames[0].name));
     await waitFor(() => expect(mockHistoryPush).toHaveBeenCalledWith('/game/abc'));
   });

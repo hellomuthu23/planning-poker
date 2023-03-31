@@ -34,19 +34,19 @@ describe('GameController component', () => {
   it('should display game status', () => {
     render(<GameController game={mockGame} currentPlayerId={mockCurrentPlayerId} />);
 
-    expect(screen.queryByText(mockGame.gameStatus)).toBeInTheDocument();
+    expect(screen.getByText(mockGame.gameStatus)).toBeInTheDocument();
   });
   it('should display game average value', () => {
     render(<GameController game={mockGame} currentPlayerId={mockCurrentPlayerId} />);
 
-    expect(screen.queryByText(mockGame.average)).toBeInTheDocument();
+    expect(screen.getByText(mockGame.average)).toBeInTheDocument();
   });
   it('should display game average for non TShirtGameType', () => {
     render(
       <GameController game={{ ...mockGame, gameType: GameType.ShortFibonacci }} currentPlayerId={mockCurrentPlayerId} />
     );
 
-    expect(screen.queryByText('Average:')).toBeInTheDocument();
+    expect(screen.getByText('Average:')).toBeInTheDocument();
   });
   it('should not display game average for TShirt GameType', () => {
     render(<GameController game={{ ...mockGame, gameType: GameType.TShirt }} currentPlayerId={mockCurrentPlayerId} />);
@@ -56,13 +56,13 @@ describe('GameController component', () => {
   it('should display exit option', () => {
     render(<GameController game={mockGame} currentPlayerId={mockCurrentPlayerId} />);
 
-    expect(screen.queryByText('Exit')).toBeInTheDocument();
+    expect(screen.getByText('Exit')).toBeInTheDocument();
   });
 
   it('should display invite option', () => {
     render(<GameController game={mockGame} currentPlayerId={mockCurrentPlayerId} />);
 
-    expect(screen.queryByText('Invite')).toBeInTheDocument();
+    expect(screen.getByText('Invite')).toBeInTheDocument();
   });
 
   it('should copy invite link to clipboard', () => {
@@ -83,12 +83,12 @@ describe('GameController component', () => {
     it('should display reveal option', () => {
       render(<GameController game={mockGame} currentPlayerId={mockCurrentPlayerId} />);
 
-      expect(screen.queryByText('Reveal')).toBeInTheDocument();
+      expect(screen.getByText('Reveal')).toBeInTheDocument();
     });
     it('should display restart option', () => {
       render(<GameController game={mockGame} currentPlayerId={mockCurrentPlayerId} />);
 
-      expect(screen.queryByText('Restart')).toBeInTheDocument();
+      expect(screen.getByText('Restart')).toBeInTheDocument();
     });
     it('should reveal cards when player click on Reveal button', () => {
       render(<GameController game={mockGame} currentPlayerId={mockCurrentPlayerId} />);
