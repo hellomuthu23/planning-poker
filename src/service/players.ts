@@ -8,7 +8,6 @@ import {
   updatePlayerInStore,
 } from '../repository/firebase';
 import { getPlayerGamesFromCache, updatePlayerGamesInCache } from '../repository/localStorage';
-import { Game } from '../types/game';
 import { Player, PlayerGame } from '../types/player';
 import { Status } from '../types/status';
 import { updateGameStatus } from './games';
