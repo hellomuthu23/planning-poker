@@ -30,7 +30,7 @@ export const addNewGame = async (newGame: NewGame): Promise<string> => {
   };
   await addGameToStore(gameData.id, gameData);
   await addPlayerToGameInStore(gameData.id, player);
-  updatePlayerGames(gameData.id, player.id);
+  updatePlayerGames(gameData.id, gameData.name, gameData.createdById, player.id);
 
   return gameData.id;
 };

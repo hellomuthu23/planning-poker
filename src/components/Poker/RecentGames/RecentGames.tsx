@@ -15,15 +15,15 @@ import DeleteForeverIcon from '@material-ui/icons/DeleteForeverTwoTone';
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { getPlayerRecentGames, getCurrentPlayerId } from '../../../service/players';
-import { Game } from '../../../types/game';
 import './RecentGames.css';
 import { removeGame } from '../../../service/games';
 import { isModerator } from '../../../utils/isModerator';
 import { AlertDialog } from '../../../components/AlertDialog/AlertDialog';
+import { PlayerGame } from '../../../types/player';
 
 export const RecentGames = () => {
   const history = useHistory();
-  const [recentGames, setRecentGames] = useState<Game[] | undefined>(undefined);
+  const [recentGames, setRecentGames] = useState<PlayerGame[] | undefined>(undefined);
   const [reloadRecent, setReloadRecent] = useState<Boolean>(false);
 
   useEffect(() => {
@@ -86,8 +86,8 @@ export const RecentGames = () => {
                     onClick={() => history.push(`/game/${recentGame.id}`)}
                   >
                     <TableCell>{recentGame.name}</TableCell>
-                    <TableCell align='left'>{recentGame.createdBy}</TableCell>
-                    {isModerator(recentGame.createdById, getCurrentPlayerId(recentGame.id)) ? (
+                    <TableCell align='left'>{recentGame.createdById}</TableCell>
+                    {isModerator(recentGame.createdById, getCurrentPlayerId(recentGame.playerId)) ? (
                       <TableCell align='center' onClick={(e) => e.stopPropagation()}>
                         <AlertDialog
                           title='Remove recent game'

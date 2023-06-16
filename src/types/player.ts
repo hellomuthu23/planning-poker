@@ -9,6 +9,8 @@ export interface Player {
 }
 
 export interface PlayerGame {
-  gameId: string;
+  id: string;
+  name: string;
+  createdById: string;
   playerId: string;
 }
