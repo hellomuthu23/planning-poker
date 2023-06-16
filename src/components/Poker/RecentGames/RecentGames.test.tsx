@@ -3,8 +3,8 @@ import userEvent from '@testing-library/user-event';
 import React from 'react';
 import reactRouter from 'react-router';
 import * as playersService from '../../../service/players';
-import { Game } from '../../../types/game';
 import { RecentGames } from './RecentGames';
+import { PlayerGame } from '../../../types/player';
 
 jest.mock('../../../service/players');
 const mockHistoryPush = jest.fn();
@@ -18,10 +18,10 @@ describe('RecentGames component', () => {
     expect(screen.getByText('No recent sessions found')).toBeInTheDocument();
   });
   it('should display recent games when games found in local storage', async () => {
-    const mockGames: Game[] = [
-      { id: 'abv', name: 'avengers', createdBy: 'IronMan' },
-      { id: 'xyz', name: 'endgame', createdBy: 'SpiderMan' },
-    ] as Game[];
+    const mockGames: PlayerGame[] = [
+      { id: 'abv', name: 'avengers', createdById: 'IronManId', createdBy: 'IronMan', playerId: 'abv' },
+      { id: 'xyz', name: 'endgame', createdById: 'SpiderManId', createdBy: 'SpiderMan', playerId: 'abc' },
+    ];
     jest.spyOn(playersService, 'getPlayerRecentGames').mockResolvedValue(mockGames);
 
     render(<RecentGames />);
@@ -35,10 +35,10 @@ describe('RecentGames component', () => {
   });
 
   it('should navigate to the game when clicking on game', async () => {
-    const mockGames: Game[] = [
-      { id: 'abc', name: 'avengers', createdBy: 'IronMan' },
-      { id: 'xyz', name: 'endgame', createdBy: 'SpiderMan' },
-    ] as Game[];
+    const mockGames: PlayerGame[] = [
+      { id: 'abc', name: 'avengers', createdById: 'IronManId', createdBy: 'IronMan', playerId: 'abc' },
+      { id: 'xyz', name: 'endgame', createdById: 'SpiderManId', createdBy: 'SpiderMan', playerId: 'aaa' },
+    ];
     jest.spyOn(playersService, 'getPlayerRecentGames').mockResolvedValue(mockGames);
 
     render(<RecentGames />);
