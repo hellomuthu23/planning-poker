@@ -128,12 +128,14 @@ describe('Players service', () => {
       {
         id: newerMockGame.id,
         name: newerMockGame.name,
+        createdBy: newerMockGame.createdBy,
         createdById: newerMockGame.createdById,
         playerId: mockPlayer.id,
       },
       {
         id: olderMockGame.id,
         name: olderMockGame.name,
+        createdBy: olderMockGame.createdBy,
         createdById: olderMockGame.createdById,
         playerId: mockPlayer.id,
       },
@@ -166,7 +168,13 @@ describe('Players service', () => {
   describe('get current player ID using the game ID', () => {
     it('should return the player ID if the game exists', () => {
       const mockPlayerGames: PlayerGame[] = [
-        { id: mockGame.id, name: mockGame.name, createdById: mockGame.createdById, playerId: mockPlayer.id },
+        {
+          id: mockGame.id,
+          name: mockGame.name,
+          createdBy: mockGame.createdBy,
+          createdById: mockGame.createdById,
+          playerId: mockPlayer.id,
+        },
       ];
       jest.spyOn(storage, 'getPlayerGamesFromCache').mockReturnValueOnce(mockPlayerGames);
 
@@ -177,7 +185,7 @@ describe('Players service', () => {
 
     it("should return undefined if the game doesn't exist", () => {
       const mockPlayerGames: PlayerGame[] = [
-        { id: 'banana', name: 'abc', createdById: 'xsy', playerId: mockPlayer.id },
+        { id: 'banana', name: 'abc', createdBy: 'xsy', createdById: 'xsy', playerId: mockPlayer.id },
       ];
       jest.spyOn(storage, 'getPlayerGamesFromCache').mockReturnValueOnce(mockPlayerGames);
 
@@ -189,14 +197,26 @@ describe('Players service', () => {
 
   describe("update player's games", () => {
     it('should add a new game to the list of games', () => {
-      const newGame: PlayerGame = { id: 'game', name: 'gameName', createdById: 'aaa', playerId: 'player' };
+      const newGame: PlayerGame = {
+        id: 'game',
+        name: 'gameName',
+        createdById: 'aaaId',
+        createdBy: 'aaa',
+        playerId: 'player',
+      };
       const mockPlayerGames: PlayerGame[] = [
-        { id: mockGame.id, name: mockGame.name, createdById: mockGame.createdById, playerId: mockPlayer.id },
+        {
+          id: mockGame.id,
+          name: mockGame.name,
+          createdBy: mockGame.createdBy,
+          createdById: mockGame.createdById,
+          playerId: mockPlayer.id,
+        },
       ];
       jest.spyOn(storage, 'getPlayerGamesFromCache').mockReturnValueOnce(mockPlayerGames);
       const spy = jest.spyOn(storage, 'updatePlayerGamesInCache');
 
-      updatePlayerGames(newGame.id, newGame.name, newGame.createdById, newGame.playerId);
+      updatePlayerGames(newGame.id, newGame.name, newGame.createdBy, newGame.createdById, newGame.playerId);
 
       expect(spy).toHaveBeenCalledWith(expect.arrayContaining([...mockPlayerGames, newGame]));
     });
@@ -210,12 +230,14 @@ describe('Players service', () => {
       {
         id: newerMockGame.id,
         name: newerMockGame.name,
+        createdBy: newerMockGame.createdBy,
         createdById: newerMockGame.createdById,
         playerId: mockPlayer.id,
       },
       {
         id: olderMockGame.id,
         name: olderMockGame.name,
+        createdBy: olderMockGame.createdBy,
         createdById: olderMockGame.createdById,
         playerId: mockPlayer.id,
       },
@@ -241,6 +263,7 @@ describe('Players service', () => {
         {
           id: newerMockGame.id,
           name: newerMockGame.name,
+          createdBy: newerMockGame.createdBy,
           createdById: newerMockGame.createdById,
           playerId: mockPlayer.id,
         },
@@ -283,7 +306,13 @@ describe('Players service', () => {
   describe('remove the given game from cache', () => {
     it('should not modify cache if the given game is not in there', () => {
       const mockGames: PlayerGame[] = [
-        { id: mockGame.id, name: mockGame.name, createdById: mockGame.createdById, playerId: mockPlayer.id },
+        {
+          id: mockGame.id,
+          name: mockGame.name,
+          createdBy: mockGame.createdBy,
+          createdById: mockGame.createdById,
+          playerId: mockPlayer.id,
+        },
       ];
       jest.spyOn(storage, 'getPlayerGamesFromCache').mockReturnValueOnce(mockGames);
       const spy = jest.spyOn(storage, 'updatePlayerGamesInCache');
@@ -295,10 +324,12 @@ describe('Players service', () => {
 
     it('should update the cache with a new list without the given game', () => {
       const mockPlayerGames: PlayerGame[] = [
-        { id: 'one', name: 'ss', createdById: 'id', playerId: 'id' },
-        { id: 'two', name: 'ss', createdById: 'id', playerId: 'id' },
+        { id: 'one', name: 'ss', createdBy: 'acid', createdById: 'id', playerId: 'id' },
+        { id: 'two', name: 'ss', createdBy: 'acid', createdById: 'id', playerId: 'id' },
       ];
-      const filteredGames: PlayerGame[] = [{ id: 'two', name: 'ss', createdById: 'id', playerId: 'id' }];
+      const filteredGames: PlayerGame[] = [
+        { id: 'two', name: 'ss', createdBy: 'acid', createdById: 'id', playerId: 'id' },
+      ];
       jest.spyOn(storage, 'getPlayerGamesFromCache').mockReturnValueOnce(mockPlayerGames);
       const spy = jest.spyOn(storage, 'updatePlayerGamesInCache');
 
@@ -319,10 +350,22 @@ describe('Players service', () => {
 
     it('should update the cache and DB with the new game for the player', async () => {
       const mockGames: PlayerGame[] = [
-        { id: mockGame.id, name: mockGame.name, createdById: mockGame.createdById, playerId: mockPlayer.id },
+        {
+          id: mockGame.id,
+          name: mockGame.name,
+          createdBy: mockGame.createdBy,
+          createdById: mockGame.createdById,
+          playerId: mockPlayer.id,
+        },
       ];
       const newGame: Game = { ...mockGame, id: 'cream', name: 'cream', createdById: fakeUlid };
-      const newPlayerGame: PlayerGame = { id: 'cream', name: 'cream', createdById: fakeUlid, playerId: fakeUlid };
+      const newPlayerGame: PlayerGame = {
+        id: 'cream',
+        name: 'cream',
+        createdBy: mockGame.createdBy,
+        createdById: fakeUlid,
+        playerId: fakeUlid,
+      };
       const newList = [mockGames[0], newPlayerGame];
       const fakeName = 'peach';
       const expected = { id: fakeUlid, name: fakeName, status: Status.NotStarted };

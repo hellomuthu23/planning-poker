@@ -55,10 +55,16 @@ export const getCurrentPlayerId = (gameId: string): string | undefined => {
   return game && game.playerId;
 };
 
-export const updatePlayerGames = (gameId: string, gameName: string, createdBy: string, playerId: string) => {
+export const updatePlayerGames = (
+  gameId: string,
+  gameName: string,
+  createdBy: string,
+  createdById: string,
+  playerId: string
+) => {
   let playerGames: PlayerGame[] = getPlayerGamesFromCache();
 
-  playerGames.push({ id: gameId, name: gameName, createdById: createdBy, playerId });
+  playerGames.push({ id: gameId, name: gameName, createdById: createdById, createdBy: createdBy, playerId });
 
   updatePlayerGamesInCache(playerGames);
 };
@@ -98,7 +104,7 @@ export const addPlayerToGame = async (gameId: string, playerName: string): Promi
   }
   const newPlayer = { name: playerName, id: ulid(), status: Status.NotStarted };
 
-  updatePlayerGames(joiningGame.id, joiningGame.name, joiningGame.createdById, newPlayer.id);
+  updatePlayerGames(joiningGame.id, joiningGame.name, joiningGame.createdBy, joiningGame.createdById, newPlayer.id);
   await addPlayerToGameInStore(gameId, newPlayer);
 
   return true;

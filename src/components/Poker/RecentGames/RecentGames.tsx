@@ -78,30 +78,33 @@ export const RecentGames = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {recentGames.map((recentGame) => (
-                  <TableRow
-                    hover
-                    key={recentGame.id}
-                    className='RecentGamesTableRow'
-                    onClick={() => history.push(`/game/${recentGame.id}`)}
-                  >
-                    <TableCell>{recentGame.name}</TableCell>
-                    <TableCell align='left'>{recentGame.createdById}</TableCell>
-                    {isModerator(recentGame.createdById, getCurrentPlayerId(recentGame.playerId)) ? (
-                      <TableCell align='center' onClick={(e) => e.stopPropagation()}>
-                        <AlertDialog
-                          title='Remove recent game'
-                          message={`Are you sure? That will delete the game: ${recentGame.name} and remove all players from the session.`}
-                          onConfirm={() => handleRemoveGame(recentGame.id)}
-                        >
-                          <DeleteForeverIcon style={{ color: red[300] }} />
-                        </AlertDialog>
-                      </TableCell>
-                    ) : (
-                      <TableCell align='left'></TableCell>
-                    )}
-                  </TableRow>
-                ))}
+                {recentGames.map(
+                  (recentGame) =>
+                    recentGame.name && (
+                      <TableRow
+                        hover
+                        key={recentGame.id}
+                        className='RecentGamesTableRow'
+                        onClick={() => history.push(`/game/${recentGame.id}`)}
+                      >
+                        <TableCell>{recentGame.name}</TableCell>
+                        <TableCell align='left'>{recentGame.createdBy}</TableCell>
+                        {isModerator(recentGame.createdById, getCurrentPlayerId(recentGame.id)) ? (
+                          <TableCell align='center' onClick={(e) => e.stopPropagation()}>
+                            <AlertDialog
+                              title='Remove recent game'
+                              message={`Are you sure? That will delete the game: ${recentGame.name} and remove all players from the session.`}
+                              onConfirm={() => handleRemoveGame(recentGame.id)}
+                            >
+                              <DeleteForeverIcon style={{ color: red[300] }} />
+                            </AlertDialog>
+                          </TableCell>
+                        ) : (
+                          <TableCell align='left'></TableCell>
+                        )}
+                      </TableRow>
+                    )
+                )}
               </TableBody>
             </Table>
           </TableContainer>

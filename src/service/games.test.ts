@@ -68,7 +68,7 @@ describe('games service', () => {
     expect(id).toEqual(mockUlid);
     expect(gameSpy).toHaveBeenCalledWith(mockUlid, resGame);
     expect(playerSpy).toHaveBeenCalledWith(mockUlid, resPlayer);
-    expect(updateSpy).toHaveBeenCalledWith(mockUlid, fakeGame.name, mockUlid, mockUlid); // Game ID and player ID
+    expect(updateSpy).toHaveBeenCalledWith(mockUlid, fakeGame.name, fakeGame.createdBy, mockUlid, mockUlid); // Game ID and player ID
   });
 
   it("should request the given game's stream", () => {

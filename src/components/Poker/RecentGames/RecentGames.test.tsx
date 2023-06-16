@@ -19,8 +19,8 @@ describe('RecentGames component', () => {
   });
   it('should display recent games when games found in local storage', async () => {
     const mockGames: PlayerGame[] = [
-      { id: 'abv', name: 'avengers', createdById: 'IronMan', playerId: 'abv' },
-      { id: 'xyz', name: 'endgame', createdById: 'SpiderMan', playerId: 'abc' },
+      { id: 'abv', name: 'avengers', createdById: 'IronManId', createdBy: 'IronMan', playerId: 'abv' },
+      { id: 'xyz', name: 'endgame', createdById: 'SpiderManId', createdBy: 'SpiderMan', playerId: 'abc' },
     ];
     jest.spyOn(playersService, 'getPlayerRecentGames').mockResolvedValue(mockGames);
 
@@ -29,15 +29,15 @@ describe('RecentGames component', () => {
     await screen.findByText(mockGames[0].name);
 
     expect(screen.getByText(mockGames[0].name)).toBeInTheDocument();
-    expect(screen.getByText(mockGames[0].createdById)).toBeInTheDocument();
+    expect(screen.getByText(mockGames[0].createdBy)).toBeInTheDocument();
     expect(screen.getByText(mockGames[1].name)).toBeInTheDocument();
-    expect(screen.getByText(mockGames[1].createdById)).toBeInTheDocument();
+    expect(screen.getByText(mockGames[1].createdBy)).toBeInTheDocument();
   });
 
   it('should navigate to the game when clicking on game', async () => {
     const mockGames: PlayerGame[] = [
-      { id: 'abc', name: 'avengers', createdById: 'IronMan', playerId: 'abc' },
-      { id: 'xyz', name: 'endgame', createdById: 'SpiderMan', playerId: 'aaa' },
+      { id: 'abc', name: 'avengers', createdById: 'IronManId', createdBy: 'IronMan', playerId: 'abc' },
+      { id: 'xyz', name: 'endgame', createdById: 'SpiderManId', createdBy: 'SpiderMan', playerId: 'aaa' },
     ];
     jest.spyOn(playersService, 'getPlayerRecentGames').mockResolvedValue(mockGames);
 
