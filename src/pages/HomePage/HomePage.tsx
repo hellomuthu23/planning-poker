@@ -8,7 +8,7 @@ import { RecentGames } from '../../components/Poker/RecentGames/RecentGames';
 import LandingImage from './../../images/background.jpg';
 import SessionControllerImage from './../../images/Session.jpg';
 import './HomePage.css';
-import { AboutPlanningPoker } from './AboutPlanningPoker';
+import { AboutPlanningPokerContent } from './AboutPlanningPoker';
 
 export const HomePage = () => {
   const isJoin = useRouteMatch('/join');
@@ -94,15 +94,8 @@ export const HomePage = () => {
             </Slide>
           </Grid>
         </Grid>
-        <Grid container item sm={12} lg={9} justify='center' alignItems='center'>
-          <Slide in={true} direction='up' timeout={2000}>
-            <div className='HomePageContainer'>
-              <AboutPlanningPoker />
-            </div>
-          </Slide>
-        </Grid>
+        <AboutPlanningPokerContent />
       </Grid>
-      <Footer />
     </>
   );
 };
