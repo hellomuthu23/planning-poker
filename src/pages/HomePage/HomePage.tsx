@@ -1,7 +1,6 @@
 import { Divider, Grid, Slide, Typography, Box } from '@material-ui/core';
 import React from 'react';
 import { useRouteMatch } from 'react-router-dom';
-import { Footer } from '../../components/Footer/Footer';
 import { CreateGame } from '../../components/Poker/CreateGame/CreateGame';
 import { JoinGame } from '../../components/Poker/JoinGame/JoinGame';
 import { RecentGames } from '../../components/Poker/RecentGames/RecentGames';
