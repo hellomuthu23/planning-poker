@@ -8,6 +8,7 @@ import { RecentGames } from '../../components/Poker/RecentGames/RecentGames';
 import LandingImage from './../../images/background.jpg';
 import SessionControllerImage from './../../images/Session.jpg';
 import './HomePage.css';
+import { AboutPlanningPoker } from './AboutPlanningPoker';
 
 export const HomePage = () => {
   const isJoin = useRouteMatch('/join');
@@ -21,11 +22,7 @@ export const HomePage = () => {
               <div className='HomePageContainer'>
                 <Typography variant='h5'>Free Planning Poker App</Typography>
                 <Box padding={2}>
-                  <img
-                    alt='Free Planning Poker App'
-                    className='HomePageImage'
-                    src={LandingImage}
-                  ></img>
+                  <img alt='Free Planning Poker App' className='HomePageImage' src={LandingImage}></img>
                 </Box>
                 <Typography variant='subtitle1'>
                   Free / Open source Planning Poker Web App to estimate user stories for your Agile/Scrum teams. Create
@@ -91,15 +88,18 @@ export const HomePage = () => {
             <Slide in={true} direction='up' timeout={2000}>
               <div className='HomePageContainer'>
                 <Box padding={2}>
-                  <img
-                    className='SessionImage'
-                    alt='Session controller'
-                    src={SessionControllerImage}
-                  ></img>
+                  <img className='SessionImage' alt='Session controller' src={SessionControllerImage}></img>
                 </Box>
               </div>
             </Slide>
           </Grid>
+        </Grid>
+        <Grid container item sm={12} lg={9} justify='center' alignItems='center'>
+          <Slide in={true} direction='up' timeout={2000}>
+            <div className='HomePageContainer'>
+              <AboutPlanningPoker />
+            </div>
+          </Slide>
         </Grid>
       </Grid>
       <Footer />
