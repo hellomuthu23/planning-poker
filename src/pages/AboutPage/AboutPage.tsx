@@ -6,9 +6,9 @@ import BestPractices from './../../images/best-practices.jpg';
 
 import Benefits from './../../images/benefits.jpg';
 
-import './HomePage.css';
+import '../HomePage/HomePage.css';
 
-export const AboutPlanningPoker = () => {
+export const AboutPage = () => {
   return (
     <>
       <Grid container direction='column' justify='center' alignItems='center'>

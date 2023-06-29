@@ -8,8 +8,10 @@ import { GamePage } from './pages/GamePage/GamePage';
 import HomePage from './pages/HomePage/HomePage';
 import JoinPage from './pages/JoinPage/JoinPage';
 import { theme } from './service/theme';
-import { AboutPlanningPoker } from './pages/HomePage/AboutPlanningPoker';
+import { AboutPage } from './pages/AboutPage/AboutPage';
 import { Footer } from './components/Footer/Footer';
+import { ExamplesPage } from './pages/ExamplesPage/ExamplesPage';
+import { GuidePage } from './pages/GuidePage/GuidePage';
 
 function App() {
   return (
@@ -23,7 +25,9 @@ function App() {
               <Route path='/game/:id' component={GamePage} />
               <Route path='/delete-old-games' component={DeleteOldGames} />
               <Route path='/join/:id' component={JoinPage} />
-              <Route path='/about-planning-poker' component={AboutPlanningPoker} />
+              <Route path='/about-planning-poker' component={AboutPage} />
+              <Route path='/examples' component={ExamplesPage} />
+              <Route path='/guide' component={GuidePage} />
               <Route exact path='/*' component={HomePage} />
             </Switch>
             <Footer />

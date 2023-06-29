@@ -7,7 +7,7 @@ import { RecentGames } from '../../components/Poker/RecentGames/RecentGames';
 import LandingImage from './../../images/background.jpg';
 import SessionControllerImage from './../../images/Session.jpg';
 import './HomePage.css';
-import { AboutPlanningPokerContent } from './AboutPlanningPoker';
+import { AboutPlanningPokerContent } from '../AboutPage/AboutPage';
 
 export const HomePage = () => {
   const isJoin = useRouteMatch('/join');
