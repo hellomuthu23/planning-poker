@@ -7,6 +7,8 @@ import GithubIcon from '@material-ui/icons/GitHub';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import MergeTypeOutlinedIcon from '@material-ui/icons/MergeTypeOutlined';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
+import BookOutlinedIcon from '@material-ui/icons/MenuBookOutlined';
+import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import './Toolbar.css';
@@ -35,6 +37,22 @@ export const Toolbar = () => {
                 onClick={() => history.push('/about-planning-poker')}
               >
                 {!isSmallScreen ? 'What is planning poker?' : null}
+              </Button>
+              <Button
+                title='Guide'
+                startIcon={<SearchOutlinedIcon />}
+                color='inherit'
+                onClick={() => history.push('/guide')}
+              >
+                {!isSmallScreen ? 'Guide' : null}
+              </Button>
+              <Button
+                title='Example'
+                startIcon={<BookOutlinedIcon />}
+                color='inherit'
+                onClick={() => history.push('/examples')}
+              >
+                {!isSmallScreen ? 'Examples' : null}
               </Button>
               <Button
                 title='New Session'
