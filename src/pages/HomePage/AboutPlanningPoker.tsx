@@ -46,7 +46,7 @@ export const AboutPlanningPokerContent = () => {
           <Slide in={true} direction='up' timeout={2000}>
             <div className='HomePageContainer'>
               <Box padding={2}>
-                <img alt='Benefits image' src={What}></img>
+                <img alt='What' src={What}></img>
               </Box>
             </div>
           </Slide>
