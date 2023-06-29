@@ -103,6 +103,7 @@ export const AboutPlanningPokerContent = () => {
           <Slide in={true} direction='up' timeout={2000}>
             <div className='HomePageContainer'>
               <Typography variant='h5'>Benefits of Agile Planning Poker</Typography>
+              <br />
               <Typography variant='body1'>
                 a. <b>Improved Accuracy</b>: Agile Planning Poker leverages the collective knowledge and expertise of
                 the team, resulting in more accurate and reliable estimations. It considers different perspectives,
@@ -149,6 +150,7 @@ export const AboutPlanningPokerContent = () => {
           <Slide in={true} direction='up' timeout={2000}>
             <div className='HomePageContainer'>
               <Typography variant='h5'>Best Practices for Agile Planning Poker</Typography>
+              <br />
               <Typography variant='body1'>
                 a. <b>Establish Consistent Estimation Units</b>: Ensure the team has a clear understanding and
                 consistency in the units used for estimation, such as story points, ideal days, or t-shirt sizes.
