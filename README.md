@@ -76,3 +76,5 @@ Free / Open source Scrum/Agile Planning Poker Web App to estimate user stories f
 1. Add Semantic Release to generate changelog and release notes
 2. Add missing unit tests for services
 3. Add cookie notice
+
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/hellomuthu23)
