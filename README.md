@@ -77,4 +77,4 @@ Free / Open source Scrum/Agile Planning Poker Web App to estimate user stories f
 2. Add missing unit tests for services
 3. Add cookie notice
 
-<a href="https://www.buymeacoffee.com/hellomuthu23" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/hellomuthu23)
