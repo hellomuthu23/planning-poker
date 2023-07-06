@@ -25,9 +25,19 @@ export const Footer = () => {
             </div>
 
             <Divider orientation='vertical' flexItem></Divider>
-            <Link href='https://github.com/hellomuthu23/planning-poker/issues'>
-              Submit an Issue
-            </Link>
+            <Link href='https://github.com/hellomuthu23/planning-poker/issues'>Submit an Issue</Link>
+            <Divider orientation='vertical' flexItem></Divider>
+            <div className='FooterItemContainer'>
+              <Typography color='textSecondary' variant='body2'>
+                <a href='https://www.buymeacoffee.com/hellomuthu23' target='_blank' rel='noreferrer'>
+                  <img
+                    src='https://cdn.buymeacoffee.com/buttons/v2/default-blue.png'
+                    alt='Buy Me A Coffee'
+                    style={{ height: '40px', width: '150px' }}
+                  />
+                </a>
+              </Typography>
+            </div>
           </div>
         </div>
       </Slide>

@@ -9,7 +9,6 @@ import HomePage from './pages/HomePage/HomePage';
 import JoinPage from './pages/JoinPage/JoinPage';
 import { theme } from './service/theme';
 import { AboutPage } from './pages/AboutPage/AboutPage';
-import { Footer } from './components/Footer/Footer';
 import { ExamplesPage } from './pages/ExamplesPage/ExamplesPage';
 import { GuidePage } from './pages/GuidePage/GuidePage';
 
@@ -30,7 +29,6 @@ function App() {
               <Route path='/guide' component={GuidePage} />
               <Route exact path='/*' component={HomePage} />
             </Switch>
-            <Footer />
           </Router>
         </StylesProvider>
       </ThemeProvider>
