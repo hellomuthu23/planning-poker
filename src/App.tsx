@@ -30,7 +30,6 @@ function App() {
               <Route path='/guide' component={GuidePage} />
               <Route exact path='/*' component={HomePage} />
             </Switch>
-            <Footer />
           </Router>
         </StylesProvider>
       </ThemeProvider>

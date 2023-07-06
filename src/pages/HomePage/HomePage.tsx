@@ -8,6 +8,7 @@ import LandingImage from './../../images/background.jpg';
 import SessionControllerImage from './../../images/Session.jpg';
 import './HomePage.css';
 import { AboutPlanningPokerContent } from '../AboutPage/AboutPage';
+import { Footer } from '../../components/Footer/Footer';
 
 export const HomePage = () => {
   const isJoin = useRouteMatch('/join');
@@ -95,6 +96,7 @@ export const HomePage = () => {
         </Grid>
         <AboutPlanningPokerContent />
       </Grid>
+      <Footer />
     </>
   );
 };
