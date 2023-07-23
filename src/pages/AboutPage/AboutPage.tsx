@@ -7,12 +7,14 @@ import BestPractices from './../../images/best-practices.jpg';
 import Benefits from './../../images/benefits.jpg';
 
 import '../HomePage/HomePage.css';
+import { GoogleAd } from '../../components/GoogleAd/GoogleAd';
 
 export const AboutPage = () => {
   return (
     <>
       <Grid container direction='column' justify='center' alignItems='center'>
         <AboutPlanningPokerContent />
+        <GoogleAd />
       </Grid>
     </>
   );
