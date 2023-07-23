@@ -9,6 +9,7 @@ import SessionControllerImage from './../../images/Session.jpg';
 import './HomePage.css';
 import { AboutPlanningPokerContent } from '../AboutPage/AboutPage';
 import { Footer } from '../../components/Footer/Footer';
+import { GoogleAd } from '../../components/GoogleAd/GoogleAd';
 
 export const HomePage = () => {
   const isJoin = useRouteMatch('/join');
@@ -42,7 +43,7 @@ export const HomePage = () => {
             </Slide>
           </Grid>
         </Grid>
-
+        <GoogleAd />
         <Grid container item sm={12} lg={9} justify='center' alignItems='center'>
           <Grid item sm={12} lg={6}>
             <Slide in={true} direction='up' timeout={1500}>
@@ -69,6 +70,7 @@ export const HomePage = () => {
             </Slide>
           </Grid>
         </Grid>
+        <GoogleAd />
         <Grid container item sm={12} lg={9} justify='center' alignItems='center'>
           <Grid item sm={12} lg={6}>
             <Slide in={true} direction='up' timeout={2000}>
@@ -83,7 +85,7 @@ export const HomePage = () => {
               </div>
             </Slide>
           </Grid>
-
+          <GoogleAd />
           <Grid item sm={12} lg={6}>
             <Slide in={true} direction='up' timeout={2000}>
               <div className='HomePageContainer'>
@@ -94,6 +96,7 @@ export const HomePage = () => {
             </Slide>
           </Grid>
         </Grid>
+        <GoogleAd />
         <AboutPlanningPokerContent />
       </Grid>
       <Footer />
