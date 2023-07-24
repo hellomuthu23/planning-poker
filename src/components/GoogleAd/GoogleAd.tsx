@@ -16,11 +16,9 @@ export const GoogleAd = () => {
     <>
       <ins
         className='adsbygoogle'
-        style={{ display: 'block' }}
+        style={{ display: 'inline-block', width: '728px', height: '90px' }}
         data-ad-client='ca-pub-3152802418728088'
         data-ad-slot='2256716101'
-        data-ad-format='auto'
-        data-full-width-responsive='true'
       ></ins>
     </>
   );
