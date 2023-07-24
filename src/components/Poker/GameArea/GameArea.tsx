@@ -5,7 +5,6 @@ import { CardPicker } from '../../Players/CardPicker/CardPicker';
 import { Players } from '../../Players/Players';
 import { GameController } from '../GameController/GameController';
 import './GameArea.css';
-import { GoogleAd } from '../../GoogleAd/GoogleAd';
 
 interface GameAreaProps {
   game: Game;
@@ -22,7 +21,6 @@ export const GameArea: React.FC<GameAreaProps> = ({ game, players, currentPlayer
       <div className='Footer'>
         <CardPicker game={game} players={players} currentPlayerId={currentPlayerId} />
       </div>
-      <GoogleAd />
     </>
   );
 };
