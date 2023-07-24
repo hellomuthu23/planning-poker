@@ -36,6 +36,7 @@ export const HomePage = () => {
             <div className='HomePageContainer'>{isJoin ? <JoinGame /> : <CreateGame />}</div>
           </Grid>
         </Grid>
+        <GoogleAd />
         <Grid container item sm={12} lg={9} justify='center' alignItems='center'>
           <Grid item sm={12} lg={6}>
             <Slide in={true} direction='up' timeout={1000}>
@@ -43,7 +44,6 @@ export const HomePage = () => {
             </Slide>
           </Grid>
         </Grid>
-        <GoogleAd />
         <Grid container item sm={12} lg={9} justify='center' alignItems='center'>
           <Grid item sm={12} lg={6}>
             <Slide in={true} direction='up' timeout={1500}>
@@ -70,7 +70,6 @@ export const HomePage = () => {
             </Slide>
           </Grid>
         </Grid>
-        <GoogleAd />
         <Grid container item sm={12} lg={9} justify='center' alignItems='center'>
           <Grid item sm={12} lg={6}>
             <Slide in={true} direction='up' timeout={2000}>
@@ -99,6 +98,7 @@ export const HomePage = () => {
         <GoogleAd />
         <AboutPlanningPokerContent />
       </Grid>
+      <GoogleAd />
       <Footer />
     </>
   );
