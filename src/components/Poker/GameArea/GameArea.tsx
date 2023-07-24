@@ -22,7 +22,6 @@ export const GameArea: React.FC<GameAreaProps> = ({ game, players, currentPlayer
       <div className='Footer'>
         <CardPicker game={game} players={players} currentPlayerId={currentPlayerId} />
       </div>
-      <GoogleAd />
     </>
   );
 };

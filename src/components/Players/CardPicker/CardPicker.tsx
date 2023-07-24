@@ -6,6 +6,7 @@ import { Player } from '../../../types/player';
 import { Status } from '../../../types/status';
 import { CardConfig, getCards, getRandomEmoji } from './CardConfigs';
 import './CardPicker.css';
+import { GoogleAd } from '../../GoogleAd/GoogleAd';
 
 interface CardPickerProps {
   game: Game;
@@ -80,6 +81,7 @@ export const CardPicker: React.FC<CardPickerProps> = ({ game, players, currentPl
             ? 'Click on the card to vote'
             : 'Session not ready for Voting! Wait for moderator to start'}
         </Typography>
+        <GoogleAd />
       </div>
     </Grow>
   );

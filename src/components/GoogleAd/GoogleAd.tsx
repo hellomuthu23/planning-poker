@@ -14,12 +14,14 @@ export const GoogleAd = () => {
 
   return (
     <>
-      <ins
-        className='adsbygoogle'
-        style={{ display: 'inline-block', width: '728px', height: '90px' }}
-        data-ad-client='ca-pub-3152802418728088'
-        data-ad-slot='2256716101'
-      ></ins>
+      <div className='adContainer'>
+        <ins
+          className='adsbygoogle'
+          style={{ display: 'inline-block', width: '728px', height: '90px', margin: '30px' }}
+          data-ad-client='ca-pub-3152802418728088'
+          data-ad-slot='2256716101'
+        ></ins>
+      </div>
     </>
   );
 };
