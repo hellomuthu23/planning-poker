@@ -1,0 +1,11 @@
+{
+  "toolbar": {
+    "menu": {
+      "about": "Sobre o planning poker",
+      "guide": "Guia",
+      "examples": "Exemplos",
+      "newSession": "Nova sessão",
+      "joinSession": "Entrar na sessão"
+    }
+  }
+}

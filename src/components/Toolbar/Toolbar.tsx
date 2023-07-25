@@ -12,11 +12,13 @@ import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import './Toolbar.css';
+import { useTranslation } from 'react-i18next';
 export const title = 'Planning Poker';
 
 export const Toolbar = () => {
   const history = useHistory();
   const isSmallScreen = useMediaQuery((theme: any) => theme.breakpoints.down('xs'));
+  const { t } = useTranslation();
 
   return (
     <Slide direction='down' in={true} timeout={800}>
@@ -31,49 +33,52 @@ export const Toolbar = () => {
             </div>
             <div>
               <Button
-                title='About section'
+                title={t('toolbar.menu.about')}
                 startIcon={<InfoOutlinedIcon />}
                 color='inherit'
                 onClick={() => history.push('/about-planning-poker')}
               >
-                {!isSmallScreen ? 'What is planning poker?' : null}
+                {!isSmallScreen ? t('toolbar.menu.about') : null}
               </Button>
               <Button
-                title='Guide'
+                title={t('toolbar.menu.guide')}
                 startIcon={<SearchOutlinedIcon />}
                 color='inherit'
                 onClick={() => history.push('/guide')}
               >
-                {!isSmallScreen ? 'Guide' : null}
+                {!isSmallScreen ? t('toolbar.menu.guide') : null}
               </Button>
               <Button
-                title='Example'
+                title={t('toolbar.menu.examples')}
                 startIcon={<BookOutlinedIcon />}
                 color='inherit'
                 onClick={() => history.push('/examples')}
               >
-                {!isSmallScreen ? 'Examples' : null}
+                {!isSmallScreen ? t('toolbar.menu.examples') : null}
               </Button>
               <Button
-                title='New Session'
+                title={t('toolbar.menu.newSession')}
                 startIcon={<AddCircleOutlineIcon />}
                 color='inherit'
                 onClick={() => history.push('/')}
               >
-                {!isSmallScreen ? 'New Session' : null}
+                {!isSmallScreen ? t('toolbar.menu.newSession') : null}
               </Button>
               <Button
+                title={t('toolbar.menu.joinSession')}
                 startIcon={<MergeTypeOutlinedIcon />}
                 size={isSmallScreen ? 'small' : 'large'}
                 color='inherit'
                 onClick={() => history.push('/join')}
               >
-                {!isSmallScreen ? 'Join Session' : null}
+                {!isSmallScreen ? t('toolbar.menu.joinSession') : null}
               </Button>
               <Button
                 id='github-button'
                 color='inherit'
-                onClick={() => (window.location.href = 'https://github.com/hellomuthu23/planning-poker')}
+                onClick={() =>
+                  (window.location.href = 'https://github.com/hellomuthu23/planning-poker')
+                }
               >
                 <GithubIcon></GithubIcon>
               </Button>
