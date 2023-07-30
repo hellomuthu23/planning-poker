@@ -12,35 +12,27 @@ import { AboutPage } from './pages/AboutPage/AboutPage';
 import { ExamplesPage } from './pages/ExamplesPage/ExamplesPage';
 import { GuidePage } from './pages/GuidePage/GuidePage';
 
-const Loader = () => (
-  <div className='App'>
-    <div>loading...</div>
-  </div>
-);
-
 function App() {
   return (
-    <Suspense fallback={<Loader />}>
-      <div className='LightTheme'>
-        <ThemeProvider theme={theme}>
-          <StylesProvider injectFirst>
-            <CssBaseline />
-            <Router>
-              <Toolbar />
-              <Switch>
-                <Route path='/game/:id' component={GamePage} />
-                <Route path='/delete-old-games' component={DeleteOldGames} />
-                <Route path='/join/:id' component={JoinPage} />
-                <Route path='/about-planning-poker' component={AboutPage} />
-                <Route path='/examples' component={ExamplesPage} />
-                <Route path='/guide' component={GuidePage} />
-                <Route exact path='/*' component={HomePage} />
-              </Switch>
-            </Router>
-          </StylesProvider>
-        </ThemeProvider>
-      </div>
-    </Suspense>
+    <div className='LightTheme'>
+      <ThemeProvider theme={theme}>
+        <StylesProvider injectFirst>
+          <CssBaseline />
+          <Router>
+            <Toolbar />
+            <Switch>
+              <Route path='/game/:id' component={GamePage} />
+              <Route path='/delete-old-games' component={DeleteOldGames} />
+              <Route path='/join/:id' component={JoinPage} />
+              <Route path='/about-planning-poker' component={AboutPage} />
+              <Route path='/examples' component={ExamplesPage} />
+              <Route path='/guide' component={GuidePage} />
+              <Route exact path='/*' component={HomePage} />
+            </Switch>
+          </Router>
+        </StylesProvider>
+      </ThemeProvider>
+    </div>
   );
 }
 

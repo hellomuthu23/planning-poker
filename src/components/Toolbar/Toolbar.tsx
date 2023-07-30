@@ -13,6 +13,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import './Toolbar.css';
 import { useTranslation } from 'react-i18next';
+import { LanguageControl } from '../LanguageControl/LanguageControl';
 export const title = 'Planning Poker';
 
 export const Toolbar = () => {
@@ -61,6 +62,7 @@ export const Toolbar = () => {
                 startIcon={<AddCircleOutlineIcon />}
                 color='inherit'
                 onClick={() => history.push('/')}
+                data-testid='toolbar.menu.newSession'
               >
                 {!isSmallScreen ? t('toolbar.menu.newSession') : null}
               </Button>
@@ -70,9 +72,11 @@ export const Toolbar = () => {
                 size={isSmallScreen ? 'small' : 'large'}
                 color='inherit'
                 onClick={() => history.push('/join')}
+                data-testid='toolbar.menu.joinSession'
               >
                 {!isSmallScreen ? t('toolbar.menu.joinSession') : null}
               </Button>
+
               <Button
                 id='github-button'
                 color='inherit'
@@ -82,6 +86,7 @@ export const Toolbar = () => {
               >
                 <GithubIcon></GithubIcon>
               </Button>
+              {!isSmallScreen && <LanguageControl />}
             </div>
           </div>
         </AppToolbar>

@@ -16,15 +16,16 @@ import { useHistory } from 'react-router-dom';
 import { addNewGame } from '../../../service/games';
 import { GameType, NewGame } from '../../../types/game';
 import './CreateGame.css';
+import { useTranslation } from 'react-i18next';
 
 const gameNameConfig: Config = {
   dictionaries: [colors, animals],
   separator: ' ',
   style: 'capital',
-}
+};
 const userNameConfig: Config = {
-  dictionaries: [starWars]
-}
+  dictionaries: [starWars],
+};
 
 export const CreateGame = () => {
   const history = useHistory();
@@ -33,6 +34,7 @@ export const CreateGame = () => {
   const [gameType, setGameType] = useState(GameType.Fibonacci);
   const [hasDefaults, setHasDefaults] = useState({ game: true, name: true });
   const [loading, setLoading] = useState(false);
+  const { t } = useTranslation();
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
@@ -44,7 +46,7 @@ export const CreateGame = () => {
       createdAt: new Date(),
     };
     const newGameId = await addNewGame(game);
-    if(newGameId){
+    if (newGameId) {
       setLoading(false);
     }
     history.push(`/game/${newGameId}`);
@@ -71,7 +73,7 @@ export const CreateGame = () => {
         <Card variant='outlined' className='CreateGameCard'>
           <CardHeader
             className='CreateGameCardHeader'
-            title='Create New Session'
+            title={t('HomePage.heroSection.formNewSession.newSessionHeader')}
             titleTypographyProps={{ variant: 'h4' }}
           />
           <CardContent className='CreateGameCardContent'>
@@ -79,7 +81,7 @@ export const CreateGame = () => {
               className='CreateGameTextField'
               required
               id='filled-required'
-              label='Session Name'
+              label={t('HomePage.heroSection.formNewSession.sessionNameLabel')}
               placeholder='Enter a session name'
               value={gameName || ''}
               onClick={() => emptyGameName()}
@@ -90,7 +92,7 @@ export const CreateGame = () => {
               className='CreateGameTextField'
               required
               id='filled-required'
-              label='Your Name'
+              label={t('HomePage.heroSection.formNewSession.yourNameLabel')}
               placeholder='Enter your name'
               value={createdBy || ''}
               onClick={() => emptyCreatorName()}
@@ -105,7 +107,7 @@ export const CreateGame = () => {
                 event: ChangeEvent<{
                   name?: string | undefined;
                   value: any;
-                }>
+                }>,
               ) => setGameType(event.target.value)}
             >
               <FormControlLabel
@@ -126,7 +128,14 @@ export const CreateGame = () => {
             </RadioGroup>
           </CardContent>
           <CardActions className='CreateGameCardAction'>
-            <Button type='submit' variant='contained' color='primary' className='CreateGameButton' data-testid="loading" disabled={loading}>
+            <Button
+              type='submit'
+              variant='contained'
+              color='primary'
+              className='CreateGameButton'
+              data-testid='loading'
+              disabled={loading}
+            >
               Create
             </Button>
           </CardActions>
