@@ -1,6 +1,5 @@
 import { CssBaseline } from '@material-ui/core';
 import { StylesProvider, ThemeProvider } from '@material-ui/core/styles';
-import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Toolbar } from './components/Toolbar/Toolbar';
 import DeleteOldGames from './pages/DeleteOldGames/DeleteOldGames';

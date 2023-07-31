@@ -1,0 +1,22 @@
+{
+  "toolbar": {
+    "menu": {
+      "about": "Sobre o planning poker",
+      "guide": "Guia",
+      "examples": "Exemplos",
+      "newSession": "Nova sessão",
+      "joinSession": "Entrar na sessão"
+    }
+  },
+  "HomePage": {
+    "heroSection": {
+      "title": "Sistema grátis de Planning Poker",
+      "description": "Sistema de Planning Poker grátis e open source para estimativa de histórias dos usuários para seu time ágil/scrum. Crie uma sessão e convide membros do seu time para estimar as histórias com eficiência.",
+      "formNewSession": {
+        "newSessionHeader": "Criar nova sessão",
+        "sessionNameLabel": "Nome da sessão",
+        "yourNameLabel": "Seu nome"
+      }
+    }
+  }
+}

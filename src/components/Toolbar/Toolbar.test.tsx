@@ -4,6 +4,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import { Toolbar } from './Toolbar';
+import { useTranslation } from 'react-i18next';
 
 const mockHistoryPush = jest.fn();
 
@@ -37,23 +38,23 @@ describe('Toolbar component', () => {
   });
   it('should render Create new session button', () => {
     render(<Toolbar />);
-    const newSession = screen.getByText('New Session');
+    const newSession = screen.getByTestId('toolbar.menu.newSession');
     expect(newSession).toBeInTheDocument();
   });
   it('should render Join session button', () => {
     render(<Toolbar />);
-    const newSession = screen.getByText('Join Session');
+    const newSession = screen.getByTestId('toolbar.menu.joinSession');
     expect(newSession).toBeInTheDocument();
   });
   it('should navigate to Home page when New Session button is clicked', () => {
     render(<Toolbar />);
-    const newSession = screen.getByText('New Session');
+    const newSession = screen.getByTestId('toolbar.menu.newSession');
     userEvent.click(newSession);
     expect(mockHistoryPush).toBeCalledWith('/');
   });
   it('should navigate to Join session page when Join Session button is clicked', () => {
     render(<Toolbar />);
-    const newSession = screen.getByText('Join Session');
+    const newSession = screen.getByTestId('toolbar.menu.joinSession');
     userEvent.click(newSession);
     expect(mockHistoryPush).toBeCalledWith('/join');
   });

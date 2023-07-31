@@ -1,0 +1,22 @@
+{
+  "toolbar": {
+    "menu": {
+      "about": "What is planning poker?",
+      "guide": "Guide",
+      "examples": "Examples",
+      "newSession": "New session",
+      "joinSession": "Join session"
+    }
+  },
+  "HomePage": {
+    "heroSection": {
+      "title": "Free Planning Poker App",
+      "description": "Free / Open source Planning Poker Web App to estimate user stories for your Agile/Scrum teams. Create a session and invite your team members to estimate user stories efficiently.",
+      "formNewSession": {
+        "newSessionHeader": "Create new session",
+        "sessionNameLabel": "Session name",
+        "yourNameLabel": "Your name"
+      }
+    }
+  }
+}
