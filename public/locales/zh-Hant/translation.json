@@ -1,0 +1,22 @@
+{
+  "toolbar": {
+    "menu": {
+      "about": "規劃撲克101?",
+      "guide": "使用教學",
+      "examples": "應用實例",
+      "newSession": "建立房間",
+      "joinSession": "加入房間"
+    }
+  },
+  "HomePage": {
+    "heroSection": {
+      "title": "免費規劃撲克小程式 Free Planning Poker App",
+      "description": "免費/開源規劃撲克 Web 應用程序，用於評估敏捷/Scrum 團隊的用戶故事。 建立一個房間並邀請您的團隊成員有效地估計用戶故事。",
+      "formNewSession": {
+        "newSessionHeader": "建立房間",
+        "sessionNameLabel": "房間名稱",
+        "yourNameLabel": "您的稱呼"
+      }
+    }
+  }
+}
