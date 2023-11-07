@@ -125,6 +125,11 @@ export const CreateGame = () => {
                 control={<Radio color='primary' size='small' />}
                 label='T-Shirt (XXS, XS, S, M, L, XL, XXL)'
               />
+              <FormControlLabel
+                value={GameType.TShirtAndNumber}
+                control={<Radio color='primary' size='small' />}
+                label='T-Shirt & Numbers (S, M, L, XL, 1, 2, 3, 4, 5)'
+              />
             </RadioGroup>
           </CardContent>
           <CardActions className='CreateGameCardAction'>
