@@ -51,14 +51,14 @@ export const tShirtCards: CardConfig[] = [
 
 export const tShirtAndNumbersCards: CardConfig[] = [
   { value: 10, displayValue: 'S', color: '#9EC8FE' },
-  { value: 20, displayValue: 'M', color: '#A3DFF2' },
+  { value: 20, displayValue: 'M', color: '#9EC8FE' },
   { value: 30, displayValue: 'L', color: '#A3DFF2' },
-  { value: 40, displayValue: 'XL', color: '#9DD49A' },
-  { value: 50, displayValue: '1', color: '#F4DD94' },
-  { value: 60, displayValue: '2', color: '#F4DD94' },
-  { value: 70, displayValue: '3', color: '#F39893' },
-  { value: 80, displayValue: '4', color: '#F39893' },
-  { value: 90, displayValue: '5', color: '#e76a65' },
+  { value: 40, displayValue: 'XL', color: '#A3DFF2' },
+  { value: 50, displayValue: '1', color: '#9DD49A' },
+  { value: 60, displayValue: '2', color: '#9DD49A' },
+  { value: 70, displayValue: '3', color: '#F4DD94' },
+  { value: 80, displayValue: '4', color: '#F4DD94' },
+  { value: 90, displayValue: '5', color: '#F39893' },
 ];
 
 export const getCards = (gameType: GameType | undefined): CardConfig[] => {
