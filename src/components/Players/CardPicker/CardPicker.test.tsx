@@ -76,6 +76,24 @@ describe('CardPicker component', () => {
         expect(cardValueElement.length).toBeGreaterThan(0);
       });
   });
+  it('should display correct card values TShirt & Numbers game type', () => {
+    const view = render(
+      <CardPicker
+        game={{ ...mockGame, gameType: GameType.TShirtAndNumber }}
+        players={mockPlayers}
+        currentPlayerId={currentPlayerId}
+      />
+    );
+
+    getCards(GameType.TShirtAndNumber)
+      .filter((a) => a.value >= 0)
+      .forEach((card) => {
+        const cardElement = view.container.querySelector(`#card-${card.displayValue}`);
+        expect(cardElement).toBeInTheDocument();
+        const cardValueElement = screen.queryAllByText(card.displayValue);
+        expect(cardValueElement.length).toBeGreaterThan(0);
+      });
+  });
   it('should update player value when player clicks on a card', () => {
     const currentPlayerId = mockPlayers[0].id;
     const updatePlayerValueSpy = jest.spyOn(playersService, 'updatePlayerValue');

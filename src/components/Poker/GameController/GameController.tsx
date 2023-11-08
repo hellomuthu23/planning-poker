@@ -52,7 +52,7 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
             action={
               <div className='GameControllerCardHeaderAverageContainer'>
                 <Typography variant='subtitle1'>{game.gameStatus}</Typography>
-                {game.gameType !== GameType.TShirt && (
+                {game.gameType !== GameType.TShirt && game.gameType !== GameType.TShirtAndNumber && (
                   <>
                     <Divider className='GameControllerDivider' orientation='vertical' flexItem />
                     <Typography variant='subtitle1'>Average:</Typography>

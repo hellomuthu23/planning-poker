@@ -53,6 +53,11 @@ describe('GameController component', () => {
 
     expect(screen.queryByText('Average:')).not.toBeInTheDocument();
   });
+  it('should not display game average for TShirt & Numbers GameType', () => {
+    render(<GameController game={{ ...mockGame, gameType: GameType.TShirtAndNumber }} currentPlayerId={mockCurrentPlayerId} />);
+
+    expect(screen.queryByText('Average:')).not.toBeInTheDocument();
+  });
   it('should display exit option', () => {
     render(<GameController game={mockGame} currentPlayerId={mockCurrentPlayerId} />);
 
