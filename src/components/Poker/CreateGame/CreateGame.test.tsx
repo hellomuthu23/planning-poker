@@ -84,7 +84,7 @@ describe('CreateGame component', () => {
     userEvent.clear(userName);
     userEvent.type(userName, 'Rock');
 
-    const tShirt = screen.getByText('T-Shirt', { exact: false });
+    const tShirt = screen.getByText('T-Shirt (XXS, XS, S, M, L, XL, XXL)', { exact: false });
     userEvent.click(tShirt);
 
     const createButton = screen.getByText('Create');
@@ -116,6 +116,28 @@ describe('CreateGame component', () => {
 
     expect(gamesService.addNewGame).toHaveBeenCalledWith(
       expect.objectContaining({ createdBy: 'Rock', gameType: 'ShortFibonacci', name: 'Marvels' })
+    );
+  });
+  it('should be able to create new session of TShirt & Numbers', async () => {
+    render(<CreateGame />);
+    const sessionName = screen.getByPlaceholderText('Enter a session name');
+    userEvent.clear(sessionName);
+    userEvent.type(sessionName, 'Marvels');
+
+    const userName = screen.getByPlaceholderText('Enter your name');
+    userEvent.clear(userName);
+    userEvent.type(userName, 'Rock');
+
+    const tShirt = screen.getByText('T-Shirt & Numbers (S, M, L, XL, 1, 2, 3, 4, 5)', { exact: false });
+    userEvent.click(tShirt);
+
+    const createButton = screen.getByText('Create');
+    userEvent.click(createButton);
+
+    expect(gamesService.addNewGame).toHaveBeenCalled();
+
+    expect(gamesService.addNewGame).toHaveBeenCalledWith(
+        expect.objectContaining({ createdBy: 'Rock', gameType: 'TShirtAndNumber', name: 'Marvels' })
     );
   });
 });
