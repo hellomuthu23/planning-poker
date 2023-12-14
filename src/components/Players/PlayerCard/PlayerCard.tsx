@@ -75,15 +75,16 @@ const getCardValue = (player: Player, game: Game) => {
       if (player.value && player.value === -1) {
         return player.emoji || '☕'; // coffee emoji
       }
-      return getCardDisplayValue(game.cards, player.value);
+      return getCardDisplayValue(game, player.value);
     }
     return '🤔';
   }
 };
 
 const getCardDisplayValue = (
-  cards: CardConfig[],
+  game: Game,
   cardValue: number | undefined,
 ): string | number | undefined => {
+  const cards = game.cards?.length > 0 ? game.cards : getCards(game.gameType);
   return cards.find((card) => card.value === cardValue)?.displayValue || cardValue;
 };
