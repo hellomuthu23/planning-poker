@@ -1,9 +1,9 @@
 import { Card, CardContent, CardHeader, IconButton, Typography } from '@material-ui/core';
 import React from 'react';
-import { Game, GameType } from '../../../types/game';
+import { Game } from '../../../types/game';
 import { Player } from '../../../types/player';
 import { Status } from '../../../types/status';
-import { CardConfig, getCards } from '../CardPicker/CardConfigs';
+import { getCards } from '../CardPicker/CardConfigs';
 import './PlayerCard.css';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForeverTwoTone';
 import { red } from '@material-ui/core/colors';
