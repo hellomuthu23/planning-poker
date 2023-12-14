@@ -49,7 +49,10 @@ export const PlayerCard: React.FC<PlayerCardProps> = ({ game, player, currentPla
         }
       />
       <CardContent className='PlayerCardContent'>
-        <Typography variant='h2' className='PlayerCardContentMiddle'>
+        <Typography
+          variant={getCardValue(player, game)?.length < 2 ? 'h2' : 'h3'}
+          className='PlayerCardContentMiddle'
+        >
           {getCardValue(player, game)}
         </Typography>
       </CardContent>
@@ -79,12 +82,12 @@ const getCardValue = (player: Player, game: Game) => {
     }
     return '🤔';
   }
+  return '';
 };
 
-const getCardDisplayValue = (
-  game: Game,
-  cardValue: number | undefined,
-): string | number | undefined => {
+const getCardDisplayValue = (game: Game, cardValue: number | undefined): string => {
   const cards = game.cards?.length > 0 ? game.cards : getCards(game.gameType);
-  return cards.find((card) => card.value === cardValue)?.displayValue || cardValue;
+  return (
+    cards.find((card) => card.value === cardValue)?.displayValue || cardValue?.toString() || ''
+  );
 };
