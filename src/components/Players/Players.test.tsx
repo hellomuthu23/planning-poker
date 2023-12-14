@@ -9,6 +9,11 @@ describe('Players component', () => {
   const mockGame: Game = {
     id: 'xyz',
     name: 'testGame',
+    cards: [
+      { value: 1, displayValue: '1', color: 'red' },
+      { value: 2, displayValue: '2', color: 'blue' },
+      { value: 3, displayValue: '3', color: 'green' },
+    ],
     createdBy: 'someone',
     createdAt: new Date(),
     average: 0,

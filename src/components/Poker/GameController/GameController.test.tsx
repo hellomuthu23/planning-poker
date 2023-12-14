@@ -19,6 +19,11 @@ describe('GameController component', () => {
   const mockGame: Game = {
     id: 'xyz',
     name: 'testGame',
+    cards: [
+      { value: 1, displayValue: '1', color: 'red' },
+      { value: 2, displayValue: '2', color: 'blue' },
+      { value: 3, displayValue: '3', color: 'green' },
+    ],
     createdBy: 'someone',
     createdAt: new Date(),
     average: 0,
@@ -43,18 +48,41 @@ describe('GameController component', () => {
   });
   it('should display game average for non TShirtGameType', () => {
     render(
-      <GameController game={{ ...mockGame, gameType: GameType.ShortFibonacci }} currentPlayerId={mockCurrentPlayerId} />
+      <GameController
+        game={{ ...mockGame, gameType: GameType.ShortFibonacci }}
+        currentPlayerId={mockCurrentPlayerId}
+      />,
     );
 
     expect(screen.getByText('Average:')).toBeInTheDocument();
   });
   it('should not display game average for TShirt GameType', () => {
-    render(<GameController game={{ ...mockGame, gameType: GameType.TShirt }} currentPlayerId={mockCurrentPlayerId} />);
+    render(
+      <GameController
+        game={{ ...mockGame, gameType: GameType.TShirt }}
+        currentPlayerId={mockCurrentPlayerId}
+      />,
+    );
 
     expect(screen.queryByText('Average:')).not.toBeInTheDocument();
   });
   it('should not display game average for TShirt & Numbers GameType', () => {
-    render(<GameController game={{ ...mockGame, gameType: GameType.TShirtAndNumber }} currentPlayerId={mockCurrentPlayerId} />);
+    render(
+      <GameController
+        game={{ ...mockGame, gameType: GameType.TShirtAndNumber }}
+        currentPlayerId={mockCurrentPlayerId}
+      />,
+    );
+
+    expect(screen.queryByText('Average:')).not.toBeInTheDocument();
+  });
+  it('should not display game average for Custom GameType', () => {
+    render(
+      <GameController
+        game={{ ...mockGame, gameType: GameType.Custom }}
+        currentPlayerId={mockCurrentPlayerId}
+      />,
+    );
 
     expect(screen.queryByText('Average:')).not.toBeInTheDocument();
   });

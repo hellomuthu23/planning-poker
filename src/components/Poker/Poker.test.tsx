@@ -32,7 +32,17 @@ describe('Poker component', () => {
     await screen.findByText('Game not found');
   });
   it('should display game area when game is found', async () => {
-    const mockGame: Game = { id: 'abc', name: 'avengers', createdBy: 'IronMan', gameStatus: Status.NotStarted } as Game;
+    const mockGame: Game = {
+      id: 'abc',
+      name: 'avengers',
+      cards: [
+        { value: 1, displayValue: '1', color: 'red' },
+        { value: 2, displayValue: '2', color: 'blue' },
+        { value: 3, displayValue: '3', color: 'green' },
+      ],
+      createdBy: 'IronMan',
+      gameStatus: Status.NotStarted,
+    } as Game;
     const mockPlayers: Player[] = [
       {
         id: 'xx',

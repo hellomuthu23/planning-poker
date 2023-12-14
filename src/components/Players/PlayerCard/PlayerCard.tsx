@@ -3,7 +3,7 @@ import React from 'react';
 import { Game, GameType } from '../../../types/game';
 import { Player } from '../../../types/player';
 import { Status } from '../../../types/status';
-import { getCards } from '../CardPicker/CardConfigs';
+import { CardConfig, getCards } from '../CardPicker/CardConfigs';
 import './PlayerCard.css';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForeverTwoTone';
 import { red } from '@material-ui/core/colors';
@@ -75,15 +75,15 @@ const getCardValue = (player: Player, game: Game) => {
       if (player.value && player.value === -1) {
         return player.emoji || '☕'; // coffee emoji
       }
-      return getCardDisplayValue(game.gameType, player.value);
+      return getCardDisplayValue(game.cards, player.value);
     }
     return '🤔';
   }
 };
 
 const getCardDisplayValue = (
-  gameType: GameType | undefined,
-  cardValue: number | undefined
+  cards: CardConfig[],
+  cardValue: number | undefined,
 ): string | number | undefined => {
-  return getCards(gameType).find((card) => card.value === cardValue)?.displayValue || cardValue;
+  return cards.find((card) => card.value === cardValue)?.displayValue || cardValue;
 };

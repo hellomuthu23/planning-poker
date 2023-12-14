@@ -1,4 +1,13 @@
-import { Card, CardContent, CardHeader, Divider, Grow, IconButton, Snackbar, Typography } from '@material-ui/core';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  Divider,
+  Grow,
+  IconButton,
+  Snackbar,
+  Typography,
+} from '@material-ui/core';
 import { blue, green, orange, red } from '@material-ui/core/colors';
 import RefreshIcon from '@material-ui/icons/Autorenew';
 import ExitToApp from '@material-ui/icons/ExitToApp';
@@ -11,7 +20,7 @@ import { useHistory } from 'react-router-dom';
 import { finishGame, resetGame, removeGame } from '../../../service/games';
 import { Game, GameType } from '../../../types/game';
 import { isModerator } from '../../../utils/isModerator';
-import { AlertDialog } from '../../../components/AlertDialog/AlertDialog'
+import { AlertDialog } from '../../../components/AlertDialog/AlertDialog';
 import './GameController.css';
 
 interface GameControllerProps {
@@ -37,10 +46,10 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
     history.push(`/`);
   };
 
-  const handleRemoveGame = async ( recentGameId: string ) => {
+  const handleRemoveGame = async (recentGameId: string) => {
     await removeGame(recentGameId);
     window.location.href = '/';
-  }
+  };
 
   return (
     <Grow in={true} timeout={2000}>
@@ -52,15 +61,20 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
             action={
               <div className='GameControllerCardHeaderAverageContainer'>
                 <Typography variant='subtitle1'>{game.gameStatus}</Typography>
-                {game.gameType !== GameType.TShirt && game.gameType !== GameType.TShirtAndNumber && (
-                  <>
-                    <Divider className='GameControllerDivider' orientation='vertical' flexItem />
-                    <Typography variant='subtitle1'>Average:</Typography>
-                    <Typography variant='subtitle1' className='GameControllerCardHeaderAverageValue'>
-                      {game.average || 0}
-                    </Typography>
-                  </>
-                )}
+                {game.gameType !== GameType.TShirt &&
+                  game.gameType !== GameType.TShirtAndNumber &&
+                  game.gameType !== GameType.Custom && (
+                    <>
+                      <Divider className='GameControllerDivider' orientation='vertical' flexItem />
+                      <Typography variant='subtitle1'>Average:</Typography>
+                      <Typography
+                        variant='subtitle1'
+                        className='GameControllerCardHeaderAverageValue'
+                      >
+                        {game.average || 0}
+                      </Typography>
+                    </>
+                  )}
               </div>
             }
             className='GameControllerCardTitle'
@@ -70,7 +84,11 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
               <>
                 <div className='GameControllerButtonContainer'>
                   <div className='GameControllerButton'>
-                    <IconButton onClick={() => finishGame(game.id)} data-testid='reveal-button' color='primary'>
+                    <IconButton
+                      onClick={() => finishGame(game.id)}
+                      data-testid='reveal-button'
+                      color='primary'
+                    >
                       <VisibilityIcon fontSize='large' style={{ color: green[500] }} />
                     </IconButton>
                   </div>
@@ -88,9 +106,9 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
 
                 <div className='GameControllerButtonContainer'>
                   <div className='GameControllerButton'>
-                    <AlertDialog 
-                      title="Remove this session" 
-                      message={`Are you sure? This will delete this session and remove all players.`} 
+                    <AlertDialog
+                      title='Remove this session'
+                      message={`Are you sure? This will delete this session and remove all players.`}
                       onConfirm={() => handleRemoveGame(game.id)}
                       data-testid='delete-button-dialog'
                     >

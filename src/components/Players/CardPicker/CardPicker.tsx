@@ -4,7 +4,7 @@ import { updatePlayerValue } from '../../../service/players';
 import { Game } from '../../../types/game';
 import { Player } from '../../../types/player';
 import { Status } from '../../../types/status';
-import { CardConfig, getCards, getRandomEmoji } from './CardConfigs';
+import { CardConfig, getRandomEmoji } from './CardConfigs';
 import './CardPicker.css';
 import { GoogleAd } from '../../GoogleAd/GoogleAd';
 
@@ -20,7 +20,6 @@ export const CardPicker: React.FC<CardPickerProps> = ({ game, players, currentPl
       updatePlayerValue(gameId, playerId, card.value, randomEmoji);
     }
   };
-  const cards = getCards(game.gameType);
 
   useEffect(() => {
     if (game.gameStatus === Status.Started) {
@@ -32,7 +31,7 @@ export const CardPicker: React.FC<CardPickerProps> = ({ game, players, currentPl
       <div>
         <div className='CardPickerContainer'>
           <Grid container spacing={4} justify='center'>
-            {cards.map((card: CardConfig, index) => (
+            {game.cards.map((card: CardConfig, index) => (
               <Grid key={card.value} item xs>
                 <Slide in={true} direction={'right'} timeout={(1000 * index) / 2}>
                   <Card

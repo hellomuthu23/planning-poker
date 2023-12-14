@@ -39,6 +39,11 @@ describe('games service', () => {
     average: 2,
     gameStatus: Status.NotStarted,
     gameType: GameType.Fibonacci,
+    cards: [
+      { value: 1, displayValue: '1', color: 'red' },
+      { value: 2, displayValue: '2', color: 'blue' },
+      { value: 3, displayValue: '3', color: 'green' },
+    ],
     createdBy: 'Jack',
     createdById: 'beanstalk',
     createdAt: new Date(Date.now() - 60000),
@@ -56,9 +61,29 @@ describe('games service', () => {
   finishedPlayers[2].status = Status.Finished;
 
   it('should store the new game info in the DB', async () => {
-    const fakeGame = { name: 'cherries', gameType: 'uno', createdBy: 'Santa', createdAt: new Date() };
-    const resPlayer = { name: fakeGame.createdBy, id: mockUlid, status: Status.NotStarted };
-    const resGame = { ...fakeGame, id: mockUlid, average: 0, createdById: mockUlid, gameStatus: Status.Started };
+    const fakeGame = {
+      name: 'cherries',
+      gameType: 'uno',
+      createdBy: 'Santa',
+      cards: [
+        { value: 1, displayValue: '1', color: 'red' },
+        { value: 2, displayValue: '2', color: 'blue' },
+        { value: 3, displayValue: '3', color: 'green' },
+      ],
+      createdAt: new Date(),
+    };
+    const resPlayer = {
+      name: fakeGame.createdBy,
+      id: mockUlid,
+      status: Status.NotStarted,
+    };
+    const resGame = {
+      ...fakeGame,
+      id: mockUlid,
+      average: 0,
+      createdById: mockUlid,
+      gameStatus: Status.Started,
+    };
     const gameSpy = jest.spyOn(fb, 'addGameToStore');
     const playerSpy = jest.spyOn(fb, 'addPlayerToGameInStore');
     const updateSpy = jest.spyOn(players, 'updatePlayerGames');
@@ -68,7 +93,13 @@ describe('games service', () => {
     expect(id).toEqual(mockUlid);
     expect(gameSpy).toHaveBeenCalledWith(mockUlid, resGame);
     expect(playerSpy).toHaveBeenCalledWith(mockUlid, resPlayer);
-    expect(updateSpy).toHaveBeenCalledWith(mockUlid, fakeGame.name, fakeGame.createdBy, mockUlid, mockUlid); // Game ID and player ID
+    expect(updateSpy).toHaveBeenCalledWith(
+      mockUlid,
+      fakeGame.name,
+      fakeGame.createdBy,
+      mockUlid,
+      mockUlid,
+    ); // Game ID and player ID
   });
 
   it("should request the given game's stream", () => {
@@ -136,7 +167,10 @@ describe('games service', () => {
 
       await finishGame(mockId);
 
-      expect(spy).toHaveBeenCalledWith(mockId, expect.objectContaining({ gameStatus: Status.Finished }));
+      expect(spy).toHaveBeenCalledWith(
+        mockId,
+        expect.objectContaining({ gameStatus: Status.Finished }),
+      );
     });
 
     it("should not touch the DB if the game doesn't exist", async () => {
@@ -152,7 +186,9 @@ describe('games service', () => {
 
   describe('get the average vote', () => {
     it("should provide the average of players' votes", () => {
-      const expected = Math.round((finishedPlayers[0].value + finishedPlayers[1].value + finishedPlayers[2].value) / 3);
+      const expected = Math.round(
+        (finishedPlayers[0].value + finishedPlayers[1].value + finishedPlayers[2].value) / 3,
+      );
 
       const res = getAverage(finishedPlayers);
 

@@ -1,3 +1,4 @@
+import { CardConfig } from '../components/Players/CardPicker/CardConfigs';
 import { Status } from './status';
 
 export interface Game {
@@ -6,6 +7,7 @@ export interface Game {
   average: number;
   gameStatus: Status;
   gameType?: GameType | GameType.Fibonacci;
+  cards: CardConfig[];
   createdBy: string;
   createdById: string;
   createdAt: Date;
@@ -15,6 +17,7 @@ export interface Game {
 export interface NewGame {
   name: string;
   gameType: string;
+  cards: CardConfig[];
   createdBy: string;
   createdAt: Date;
 }
@@ -24,4 +27,5 @@ export enum GameType {
   ShortFibonacci = 'ShortFibonacci',
   TShirt = 'TShirt',
   TShirtAndNumber = 'TShirtAndNumber',
+  Custom = 'Custom',
 }

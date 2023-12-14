@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, within, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { uniqueNamesGenerator } from 'unique-names-generator';
 import React from 'react';
@@ -32,7 +32,7 @@ describe('CreateGame component', () => {
     expect(screen.getByRole('button')).toBeInTheDocument();
     expect(screen.getByRole('button')).toHaveTextContent('Create');
   });
-  
+
   it('should have default values in the input fields', () => {
     (uniqueNamesGenerator as jest.Mock).mockReturnValueOnce('sesh name');
     (uniqueNamesGenerator as jest.Mock).mockReturnValueOnce('user name');
@@ -71,7 +71,7 @@ describe('CreateGame component', () => {
     expect(gamesService.addNewGame).toHaveBeenCalled();
 
     expect(gamesService.addNewGame).toHaveBeenCalledWith(
-      expect.objectContaining({ createdBy: 'Rock', gameType: 'Fibonacci', name: 'Marvels' })
+      expect.objectContaining({ createdBy: 'Rock', gameType: 'Fibonacci', name: 'Marvels' }),
     );
   });
   it('should be able to create new session of TShirt Sizing', async () => {
@@ -93,7 +93,7 @@ describe('CreateGame component', () => {
     expect(gamesService.addNewGame).toHaveBeenCalled();
 
     expect(gamesService.addNewGame).toHaveBeenCalledWith(
-      expect.objectContaining({ createdBy: 'Rock', gameType: 'TShirt', name: 'Marvels' })
+      expect.objectContaining({ createdBy: 'Rock', gameType: 'TShirt', name: 'Marvels' }),
     );
   });
   it('should be able to create new session of Short Fibonacci Sizing', async () => {
@@ -115,7 +115,7 @@ describe('CreateGame component', () => {
     expect(gamesService.addNewGame).toHaveBeenCalled();
 
     expect(gamesService.addNewGame).toHaveBeenCalledWith(
-      expect.objectContaining({ createdBy: 'Rock', gameType: 'ShortFibonacci', name: 'Marvels' })
+      expect.objectContaining({ createdBy: 'Rock', gameType: 'ShortFibonacci', name: 'Marvels' }),
     );
   });
   it('should be able to create new session of TShirt & Numbers', async () => {
@@ -128,7 +128,9 @@ describe('CreateGame component', () => {
     userEvent.clear(userName);
     userEvent.type(userName, 'Rock');
 
-    const tShirt = screen.getByText('T-Shirt & Numbers (S, M, L, XL, 1, 2, 3, 4, 5)', { exact: false });
+    const tShirt = screen.getByText('T-Shirt & Numbers (S, M, L, XL, 1, 2, 3, 4, 5)', {
+      exact: false,
+    });
     userEvent.click(tShirt);
 
     const createButton = screen.getByText('Create');
@@ -137,7 +139,68 @@ describe('CreateGame component', () => {
     expect(gamesService.addNewGame).toHaveBeenCalled();
 
     expect(gamesService.addNewGame).toHaveBeenCalledWith(
-        expect.objectContaining({ createdBy: 'Rock', gameType: 'TShirtAndNumber', name: 'Marvels' })
+      expect.objectContaining({ createdBy: 'Rock', gameType: 'TShirtAndNumber', name: 'Marvels' }),
+    );
+  });
+  it('should be able to create new session of Custom option', async () => {
+    render(<CreateGame />);
+    const sessionName = screen.getByPlaceholderText('Enter a session name');
+    userEvent.clear(sessionName);
+    userEvent.type(sessionName, 'Marvels');
+
+    const userName = screen.getByPlaceholderText('Enter your name');
+    userEvent.clear(userName);
+    userEvent.type(userName, 'Rock');
+
+    const custom = screen.getByText('Custom', { exact: false });
+    userEvent.click(custom);
+
+    // input custom values
+    const input1 = within(screen.getByTestId('custom-option-1')).getByRole('textbox');
+    userEvent.type(input1, '1');
+
+    const input2 = within(screen.getByTestId('custom-option-2')).getByRole('textbox');
+    userEvent.type(input2, '2');
+
+    const createButton = screen.getByText('Create');
+    userEvent.click(createButton);
+
+    expect(gamesService.addNewGame).toHaveBeenCalled();
+
+    expect(gamesService.addNewGame).toHaveBeenCalledWith(
+      expect.objectContaining({
+        createdBy: 'Rock',
+        gameType: 'Custom',
+        name: 'Marvels',
+        cards: [
+          { color: '#9EC8FE', displayValue: '1', value: 1 },
+          { color: '#9EC8FE', displayValue: '2', value: 2 },
+          { color: 'var(--color-background-secondary)', displayValue: '❓', value: -2 },
+          { color: 'var(--color-background-secondary)', displayValue: '-1', value: -1 },
+        ],
+      }),
+    );
+  });
+  it('should display error when no custom options entered', async () => {
+    render(<CreateGame />);
+    const sessionName = screen.getByPlaceholderText('Enter a session name');
+    userEvent.clear(sessionName);
+    userEvent.type(sessionName, 'Marvels');
+
+    const userName = screen.getByPlaceholderText('Enter your name');
+    userEvent.clear(userName);
+    userEvent.type(userName, 'Rock');
+
+    const custom = screen.getByText('Custom', { exact: false });
+    userEvent.click(custom);
+
+    const createButton = screen.getByText('Create');
+    userEvent.click(createButton);
+    // eslint-disable-next-line testing-library/await-async-utils
+    waitFor(() =>
+      expect(
+        screen.getByText('Please enter values for at least two custom option'),
+      ).toBeInTheDocument(),
     );
   });
 });
