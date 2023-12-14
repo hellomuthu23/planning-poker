@@ -10,6 +10,11 @@ describe('PlayerCard component', () => {
   const mockGame: Game = {
     id: 'xyz',
     name: 'testGame',
+    cards: [
+      { value: 1, displayValue: '1', color: 'red' },
+      { value: 2, displayValue: '2', color: 'blue' },
+      { value: 3, displayValue: '3', color: 'green' },
+    ],
     createdBy: 'someone',
     createdAt: new Date(),
     average: 0,
@@ -19,19 +24,25 @@ describe('PlayerCard component', () => {
   const mockPlayer: Player = { id: 'a1', name: 'SpiderMan', status: Status.InProgress, value: 0 };
   let mockCurrentPlayerId = mockPlayer.id;
   it('should display Player name', () => {
-    render(<PlayerCard game={mockGame} player={mockPlayer} currentPlayerId={mockCurrentPlayerId} />);
+    render(
+      <PlayerCard game={mockGame} player={mockPlayer} currentPlayerId={mockCurrentPlayerId} />,
+    );
 
     expect(screen.getByText(mockPlayer.name)).toBeInTheDocument();
   });
 
   it('should display thinking emoji when Player has not voted', () => {
-    render(<PlayerCard game={mockGame} player={mockPlayer} currentPlayerId={mockCurrentPlayerId} />);
+    render(
+      <PlayerCard game={mockGame} player={mockPlayer} currentPlayerId={mockCurrentPlayerId} />,
+    );
 
     expect(screen.getByText('🤔')).toBeInTheDocument();
   });
   it('should display thumbs up emoji when Player has voted', () => {
     const votedPlayer = { ...mockPlayer, status: Status.Finished };
-    render(<PlayerCard game={mockGame} player={votedPlayer} currentPlayerId={mockCurrentPlayerId} />);
+    render(
+      <PlayerCard game={mockGame} player={votedPlayer} currentPlayerId={mockCurrentPlayerId} />,
+    );
 
     expect(screen.getByText('👍')).toBeInTheDocument();
   });
@@ -39,7 +50,13 @@ describe('PlayerCard component', () => {
   it('should display coffee up emoji when Player has voted but value is -1 and Game is finished', () => {
     const coffeePlayer = { ...mockPlayer, status: Status.Finished, value: -1 };
     const finishedGame = { ...mockGame, gameStatus: Status.Finished };
-    render(<PlayerCard game={finishedGame} player={coffeePlayer} currentPlayerId={mockCurrentPlayerId} />);
+    render(
+      <PlayerCard
+        game={finishedGame}
+        player={coffeePlayer}
+        currentPlayerId={mockCurrentPlayerId}
+      />,
+    );
 
     expect(screen.getByText('☕')).toBeInTheDocument();
   });
@@ -47,35 +64,69 @@ describe('PlayerCard component', () => {
   it('should display correct when Player has voted and Game is finished', () => {
     const coffeePlayer = { ...mockPlayer, status: Status.Finished, value: 5 };
     const finishedGame = { ...mockGame, gameStatus: Status.Finished };
-    render(<PlayerCard game={finishedGame} player={coffeePlayer} currentPlayerId={mockCurrentPlayerId} />);
+    render(
+      <PlayerCard
+        game={finishedGame}
+        player={coffeePlayer}
+        currentPlayerId={mockCurrentPlayerId}
+      />,
+    );
 
     expect(screen.getByText('5')).toBeInTheDocument();
   });
   it('should display thinking emoji when Player has not voted and Game is finished', () => {
     const coffeePlayer = { ...mockPlayer, status: Status.InProgress };
     const finishedGame = { ...mockGame, gameStatus: Status.Finished };
-    render(<PlayerCard game={finishedGame} player={coffeePlayer} currentPlayerId={mockCurrentPlayerId} />);
+    render(
+      <PlayerCard
+        game={finishedGame}
+        player={coffeePlayer}
+        currentPlayerId={mockCurrentPlayerId}
+      />,
+    );
 
     expect(screen.getByText('🤔')).toBeInTheDocument();
   });
   it('should display remove icon for moderator', () => {
     const coffeePlayer = { ...mockPlayer, status: Status.InProgress };
     const finishedGame = { ...mockGame, gameStatus: Status.Finished };
-    render(<PlayerCard game={finishedGame} player={coffeePlayer} currentPlayerId={mockGame.createdById} />);
+    render(
+      <PlayerCard
+        game={finishedGame}
+        player={coffeePlayer}
+        currentPlayerId={mockGame.createdById}
+      />,
+    );
 
     expect(screen.getByTestId('remove-button')).toBeInTheDocument();
   });
   it('should not display remove icon for non moderator', () => {
     const coffeePlayer = { ...mockPlayer, status: Status.InProgress };
     const finishedGame = { ...mockGame, gameStatus: Status.Finished };
-    render(<PlayerCard game={finishedGame} player={coffeePlayer} currentPlayerId={mockCurrentPlayerId} />);
+    render(
+      <PlayerCard
+        game={finishedGame}
+        player={coffeePlayer}
+        currentPlayerId={mockCurrentPlayerId}
+      />,
+    );
 
     expect(screen.queryByTestId('remove-button')).not.toBeInTheDocument();
   });
   it('should not display remove icon for moderator card', () => {
     const coffeePlayer = { ...mockPlayer, status: Status.InProgress };
-    const finishedGame = { ...mockGame, createdBy: mockCurrentPlayerId, gameStatus: Status.Finished };
-    render(<PlayerCard game={finishedGame} player={coffeePlayer} currentPlayerId={mockCurrentPlayerId} />);
+    const finishedGame = {
+      ...mockGame,
+      createdBy: mockCurrentPlayerId,
+      gameStatus: Status.Finished,
+    };
+    render(
+      <PlayerCard
+        game={finishedGame}
+        player={coffeePlayer}
+        currentPlayerId={mockCurrentPlayerId}
+      />,
+    );
 
     expect(screen.queryByTestId('remove-button')).not.toBeInTheDocument();
   });
@@ -83,7 +134,13 @@ describe('PlayerCard component', () => {
     const coffeePlayer = { ...mockPlayer, status: Status.InProgress };
     const finishedGame = { ...mockGame, gameStatus: Status.Finished };
     jest.spyOn(playerService, 'removePlayer').mockResolvedValue();
-    render(<PlayerCard game={finishedGame} player={coffeePlayer} currentPlayerId={mockGame.createdById} />);
+    render(
+      <PlayerCard
+        game={finishedGame}
+        player={coffeePlayer}
+        currentPlayerId={mockGame.createdById}
+      />,
+    );
 
     userEvent.click(screen.getByTestId('remove-button'));
     expect(playerService.removePlayer).toHaveBeenCalledWith(finishedGame.id, coffeePlayer.id);

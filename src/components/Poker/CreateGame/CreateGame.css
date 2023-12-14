@@ -27,3 +27,13 @@
 .CreateGameCardAction {
   justify-content: center;
 }
+
+.CreateGameErrorMessage{
+  color: red;
+  margin-top: 10px;
+}
+
+.CreateGameCustomTextField {
+  width: 40px;
+  margin-left: 10px;
+}

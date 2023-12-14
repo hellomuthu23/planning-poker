@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, IconButton, Typography } from '@material-ui/core';
 import React from 'react';
-import { Game, GameType } from '../../../types/game';
+import { Game } from '../../../types/game';
 import { Player } from '../../../types/player';
 import { Status } from '../../../types/status';
 import { getCards } from '../CardPicker/CardConfigs';
@@ -49,7 +49,10 @@ export const PlayerCard: React.FC<PlayerCardProps> = ({ game, player, currentPla
         }
       />
       <CardContent className='PlayerCardContent'>
-        <Typography variant='h2' className='PlayerCardContentMiddle'>
+        <Typography
+          variant={getCardValue(player, game)?.length < 2 ? 'h2' : 'h3'}
+          className='PlayerCardContentMiddle'
+        >
           {getCardValue(player, game)}
         </Typography>
       </CardContent>
@@ -75,15 +78,16 @@ const getCardValue = (player: Player, game: Game) => {
       if (player.value && player.value === -1) {
         return player.emoji || '☕'; // coffee emoji
       }
-      return getCardDisplayValue(game.gameType, player.value);
+      return getCardDisplayValue(game, player.value);
     }
     return '🤔';
   }
+  return '';
 };
 
-const getCardDisplayValue = (
-  gameType: GameType | undefined,
-  cardValue: number | undefined
-): string | number | undefined => {
-  return getCards(gameType).find((card) => card.value === cardValue)?.displayValue || cardValue;
+const getCardDisplayValue = (game: Game, cardValue: number | undefined): string => {
+  const cards = game.cards?.length > 0 ? game.cards : getCards(game.gameType);
+  return (
+    cards.find((card) => card.value === cardValue)?.displayValue || cardValue?.toString() || ''
+  );
 };

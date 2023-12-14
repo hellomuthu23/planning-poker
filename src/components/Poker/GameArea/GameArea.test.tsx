@@ -9,6 +9,11 @@ describe('GameArea component', () => {
   const mockGame: Game = {
     id: 'xyz',
     name: 'testGame',
+    cards: [
+      { value: 1, displayValue: '1', color: 'red' },
+      { value: 2, displayValue: '2', color: 'blue' },
+      { value: 3, displayValue: '3', color: 'green' },
+    ],
     createdBy: 'someone',
     createdAt: new Date(),
     average: 0,
@@ -22,11 +27,7 @@ describe('GameArea component', () => {
   const mockCurrentPlayerId = mockPlayers[0].id;
   it('should display players', () => {
     render(
-      <GameArea
-        game={mockGame}
-        players={mockPlayers}
-        currentPlayerId={mockCurrentPlayerId}
-      />
+      <GameArea game={mockGame} players={mockPlayers} currentPlayerId={mockCurrentPlayerId} />,
     );
 
     mockPlayers.forEach((player: Player) => {
@@ -36,24 +37,15 @@ describe('GameArea component', () => {
 
   it('should display game controller with name', () => {
     render(
-      <GameArea
-        game={mockGame}
-        players={mockPlayers}
-        currentPlayerId={mockCurrentPlayerId}
-      />
+      <GameArea game={mockGame} players={mockPlayers} currentPlayerId={mockCurrentPlayerId} />,
     );
     expect(screen.getByText(mockGame.name)).toBeInTheDocument();
   });
   it('should display card picker', () => {
     render(
-      <GameArea
-        game={mockGame}
-        players={mockPlayers}
-        currentPlayerId={mockCurrentPlayerId}
-      />
+      <GameArea game={mockGame} players={mockPlayers} currentPlayerId={mockCurrentPlayerId} />,
     );
 
-    expect(screen.queryAllByText('5')).toHaveLength(3);
+    expect(screen.queryAllByText('1')).toHaveLength(3);
   });
-
 });

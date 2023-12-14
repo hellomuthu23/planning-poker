@@ -20,13 +20,15 @@ export const CardPicker: React.FC<CardPickerProps> = ({ game, players, currentPl
       updatePlayerValue(gameId, playerId, card.value, randomEmoji);
     }
   };
-  const cards = getCards(game.gameType);
 
   useEffect(() => {
     if (game.gameStatus === Status.Started) {
       setRandomEmoji(getRandomEmoji);
     }
   }, [game.gameStatus]);
+
+  const cards = game.cards?.length ? game.cards : getCards(game.gameType);
+
   return (
     <Grow in={true} timeout={1000}>
       <div>
@@ -51,7 +53,11 @@ export const CardPicker: React.FC<CardPickerProps> = ({ game, players, currentPl
                           <Typography className='CardContentTop' variant='caption'>
                             {card.displayValue}
                           </Typography>
-                          <Typography className='CardContentMiddle' variant='h4'>
+
+                          <Typography
+                            className='CardContentMiddle'
+                            variant={card.displayValue.length < 2 ? 'h4' : 'h5'}
+                          >
                             {card.displayValue}
                           </Typography>
                           <Typography className='CardContentBottom' variant='caption'>

@@ -45,6 +45,11 @@ describe('Players service', () => {
     name: 'Mock Game',
     average: 3,
     gameStatus: Status.Started,
+    cards: [
+      { value: 1, displayValue: '1', color: 'red' },
+      { value: 2, displayValue: '2', color: 'blue' },
+      { value: 3, displayValue: '3', color: 'green' },
+    ],
     createdBy: 'Creatornado',
     createdById: '123-abc',
     createdAt: new Date(),
@@ -103,7 +108,10 @@ describe('Players service', () => {
 
       await updatePlayerValue(mockGame.id, mockPlayer.id, 3, emoji);
 
-      expect(spyPlayer).toHaveBeenCalledWith(mockGame.id, expect.objectContaining({ value: 3, emoji }));
+      expect(spyPlayer).toHaveBeenCalledWith(
+        mockGame.id,
+        expect.objectContaining({ value: 3, emoji }),
+      );
       expect(spyGame).toHaveBeenCalledWith(mockGame.id);
     });
 
@@ -142,12 +150,18 @@ describe('Players service', () => {
     ];
 
     beforeEach(() => {
-      jest.spyOn(fb, 'getPlayerFromStore').mockResolvedValueOnce(mockPlayer).mockResolvedValueOnce(mockPlayer);
+      jest
+        .spyOn(fb, 'getPlayerFromStore')
+        .mockResolvedValueOnce(mockPlayer)
+        .mockResolvedValueOnce(mockPlayer);
     });
 
     it('should return sorted list of games for the player', async () => {
       jest.spyOn(storage, 'getPlayerGamesFromCache').mockReturnValueOnce(mockPlayerGames);
-      jest.spyOn(fb, 'getGameFromStore').mockResolvedValueOnce(olderMockGame).mockResolvedValueOnce(newerMockGame);
+      jest
+        .spyOn(fb, 'getGameFromStore')
+        .mockResolvedValueOnce(olderMockGame)
+        .mockResolvedValueOnce(newerMockGame);
 
       const games = await getPlayerRecentGames();
 
@@ -185,7 +199,13 @@ describe('Players service', () => {
 
     it("should return undefined if the game doesn't exist", () => {
       const mockPlayerGames: PlayerGame[] = [
-        { id: 'banana', name: 'abc', createdBy: 'xsy', createdById: 'xsy', playerId: mockPlayer.id },
+        {
+          id: 'banana',
+          name: 'abc',
+          createdBy: 'xsy',
+          createdById: 'xsy',
+          playerId: mockPlayer.id,
+        },
       ];
       jest.spyOn(storage, 'getPlayerGamesFromCache').mockReturnValueOnce(mockPlayerGames);
 
@@ -216,7 +236,13 @@ describe('Players service', () => {
       jest.spyOn(storage, 'getPlayerGamesFromCache').mockReturnValueOnce(mockPlayerGames);
       const spy = jest.spyOn(storage, 'updatePlayerGamesInCache');
 
-      updatePlayerGames(newGame.id, newGame.name, newGame.createdBy, newGame.createdById, newGame.playerId);
+      updatePlayerGames(
+        newGame.id,
+        newGame.name,
+        newGame.createdBy,
+        newGame.createdById,
+        newGame.playerId,
+      );
 
       expect(spy).toHaveBeenCalledWith(expect.arrayContaining([...mockPlayerGames, newGame]));
     });

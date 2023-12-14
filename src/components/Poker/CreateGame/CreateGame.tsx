@@ -17,6 +17,7 @@ import { addNewGame } from '../../../service/games';
 import { GameType, NewGame } from '../../../types/game';
 import './CreateGame.css';
 import { useTranslation } from 'react-i18next';
+import { getCards, getCustomCards } from '../../Players/CardPicker/CardConfigs';
 
 const gameNameConfig: Config = {
   dictionaries: [colors, animals],
@@ -34,15 +35,28 @@ export const CreateGame = () => {
   const [gameType, setGameType] = useState(GameType.Fibonacci);
   const [hasDefaults, setHasDefaults] = useState({ game: true, name: true });
   const [loading, setLoading] = useState(false);
+  const [customOptions, setCustomOptions] = React.useState(Array(10).fill(''));
+  const [error, setError] = React.useState(false);
   const { t } = useTranslation();
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
+    if (gameType === GameType.Custom) {
+      const count = customOptions.reduce(
+        (acc, option) => (option && option.trim() !== '' ? acc + 1 : acc),
+        0,
+      );
+      setError(count < 2);
+      if (count < 2) {
+        return;
+      }
+    }
     setLoading(true);
     const game: NewGame = {
       name: gameName,
       createdBy: createdBy,
       gameType: gameType,
+      cards: gameType === GameType.Custom ? getCustomCards(customOptions) : getCards(gameType),
       createdAt: new Date(),
     };
     const newGameId = await addNewGame(game);
@@ -50,6 +64,14 @@ export const CreateGame = () => {
       setLoading(false);
     }
     history.push(`/game/${newGameId}`);
+  };
+
+  const handleCustomOptionChange = (index: number, value: string) => {
+    const newCustomOptions = [...customOptions];
+    newCustomOptions[index] = value;
+    setCustomOptions(newCustomOptions);
+
+    // Count the number of custom options that have a value
   };
 
   const emptyGameName = () => {
@@ -130,7 +152,37 @@ export const CreateGame = () => {
                 control={<Radio color='primary' size='small' />}
                 label='T-Shirt & Numbers (S, M, L, XL, 1, 2, 3, 4, 5)'
               />
+              <FormControlLabel
+                value={GameType.Custom}
+                control={<Radio color='primary' size='small' />}
+                label='Custom'
+              />
             </RadioGroup>
+            {gameType === GameType.Custom && (
+              <>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                  {customOptions.map((option: any, index: number) => (
+                    <TextField
+                      key={index}
+                      margin='dense'
+                      id={`custom-option-${index}`}
+                      data-testid={`custom-option-${index}`}
+                      inputProps={{ maxLength: 3, style: { fontSize: '12px', padding: '10px' } }}
+                      type='text'
+                      variant='outlined'
+                      className='CreateGameCustomTextField'
+                      value={option}
+                      onChange={(event) => handleCustomOptionChange(index, event.target.value)}
+                    />
+                  ))}
+                </div>
+                {error && (
+                  <p className='CreateGameErrorMessage'>
+                    Please enter values for at least two custom option.
+                  </p>
+                )}
+              </>
+            )}
           </CardContent>
           <CardActions className='CreateGameCardAction'>
             <Button
