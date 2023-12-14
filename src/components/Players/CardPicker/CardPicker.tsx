@@ -53,7 +53,11 @@ export const CardPicker: React.FC<CardPickerProps> = ({ game, players, currentPl
                           <Typography className='CardContentTop' variant='caption'>
                             {card.displayValue}
                           </Typography>
-                          <Typography className='CardContentMiddle' variant='h4'>
+
+                          <Typography
+                            className='CardContentMiddle'
+                            variant={card.displayValue.length < 2 ? 'h4' : 'h5'}
+                          >
                             {card.displayValue}
                           </Typography>
                           <Typography className='CardContentBottom' variant='caption'>
