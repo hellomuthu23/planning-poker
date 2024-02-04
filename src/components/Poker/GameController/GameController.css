@@ -29,6 +29,8 @@
   padding-left: 20px;
   border-bottom: 1px solid var(--color-primary);
   font-weight: bold;
+  min-height: 40px;
+  align-items: center;
 }
 
 .GameControllerButtonContainer {
@@ -41,7 +43,7 @@
 .GameControllerButton {
   display: flex;
   border-radius: 50%;
-  background-color:  var(--color-background);
+  background-color: var(--color-background);
 }
 .GameControllerButton:hover {
   box-shadow: rgb(171 207 248) 0px 0px 0px 6px;
@@ -50,6 +52,8 @@
 .GameControllerCardHeaderAverageContainer {
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  align-items: center;
   margin: 3px;
   padding-left: 30px;
 }
@@ -60,9 +64,11 @@
   color: var(--color-warning);
   font-weight: bold;
 }
-
-
+.GameControllerGameStatus {
+  padding-right: 5px;
+}
 .MuiCardHeader-action {
   margin: 0;
   padding-right: 5px;
+  align-self: auto;
 }

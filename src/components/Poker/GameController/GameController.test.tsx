@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 import { Game, GameType } from '../../../types/game';
 import { Status } from '../../../types/status';
@@ -132,6 +132,63 @@ describe('GameController component', () => {
       render(<GameController game={mockGame} currentPlayerId={mockCurrentPlayerId} />);
       userEvent.click(screen.getByTestId('restart-button'));
       expect(gamesService.resetGame).toHaveBeenCalled();
+    });
+  });
+  describe('On Timer feature', () => {
+    it('should display timer option', () => {
+      render(<GameController game={mockGame} currentPlayerId={mockCurrentPlayerId} />);
+
+      expect(screen.getByText('Timer')).toBeInTheDocument();
+    });
+
+    it('should open timer input popup on clicking timer icon', () => {
+      render(<GameController game={mockGame} currentPlayerId={mockCurrentPlayerId} />);
+      fireEvent.click(screen.getByTestId('timer-pop'));
+      const timerInput = screen.getByTestId('timer-input');
+      expect(timerInput).toBeInTheDocument();
+    });
+
+    it('should allow to enter timer value on the input', () => {
+      render(<GameController game={mockGame} currentPlayerId={mockCurrentPlayerId} />);
+      fireEvent.click(screen.getByTestId('timer-pop'));
+      const timerInput = screen.getByTestId('timer-input');
+      expect(timerInput).toBeInTheDocument();
+      fireEvent.change(timerInput.firstChild as ChildNode, { target: { value: '20' } });
+      const timerProgressIndicator = screen.getByTitle('20 Seconds');
+      expect(timerProgressIndicator).toBeInTheDocument();
+    });
+
+    it('should stop the timer progress and hide it on clicking activated timer icon', () => {
+      render(<GameController game={mockGame} currentPlayerId={mockCurrentPlayerId} />);
+      fireEvent.click(screen.getByTestId('timer-pop'));
+      const timerInput = screen.getByTestId('timer-input');
+      expect(timerInput).toBeInTheDocument();
+      fireEvent.change(timerInput.firstChild as ChildNode, { target: { value: '20' } });
+      let timerProgressIndicator = screen.getByTitle('20 Seconds');
+      expect(timerProgressIndicator).toBeInTheDocument();
+      fireEvent.click(screen.getByTestId('timer-pop'));
+      expect(timerProgressIndicator).not.toBeInTheDocument();
+    });
+
+    it('should start timer on clicking restart and reveal result on timer end', () => {
+      (gamesService.finishGame as any) = jest.fn();
+      jest.useFakeTimers();
+      render(<GameController game={mockGame} currentPlayerId={mockCurrentPlayerId} />);
+      fireEvent.click(screen.getByTestId('timer-pop'));
+      const timerInput = screen.getByTestId('timer-input');
+      expect(timerInput).toBeInTheDocument();
+      fireEvent.change(timerInput.firstChild as ChildNode, { target: { value: '20' } });
+      const timerProgressIndicator = screen.getByTitle('20 Seconds');
+      expect(timerProgressIndicator).toBeInTheDocument();
+      userEvent.click(screen.getByTestId('restart-button'));
+      expect(screen.getByTitle('20 Seconds')).toBeInTheDocument();
+      jest.advanceTimersByTime(11000);
+      expect(screen.getByTitle('10 Seconds')).toBeInTheDocument();
+      jest.advanceTimersByTime(10000);
+      expect(screen.getByTitle('0 Seconds')).toBeInTheDocument();
+      jest.advanceTimersByTime(1000);
+      expect(screen.getByTitle('20 Seconds')).toBeInTheDocument();
+      expect(gamesService.finishGame).toHaveBeenCalled();
     });
   });
 });
