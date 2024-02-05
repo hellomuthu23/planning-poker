@@ -1,5 +1,6 @@
+/* eslint-disable testing-library/no-node-access */
+/* eslint-disable testing-library/no-container */
 import { fireEvent, render, screen } from '@testing-library/react';
-import React from 'react';
 import { Game, GameType } from '../../../types/game';
 import { Status } from '../../../types/status';
 import { GameController } from './GameController';
