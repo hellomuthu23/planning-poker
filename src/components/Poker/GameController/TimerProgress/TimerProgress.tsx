@@ -44,6 +44,7 @@ export const TimerProgress: React.FC<TimerProgressProps> = ({
     setProgress(timerValue * 1000);
   }, [timerValue]);
   const percentageProgress = (progress / milliseconds) * 100;
+  const progressLable = (progress / 1000).toFixed();
   return (
     <Box position='relative' display='inline-flex'>
       <CircularProgress
@@ -73,10 +74,10 @@ export const TimerProgress: React.FC<TimerProgressProps> = ({
           component='div'
           color='textSecondary'
           className='progress-time-text'
-          title={(progress / 1000).toFixed() + ' Seconds'}
+          title={progressLable + ' Seconds'}
           data-testid='timer-seconds'
         >
-          {(progress / 1000).toFixed()}s
+          {progressLable}s
         </Typography>
       </Box>
     </Box>
