@@ -15,7 +15,7 @@ import LinkIcon from '@material-ui/icons/Link';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import DeleteOutlined from '@material-ui/icons/DeleteForeverTwoTone';
 import Alert from '@material-ui/lab/Alert';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { finishGame, resetGame, removeGame } from '../../../service/games';
 import { Game, GameType } from '../../../types/game';
@@ -58,6 +58,10 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
     window.location.href = '/';
   };
 
+  const onTimerEndCallBack = useCallback(()=>{
+    finishGame(game.id);
+  },[game.id])
+
   return (
     <Grow in={true} timeout={2000}>
       <div className='GameController'>
@@ -74,9 +78,7 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
                   <TimerProgress
                     timerValue={timerValue ?? 0}
                     startTimer={isTimmerRunnig}
-                    onTimerEnd={() => {
-                      finishGame(game.id);
-                    }}
+                    onTimerEnd={onTimerEndCallBack}
                   ></TimerProgress>
                 ) : null}
                 {game.gameType !== GameType.TShirt &&

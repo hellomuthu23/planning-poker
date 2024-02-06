@@ -38,7 +38,7 @@ export const TimerProgress: React.FC<TimerProgressProps> = ({
     return () => {
       if (timer) clearInterval(timer);
     };
-  }, [startTimer]);
+  }, [startTimer,onTimerEnd,milliseconds]);
 
   useEffect(() => {
     setProgress(timerValue * 1000);
