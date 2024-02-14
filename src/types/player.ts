@@ -11,6 +11,7 @@ export interface Player {
 export interface PlayerGame {
   id: string;
   name: string;
+  isAllowMembersToManageSession?: boolean;
   createdById: string;
   createdBy: string;
   playerId: string;
