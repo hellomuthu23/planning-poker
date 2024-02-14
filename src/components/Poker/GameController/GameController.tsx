@@ -80,7 +80,7 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
             className='GameControllerCardTitle'
           ></CardHeader>
           <CardContent className='GameControllerCardContentArea'>
-            {isModerator(game.createdById, currentPlayerId) && (
+            {isModerator(game.createdById, currentPlayerId, game.isAllowMembersToManageSession) && (
               <>
                 <div className='GameControllerButtonContainer'>
                   <div className='GameControllerButton'>

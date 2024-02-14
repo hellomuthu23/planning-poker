@@ -34,7 +34,7 @@ export const PlayerCard: React.FC<PlayerCardProps> = ({ game, player, currentPla
         title={player.name}
         titleTypographyProps={{ variant: 'subtitle2', noWrap: true, title: player.name }}
         action={
-          isModerator(game.createdById, currentPlayerId) &&
+          isModerator(game.createdById, currentPlayerId, game.isAllowMembersToManageSession) &&
           player.id !== currentPlayerId && (
             <IconButton
               title='Remove'

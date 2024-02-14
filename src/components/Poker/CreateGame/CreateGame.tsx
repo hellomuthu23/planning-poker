@@ -4,6 +4,7 @@ import {
   CardActions,
   CardContent,
   CardHeader,
+  Checkbox,
   FormControlLabel,
   Grow,
   Radio,
@@ -35,6 +36,7 @@ export const CreateGame = () => {
   const [gameType, setGameType] = useState(GameType.Fibonacci);
   const [hasDefaults, setHasDefaults] = useState({ game: true, name: true });
   const [loading, setLoading] = useState(false);
+  const [allowMembersToManageSession, setAllowMembersToManageSession] = useState(false);
   const [customOptions, setCustomOptions] = React.useState(Array(10).fill(''));
   const [error, setError] = React.useState(false);
   const { t } = useTranslation();
@@ -56,6 +58,7 @@ export const CreateGame = () => {
       name: gameName,
       createdBy: createdBy,
       gameType: gameType,
+      isAllowMembersToManageSession: allowMembersToManageSession,
       cards: gameType === GameType.Custom ? getCustomCards(customOptions) : getCards(gameType),
       createdAt: new Date(),
     };
@@ -183,6 +186,16 @@ export const CreateGame = () => {
                 )}
               </>
             )}
+            <FormControlLabel
+              control={
+                <Checkbox
+                  color='primary'
+                  checked={allowMembersToManageSession}
+                  onChange={() => setAllowMembersToManageSession(!allowMembersToManageSession)}
+                />
+              }
+              label='Allow members to manage session'
+            />
           </CardContent>
           <CardActions className='CreateGameCardAction'>
             <Button

@@ -89,7 +89,11 @@ export const RecentGames = () => {
                       >
                         <TableCell>{recentGame.name}</TableCell>
                         <TableCell align='left'>{recentGame.createdBy}</TableCell>
-                        {isModerator(recentGame.createdById, getCurrentPlayerId(recentGame.id)) ? (
+                        {isModerator(
+                          recentGame.createdById,
+                          getCurrentPlayerId(recentGame.id),
+                          recentGame.isAllowMembersToManageSession,
+                        ) ? (
                           <TableCell align='center' onClick={(e) => e.stopPropagation()}>
                             <AlertDialog
                               title='Remove recent game'
@@ -103,7 +107,7 @@ export const RecentGames = () => {
                           <TableCell align='left'></TableCell>
                         )}
                       </TableRow>
-                    )
+                    ),
                 )}
               </TableBody>
             </Table>
