@@ -89,7 +89,7 @@ export const HomePage = () => {
               </div>
             </Slide>
           </Grid>
-          <Grid item sm={12} lg={6}>
+          <Grid item sm={12} lg={12}>
             <Slide in={true} direction='up' timeout={2000}>
               <div className='HomePageContainer'>
                 <Box padding={2}>
@@ -103,9 +103,7 @@ export const HomePage = () => {
             </Slide>
           </Grid>
         </Grid>
-        <GoogleAd />
         <AboutPlanningPokerContent />
-        <GoogleAd />
       </Grid>
 
       <Footer />
