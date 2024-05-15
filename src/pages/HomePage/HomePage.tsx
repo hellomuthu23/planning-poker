@@ -11,6 +11,7 @@ import './HomePage.css';
 import { AboutPlanningPokerContent } from '../AboutPage/AboutPage';
 import { Footer } from '../../components/Footer/Footer';
 import { GoogleAd } from '../../components/GoogleAd/GoogleAd';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 export const HomePage = () => {
   const isJoin = useRouteMatch('/join');
@@ -25,11 +26,12 @@ export const HomePage = () => {
               <div className='HomePageContainer'>
                 <Typography variant='h5'>{t('HomePage.heroSection.title')}</Typography>
                 <Box padding={2}>
-                  <img
+                  <LazyLoadImage
+                    loading='lazy'
                     alt={t('HomePage.heroSection.title')}
                     className='HomePageImage'
                     src={LandingImage}
-                  ></img>
+                  ></LazyLoadImage>
                 </Box>
                 <Typography variant='subtitle1'>{t('HomePage.heroSection.description')}</Typography>
               </div>
