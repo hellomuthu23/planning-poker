@@ -111,8 +111,6 @@ export const getCustomCards = (values: string[]) => {
     { value: 7, displayValue: values[7], color: '#F4DD94' },
     { value: 8, displayValue: values[8], color: '#F4DD94' },
     { value: 9, displayValue: values[9], color: '#F39893' },
-    { value: -2, displayValue: '❓', color: 'var(--color-background-secondary)' },
-    { value: -1, displayValue: '-1', color: 'var(--color-background-secondary)' },
   ];
   return customCards.filter(
     (card) => card.displayValue !== undefined && card.displayValue.trim() !== '',

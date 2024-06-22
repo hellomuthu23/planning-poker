@@ -207,8 +207,6 @@ describe('CreateGame component', () => {
         cards: [
           { color: '#9EC8FE', displayValue: '1', value: 1 },
           { color: '#9EC8FE', displayValue: '2', value: 2 },
-          { color: 'var(--color-background-secondary)', displayValue: '❓', value: -2 },
-          { color: 'var(--color-background-secondary)', displayValue: '-1', value: -1 },
         ],
       }),
     );
