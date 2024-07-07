@@ -71,7 +71,7 @@ Free / Open source Scrum/Agile Planning Poker Web App to estimate user stories f
 4. Provide option to enter user story name
 5. Make the default Session name random
 
-## Tech Depts
+## Tech Debts
 
 1. Add Semantic Release to generate changelog and release notes
 2. Add missing unit tests for services
