@@ -15,13 +15,16 @@ import LinkIcon from '@material-ui/icons/Link';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import DeleteOutlined from '@material-ui/icons/DeleteForeverTwoTone';
 import Alert from '@material-ui/lab/Alert';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { finishGame, resetGame, removeGame } from '../../../service/games';
 import { Game, GameType } from '../../../types/game';
-import { isModerator } from '../../../utils/isModerator';
 import { AlertDialog } from '../../../components/AlertDialog/AlertDialog';
+import { isModerator } from '../../../utils/isModerator';
+
 import './GameController.css';
+import { TimerController } from './Timer/Timer';
+import { TimerProgress } from './TimerProgress/TimerProgress';
 
 interface GameControllerProps {
   game: Game;
@@ -30,7 +33,11 @@ interface GameControllerProps {
 
 export const GameController: React.FC<GameControllerProps> = ({ game, currentPlayerId }) => {
   const history = useHistory();
-  const [showCopiedMessage, setShowCopiedMessage] = useState(false);
+  const [showCopiedMessage, setShowCopiedMessage] = useState<boolean>(false);
+  const [isTimerEnabled, setIsTimerEnabled] = useState(false);
+  const [timerValue, setTimerValue] = useState<number | null>(null);
+  const [isTimmerRunnig, setIsTimerRunning] = useState<boolean>(false);
+
   const copyInviteLink = () => {
     const dummy = document.createElement('input');
     const url = `${window.location.origin}/join/${game.id}`;
@@ -51,6 +58,10 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
     window.location.href = '/';
   };
 
+  const onTimerEndCallBack = useCallback(()=>{
+    finishGame(game.id);
+  },[game.id])
+
   return (
     <Grow in={true} timeout={2000}>
       <div className='GameController'>
@@ -60,7 +71,16 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
             titleTypographyProps={{ variant: 'h6' }}
             action={
               <div className='GameControllerCardHeaderAverageContainer'>
-                <Typography variant='subtitle1'>{game.gameStatus}</Typography>
+                <Typography variant='subtitle1' className='GameControllerGameStatus'>
+                  {game.gameStatus}
+                </Typography>
+                {isTimerEnabled ? (
+                  <TimerProgress
+                    timerValue={timerValue ?? 0}
+                    startTimer={isTimmerRunnig}
+                    onTimerEnd={onTimerEndCallBack}
+                  ></TimerProgress>
+                ) : null}
                 {game.gameType !== GameType.TShirt &&
                   game.gameType !== GameType.TShirtAndNumber &&
                   game.gameType !== GameType.Custom && (
@@ -97,7 +117,16 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
 
                 <div className='GameControllerButtonContainer'>
                   <div className='GameControllerButton'>
-                    <IconButton data-testid='restart-button' onClick={() => resetGame(game.id)}>
+                    <IconButton
+                      data-testid='restart-button'
+                      onClick={() => {
+                        resetGame(game.id);
+                        setIsTimerRunning(false);
+                        setTimeout(() => {
+                          setIsTimerRunning(true);
+                        });
+                      }}
+                    >
                       <RefreshIcon fontSize='large' color='error' />
                     </IconButton>
                   </div>
@@ -119,6 +148,19 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
                   </div>
                   <Typography variant='caption'>Delete</Typography>
                 </div>
+                <TimerController
+                  data-testid='timer-controller'
+                  isTimer={isTimerEnabled}
+                  setIsTimer={(timeValue) => {
+                    setIsTimerEnabled(timeValue);
+                    setIsTimerRunning(false);
+                  }}
+                  timerValue={timerValue}
+                  setTimerValue={(timerValue) => {
+                    setTimerValue(timerValue ? +timerValue : null);
+                    setIsTimerRunning(false);
+                  }}
+                />
               </>
             )}
             <div className='GameControllerButtonContainer'>

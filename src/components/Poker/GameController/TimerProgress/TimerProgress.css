@@ -1,0 +1,19 @@
+.green-progress {
+  color: lightgreen;
+}
+
+.red-progress {
+  color: red;
+}
+
+.custom-progress {
+  width: 30px !important;
+  height: 30px !important;
+}
+
+.progress-time-text {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  text-align: center;
+  padding: 3px;
+}
