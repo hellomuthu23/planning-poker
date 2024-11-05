@@ -61,6 +61,19 @@ export const tShirtAndNumbersCards: CardConfig[] = [
   { value: 90, displayValue: '5', color: '#F39893' },
 ];
 
+export const customCardsTemplate: CardConfig[] = [
+  { value: 0, displayValue: '0', color: 'var(--color-background-secondary)' },
+  { value: 1, displayValue: '1', color: '#9EC8FE' },
+  { value: 2, displayValue: '2', color: '#9EC8FE' },
+  { value: 3, displayValue: '3', color: '#A3DFF2' },
+  { value: 4, displayValue: '4', color: '#A3DFF2' },
+  { value: 5, displayValue: '5', color: '#9DD49A' },
+  { value: 6, displayValue: '6', color: '#9DD49A' },
+  { value: 7, displayValue: '7', color: '#F4DD94' },
+  { value: 8, displayValue: '8', color: '#F4DD94' },
+  { value: 9, displayValue: '9', color: '#F39893' },
+];
+
 export const getCards = (gameType: GameType | undefined): CardConfig[] => {
   switch (gameType) {
     case GameType.Fibonacci:
@@ -71,6 +84,8 @@ export const getCards = (gameType: GameType | undefined): CardConfig[] => {
       return tShirtCards;
     case GameType.TShirtAndNumber:
       return tShirtAndNumbersCards;
+    case GameType.Custom:
+      return customCardsTemplate;
     default:
       return fibonacciCards;
   }
@@ -100,18 +115,9 @@ export const getRandomEmoji = () => {
 };
 
 export const getCustomCards = (values: string[]) => {
-  const customCards: CardConfig[] = [
-    { value: 0, displayValue: values[0], color: 'var(--color-background-secondary)' },
-    { value: 1, displayValue: values[1], color: '#9EC8FE' },
-    { value: 2, displayValue: values[2], color: '#9EC8FE' },
-    { value: 3, displayValue: values[3], color: '#A3DFF2' },
-    { value: 4, displayValue: values[4], color: '#A3DFF2' },
-    { value: 5, displayValue: values[5], color: '#9DD49A' },
-    { value: 6, displayValue: values[6], color: '#9DD49A' },
-    { value: 7, displayValue: values[7], color: '#F4DD94' },
-    { value: 8, displayValue: values[8], color: '#F4DD94' },
-    { value: 9, displayValue: values[9], color: '#F39893' },
-  ];
+  const customCards: CardConfig[] = customCardsTemplate;
+  values.forEach((value, index) => (customCards[index].displayValue = value));
+
   return customCards.filter(
     (card) => card.displayValue !== undefined && card.displayValue.trim() !== '',
   );
