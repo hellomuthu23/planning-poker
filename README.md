@@ -31,7 +31,7 @@ Free / Open source Scrum/Agile Planning Poker Web App to estimate user stories f
 5. Reveal - Reveal the cards for all users
 6. Voting status - Users Cards show voting status using emojis - 👍 - Voting Done, 🤔 - Yet to Vote
 7. Remove user from session
-8. Delete Session - Moderator can delete the session completely.
+8. Delete Session - Moderator can delete the session completely
 
 ## Tech Stack
 
