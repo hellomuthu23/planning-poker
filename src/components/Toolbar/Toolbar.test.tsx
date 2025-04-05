@@ -29,6 +29,7 @@ describe('Toolbar component', () => {
   });
 
   afterAll((): void => {
+    // @ts-ignore
     window.location = location;
   });
   it('should render correct title', () => {
