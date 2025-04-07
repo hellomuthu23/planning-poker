@@ -20,6 +20,7 @@ describe('Footer component', () => {
   });
 
   afterAll((): void => {
+    // @ts-ignore
     window.location = location;
   });
   it('should render copyright', () => {
