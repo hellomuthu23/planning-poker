@@ -10,14 +10,14 @@ import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import BookOutlinedIcon from '@material-ui/icons/MenuBookOutlined';
 import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './Toolbar.css';
 import { useTranslation } from 'react-i18next';
 import { LanguageControl } from '../LanguageControl/LanguageControl';
 export const title = 'Planning Poker';
 
 export const Toolbar = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const isSmallScreen = useMediaQuery((theme: any) => theme.breakpoints.down('xs'));
   const { t } = useTranslation();
 
@@ -26,7 +26,7 @@ export const Toolbar = () => {
       <AppBar position='sticky' className='AppBar'>
         <AppToolbar>
           <div className='HeaderContainer'>
-            <div className='HeaderLeftContainer' onClick={() => history.push('/')}>
+            <div className='HeaderLeftContainer' onClick={() => navigate('/')}>
               <GamesIcon className='HeaderIcon' />
               <Typography variant={isSmallScreen ? 'subtitle1' : 'h5'} color='inherit' noWrap>
                 {title}
@@ -37,7 +37,7 @@ export const Toolbar = () => {
                 title={t('toolbar.menu.about')}
                 startIcon={<InfoOutlinedIcon />}
                 color='inherit'
-                onClick={() => history.push('/about-planning-poker')}
+                onClick={() => navigate('/about-planning-poker')}
               >
                 {!isSmallScreen ? t('toolbar.menu.about') : null}
               </Button>
@@ -45,7 +45,7 @@ export const Toolbar = () => {
                 title={t('toolbar.menu.guide')}
                 startIcon={<SearchOutlinedIcon />}
                 color='inherit'
-                onClick={() => history.push('/guide')}
+                onClick={() => navigate('/guide')}
               >
                 {!isSmallScreen ? t('toolbar.menu.guide') : null}
               </Button>
@@ -53,7 +53,7 @@ export const Toolbar = () => {
                 title={t('toolbar.menu.examples')}
                 startIcon={<BookOutlinedIcon />}
                 color='inherit'
-                onClick={() => history.push('/examples')}
+                onClick={() => navigate('/examples')}
               >
                 {!isSmallScreen ? t('toolbar.menu.examples') : null}
               </Button>
@@ -61,7 +61,7 @@ export const Toolbar = () => {
                 title={t('toolbar.menu.newSession')}
                 startIcon={<AddCircleOutlineIcon />}
                 color='inherit'
-                onClick={() => history.push('/')}
+                onClick={() => navigate('/')}
                 data-testid='toolbar.menu.newSession'
               >
                 {!isSmallScreen ? t('toolbar.menu.newSession') : null}
@@ -71,7 +71,7 @@ export const Toolbar = () => {
                 startIcon={<MergeTypeOutlinedIcon />}
                 size={isSmallScreen ? 'small' : 'large'}
                 color='inherit'
-                onClick={() => history.push('/join')}
+                onClick={() => navigate('/join')}
                 data-testid='toolbar.menu.joinSession'
               >
                 {!isSmallScreen ? t('toolbar.menu.joinSession') : null}

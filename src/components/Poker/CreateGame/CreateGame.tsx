@@ -13,7 +13,7 @@ import {
 } from '@material-ui/core';
 import React, { ChangeEvent, FormEvent, useState } from 'react';
 import { uniqueNamesGenerator, Config, starWars, colors, animals } from 'unique-names-generator';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { addNewGame } from '../../../service/games';
 import { GameType, NewGame } from '../../../types/game';
 import './CreateGame.css';
@@ -30,7 +30,7 @@ const userNameConfig: Config = {
 };
 
 export const CreateGame = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const [gameName, setGameName] = useState(uniqueNamesGenerator(gameNameConfig));
   const [createdBy, setCreatedBy] = useState(uniqueNamesGenerator(userNameConfig));
   const [gameType, setGameType] = useState(GameType.Fibonacci);
@@ -66,7 +66,7 @@ export const CreateGame = () => {
     if (newGameId) {
       setLoading(false);
     }
-    history.push(`/game/${newGameId}`);
+    navigate(`/game/${newGameId}`);
   };
 
   const handleCustomOptionChange = (index: number, value: string) => {

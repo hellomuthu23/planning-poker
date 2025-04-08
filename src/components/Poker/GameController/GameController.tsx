@@ -16,7 +16,7 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import DeleteOutlined from '@material-ui/icons/DeleteForeverTwoTone';
 import Alert from '@material-ui/lab/Alert';
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { finishGame, resetGame, removeGame } from '../../../service/games';
 import { Game, GameType } from '../../../types/game';
 import { isModerator } from '../../../utils/isModerator';
@@ -29,7 +29,7 @@ interface GameControllerProps {
 }
 
 export const GameController: React.FC<GameControllerProps> = ({ game, currentPlayerId }) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const [showCopiedMessage, setShowCopiedMessage] = useState(false);
   const copyInviteLink = () => {
     const dummy = document.createElement('input');
@@ -43,7 +43,7 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
   };
 
   const leaveGame = () => {
-    history.push(`/`);
+    navigate('/');
   };
 
   const handleRemoveGame = async (recentGameId: string) => {

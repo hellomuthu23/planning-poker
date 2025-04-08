@@ -1,6 +1,6 @@
 import { CircularProgress, Typography } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { streamGame, streamPlayers } from '../../service/games';
 import { getCurrentPlayerId } from '../../service/players';
 import { Game } from '../../types/game';
@@ -9,8 +9,8 @@ import { GameArea } from './GameArea/GameArea';
 import './Poker.css';
 
 export const Poker = () => {
-  let { id } = useParams<{ id: string }>();
-  const history = useHistory();
+  let { id } = useParams<'id'>();
+  const navigate = useNavigate();
   const [game, setGame] = useState<Game | undefined>(undefined);
   const [players, setPlayers] = useState<Player[] | undefined>(undefined);
   const [loading, setIsLoading] = useState(true);
@@ -18,19 +18,19 @@ export const Poker = () => {
 
   useEffect(() => {
     let effectCleanup = true;
-    
-    if(effectCleanup) {
+
+    if (effectCleanup) {
       const currentPlayerId = getCurrentPlayerId(id);
       if (!currentPlayerId) {
-        history.push(`/join/${id}`);
+        navigate(`/join/${id}`);
       }
-      
+
       setCurrentPlayerId(currentPlayerId);
       setIsLoading(true);
     }
-    
+
     streamGame(id).onSnapshot((snapshot) => {
-      if(effectCleanup) {
+      if (effectCleanup) {
         if (snapshot.exists) {
           const data = snapshot.data();
           if (data) {
@@ -44,21 +44,23 @@ export const Poker = () => {
     });
 
     streamPlayers(id).onSnapshot((snapshot) => {
-      if(effectCleanup) {
+      if (effectCleanup) {
         const players: Player[] = [];
         snapshot.forEach((snapshot) => {
           players.push(snapshot.data() as Player);
         });
         const currentPlayerId = getCurrentPlayerId(id);
         if (!players.find((player) => player.id === currentPlayerId)) {
-          history.push(`/join/${id}`);
+          navigate(`/join/${id}`);
         }
         setPlayers(players);
       }
     });
 
-    return () => {effectCleanup = false};
-  }, [id, history]);
+    return () => {
+      effectCleanup = false;
+    };
+  }, [id, navigate]);
 
   if (loading) {
     return (
