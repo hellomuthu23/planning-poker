@@ -13,7 +13,7 @@ import {
 import { red } from '@material-ui/core/colors';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForeverTwoTone';
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { getPlayerRecentGames, getCurrentPlayerId } from '../../../service/players';
 import './RecentGames.css';
 import { removeGame } from '../../../service/games';
@@ -22,7 +22,7 @@ import { AlertDialog } from '../../../components/AlertDialog/AlertDialog';
 import { PlayerGame } from '../../../types/player';
 
 export const RecentGames = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const [recentGames, setRecentGames] = useState<PlayerGame[] | undefined>(undefined);
   const [reloadRecent, setReloadRecent] = useState<Boolean>(false);
 
@@ -85,7 +85,7 @@ export const RecentGames = () => {
                         hover
                         key={recentGame.id}
                         className='RecentGamesTableRow'
-                        onClick={() => history.push(`/game/${recentGame.id}`)}
+                        onClick={() => navigate(`/game/${recentGame.id}`)}
                       >
                         <TableCell>{recentGame.name}</TableCell>
                         <TableCell align='left'>{recentGame.createdBy}</TableCell>

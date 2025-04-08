@@ -1,14 +1,23 @@
-import { Button, Card, CardActions, CardContent, CardHeader, Grow, TextField, Snackbar } from '@material-ui/core';
+import {
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  Grow,
+  TextField,
+  Snackbar,
+} from '@material-ui/core';
 import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { getGame } from '../../../service/games';
 import { addPlayerToGame, isCurrentPlayerInGame } from '../../../service/players';
 import Alert from '@material-ui/lab/Alert';
 import './JoinGame.css';
 
 export const JoinGame = () => {
-  const history = useHistory();
-  let { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
+  let { id } = useParams<'id'>();
 
   const [joinGameId, setJoinGameId] = useState(id);
   const [playerName, setPlayerName] = useState('');
@@ -22,18 +31,18 @@ export const JoinGame = () => {
         if (await getGame(joinGameId)) {
           setIsGameFound(true);
           if (await isCurrentPlayerInGame(joinGameId)) {
-            history.push(`/game/${joinGameId}`);
+            navigate(`/game/${joinGameId}`);
           }
-        }else {
+        } else {
           setShowNotExistMessage(true);
           setTimeout(() => {
-            history.push('/');
-          }, 5000)
+            navigate('/');
+          }, 5000);
         }
       }
     }
     fetchData();
-  }, [joinGameId, history]);
+  }, [joinGameId, navigate]);
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
@@ -43,7 +52,7 @@ export const JoinGame = () => {
 
       setIsGameFound(res);
       if (res) {
-        history.push(`/game/${joinGameId}`);
+        navigate(`/game/${joinGameId}`);
       }
       setLoading(false);
     }
@@ -70,7 +79,9 @@ export const JoinGame = () => {
                 placeholder='xyz...'
                 defaultValue={joinGameId}
                 variant='outlined'
-                onChange={(event: ChangeEvent<HTMLInputElement>) => setJoinGameId(event.target.value)}
+                onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                  setJoinGameId(event.target.value)
+                }
               />
               <TextField
                 className='JoinGameTextField'
@@ -80,11 +91,19 @@ export const JoinGame = () => {
                 placeholder='Enter your name'
                 defaultValue={playerName}
                 variant='outlined'
-                onChange={(event: ChangeEvent<HTMLInputElement>) => setPlayerName(event.target.value)}
+                onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                  setPlayerName(event.target.value)
+                }
               />
             </CardContent>
             <CardActions className='JoinGameCardAction'>
-              <Button type='submit' variant='contained' color='primary' className='JoinGameButton' disabled={loading}>
+              <Button
+                type='submit'
+                variant='contained'
+                color='primary'
+                className='JoinGameButton'
+                disabled={loading}
+              >
                 Join
               </Button>
             </CardActions>
