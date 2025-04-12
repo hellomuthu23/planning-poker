@@ -17,11 +17,9 @@ export const Poker = () => {
   const [currentPlayerId, setCurrentPlayerId] = useState<string | undefined>(undefined);
 
   useEffect(() => {
-    history.block((location, action) => {
+    const unblock = history.block((location, action) => {
       if (action === 'POP') {
         // Detect back navigation
-        console.log('Back navigation detected!');
-
         const confirmLeave = window.confirm('Are you sure you want to go back?');
         if (!confirmLeave) {
           return false; // Prevent navigation
@@ -29,6 +27,10 @@ export const Poker = () => {
       }
       return; // Allow navigation
     });
+
+    return () => {
+      unblock(); // Cleanup the listener when the component unmounts
+    };
   }, [history]);
 
   useEffect(() => {
