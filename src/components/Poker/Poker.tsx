@@ -1,5 +1,5 @@
 import { CircularProgress, Typography } from '@material-ui/core';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { streamGame, streamPlayers } from '../../service/games';
 import { getCurrentPlayerId } from '../../service/players';
@@ -17,20 +17,37 @@ export const Poker = () => {
   const [currentPlayerId, setCurrentPlayerId] = useState<string | undefined>(undefined);
 
   useEffect(() => {
+    const unblock = history.block((location, action) => {
+      if (action === 'POP') {
+        // Detect back navigation
+        const confirmLeave = window.confirm('Are you sure you want to go back?');
+        if (!confirmLeave) {
+          return false; // Prevent navigation
+        }
+      }
+      return; // Allow navigation
+    });
+
+    return () => {
+      unblock(); // Cleanup the listener when the component unmounts
+    };
+  }, [history]);
+
+  useEffect(() => {
     let effectCleanup = true;
-    
-    if(effectCleanup) {
+
+    if (effectCleanup) {
       const currentPlayerId = getCurrentPlayerId(id);
       if (!currentPlayerId) {
         history.push(`/join/${id}`);
       }
-      
+
       setCurrentPlayerId(currentPlayerId);
       setIsLoading(true);
     }
-    
+
     streamGame(id).onSnapshot((snapshot) => {
-      if(effectCleanup) {
+      if (effectCleanup) {
         if (snapshot.exists) {
           const data = snapshot.data();
           if (data) {
@@ -44,7 +61,7 @@ export const Poker = () => {
     });
 
     streamPlayers(id).onSnapshot((snapshot) => {
-      if(effectCleanup) {
+      if (effectCleanup) {
         const players: Player[] = [];
         snapshot.forEach((snapshot) => {
           players.push(snapshot.data() as Player);
@@ -57,7 +74,9 @@ export const Poker = () => {
       }
     });
 
-    return () => {effectCleanup = false};
+    return () => {
+      effectCleanup = false;
+    };
   }, [id, history]);
 
   if (loading) {
