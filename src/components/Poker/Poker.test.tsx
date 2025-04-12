@@ -1,5 +1,4 @@
 import { render, screen } from '@testing-library/react';
-import React from 'react';
 import reactRouter from 'react-router';
 import * as gamesService from '../../service/games';
 import * as playersService from '../../service/players';
@@ -11,11 +10,16 @@ import { Poker } from './Poker';
 jest.mock('../../service/players');
 // jest.mock('../../service/games');
 const mockHistoryPush = jest.fn();
-
+const mockHistory = {
+  push: jest.fn(),
+  goBack: jest.fn(),
+  block: jest.fn(() => jest.fn()),
+};
 describe('Poker component', () => {
   beforeEach(() => {
     jest.spyOn(reactRouter, 'useHistory').mockReturnValue({ push: mockHistoryPush } as any);
     jest.spyOn(reactRouter, 'useParams').mockReturnValue({ Id: 'zz' } as any);
+    jest.spyOn(reactRouter, 'useHistory').mockReturnValue(mockHistory as any);
   });
   it('should display game not found', async () => {
     jest.spyOn(gamesService, 'streamGame').mockImplementation(() => {
