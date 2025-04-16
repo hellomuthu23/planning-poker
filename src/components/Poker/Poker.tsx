@@ -33,6 +33,52 @@ export const Poker = () => {
     };
   }, [history]);
 
+  // useEffect(() => {
+  //   let effectCleanup = true;
+
+  //   if (effectCleanup) {
+  //     const currentPlayerId = getCurrentPlayerId(id);
+  //     if (!currentPlayerId) {
+  //       history.push(`/join/${id}`);
+  //     }
+
+  //     setCurrentPlayerId(currentPlayerId);
+  //     setIsLoading(true);
+  //   }
+
+  //   streamGame(id).onSnapshot((snapshot) => {
+  //     if (effectCleanup) {
+  //       if (snapshot.exists) {
+  //         const data = snapshot.data();
+  //         if (data) {
+  //           setGame(data as Game);
+  //           setIsLoading(false);
+  //           return;
+  //         }
+  //       }
+  //       setIsLoading(false);
+  //     }
+  //   });
+
+  //   streamPlayers(id).onSnapshot((snapshot) => {
+  //     if (effectCleanup) {
+  //       const players: Player[] = [];
+  //       snapshot.forEach((snapshot) => {
+  //         players.push(snapshot.data() as Player);
+  //       });
+  //       const currentPlayerId = getCurrentPlayerId(id);
+  //       if (!players.find((player) => player.id === currentPlayerId)) {
+  //         history.push(`/join/${id}`);
+  //       }
+  //       setPlayers(players);
+  //     }
+  //   });
+
+  //   return () => {
+  //     effectCleanup = false;
+  //   };
+  // }, [id, history]);
+
   useEffect(() => {
     let effectCleanup = true;
 
@@ -46,36 +92,54 @@ export const Poker = () => {
       setIsLoading(true);
     }
 
-    streamGame(id).onSnapshot((snapshot) => {
-      if (effectCleanup) {
-        if (snapshot.exists) {
-          const data = snapshot.data();
-          if (data) {
-            setGame(data as Game);
-            setIsLoading(false);
-            return;
+    const fetchGame = async () => {
+      try {
+        const snapshot = await streamGame(id).get();
+        if (effectCleanup) {
+          if (snapshot.exists) {
+            const data = snapshot.data();
+            if (data) {
+              setGame(data as Game);
+              setIsLoading(false);
+              return;
+            }
           }
+          setIsLoading(false);
         }
+      } catch (error) {
+        console.error('Error fetching game:', error);
         setIsLoading(false);
       }
-    });
+    };
 
-    streamPlayers(id).onSnapshot((snapshot) => {
-      if (effectCleanup) {
-        const players: Player[] = [];
-        snapshot.forEach((snapshot) => {
-          players.push(snapshot.data() as Player);
-        });
-        const currentPlayerId = getCurrentPlayerId(id);
-        if (!players.find((player) => player.id === currentPlayerId)) {
-          history.push(`/join/${id}`);
+    const fetchPlayers = async () => {
+      try {
+        const snapshot = await streamPlayers(id).get();
+        if (effectCleanup) {
+          const players: Player[] = [];
+          snapshot.forEach((doc) => {
+            players.push(doc.data() as Player);
+          });
+          const currentPlayerId = getCurrentPlayerId(id);
+          if (!players.find((player) => player.id === currentPlayerId)) {
+            history.push(`/join/${id}`);
+          }
+          setPlayers(players);
         }
-        setPlayers(players);
+      } catch (error) {
+        console.error('Error fetching players:', error);
       }
-    });
+    };
+
+    // Poll every second
+    const interval = setInterval(() => {
+      fetchGame();
+      fetchPlayers();
+    }, 1000);
 
     return () => {
       effectCleanup = false;
+      clearInterval(interval); // Clear the interval on cleanup
     };
   }, [id, history]);
 
