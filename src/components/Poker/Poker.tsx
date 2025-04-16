@@ -135,7 +135,7 @@ export const Poker = () => {
     const interval = setInterval(() => {
       fetchGame();
       fetchPlayers();
-    }, 1000);
+    }, 500);
 
     return () => {
       effectCleanup = false;
