@@ -19,6 +19,14 @@ const gamesCollectionName = 'games';
 const playersCollectionName = 'players';
 const db = firebase.firestore();
 
+// Use Firestore Emulator if the environment variable is set
+if (process.env.REACT_APP_USE_FIRESTORE_EMULATOR === 'true') {
+  console.log('Using Firestore Emulator');
+  // application host name
+  const emulatorHost = window.location.hostname;
+  db.useEmulator(emulatorHost, 8080); // Point to the Firestore Emulator
+}
+
 export const addGameToStore = async (gameId: string, data: any) => {
   await db.collection(gamesCollectionName).doc(gameId).set(data);
   return true;
@@ -43,9 +51,16 @@ export const getPlayersFromStore = async (gameId: string): Promise<Player[]> => 
   return players;
 };
 
-export const getPlayerFromStore = async (gameId: string, playerId: string): Promise<Player | undefined> => {
+export const getPlayerFromStore = async (
+  gameId: string,
+  playerId: string,
+): Promise<Player | undefined> => {
   const db = firebase.firestore();
-  const response = db.collection(gamesCollectionName).doc(gameId).collection(playersCollectionName).doc(playerId);
+  const response = db
+    .collection(gamesCollectionName)
+    .doc(gameId)
+    .collection(playersCollectionName)
+    .doc(playerId);
   const result = await response.get();
   let player = undefined;
   if (result.exists) {
@@ -68,17 +83,32 @@ export const updateGameDataInStore = async (gameId: string, data: any): Promise<
 };
 
 export const addPlayerToGameInStore = async (gameId: string, player: Player) => {
-  await db.collection(gamesCollectionName).doc(gameId).collection(playersCollectionName).doc(player.id).set(player);
+  await db
+    .collection(gamesCollectionName)
+    .doc(gameId)
+    .collection(playersCollectionName)
+    .doc(player.id)
+    .set(player);
   return true;
 };
 
 export const removePlayerFromGameInStore = async (gameId: string, playerId: string) => {
-  await db.collection(gamesCollectionName).doc(gameId).collection(playersCollectionName).doc(playerId).delete();
+  await db
+    .collection(gamesCollectionName)
+    .doc(gameId)
+    .collection(playersCollectionName)
+    .doc(playerId)
+    .delete();
   return true;
 };
 
 export const updatePlayerInStore = async (gameId: string, player: Player) => {
-  await db.collection(gamesCollectionName).doc(gameId).collection(playersCollectionName).doc(player.id).update(player);
+  await db
+    .collection(gamesCollectionName)
+    .doc(gameId)
+    .collection(playersCollectionName)
+    .doc(player.id)
+    .update(player);
 
   return true;
 };
@@ -102,7 +132,10 @@ export const removeOldGameFromStore = async () => {
   const monthsToDelete = 6;
   const dateObj = new Date();
   const requiredDate = new Date(dateObj.setMonth(dateObj.getMonth() - monthsToDelete));
-  const games = await db.collection(gamesCollectionName).where('createdAt', '<', requiredDate).get();
+  const games = await db
+    .collection(gamesCollectionName)
+    .where('createdAt', '<', requiredDate)
+    .get();
 
   console.log('Games length', games.docs.length);
   if (games.docs.length > 0) {

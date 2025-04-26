@@ -25,6 +25,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "start:emulator": "firebase emulators:start --only firestore --project demo",
     "build": "react-scripts build",
     "test": "react-scripts test --detectOpenHandles",
     "lint": "eslint .",
@@ -59,6 +60,7 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^12.1.5",
     "@testing-library/user-event": "^12.1.10",

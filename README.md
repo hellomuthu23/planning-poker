@@ -42,6 +42,12 @@ Free / Open source Scrum/Agile Planning Poker Web App to estimate user stories f
 
 ## How to run the app locally for development
 
+Pre-req
+
+- Node.js version 16.0 or higher.
+- Yarn
+- Java JDK version 11 or higher.(for firestore db emulator)
+
 1. Clone the repo
 
     ```bash
@@ -49,9 +55,48 @@ Free / Open source Scrum/Agile Planning Poker Web App to estimate user stories f
     ```
 
 2. Run `yarn` command to install the required npm package.
-3. Run `yarn start` to start the app.
-4. Access the app at `http://localhost:3000`.
-5. We use the same production database for local development too, so avoid creating too many new sessions and re-use existing one.
+3. Install the Firebase CLI
+
+    ```bash
+    RUN npm install -g firebase-tool
+    ```
+
+4. Start the firebase db emulator
+
+    ```bash
+    npm run start:emulator
+    ```
+
+5. Copy `.env.example` file as `.env` file and make sure `REACT_APP_USE_FIRESTORE_EMULATOR` is set to `true`
+7. Run `yarn start` to start the app.
+6. Access the app at `http://localhost:3000`.
+
+## Creating docker container
+
+pre-req
+
+- docker desktop
+
+1. Build the app using below command. Make sure `REACT_APP_USE_FIRESTORE_EMULATOR` env variable is set to true.
+
+   ```bash
+   npm run build
+   ```
+
+2. Build docker image
+
+    ```bash
+    docker build -t planning-poker .
+    ```
+
+3. Running the container
+
+   ```
+   docker run -it -p 8080:8080 -p 3000:3000  planning-poker
+   ```
+
+4. Wait for both emulator and app to start
+5. Access the app from local container using <http://localhost:3000>
 
 ## Development Guidelines
 
