@@ -38,9 +38,7 @@ describe('GameController component', () => {
   it('should display game status', () => {
     render(<GameController game={mockGame} currentPlayerId={mockCurrentPlayerId} />);
 
-    expect(screen.getByText(mockGame.gameStatus)).toBeInTheDocument();
-
-    expect(screen.getByText('⏱️')).toBeInTheDocument();
+    expect(screen.getByText(`${mockGame.gameStatus} ⏱️`)).toBeInTheDocument();
   });
   it('should display game average value', () => {
     render(<GameController game={mockGame} currentPlayerId={mockCurrentPlayerId} />);
