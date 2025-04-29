@@ -10,17 +10,17 @@ import {
 } from '@material-ui/core';
 import { blue, green, orange, red } from '@material-ui/core/colors';
 import RefreshIcon from '@material-ui/icons/Autorenew';
+import DeleteOutlined from '@material-ui/icons/DeleteForeverTwoTone';
 import ExitToApp from '@material-ui/icons/ExitToApp';
 import LinkIcon from '@material-ui/icons/Link';
 import VisibilityIcon from '@material-ui/icons/Visibility';
-import DeleteOutlined from '@material-ui/icons/DeleteForeverTwoTone';
 import Alert from '@material-ui/lab/Alert';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { finishGame, resetGame, removeGame } from '../../../service/games';
+import { AlertDialog } from '../../../components/AlertDialog/AlertDialog';
+import { finishGame, removeGame, resetGame } from '../../../service/games';
 import { Game, GameType } from '../../../types/game';
 import { isModerator } from '../../../utils/isModerator';
-import { AlertDialog } from '../../../components/AlertDialog/AlertDialog';
 import './GameController.css';
 
 interface GameControllerProps {
@@ -60,7 +60,9 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
             titleTypographyProps={{ variant: 'h6' }}
             action={
               <div className='GameControllerCardHeaderAverageContainer'>
-                <Typography variant='subtitle1'>{game.gameStatus}</Typography>
+                <Typography variant='subtitle1'>
+                  {game.gameStatus} {getGameStatusIcon(game.gameStatus)}
+                </Typography>
                 {game.gameType !== GameType.TShirt &&
                   game.gameType !== GameType.TShirtAndNumber &&
                   game.gameType !== GameType.Custom && (
@@ -150,4 +152,15 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
       </div>
     </Grow>
   );
+};
+
+const getGameStatusIcon = (gameStatus: string) => {
+  switch (gameStatus) {
+    case 'In Progress':
+      return '⏱️';
+    case 'Finished':
+      return '🎉';
+    default:
+      return '🚀';
+  }
 };

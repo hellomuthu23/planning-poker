@@ -12,13 +12,13 @@ import {
   TextField,
 } from '@material-ui/core';
 import React, { ChangeEvent, FormEvent, useState } from 'react';
-import { uniqueNamesGenerator, Config, starWars, colors, animals } from 'unique-names-generator';
+import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
+import { animals, colors, Config, starWars, uniqueNamesGenerator } from 'unique-names-generator';
 import { addNewGame } from '../../../service/games';
 import { GameType, NewGame } from '../../../types/game';
-import './CreateGame.css';
-import { useTranslation } from 'react-i18next';
 import { getCards, getCustomCards } from '../../Players/CardPicker/CardConfigs';
+import './CreateGame.css';
 
 const gameNameConfig: Config = {
   dictionaries: [colors, animals],
@@ -37,7 +37,7 @@ export const CreateGame = () => {
   const [hasDefaults, setHasDefaults] = useState({ game: true, name: true });
   const [loading, setLoading] = useState(false);
   const [allowMembersToManageSession, setAllowMembersToManageSession] = useState(false);
-  const [customOptions, setCustomOptions] = React.useState(Array(10).fill(''));
+  const [customOptions, setCustomOptions] = React.useState(Array(15).fill(''));
   const [error, setError] = React.useState(false);
   const { t } = useTranslation();
 

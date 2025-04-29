@@ -72,6 +72,11 @@ export const customCardsTemplate: CardConfig[] = [
   { value: 7, displayValue: '7', color: '#F4DD94' },
   { value: 8, displayValue: '8', color: '#F4DD94' },
   { value: 9, displayValue: '9', color: '#F39893' },
+  { value: 10, displayValue: '10', color: '#F39893' },
+  { value: 11, displayValue: '11', color: '#D96C6C' },
+  { value: 12, displayValue: '12', color: '#D96C6C' },
+  { value: 13, displayValue: '13', color: '#9B59B6' },
+  { value: 14, displayValue: '14', color: '#9B59B6' },
 ];
 
 export const getCards = (gameType: GameType | undefined): CardConfig[] => {

@@ -1,10 +1,9 @@
 import { render, screen } from '@testing-library/react';
-import React from 'react';
+import userEvent from '@testing-library/user-event';
+import * as gamesService from '../../../service/games';
 import { Game, GameType } from '../../../types/game';
 import { Status } from '../../../types/status';
 import { GameController } from './GameController';
-import * as gamesService from '../../../service/games';
-import userEvent from '@testing-library/user-event';
 
 jest.mock('../../../service/games');
 const mockHistoryPush = jest.fn();
@@ -39,7 +38,7 @@ describe('GameController component', () => {
   it('should display game status', () => {
     render(<GameController game={mockGame} currentPlayerId={mockCurrentPlayerId} />);
 
-    expect(screen.getByText(mockGame.gameStatus)).toBeInTheDocument();
+    expect(screen.getByText(`${mockGame.gameStatus} ⏱️`)).toBeInTheDocument();
   });
   it('should display game average value', () => {
     render(<GameController game={mockGame} currentPlayerId={mockCurrentPlayerId} />);
