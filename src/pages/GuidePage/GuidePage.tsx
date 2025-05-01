@@ -2,14 +2,12 @@ import { Grid, Slide, Typography } from '@material-ui/core';
 import React from 'react';
 
 import '../HomePage/HomePage.css';
-import { GoogleAd } from '../../components/GoogleAd/GoogleAd';
 
 export const GuidePage = () => {
   return (
     <>
       <Grid container direction='column' justify='center' alignItems='center'>
         <GuideContent />
-        <GoogleAd />
       </Grid>
     </>
   );
