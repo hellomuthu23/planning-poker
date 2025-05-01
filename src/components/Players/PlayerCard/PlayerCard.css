@@ -1,6 +1,6 @@
 .PlayerCard {
-  max-width: 180px;
-  min-width: 180px;
+  max-width: 220px;
+  min-width: 220px;
   margin: 10px;
   height: 120px;
   margin-top: 40px;
@@ -20,7 +20,10 @@
   background-color:  var(--color-background);
   margin: -20px auto 0;
   width: 88%;
-  padding: 16px;
+  padding-top: 16px;
+  padding-right: 0;
+  padding-left: 0;
+  padding-bottom: 16px;
   height: 40px;
 }
 

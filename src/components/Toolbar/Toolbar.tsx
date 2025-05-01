@@ -76,17 +76,28 @@ export const Toolbar = () => {
               >
                 {!isSmallScreen ? t('toolbar.menu.joinSession') : null}
               </Button>
+              <Button
+                title={t('toolbar.menu.impressum')}
+                size={isSmallScreen ? 'small' : 'large'}
+                color='inherit'
+                onClick={() =>
+                  (window.location.href = 'https://info.foerther.de/impressum.html')
+                }
+                data-testid='toolbar.menu.impressum'
+              >
+                {!isSmallScreen ? t('toolbar.menu.impressum') : null}
+              </Button>
 
               <Button
                 id='github-button'
                 color='inherit'
                 onClick={() =>
-                  (window.location.href = 'https://github.com/hellomuthu23/planning-poker')
+                  (window.location.href = 'https://github.com/rfoerthe/planning-poker')
                 }
               >
                 <GithubIcon></GithubIcon>
               </Button>
-              {!isSmallScreen && <LanguageControl />}
+              {/*{!isSmallScreen && <LanguageControl />}*/}
             </div>
           </div>
         </AppToolbar>

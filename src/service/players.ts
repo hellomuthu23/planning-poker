@@ -117,7 +117,7 @@ export const resetPlayers = async (gameId: string) => {
     const updatedPlayer: Player = {
       ...player,
       status: Status.NotStarted,
-      value: 0,
+      value: -3,
     };
     await updatePlayerInStore(gameId, updatedPlayer);
   });

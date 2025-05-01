@@ -416,9 +416,9 @@ describe('Players service', () => {
         { id: 'three', name: 'carrot', status: Status.Started, value: 3 },
       ];
       const expectedPlayers = [
-        { id: 'one', name: 'potato', status: Status.NotStarted, value: 0 },
-        { id: 'two', name: 'pea', status: Status.NotStarted, value: 0 },
-        { id: 'three', name: 'carrot', status: Status.NotStarted, value: 0 },
+        { id: 'one', name: 'potato', status: Status.NotStarted, value: -3 },
+        { id: 'two', name: 'pea', status: Status.NotStarted, value: -3 },
+        { id: 'three', name: 'carrot', status: Status.NotStarted, value: -3 },
       ];
       const gId = 'soup';
       jest.spyOn(fb, 'getPlayersFromStore').mockResolvedValueOnce(fakePlayers);

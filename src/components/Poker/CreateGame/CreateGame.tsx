@@ -33,10 +33,10 @@ export const CreateGame = () => {
   const history = useHistory();
   const [gameName, setGameName] = useState(uniqueNamesGenerator(gameNameConfig));
   const [createdBy, setCreatedBy] = useState(uniqueNamesGenerator(userNameConfig));
-  const [gameType, setGameType] = useState(GameType.Fibonacci);
+  const [gameType, setGameType] = useState(GameType.ShortFibonacci);
   const [hasDefaults, setHasDefaults] = useState({ game: true, name: true });
   const [loading, setLoading] = useState(false);
-  const [allowMembersToManageSession, setAllowMembersToManageSession] = useState(false);
+  const [allowMembersToManageSession, setAllowMembersToManageSession] = useState(true);
   const [customOptions, setCustomOptions] = React.useState(Array(15).fill(''));
   const [error, setError] = React.useState(false);
   const { t } = useTranslation();
@@ -136,14 +136,14 @@ export const CreateGame = () => {
               ) => setGameType(event.target.value)}
             >
               <FormControlLabel
+                value={GameType.ShortFibonacci}
+                control={<Radio color='primary' size='small' />}
+                label='Short Fibonacci (0, 1, 2, 3, 5, 8, 13, 21, 40)'
+              />
+              <FormControlLabel
                 value={GameType.Fibonacci}
                 control={<Radio color='primary' size='small' />}
                 label='Fibonacci (0, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89)'
-              />
-              <FormControlLabel
-                value={GameType.ShortFibonacci}
-                control={<Radio color='primary' size='small' />}
-                label='Short Fibonacci (0, ½, 1, 2, 3, 5, 8, 13, 20, 40, 100)'
               />
               <FormControlLabel
                 value={GameType.TShirt}

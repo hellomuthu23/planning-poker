@@ -23,16 +23,14 @@ export const fibonacciCards: CardConfig[] = [
 
 export const shortFibonacciCards: CardConfig[] = [
   { value: 0, displayValue: '0', color: 'var(--color-background-secondary)' },
-  { value: 0.5, displayValue: '½', color: '#9EC8FE' },
   { value: 1, displayValue: '1', color: '#9EC8FE' },
   { value: 2, displayValue: '2', color: '#9EC8FE' },
   { value: 3, displayValue: '3', color: '#A3DFF2' },
   { value: 5, displayValue: '5', color: '#A3DFF2' },
   { value: 8, displayValue: '8', color: '#9DD49A' },
   { value: 13, displayValue: '13', color: '#9DD49A' },
-  { value: 21, displayValue: '20', color: '#F4DD94' },
-  { value: 34, displayValue: '40', color: '#F4DD94' },
-  { value: 55, displayValue: '100', color: '#F39893' },
+  { value: 21, displayValue: '21', color: '#F4DD94' },
+  { value: 40, displayValue: '40', color: '#F39893' },
   { value: -2, displayValue: '❓', color: 'var(--color-background-secondary)' },
   { value: -1, displayValue: '-1', color: 'var(--color-background-secondary)' },
 ];
@@ -81,10 +79,10 @@ export const customCardsTemplate: CardConfig[] = [
 
 export const getCards = (gameType: GameType | undefined): CardConfig[] => {
   switch (gameType) {
-    case GameType.Fibonacci:
-      return fibonacciCards;
     case GameType.ShortFibonacci:
       return shortFibonacciCards;
+    case GameType.Fibonacci:
+      return fibonacciCards;
     case GameType.TShirt:
       return tShirtCards;
     case GameType.TShirtAndNumber:
@@ -92,7 +90,7 @@ export const getCards = (gameType: GameType | undefined): CardConfig[] => {
     case GameType.Custom:
       return customCardsTemplate;
     default:
-      return fibonacciCards;
+      return shortFibonacciCards;
   }
 };
 

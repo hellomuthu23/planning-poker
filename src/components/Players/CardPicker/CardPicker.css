@@ -18,7 +18,7 @@
 }
 
 .CardPicker:hover {
-  box-shadow: 0 0px 12px 0 lightgrey;
+  box-shadow: 0 0 12px 0 lightgrey;
 }
 
 .CardContent {

@@ -73,9 +73,9 @@ describe('CreateGame component', () => {
     expect(gamesService.addNewGame).toHaveBeenCalledWith(
       expect.objectContaining({
         createdBy: 'Rock',
-        gameType: 'Fibonacci',
+        gameType: 'ShortFibonacci',
         name: 'Marvels',
-        isAllowMembersToManageSession: false,
+        isAllowMembersToManageSession: true,
       }),
     );
   });
@@ -100,9 +100,9 @@ describe('CreateGame component', () => {
     expect(gamesService.addNewGame).toHaveBeenCalledWith(
       expect.objectContaining({
         createdBy: 'Rock',
-        gameType: 'Fibonacci',
+        gameType: 'ShortFibonacci',
         name: 'Marvels',
-        isAllowMembersToManageSession: true,
+        isAllowMembersToManageSession: false,
       }),
     );
   });

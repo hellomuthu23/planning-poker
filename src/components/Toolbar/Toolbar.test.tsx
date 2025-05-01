@@ -68,6 +68,6 @@ describe('Toolbar component', () => {
     const view = render(<Toolbar />);
     const title = view.container.querySelector('#github-button') as HTMLElement;
     userEvent.click(title);
-    expect(window.location.href).toEqual('https://github.com/hellomuthu23/planning-poker');
+    expect(window.location.href).toEqual('https://github.com/rfoerthe/planning-poker');
   });
 });
