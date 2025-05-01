@@ -6,7 +6,6 @@ import { Player } from '../../../types/player';
 import { Status } from '../../../types/status';
 import { CardConfig, getCards, getRandomEmoji } from './CardConfigs';
 import './CardPicker.css';
-import { GoogleAd } from '../../GoogleAd/GoogleAd';
 
 interface CardPickerProps {
   game: Game;
@@ -32,6 +31,11 @@ export const CardPicker: React.FC<CardPickerProps> = ({ game, players, currentPl
   return (
     <Grow in={true} timeout={200}>
       <div>
+        <Typography variant='h6'>
+          {game.gameStatus !== Status.Finished
+            ? 'Click on the card to vote'
+            : 'Session not ready for Voting! Wait for moderator to start'}
+        </Typography>
         <div className='CardPickerContainer'>
           <Grid container spacing={4} justify='center'>
             {cards.map((card: CardConfig, index) => (
@@ -82,12 +86,6 @@ export const CardPicker: React.FC<CardPickerProps> = ({ game, players, currentPl
             ))}
           </Grid>
         </div>
-        <Typography variant='h6'>
-          {game.gameStatus !== Status.Finished
-            ? 'Click on the card to vote'
-            : 'Session not ready for Voting! Wait for moderator to start'}
-        </Typography>
-        <GoogleAd />
       </div>
     </Grow>
   );

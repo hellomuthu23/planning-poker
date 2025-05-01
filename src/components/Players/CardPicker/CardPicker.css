@@ -1,6 +1,6 @@
 .CardPickerContainer {
   bottom: 0;
-  padding: 10px 50px 10px 50px;
+  padding: 20px 50px 10px 50px;
   display: flex;
   flex-direction: row;
   width: 100%;
