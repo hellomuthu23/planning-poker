@@ -75,9 +75,7 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
                         className='GameControllerCardHeaderAverageValue'
                       >
                         <Tooltip title={`Exact: ${(game.average || 0).toFixed(2)}`} arrow>
-                          <span className='GameControllerCardAverage'>
-                            {Math.round(game.average) || 0}
-                          </span>
+                          <span>{Math.round(game.average) || 0}</span>
                         </Tooltip>
                       </Typography>
                     </>

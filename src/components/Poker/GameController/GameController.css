@@ -20,10 +20,6 @@
   padding-bottom: 30px !important;
 }
 
-.GameControllerCardAverage{
-  cursor: pointer;
-  text-decoration: underline;
-}
 
 .GameControllerDivider {
   margin: 0px 10px 0px 10px;
@@ -66,6 +62,7 @@
   padding: 0px 5px 0px 5px;
   color: var(--color-warning);
   font-weight: bold;
+  text-decoration: underline;
 }
 
 .MuiCardHeader-action {
