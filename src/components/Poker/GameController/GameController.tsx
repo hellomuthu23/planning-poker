@@ -6,6 +6,7 @@ import {
   Grow,
   IconButton,
   Snackbar,
+  Tooltip,
   Typography,
 } from '@material-ui/core';
 import { blue, green, orange, red } from '@material-ui/core/colors';
@@ -73,7 +74,11 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
                         variant='subtitle1'
                         className='GameControllerCardHeaderAverageValue'
                       >
-                        {game.average || 0}
+                        <Tooltip title={`Exact: ${(game.average || 0).toFixed(2)}`} arrow>
+                          <span className='GameControllerCardAverage'>
+                            {Math.round(game.average) || 0}
+                          </span>
+                        </Tooltip>
                       </Typography>
                     </>
                   )}

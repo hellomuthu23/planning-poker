@@ -1,19 +1,19 @@
+import * as fb from '../repository/firebase';
+import { GameType } from '../types/game';
+import { Status } from '../types/status';
 import {
   addNewGame,
-  streamGame,
-  streamPlayers,
-  getGame,
-  updateGame,
-  resetGame,
   finishGame,
   getAverage,
+  getGame,
   getGameStatus,
+  resetGame,
+  streamGame,
+  streamPlayers,
+  updateGame,
   updateGameStatus,
 } from './games';
-import * as fb from '../repository/firebase';
 import * as players from './players';
-import { Status } from '../types/status';
-import { GameType } from '../types/game';
 
 jest.mock('../repository/firebase', () => ({
   addGameToStore: jest.fn(),
@@ -186,13 +186,12 @@ describe('games service', () => {
 
   describe('get the average vote', () => {
     it("should provide the average of players' votes", () => {
-      const expected = Math.round(
-        (finishedPlayers[0].value + finishedPlayers[1].value + finishedPlayers[2].value) / 3,
-      );
+      const expected =
+        (finishedPlayers[0].value + finishedPlayers[1].value + finishedPlayers[2].value) / 3;
 
       const res = getAverage(finishedPlayers);
 
-      expect(res).toEqual(expected);
+      expect(res).toEqual(Number(expected.toFixed(2)));
     });
 
     it('should not calculate players who have not finished', () => {
