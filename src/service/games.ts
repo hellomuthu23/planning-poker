@@ -4,11 +4,11 @@ import {
   addPlayerToGameInStore,
   getGameFromStore,
   getPlayersFromStore,
+  removeGameFromStore,
+  removeOldGameFromStore,
   streamData,
   streamPlayersFromStore,
   updateGameDataInStore,
-  removeGameFromStore,
-  removeOldGameFromStore,
 } from '../repository/firebase';
 import { NewGame } from '../types/game';
 import { Player } from '../types/player';
@@ -30,7 +30,13 @@ export const addNewGame = async (newGame: NewGame): Promise<string> => {
   };
   await addGameToStore(gameData.id, gameData);
   await addPlayerToGameInStore(gameData.id, player);
-  updatePlayerGames(gameData.id, gameData.name, gameData.createdBy, gameData.createdById, player.id);
+  updatePlayerGames(
+    gameData.id,
+    gameData.name,
+    gameData.createdBy,
+    gameData.createdById,
+    player.id,
+  );
 
   return gameData.id;
 };
@@ -86,7 +92,7 @@ export const getAverage = (players: Player[]): number => {
       numberOfPlayersPlayed++;
     }
   });
-  return Math.round(values / numberOfPlayersPlayed);
+  return Math.round((values / numberOfPlayersPlayed) * 100) / 100;
 };
 
 export const getGameStatus = (players: Player[]): Status => {
