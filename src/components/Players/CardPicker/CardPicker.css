@@ -1,3 +1,8 @@
+.CardPickerTitle {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
 .CardPickerContainer {
   bottom: 0;
   padding: 20px 50px 10px 50px;

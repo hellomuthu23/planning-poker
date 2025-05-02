@@ -31,7 +31,7 @@ export const CardPicker: React.FC<CardPickerProps> = ({ game, players, currentPl
   return (
     <Grow in={true} timeout={200}>
       <div>
-        <Typography variant='h6'>
+        <Typography variant='h6' className='CardPickerTitle'>
           {game.gameStatus !== Status.Finished
             ? 'Click on the card to vote'
             : 'Session not ready for Voting! Wait for moderator to start'}
@@ -47,7 +47,7 @@ export const CardPicker: React.FC<CardPickerProps> = ({ game, players, currentPl
                     variant='outlined'
                     onClick={() => playPlayer(game.id, currentPlayerId, card)}
                     style={{
-                      ...getCardStyle(players, currentPlayerId, card),
+                      ...getCardStyle(players, currentPlayerId, card, game.gameStatus),
                       pointerEvents: getPointerEvent(game),
                     }}
                   >
@@ -91,18 +91,44 @@ export const CardPicker: React.FC<CardPickerProps> = ({ game, players, currentPl
   );
 };
 
-const getCardStyle = (players: Player[], playerId: string, card: CardConfig) => {
+const getCardStyle = (
+  players: Player[],
+  playerId: string,
+  card: CardConfig,
+  gameStatus: Status,
+) => {
+
+  const baseStyle = {
+    backgroundColor: card.color,
+  };
+
+  const selectedStyle = {
+    marginTop: '-15px',
+    zIndex: 5,
+    border: '2px dashed black',
+    boxShadow: '0 0px 12px 0 grey',
+  };
+
+  const finishedStyle = {
+    filter: 'grayscale(100%)',
+    color: '#bbb',
+  };
+
   const player = players.find((player) => player.id === playerId);
-  if (player && player.value !== undefined && player.value === card.value) {
+  const isSelected = player && player.value !== undefined && player.value === card.value;
+  const isFinished = gameStatus === Status.Finished;
+
+  if (isSelected) {
     return {
-      marginTop: '-15px',
-      zIndex: 5,
-      backgroundColor: card.color,
-      border: '2px dashed black',
-      boxShadow: '0 0px 12px 0 grey',
+      ...baseStyle,
+      ...selectedStyle,
+      ...(isFinished && finishedStyle),
     };
   }
-  return { backgroundColor: card.color };
+  return {
+    ...baseStyle,
+    ...(isFinished && finishedStyle),
+  };
 };
 
 const getPointerEvent = (game: Game) => {
