@@ -1,6 +1,5 @@
 import { render, screen, within, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { uniqueNamesGenerator } from 'unique-names-generator';
 import React from 'react';
 import { CreateGame } from './CreateGame';
 import * as gamesService from '../../../service/games';
@@ -31,17 +30,6 @@ describe('CreateGame component', () => {
 
     expect(screen.getByRole('button')).toBeInTheDocument();
     expect(screen.getByRole('button')).toHaveTextContent('Create');
-  });
-
-  it('should have default values in the input fields', () => {
-    (uniqueNamesGenerator as jest.Mock).mockReturnValueOnce('sesh name');
-    (uniqueNamesGenerator as jest.Mock).mockReturnValueOnce('user name');
-    render(<CreateGame />);
-    const sessionName = screen.getByPlaceholderText('Enter a session name');
-    const userName = screen.getByPlaceholderText('Enter your name');
-
-    expect(sessionName).toHaveValue('sesh name');
-    expect(userName).toHaveValue('user name');
   });
 
   it('should empty inputs when clicked', () => {

@@ -14,25 +14,15 @@ import {
 import React, { ChangeEvent, FormEvent, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
-import { animals, colors, Config, starWars, uniqueNamesGenerator } from 'unique-names-generator';
 import { addNewGame } from '../../../service/games';
 import { GameType, NewGame } from '../../../types/game';
 import { getCards, getCustomCards } from '../../Players/CardPicker/CardConfigs';
 import './CreateGame.css';
 
-const gameNameConfig: Config = {
-  dictionaries: [colors, animals],
-  separator: ' ',
-  style: 'capital',
-};
-const userNameConfig: Config = {
-  dictionaries: [starWars],
-};
-
 export const CreateGame = () => {
   const history = useHistory();
-  const [gameName, setGameName] = useState(uniqueNamesGenerator(gameNameConfig));
-  const [createdBy, setCreatedBy] = useState(uniqueNamesGenerator(userNameConfig));
+  const [gameName, setGameName] = useState("");
+  const [createdBy, setCreatedBy] = useState("");
   const [gameType, setGameType] = useState(GameType.ShortFibonacci);
   const [hasDefaults, setHasDefaults] = useState({ game: true, name: true });
   const [loading, setLoading] = useState(false);
