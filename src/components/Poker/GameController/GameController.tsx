@@ -17,7 +17,8 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import Alert from '@material-ui/lab/Alert';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { AlertDialog } from '../../../components/AlertDialog/AlertDialog';
+import { AlertDialog } from '../../AlertDialog/AlertDialog';
+import { InfoDialog } from '../../InfoDialog/InfoDialog';
 import { finishGame, removeGame, resetGame } from '../../../service/games';
 import { Game, GameType } from '../../../types/game';
 import { isModerator } from '../../../utils/isModerator';
@@ -40,6 +41,7 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
     document.execCommand('copy');
     document.body.removeChild(dummy);
     setShowCopiedMessage(true);
+    return url;
   };
 
   const leaveGame = () => {
@@ -133,9 +135,16 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
             </div>
             <div title='Copy invite link' className='GameControllerButtonContainer'>
               <div className='GameControllerButton'>
-                <IconButton data-testid='invite-button' onClick={() => copyInviteLink()}>
-                  <LinkIcon fontSize='large' style={{ color: blue[500] }} />
-                </IconButton>
+                <InfoDialog
+                  title='Invite link has been created'
+                  onOpen={(): React.ReactNode => (<span>Invite link <b>{copyInviteLink()}</b> was copied to your clipboard.<br/><br/>
+                    Share it with your friends to invite them to this session.</span>)}
+                  data-testid='invite-button-dialog'
+                >
+                  <IconButton data-testid='invite-button'>
+                    <LinkIcon fontSize='large' style={{ color: blue[500] }} />
+                  </IconButton>
+                </InfoDialog>
               </div>
               <Typography variant='caption'>Invite</Typography>
             </div>

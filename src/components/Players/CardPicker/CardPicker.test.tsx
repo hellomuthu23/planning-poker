@@ -7,7 +7,7 @@ import * as playersService from '../../../service/players';
 import { Game, GameType } from '../../../types/game';
 import { Player } from '../../../types/player';
 import { Status } from '../../../types/status';
-import { getCards, getCustomCards } from './CardConfigs';
+import { getCards} from './CardConfigs';
 import { CardPicker } from './CardPicker';
 import * as cardConfigs from './CardConfigs';
 
@@ -186,7 +186,7 @@ describe('CardPicker component', () => {
       />,
     );
     const helperText = screen.getByText(
-      'Session not ready for Voting! Wait for moderator to start',
+      'Session not ready for Voting! Wait for moderator to press "Restart" button to start voting.',
     );
 
     expect(helperText).toBeInTheDocument();

@@ -34,7 +34,7 @@ export const CardPicker: React.FC<CardPickerProps> = ({ game, players, currentPl
         <Typography variant='h6' className='CardPickerTitle'>
           {game.gameStatus !== Status.Finished
             ? 'Click on the card to vote'
-            : 'Session not ready for Voting! Wait for moderator to start'}
+            : 'Session not ready for Voting! Wait for moderator to press "Restart" button to start voting.'}
         </Typography>
         <div className='CardPickerContainer'>
           <Grid container spacing={4} justify='center'>
