@@ -30,7 +30,7 @@ export const PlayerCard: React.FC<PlayerCardProps> = ({ game, player, currentPla
       }}
     >
       <CardHeader
-        className='PlayerCardTitle'
+        className={player.id !== currentPlayerId ? 'PlayerCardTitle' : 'PlayerCardTitle PlayerCardTitleActive'}
         title={player.name}
         titleTypographyProps={{ variant: 'subtitle2', noWrap: true, title: player.name }}
         action={

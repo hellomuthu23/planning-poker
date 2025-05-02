@@ -18,9 +18,15 @@ export const isGameInPlayerCache = (gameId: string): boolean => {
   if (found) {
     return true;
   }
-  return found ? true : false;
+  return !!found;
 };
 
 export const updatePlayerGamesInCache = (playerGames: PlayerGame[]) => {
   localStorage.setItem(playerGamesStoreName, JSON.stringify(playerGames));
 };
+
+/*
+export const clearPlayerGamesFromCache = () => {
+  localStorage.removeItem(playerGamesStoreName);
+};
+*/

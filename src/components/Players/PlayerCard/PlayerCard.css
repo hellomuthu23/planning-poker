@@ -3,7 +3,6 @@
   min-width: 220px;
   margin: 10px;
   height: 120px;
-  margin-top: 40px;
   width: 90%;
   overflow: initial;
   background-color: var(--color-background-secondary);
@@ -25,6 +24,10 @@
   padding-left: 16px;
   padding-bottom: 16px;
   height: 40px;
+}
+
+.PlayerCardTitleActive {
+  background-color: #efe1d3 !important;
 }
 
 .RemoveButton{
