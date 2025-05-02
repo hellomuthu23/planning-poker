@@ -28,7 +28,7 @@
     "build": "rsbuild build",
     "test": "react-scripts test --detectOpenHandles",
     "lint": "eslint .",
-    "eject": "rsbuild eject"
+    "preview": "rsbuild preview"
   },
   "eslintConfig": {
     "extends": [
