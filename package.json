@@ -23,12 +23,12 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "rsbuild dev",
     "start:emulator": "firebase emulators:start --only firestore --project demo",
-    "build": "react-scripts build",
+    "build": "rsbuild build",
     "test": "react-scripts test --detectOpenHandles",
     "lint": "eslint .",
-    "eject": "react-scripts eject"
+    "eject": "rsbuild eject"
   },
   "eslintConfig": {
     "extends": [
