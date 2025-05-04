@@ -9,6 +9,7 @@ import MergeTypeOutlinedIcon from '@material-ui/icons/MergeTypeOutlined';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import BookOutlinedIcon from '@material-ui/icons/MenuBookOutlined';
 import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
+import PolicyOutlinedIcon from '@material-ui/icons/PolicyOutlined';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import './Toolbar.css';
@@ -77,6 +78,7 @@ export const Toolbar = () => {
               </Button>
               <Button
                 title={t('toolbar.menu.impressum')}
+                startIcon={<PolicyOutlinedIcon />}
                 size={isSmallScreen ? 'small' : 'large'}
                 color='inherit'
                 onClick={() =>

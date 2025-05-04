@@ -114,7 +114,7 @@ export const getRandomEmoji = () => {
     '🍰',
     '🍫',
   ];
-  return emojis[Math.floor(Math.random() * emojis.length)];
+  return emojis[0];
 };
 
 export const getCustomCards = (values: string[]) => {
