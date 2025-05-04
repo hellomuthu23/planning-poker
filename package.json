@@ -20,8 +20,7 @@
     "react-scripts": "5.0.1",
     "typescript": "5.0.4",
     "ulid": "^2.3.0",
-    "unique-names-generator": "^4.7.1",
-    "web-vitals": "^1.0.1"
+    "unique-names-generator": "^4.7.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -60,7 +59,11 @@
     ]
   },
   "devDependencies": {
+    "@babel/core": "^7.0.0",
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@babel/plugin-syntax-flow": "^7.14.5",
+    "@babel/plugin-transform-react-jsx": "^7.14.9",
+    "@testing-library/dom": ">=7.21.4",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^12.1.5",
     "@testing-library/user-event": "^12.1.10",
