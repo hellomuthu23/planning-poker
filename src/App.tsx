@@ -30,7 +30,7 @@ function App() {
               <Route path='/guide' component={GuidePage} />
               <Route exact path='/*' component={HomePage} />
             </Switch>
-            <CookieConsent location="bottom" cookieName="planning-poker-privacy" expires={30} overlay>
+            <CookieConsent location="bottom" cookieName="planning-poker-privacy" expires={90} overlay>
               <h1>Privacy Information and Data Usage</h1>
               <h3>Use of Cookies and Browser Local Storage</h3>
               <p>To provide you with the best possible user experience when using our web application, we use cookies and your browser’s local storage.
