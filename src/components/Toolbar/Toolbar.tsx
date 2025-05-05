@@ -77,16 +77,16 @@ export const Toolbar = () => {
                 {!isSmallScreen ? t('toolbar.menu.joinSession') : null}
               </Button>
               <Button
-                title={t('toolbar.menu.impressum')}
+                title={t('toolbar.menu.legalNotice')}
                 startIcon={<PolicyOutlinedIcon />}
                 size={isSmallScreen ? 'small' : 'large'}
                 color='inherit'
                 onClick={() =>
-                  (window.location.href = 'https://info.foerther.de/impressum.html')
+                  (window.location.href = 'https://info.foerther.de/legal_notice_en.html')
                 }
-                data-testid='toolbar.menu.impressum'
+                data-testid='toolbar.menu.legal'
               >
-                {!isSmallScreen ? t('toolbar.menu.impressum') : null}
+                {!isSmallScreen ? t('toolbar.menu.legalNotice') : null}
               </Button>
 
               <Button
