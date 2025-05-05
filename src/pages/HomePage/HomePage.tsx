@@ -1,4 +1,4 @@
-import { Divider, Grid, Slide, Typography, Box } from '@material-ui/core';
+import { Box, Divider, Grid, Slide, Typography } from '@material-ui/core';
 import React from 'react';
 import { useRouteMatch } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
