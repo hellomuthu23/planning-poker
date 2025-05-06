@@ -81,7 +81,7 @@ export const PlayerCard: React.FC<PlayerCardProps> = ({ game, player, currentPla
               </IconButton>
               <IconButton title="Cancel" onClick={handleCancel} size="small" color="secondary"
                           style={{padding: '0'}}>
-                <HighlightOffIcon fontSize='small' style={{ color: red[500] }} />
+                <HighlightOffIcon fontSize='small' style={{ color: red[300] }} />
               </IconButton>
             </div>
           ) : (

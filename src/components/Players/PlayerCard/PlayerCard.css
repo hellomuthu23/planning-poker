@@ -1,6 +1,6 @@
 .PlayerCard {
-  max-width: 220px;
-  min-width: 220px;
+  max-width: 240px;
+  min-width: 240px;
   margin: 10px;
   height: 120px;
   width: 90%;
@@ -29,7 +29,7 @@
 .PlayerCardTitleInput {
   font-size: 0.8rem;
   flex: 1 1 0;
-  max-width: 120px;
+  max-width: 130px;
   outline: none;
   border: none;
   height: 1.25rem;
