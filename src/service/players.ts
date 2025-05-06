@@ -41,10 +41,22 @@ export const updatePlayerValue = async (gameId: string, playerId: string, value:
   }
   return false;
 };
+export const updatePlayerName = async (gameId: string, playerId: string, name: string) => {
+  const player = await getPlayerFromStore(gameId, playerId);
+
+  if (player) {
+    const updatedPlayer = {
+      ...player,
+      name: name,
+    };
+    await updatePlayerInStore(gameId, updatedPlayer);
+    return true;
+  }
+  return false;
+};
 
 export const getPlayerRecentGames = async (): Promise<PlayerGame[]> => {
-  let playerGames: PlayerGame[] = getPlayerGamesFromCache();
-  return playerGames;
+  return getPlayerGamesFromCache();
 };
 
 export const getCurrentPlayerId = (gameId: string): string | undefined => {
@@ -87,7 +99,7 @@ export const isCurrentPlayerInGame = async (gameId: string): Promise<boolean> =>
 
 export const isPlayerInGameStore = async (gameId: string, playerId: string) => {
   const player = await getPlayerFromStore(gameId, playerId);
-  return player ? true : false;
+  return !!player;
 };
 
 export const removeGameFromCache = (gameId: string) => {
