@@ -26,6 +26,16 @@
   height: 40px;
 }
 
+.PlayerCardTitleInput {
+  font-size: 0.8rem;
+  flex: 1 1 0;
+  max-width: 120px;
+  outline: none;
+  border: none;
+  height: 1.25rem;
+  font-family: 'Roboto', sans-serif;
+}
+
 .PlayerCardTitleActive {
   background-color: #efe1d3 !important;
 }

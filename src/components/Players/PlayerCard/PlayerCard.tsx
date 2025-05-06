@@ -6,7 +6,9 @@ import { Status } from '../../../types/status';
 import { getCards } from '../CardPicker/CardConfigs';
 import './PlayerCard.css';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForeverTwoTone';
-import ModeEditIcon from '@material-ui/icons/Edit';
+import EditIcon from '@material-ui/icons/Edit';
+import SaveIcon from '@material-ui/icons/Save';
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import { blue, red } from '@material-ui/core/colors';
 import { removePlayer, updatePlayerName } from '../../../service/players';
 import { isModerator } from '../../../utils/isModerator';
@@ -60,8 +62,9 @@ export const PlayerCard: React.FC<PlayerCardProps> = ({ game, player, currentPla
         className={player.id !== currentPlayerId ? 'PlayerCardTitle' : 'PlayerCardTitle PlayerCardTitleActive'}
         title={
           isEditing && player.id === currentPlayerId ? (
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
               <input
+                className={'PlayerCardTitleInput'}
                 type="text"
                 value={editName}
                 autoFocus
@@ -71,15 +74,14 @@ export const PlayerCard: React.FC<PlayerCardProps> = ({ game, player, currentPla
                   if (e.key === 'Enter') handleSave();
                   if (e.key === 'Escape') handleCancel();
                 }}
-                style={{ fontSize: '0.8rem', flex: 1, maxWidth: '110px', border: 'none', outline: 'none' }}
               />
               <IconButton title="Save" onClick={handleSave} size="small" color="primary"
-                          style={{fontSize: '0.75rem', padding: '0'}}>
-                <span role="img" aria-label="Save">💾</span>
+                          style={{padding: '0'}}>
+                <SaveIcon fontSize='small' style={{ color: blue[800] }} />
               </IconButton>
               <IconButton title="Cancel" onClick={handleCancel} size="small" color="secondary"
-                          style={{fontSize: '0.75rem', padding: '0'}}>
-                <span role="img" aria-label="Cancel">❌</span>
+                          style={{padding: '0'}}>
+                <HighlightOffIcon fontSize='small' style={{ color: red[500] }} />
               </IconButton>
             </div>
           ) : (
@@ -109,7 +111,7 @@ export const PlayerCard: React.FC<PlayerCardProps> = ({ game, player, currentPla
               data-testid='update-button'
               color='primary'
             >
-              <ModeEditIcon fontSize='small' style={{ color: blue[800] }} />
+              <EditIcon fontSize='small' style={{ color: blue[800] }} />
             </IconButton>
           ))
         }
