@@ -11,11 +11,11 @@ export const Footer = () => {
           <Divider variant='middle'></Divider>
           <div className='FooterContainer'>
             <div className='FooterItemContainer'>
-              <Link href={"https://github.com/hellomuthu23/planning-poker"}
+              <Link href='https://github.com/hellomuthu23/planning-poker'
                     color="textSecondary"
                     underline={"none"}
               >
-              <Typography color='textSecondary' variant='body2' component={"span"} className={"copyright-vertical-center"}>
+              <Typography color='textSecondary' variant='body2' component='span' className='copyright-vertical-center'>
                 <CopyrightIcon color='secondary' fontSize='small' /> hellomuthu23
               </Typography>
               </Link>

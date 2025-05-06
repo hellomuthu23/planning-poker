@@ -49,7 +49,7 @@ export const HomePage = () => {
         </Grid>
         <Grid container item sm={12} lg={9} justify='center' alignItems='center'>
           <Grid item sm={12} lg={6}>
-            <Slide in={true} direction='up' timeout={1500}>
+            <Slide in={true} direction='up' timeout={1000}>
               <div className='HomePageContainer'>
                 <RecentGames />
               </div>
@@ -57,7 +57,7 @@ export const HomePage = () => {
           </Grid>
 
           <Grid item sm={12} lg={6}>
-            <Slide in={true} direction='up' timeout={1500}>
+            <Slide in={true} direction='up' timeout={1000}>
               <div className='HomePageContainer'>
                 <Typography variant='subtitle1'>
                   Here is your recent Planning/Refinement sessions, click on the session name to
@@ -69,14 +69,14 @@ export const HomePage = () => {
         </Grid>
         <Grid container item sm={12} lg={9} justify='center' alignItems='center'>
           <Grid item sm={12} lg={6}>
-            <Slide in={true} direction='up' timeout={2000}>
+            <Slide in={true} direction='up' timeout={1500}>
               <Divider variant='middle'></Divider>
             </Slide>
           </Grid>
         </Grid>
         <Grid container item sm={12} lg={9} justify='center' alignItems='center'>
           <Grid item sm={12} lg={6}>
-            <Slide in={true} direction='up' timeout={2000}>
+            <Slide in={true} direction='up' timeout={1500}>
               <div className='HomePageContainer'>
                 <Typography variant='h5'> Intuitive UI Design</Typography>
                 <Typography variant='subtitle1'>
@@ -90,7 +90,7 @@ export const HomePage = () => {
             </Slide>
           </Grid>
           <Grid item sm={12} lg={6}>
-            <Slide in={true} direction='up' timeout={2000}>
+            <Slide in={true} direction='up' timeout={1500}>
               <div className='HomePageContainer'>
                 <Box padding={2}>
                   <img

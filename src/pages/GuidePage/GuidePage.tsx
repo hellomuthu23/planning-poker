@@ -17,7 +17,7 @@ export const GuideContent = () => {
   return (
     <>
       <Grid container item sm={12} lg={9} justify='center' alignItems='center'>
-        <Slide in={true} direction='up' timeout={2000}>
+        <Slide in={true} direction='up' timeout={1000}>
           <div className='HomePageContainer'>
             <Typography variant='h5'>Guidelines on estimating user stories in Agile</Typography>
             <br />

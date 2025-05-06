@@ -24,7 +24,7 @@ export const AboutPlanningPokerContent = () => {
     <>
       <Grid container item sm={12} lg={9} justify='center' alignItems='center'>
         <Grid item sm={12} lg={6}>
-          <Slide in={true} direction='up' timeout={2000}>
+          <Slide in={true} direction='up' timeout={1000}>
             <div className='HomePageContainer'>
               <Typography variant='h5'>What is Agile Planning Poker?</Typography>
               <br />
@@ -46,7 +46,7 @@ export const AboutPlanningPokerContent = () => {
           </Slide>
         </Grid>
         <Grid item sm={12} lg={6}>
-          <Slide in={true} direction='up' timeout={2000}>
+          <Slide in={true} direction='up' timeout={1000}>
             <div className='HomePageContainer'>
               <Box padding={2}>
                 <LazyLoadImage alt='What' src={What}></LazyLoadImage>
@@ -59,7 +59,7 @@ export const AboutPlanningPokerContent = () => {
       <br></br>
       <Grid container item sm={12} lg={9} justify='center' alignItems='center'>
         <Grid item sm={12} lg={6}>
-          <Slide in={true} direction='up' timeout={2000}>
+          <Slide in={true} direction='up' timeout={1000}>
             <div className='HomePageContainer'>
               <Box padding={2}>
                 <LazyLoadImage alt='How' src={How}></LazyLoadImage>
@@ -68,7 +68,7 @@ export const AboutPlanningPokerContent = () => {
           </Slide>
         </Grid>
         <Grid item sm={12} lg={6}>
-          <Slide in={true} direction='up' timeout={2000}>
+          <Slide in={true} direction='up' timeout={1000}>
             <div className='HomePageContainer'>
               <Typography variant='h5'>How Agile Planning Poker Works</Typography>
               <br />
@@ -106,7 +106,7 @@ export const AboutPlanningPokerContent = () => {
       <br />
       <Grid container item sm={12} lg={9} justify='center' alignItems='center'>
         <Grid item sm={12} lg={6}>
-          <Slide in={true} direction='up' timeout={2000}>
+          <Slide in={true} direction='up' timeout={1000}>
             <div className='HomePageContainer'>
               <Typography variant='h5'>Benefits of Agile Planning Poker</Typography>
               <br />
@@ -135,7 +135,7 @@ export const AboutPlanningPokerContent = () => {
           </Slide>
         </Grid>
         <Grid item sm={12} lg={6}>
-          <Slide in={true} direction='up' timeout={2000}>
+          <Slide in={true} direction='up' timeout={1000}>
             <div className='HomePageContainer'>
               <Box padding={2}>
                 <LazyLoadImage alt='Benefits' src={Benefits}></LazyLoadImage>
@@ -148,7 +148,7 @@ export const AboutPlanningPokerContent = () => {
       <br />
       <Grid container item sm={12} lg={9} justify='center' alignItems='center'>
         <Grid item sm={12} lg={6}>
-          <Slide in={true} direction='up' timeout={2000}>
+          <Slide in={true} direction='up' timeout={1000}>
             <div className='HomePageContainer'>
               <Box padding={2}>
                 <LazyLoadImage alt='BestPractices' src={BestPractices}></LazyLoadImage>
@@ -157,7 +157,7 @@ export const AboutPlanningPokerContent = () => {
           </Slide>
         </Grid>
         <Grid item sm={12} lg={6}>
-          <Slide in={true} direction='up' timeout={2000}>
+          <Slide in={true} direction='up' timeout={1000}>
             <div className='HomePageContainer'>
               <Typography variant='h5'>Best Practices for Agile Planning Poker</Typography>
               <br />
