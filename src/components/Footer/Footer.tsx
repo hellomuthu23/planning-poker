@@ -1,4 +1,4 @@
-import { Divider, Slide, Typography } from '@material-ui/core';
+import { Divider, Link, Slide, Typography } from '@material-ui/core';
 import CopyrightIcon from '@material-ui/icons/Copyright';
 import React from 'react';
 import './Footer.css';
@@ -11,10 +11,14 @@ export const Footer = () => {
           <Divider variant='middle'></Divider>
           <div className='FooterContainer'>
             <div className='FooterItemContainer'>
-              <CopyrightIcon color='secondary' fontSize='small' />
-              <Typography color='textSecondary' variant='body2'>
-                hellomuthu23
+              <Link href={"https://github.com/hellomuthu23/planning-poker"}
+                    color="textSecondary"
+                    underline={"none"}
+              >
+              <Typography color='textSecondary' variant='body2' component={"span"} className={"copyright-vertical-center"}>
+                <CopyrightIcon color='secondary' fontSize='small' /> hellomuthu23
               </Typography>
+              </Link>
             </div>
           </div>
         </div>

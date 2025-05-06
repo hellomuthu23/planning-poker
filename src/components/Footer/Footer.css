@@ -16,3 +16,9 @@
   align-items: center;
   padding-right: 10px;
 }
+
+.copyright-vertical-center {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25em;
+}
