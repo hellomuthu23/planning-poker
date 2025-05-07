@@ -2,16 +2,23 @@
 /* eslint-disable testing-library/no-container */
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import React from 'react';
 import * as playersService from '../../../service/players';
 import { Game, GameType } from '../../../types/game';
 import { Player } from '../../../types/player';
 import { Status } from '../../../types/status';
-import { getCards, getCustomCards } from './CardConfigs';
+import { getCards } from './CardConfigs';
 import { CardPicker } from './CardPicker';
-import * as cardConfigs from './CardConfigs';
 
 jest.mock('../../../service/players');
+jest.mock('./CardConfigs', () => {
+  const originalModule = jest.requireActual('./CardConfigs');
+  return {
+    __esModule: true,
+    ...originalModule,
+    getRandomEmoji: jest.fn().mockReturnValue('something'),
+  };
+});
+
 describe('CardPicker component', () => {
   const mockGame: Game = {
     id: 'xyz',
@@ -33,6 +40,11 @@ describe('CardPicker component', () => {
     { id: 'a2', name: 'IronMan', status: Status.Finished, value: 3 },
   ];
   const currentPlayerId = mockPlayers[0].id;
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('should display correct card values', () => {
     const view = render(
       <CardPicker
@@ -138,7 +150,6 @@ describe('CardPicker component', () => {
   it('should update player value when player clicks on a card', () => {
     const currentPlayerId = mockPlayers[0].id;
     const updatePlayerValueSpy = jest.spyOn(playersService, 'updatePlayerValue');
-    jest.spyOn(cardConfigs, 'getRandomEmoji').mockReturnValue('something');
     render(<CardPicker game={mockGame} players={mockPlayers} currentPlayerId={currentPlayerId} />);
     const cardValueElement = screen.queryAllByText(1);
     userEvent.click(cardValueElement[0]);
