@@ -8,7 +8,7 @@ import { Status } from '../../types/status';
 import { Poker } from './Poker';
 
 jest.mock('../../service/players');
-// jest.mock('../../service/games');
+jest.mock('../../service/games');
 const mockHistoryPush = jest.fn();
 const mockUnblock = jest.fn();
 const mockHistory = {
@@ -21,8 +21,13 @@ describe('Poker component', () => {
     jest.spyOn(reactRouter, 'useParams').mockReturnValue({ Id: 'zz' } as any);
     jest.spyOn(reactRouter, 'useHistory').mockReturnValue(mockHistory as any);
   });
+
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
   it('should display game not found', async () => {
-    jest.spyOn(gamesService, 'streamGame').mockImplementation(() => {
+    (gamesService.streamGame as jest.Mock).mockImplementation(() => {
       return {
         onSnapshot: jest.fn((success) => success({ exists: false })),
       } as any;
@@ -55,7 +60,7 @@ describe('Poker component', () => {
         value: 0,
       },
     ] as Player[];
-    jest.spyOn(gamesService, 'streamGame').mockImplementation(() => {
+    (gamesService.streamGame as jest.Mock).mockImplementation(() => {
       return {
         onSnapshot: jest.fn((success) => success({ exists: true, data: () => mockGame })),
       } as any;
@@ -96,13 +101,13 @@ describe('Poker component', () => {
       },
     ] as Player[];
 
-    jest.spyOn(gamesService, 'streamGame').mockImplementation(() => {
+    (gamesService.streamGame as jest.Mock).mockImplementation(() => {
       return {
         onSnapshot: jest.fn((success) => success({ exists: true, data: () => mockGame })),
       } as any;
     });
 
-    jest.spyOn(gamesService, 'streamPlayers').mockImplementation(() => {
+    (gamesService.streamPlayers as jest.Mock).mockImplementation(() => {
       return {
         onSnapshot: jest.fn((success) => success({ exists: true, forEach: () => mockPlayers })),
       } as any;
