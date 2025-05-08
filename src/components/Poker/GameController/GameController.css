@@ -17,18 +17,16 @@
   gap: 30px;
   justify-content: space-around;
   padding: 30px;
-  padding-bottom: 30px !important;
 }
 
 .GameControllerDivider {
-  margin: 0px 10px 0px 10px;
+  margin: 0 10px 0 10px;
 }
 
 .GameControllerCardTitle {
   display: flex;
   justify-content: flex-start;
-  padding: 0px;
-  padding-left: 20px;
+  padding: 0 0 0 20px;
   border-bottom: 1px solid var(--color-primary);
   font-weight: bold;
 }
@@ -46,7 +44,7 @@
   background-color: var(--color-background);
 }
 .GameControllerButton:hover {
-  box-shadow: rgb(171 207 248) 0px 0px 0px 6px;
+  box-shadow: rgb(171 207 248) 0 0 0 6px;
 }
 
 .GameControllerCardHeaderAverageContainer {
@@ -58,8 +56,8 @@
 
 .GameControllerCardHeaderAverageValue {
   margin-left: 5px;
-  padding: 0px 5px 0px 5px;
-  color: var(--color-warning);
+  padding: 0 5px 0 5px;
+  color: var(--block-text-color);
   font-weight: bold;
 }
 
@@ -67,3 +65,12 @@
   margin: 0;
   padding-right: 5px;
 }
+
+*:has(> .InProgress) {
+  background-color: rgba(255, 165, 0, 0.7);
+}
+
+*:has(> .Finished) {
+  background-color: rgba(83, 175, 76, 0.5);
+}
+

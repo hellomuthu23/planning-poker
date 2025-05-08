@@ -61,7 +61,7 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
             title={game.name}
             titleTypographyProps={{ variant: 'h6' }}
             action={
-              <div className='GameControllerCardHeaderAverageContainer'>
+              <div className={'GameControllerCardHeaderAverageContainer ' + getGameStatusBackGroundClass(game.gameStatus)}>
                 <Typography variant='subtitle1'>
                   {game.gameStatus} {getGameStatusIcon(game.gameStatus)}
                 </Typography>
@@ -171,5 +171,16 @@ const getGameStatusIcon = (gameStatus: string) => {
       return '🎉';
     default:
       return '🚀';
+  }
+};
+
+const getGameStatusBackGroundClass = (gameStatus: string) => {
+  switch (gameStatus) {
+    case 'In Progress':
+      return 'InProgress';
+    case 'Finished':
+      return 'Finished';
+    default:
+      return 'Started';
   }
 };

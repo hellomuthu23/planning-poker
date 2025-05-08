@@ -9,7 +9,7 @@ import {
   isPlayerInGameStore,
   removeGameFromCache,
   addPlayerToGame,
-  resetPlayers,
+  resetPlayers, updatePlayerName,
 } from './players';
 import * as fb from '../repository/firebase';
 import * as storage from '../repository/localStorage';
@@ -125,6 +125,30 @@ describe('Players service', () => {
 
       expect(spyPlayer).toHaveBeenCalledTimes(0);
       expect(spyGame).toHaveBeenCalledTimes(0);
+    });
+  });
+
+  describe('update player name', () => {
+    it("update the player in store and in the game's status if the player exists", async () => {
+      const spyPlayer = jest.spyOn(fb, 'updatePlayerInStore');
+      jest.spyOn(fb, 'getPlayerFromStore').mockResolvedValueOnce(mockPlayer);
+
+      await updatePlayerName(mockGame.id, mockPlayer.id, "Tester1");
+
+      expect(spyPlayer).toHaveBeenCalledWith(
+        mockGame.id,
+        expect.objectContaining({ name: "Tester1"}),
+      );
+    });
+
+    // NOTE: Shouldn't there be a case that the player doesn't get updated if the game doesn't exist? Fn doesn't have that logix
+    it('should not update the player if the player does not exist', async () => {
+      const spyPlayer = jest.spyOn(fb, 'updatePlayerInStore');
+      jest.spyOn(fb, 'getPlayerFromStore').mockResolvedValueOnce(undefined);
+
+      await updatePlayerName(mockGame.id, mockPlayer.id, "Tester1");
+
+      expect(spyPlayer).toHaveBeenCalledTimes(0);
     });
   });
 
