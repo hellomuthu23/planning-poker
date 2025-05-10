@@ -6,6 +6,7 @@ import {
   Grow,
   IconButton,
   Snackbar,
+  TextField,
   Tooltip,
   Typography,
 } from '@material-ui/core';
@@ -19,7 +20,7 @@ import Alert from '@material-ui/lab/Alert';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { AlertDialog } from '../../../components/AlertDialog/AlertDialog';
-import { finishGame, removeGame, resetGame } from '../../../service/games';
+import { finishGame, removeGame, resetGame, updateStoryName } from '../../../service/games';
 import { Game, GameType } from '../../../types/game';
 import { isModerator } from '../../../utils/isModerator';
 import './GameController.css';
@@ -84,63 +85,84 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
             }
             className='GameControllerCardTitle'
           ></CardHeader>
-          <CardContent className='GameControllerCardContentArea'>
-            {isModerator(game.createdById, currentPlayerId, game.isAllowMembersToManageSession) && (
-              <>
+          <CardContent>
+            <div>
+              <div className='GameControllerCardContentArea'>
+                {isModerator(
+                  game.createdById,
+                  currentPlayerId,
+                  game.isAllowMembersToManageSession,
+                ) && (
+                  <>
+                    <div className='GameControllerButtonContainer'>
+                      <div className='GameControllerButton'>
+                        <IconButton
+                          onClick={() => finishGame(game.id)}
+                          data-testid='reveal-button'
+                          color='primary'
+                        >
+                          <VisibilityIcon fontSize='large' style={{ color: green[500] }} />
+                        </IconButton>
+                      </div>
+                      <Typography variant='caption'>Reveal</Typography>
+                    </div>
+
+                    <div className='GameControllerButtonContainer'>
+                      <div className='GameControllerButton'>
+                        <IconButton data-testid='restart-button' onClick={() => resetGame(game.id)}>
+                          <RefreshIcon fontSize='large' color='error' />
+                        </IconButton>
+                      </div>
+                      <Typography variant='caption'>Restart</Typography>
+                    </div>
+
+                    <div className='GameControllerButtonContainer'>
+                      <div className='GameControllerButton'>
+                        <AlertDialog
+                          title='Remove this session'
+                          message={`Are you sure? This will delete this session and remove all players.`}
+                          onConfirm={() => handleRemoveGame(game.id)}
+                          data-testid='delete-button-dialog'
+                        >
+                          <IconButton>
+                            <DeleteOutlined fontSize='large' style={{ color: red[300] }} />
+                          </IconButton>
+                        </AlertDialog>
+                      </div>
+                      <Typography variant='caption'>Delete</Typography>
+                    </div>
+                  </>
+                )}
                 <div className='GameControllerButtonContainer'>
                   <div className='GameControllerButton'>
-                    <IconButton
-                      onClick={() => finishGame(game.id)}
-                      data-testid='reveal-button'
-                      color='primary'
-                    >
-                      <VisibilityIcon fontSize='large' style={{ color: green[500] }} />
+                    <IconButton data-testid='exit-button' onClick={() => leaveGame()}>
+                      <ExitToApp fontSize='large' style={{ color: orange[500] }} />
                     </IconButton>
                   </div>
-                  <Typography variant='caption'>Reveal</Typography>
+                  <Typography variant='caption'>Exit</Typography>
                 </div>
-
-                <div className='GameControllerButtonContainer'>
+                <div title='Copy invite link' className='GameControllerButtonContainer'>
                   <div className='GameControllerButton'>
-                    <IconButton data-testid='restart-button' onClick={() => resetGame(game.id)}>
-                      <RefreshIcon fontSize='large' color='error' />
+                    <IconButton data-testid='invite-button' onClick={() => copyInviteLink()}>
+                      <LinkIcon fontSize='large' style={{ color: blue[500] }} />
                     </IconButton>
                   </div>
-                  <Typography variant='caption'>Restart</Typography>
+                  <Typography variant='caption'>Invite</Typography>
                 </div>
-
-                <div className='GameControllerButtonContainer'>
-                  <div className='GameControllerButton'>
-                    <AlertDialog
-                      title='Remove this session'
-                      message={`Are you sure? This will delete this session and remove all players.`}
-                      onConfirm={() => handleRemoveGame(game.id)}
-                      data-testid='delete-button-dialog'
-                    >
-                      <IconButton>
-                        <DeleteOutlined fontSize='large' style={{ color: red[300] }} />
-                      </IconButton>
-                    </AlertDialog>
-                  </div>
-                  <Typography variant='caption'>Delete</Typography>
-                </div>
-              </>
-            )}
-            <div className='GameControllerButtonContainer'>
-              <div className='GameControllerButton'>
-                <IconButton data-testid='exit-button' onClick={() => leaveGame()}>
-                  <ExitToApp fontSize='large' style={{ color: orange[500] }} />
-                </IconButton>
               </div>
-              <Typography variant='caption'>Exit</Typography>
-            </div>
-            <div title='Copy invite link' className='GameControllerButtonContainer'>
-              <div className='GameControllerButton'>
-                <IconButton data-testid='invite-button' onClick={() => copyInviteLink()}>
-                  <LinkIcon fontSize='large' style={{ color: blue[500] }} />
-                </IconButton>
+              <Divider className='GameControllerDivider' orientation='horizontal' flexItem />
+              <div>
+                <TextField
+                  label='Story Name/Number'
+                  placeholder='Enter story name or number'
+                  fullWidth
+                  data-testid='story-name-input'
+                  value={game.storyName || ''}
+                  onChange={(event) => {
+                    updateStoryName(game.id, event.target.value || '');
+                  }}
+                />
               </div>
-              <Typography variant='caption'>Invite</Typography>
             </div>
           </CardContent>
         </Card>
