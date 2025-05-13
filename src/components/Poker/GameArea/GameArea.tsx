@@ -1,10 +1,11 @@
 import React from 'react';
-import { Game } from '../../../types/game';
+import { Game, GameType } from '../../../types/game';
 import { Player } from '../../../types/player';
 import { CardPicker } from '../../Players/CardPicker/CardPicker';
 import { Players } from '../../Players/Players';
 import { GameController } from '../GameController/GameController';
 import './GameArea.css';
+import { TshirtLegend } from '../TshirtLegend/TshirtLegend';
 
 interface GameAreaProps {
   game: Game;
@@ -21,6 +22,11 @@ export const GameArea: React.FC<GameAreaProps> = ({ game, players, currentPlayer
       <div className='Footer'>
         <CardPicker game={game} players={players} currentPlayerId={currentPlayerId} />
       </div>
+      { (game.gameType === GameType.TShirt || game.gameType === GameType.TShirtAndNumber) && (
+        <div className='Footer'>
+          <TshirtLegend></TshirtLegend>
+        </div>
+      )}
     </>
   );
 };

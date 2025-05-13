@@ -1,0 +1,32 @@
+.TshirtLegendCard {
+  width: 800px;
+  min-width: 120px;
+  margin: 10px;
+  margin-top: 40px;
+  overflow: initial;
+  background-color: var(--color-background);
+  transition: 0.3s;
+  border-radius: 4px;
+  
+}
+@media (max-width: 480px) {
+  .TshirtLegendCard {
+    width: 100%;
+  }
+}
+
+.MuiCardHeader-content {
+  width: 100%;
+}
+
+.TshirtLegendTableContainer {
+  max-height: 250px;
+}
+
+.TshirtLegendCardContent {
+  text-align: center;
+}
+
+.TShirtSize {
+  font-weight: 600;
+}
