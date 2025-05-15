@@ -8,9 +8,8 @@ import {
   Snackbar,
   Typography,
 } from '@material-ui/core';
-import { blue, green, orange, red } from '@material-ui/core/colors';
+import { blue, green, grey, orange} from '@material-ui/core/colors';
 import RefreshIcon from '@material-ui/icons/Autorenew';
-import DeleteOutlined from '@material-ui/icons/DeleteForeverTwoTone';
 import ExitToApp from '@material-ui/icons/ExitToApp';
 import LinkIcon from '@material-ui/icons/Link';
 import VisibilityIcon from '@material-ui/icons/Visibility';
@@ -23,6 +22,7 @@ import { finishGame, removeGame, resetGame } from '../../../service/games';
 import { Game, GameType } from '../../../types/game';
 import { isModerator } from '../../../utils/isModerator';
 import './GameController.css';
+import { Clear } from '@material-ui/icons';
 
 interface GameControllerProps {
   game: Game;
@@ -79,6 +79,17 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
                       </Typography>
                     </>
                   )}
+                <Divider className='GameControllerDivider' orientation='vertical' flexItem />
+                  <AlertDialog
+                    title='Remove this session'
+                    message={`Are you sure? This will delete this session and remove all players.`}
+                    onConfirm={() => handleRemoveGame(game.id)}
+                    data-testid='delete-button-dialog'
+                  >
+                    <IconButton style={{ padding: '3px', background:'white'}} title={"Remove game session"}>
+                      <Clear fontSize='small' style={{ color: grey[900] }} />
+                    </IconButton>
+                  </AlertDialog>
               </div>
             }
             className='GameControllerCardTitle'
@@ -90,6 +101,7 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
                   <div className='GameControllerButton'>
                     <IconButton
                       onClick={() => finishGame(game.id)}
+                      title={'Finish game by revealing cards'}
                       data-testid='reveal-button'
                       color='primary'
                     >
@@ -101,39 +113,24 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
 
                 <div className='GameControllerButtonContainer'>
                   <div className='GameControllerButton'>
-                    <IconButton data-testid='restart-button' onClick={() => resetGame(game.id)}>
+                    <IconButton data-testid='restart-button' onClick={() => resetGame(game.id)} title={'Start a new game'}>
                       <RefreshIcon fontSize='large' color='error' />
                     </IconButton>
                   </div>
                   <Typography variant='caption'>Restart</Typography>
                 </div>
 
-                <div className='GameControllerButtonContainer'>
-                  <div className='GameControllerButton'>
-                    <AlertDialog
-                      title='Remove this session'
-                      message={`Are you sure? This will delete this session and remove all players.`}
-                      onConfirm={() => handleRemoveGame(game.id)}
-                      data-testid='delete-button-dialog'
-                    >
-                      <IconButton>
-                        <DeleteOutlined fontSize='large' style={{ color: red[300] }} />
-                      </IconButton>
-                    </AlertDialog>
-                  </div>
-                  <Typography variant='caption'>Delete</Typography>
-                </div>
               </>
             )}
             <div className='GameControllerButtonContainer'>
               <div className='GameControllerButton'>
-                <IconButton data-testid='exit-button' onClick={() => leaveGame()}>
+                <IconButton data-testid='exit-button' onClick={() => leaveGame()} title={'Leave game'}>
                   <ExitToApp fontSize='large' style={{ color: orange[500] }} />
                 </IconButton>
               </div>
               <Typography variant='caption'>Exit</Typography>
             </div>
-            <div title='Copy invite link' className='GameControllerButtonContainer'>
+            <div title='Copy invite link to clipboard' className='GameControllerButtonContainer'>
               <div className='GameControllerButton'>
                 <InfoDialog
                   title='Invite link has been created'

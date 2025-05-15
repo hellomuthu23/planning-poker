@@ -54,6 +54,9 @@
   padding-left: 30px;
 }
 
+.GameControllerCardTitle .MuiCardHeader-action {
+  margin-left: 8px;
+}
 .GameControllerCardHeaderAverageValue {
   margin-left: 5px;
   padding: 0 5px 0 5px;
