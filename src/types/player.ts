@@ -15,4 +15,7 @@ export interface PlayerGame {
   createdById: string;
   createdBy: string;
   playerId: string;
+  isModerator?: boolean;
+  isLocked?: boolean;
+  existsInStore?: boolean;
 }

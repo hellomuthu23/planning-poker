@@ -181,7 +181,7 @@ describe('Players service', () => {
     });
 
     it('should return sorted list of games for the player', async () => {
-      jest.spyOn(storage, 'getPlayerGamesFromCache').mockReturnValueOnce(mockPlayerGames);
+      jest.spyOn(storage, 'getPlayerGamesFromCache').mockReturnValue(mockPlayerGames);
       jest
         .spyOn(fb, 'getGameFromStore')
         .mockResolvedValueOnce(olderMockGame)

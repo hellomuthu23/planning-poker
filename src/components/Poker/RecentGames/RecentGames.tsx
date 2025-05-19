@@ -1,7 +1,7 @@
 import {
   Card,
   CardContent,
-  CardHeader,
+  CardHeader, Fade, Snackbar,
   Table,
   TableBody,
   TableCell,
@@ -14,17 +14,20 @@ import { red } from '@material-ui/core/colors';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForeverTwoTone';
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { getPlayerRecentGames, getCurrentPlayerId } from '../../../service/players';
+import { getPlayerRecentGames } from '../../../service/players';
 import './RecentGames.css';
 import { removeGame } from '../../../service/games';
-import { isModerator } from '../../../utils/isModerator';
 import { AlertDialog } from '../../AlertDialog/AlertDialog';
 import { PlayerGame } from '../../../types/player';
+import Alert from '@material-ui/lab/Alert';
+
 
 export const RecentGames = () => {
   const history = useHistory();
   const [recentGames, setRecentGames] = useState<PlayerGame[] | undefined>(undefined);
   const [reloadRecent, setReloadRecent] = useState<Boolean>(false);
+  const [showGameProtected, setShowGameProtected] = useState(false);
+
 
   useEffect(() => {
     let fetchCleanup = true;
@@ -55,7 +58,9 @@ export const RecentGames = () => {
     setReloadRecent(!reloadRecent);
   };
 
+
   return (
+    <>
     <Card variant='outlined' className='RecentGamesCard'>
       <CardHeader
         className='RecentGamesCardTitle'
@@ -86,20 +91,24 @@ export const RecentGames = () => {
                       >
                         <TableCell>{recentGame.name}</TableCell>
                         <TableCell align='left'>{recentGame.createdBy}</TableCell>
-                        {isModerator(
-                          recentGame.createdById,
-                          getCurrentPlayerId(recentGame.id),
-                          recentGame.isAllowMembersToManageSession,
-                        ) ? (
-                          <TableCell align='center' onClick={(e) => e.stopPropagation()}>
-                            <AlertDialog
-                              title='Remove recent game'
-                              message={`Are you sure? That will delete the game: ${recentGame.name} and remove all players from the session.`}
-                              onConfirm={() => handleRemoveGame(recentGame.id)}
-                            >
-                              <DeleteForeverIcon style={{ color: red[300] }} />
-                            </AlertDialog>
-                          </TableCell>
+                        { recentGame.isModerator ? (
+                          recentGame.isLocked ? (
+                            <TableCell align='center' onClick={(e) => e.stopPropagation()} title={'Deleting the game is prevented'}>
+                              <DeleteForeverIcon style={{ color: '#bbb', filter: 'grayscale(100%)'}}
+
+                                                 onClick={() => setShowGameProtected(true)} />
+                            </TableCell>
+                          ) : (
+                            <TableCell align='center' onClick={(e) => e.stopPropagation()}>
+                              <AlertDialog
+                                title='Remove recent game'
+                                message={`Are you sure? That will delete the game: ${recentGame.name} and remove all players from the session.`}
+                                onConfirm={() => handleRemoveGame(recentGame.id)}
+                              >
+                                <DeleteForeverIcon style={{ color: red[300] }} />
+                              </AlertDialog>
+                            </TableCell>
+                          )
                         ) : (
                           <TableCell align='left'></TableCell>
                         )}
@@ -112,5 +121,16 @@ export const RecentGames = () => {
         )}
       </CardContent>
     </Card>
-  );
+      <Snackbar
+        anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
+        open={showGameProtected}
+        autoHideDuration={5000}
+        TransitionComponent={Fade}
+        transitionDuration={1000}
+        onClose={() => setShowGameProtected(false)}
+      >
+        <Alert severity='error'>Deleting the game is prevented!</Alert>
+      </Snackbar>
+    </>
+);
 };

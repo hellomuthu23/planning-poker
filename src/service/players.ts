@@ -11,6 +11,7 @@ import { getPlayerGamesFromCache, updatePlayerGamesInCache } from '../repository
 import { Player, PlayerGame } from '../types/player';
 import { Status } from '../types/status';
 import { updateGameStatus } from './games';
+import { isModerator } from '../utils/isModerator';
 
 export const addPlayer = async (gameId: string, player: Player) => {
   const game = await getGameFromStore(gameId);
@@ -56,7 +57,23 @@ export const updatePlayerName = async (gameId: string, playerId: string, name: s
 };
 
 export const getPlayerRecentGames = async (): Promise<PlayerGame[]> => {
-  return getPlayerGamesFromCache();
+  const playerGamesFromCache = getPlayerGamesFromCache();
+  for (let playerGame of playerGamesFromCache) {
+    const game = await getGameFromStore(playerGame.id);
+    if (game) {
+      playerGame.isLocked = game.isLocked;
+      playerGame.existsInStore = true;
+      playerGame.isModerator = isModerator(
+        playerGame.createdById,
+        getCurrentPlayerId(playerGame.id),
+        playerGame.isAllowMembersToManageSession)
+    } else {
+      playerGame.existsInStore = false;
+      playerGame.isModerator = true;
+      playerGame.isLocked = false;
+    }
+  }
+  return playerGamesFromCache;
 };
 
 export const getCurrentPlayerId = (gameId: string): string | undefined => {
@@ -72,7 +89,7 @@ export const updatePlayerGames = (
   gameName: string,
   createdBy: string,
   createdById: string,
-  playerId: string
+  playerId: string,
 ) => {
   let playerGames: PlayerGame[] = getPlayerGamesFromCache();
 

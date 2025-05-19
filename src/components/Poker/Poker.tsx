@@ -67,10 +67,10 @@ export const Poker = () => {
           players.push(snapshot.data() as Player);
         });
         const currentPlayerId = getCurrentPlayerId(id);
+        setPlayers(players);
         if (!players.find((player) => player.id === currentPlayerId)) {
           history.push(`/join/${id}`);
         }
-        setPlayers(players);
       }
     });
 

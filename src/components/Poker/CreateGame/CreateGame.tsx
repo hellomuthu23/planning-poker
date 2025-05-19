@@ -93,9 +93,10 @@ export const CreateGame = () => {
           />
           <CardContent className='CreateGameCardContent'>
             <TextField
+              name='sessionName'
               className='CreateGameTextField'
               required
-              id='filled-required'
+              id='sessionNamerequired'
               label={t('HomePage.heroSection.formNewSession.sessionNameLabel')}
               placeholder='Enter a session name'
               value={gameName || ''}
@@ -104,9 +105,10 @@ export const CreateGame = () => {
               onChange={(event: ChangeEvent<HTMLInputElement>) => setGameName(event.target.value)}
             />
             <TextField
+              name='playerName'
               className='CreateGameTextField'
               required
-              id='filled-required'
+              id='playerNameRequired'
               label={t('HomePage.heroSection.formNewSession.yourNameLabel')}
               placeholder='Enter your name'
               value={createdBy || ''}
@@ -179,6 +181,7 @@ export const CreateGame = () => {
             <FormControlLabel
               control={
                 <Checkbox
+                  name='allowMembersToManageSession'
                   color='primary'
                   checked={allowMembersToManageSession}
                   onChange={() => setAllowMembersToManageSession(!allowMembersToManageSession)}

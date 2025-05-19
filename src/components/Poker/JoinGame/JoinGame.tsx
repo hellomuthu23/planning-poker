@@ -57,10 +57,10 @@ export const JoinGame = () => {
       const res = await addPlayerToGame(joinGameId, playerName);
 
       setIsGameFound(res);
+      setLoading(false);
       if (res) {
         history.push(`/game/${joinGameId}`);
       }
-      setLoading(false);
     }
   };
 
@@ -81,7 +81,7 @@ export const JoinGame = () => {
                   helperText={!gameFound && 'Session not found, check the ID'}
                   className='JoinGameTextField'
                   required
-                  id='filled-required'
+                  id='sessionIdRequired'
                   label='Session ID'
                   placeholder='xyz...'
                   defaultValue={joinGameId}
@@ -93,7 +93,7 @@ export const JoinGame = () => {
                 <TextField
                   className='JoinGameTextField'
                   required
-                  id='filled-required'
+                  id='playerNameRequired'
                   label='Your Name'
                   placeholder='Enter your name'
                   defaultValue={playerName}
