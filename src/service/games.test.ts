@@ -83,6 +83,7 @@ describe('games service', () => {
       average: 0,
       createdById: mockUlid,
       gameStatus: Status.Started,
+      isLocked: false,
     };
     const gameSpy = jest.spyOn(fb, 'addGameToStore');
     const playerSpy = jest.spyOn(fb, 'addPlayerToGameInStore');

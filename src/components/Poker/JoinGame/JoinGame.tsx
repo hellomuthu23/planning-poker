@@ -92,7 +92,7 @@ export const JoinGame = () => {
           </Card>
         </form>
         <Snackbar
-          anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
+          anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
           open={showNotExistMessage}
           autoHideDuration={5000}
           onClose={() => setShowNotExistMessage(false)}

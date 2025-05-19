@@ -32,6 +32,7 @@ interface GameControllerProps {
 export const GameController: React.FC<GameControllerProps> = ({ game, currentPlayerId }) => {
   const history = useHistory();
   const [showCopiedMessage, setShowCopiedMessage] = useState(false);
+  const [showGameProtected, setShowGameProtected] = useState(false);
   const copyInviteLink = () => {
     const dummy = document.createElement('input');
     const url = `${window.location.origin}/join/${game.id}`;
@@ -80,6 +81,13 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
                     </>
                   )}
                 <Divider className='GameControllerDivider' orientation='vertical' flexItem />
+                {game.isLocked ? (
+                  <div onClick={() => setShowGameProtected(true)}>
+                  <IconButton style={{ padding: '3px', background:'white'}} title={"The game is protected against deletion"}>
+                    <Clear fontSize='small' style={{ color: grey[300] }} />
+                  </IconButton>
+                  </div>
+                  ) : (
                   <AlertDialog
                     title='Remove this session'
                     message={`Are you sure? This will delete this session and remove all players.`}
@@ -90,6 +98,7 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
                       <Clear fontSize='small' style={{ color: grey[900] }} />
                     </IconButton>
                   </AlertDialog>
+                  )}
               </div>
             }
             className='GameControllerCardTitle'
@@ -148,13 +157,22 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
           </CardContent>
         </Card>
         <Snackbar
-          anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
+          anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
           open={showCopiedMessage}
           autoHideDuration={5000}
           onClose={() => setShowCopiedMessage(false)}
         >
           <Alert severity='success'>Invite Link copied to clipboard!</Alert>
         </Snackbar>
+        <Snackbar
+          anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+          open={showGameProtected}
+          autoHideDuration={5000}
+          onClose={() => setShowGameProtected(false)}
+        >
+          <Alert severity='error'>The game is protected against deletion!</Alert>
+        </Snackbar>
+
       </div>
     </Grow>
   );

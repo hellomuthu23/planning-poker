@@ -4,11 +4,11 @@ import {
   addPlayerToGameInStore,
   getGameFromStore,
   getPlayersFromStore,
+  removeGameFromStore,
+  removeOldGameFromStore,
   streamData,
   streamPlayersFromStore,
   updateGameDataInStore,
-  removeGameFromStore,
-  removeOldGameFromStore,
 } from '../repository/firebase';
 import { NewGame } from '../types/game';
 import { Player } from '../types/player';
@@ -27,10 +27,17 @@ export const addNewGame = async (newGame: NewGame): Promise<string> => {
     average: 0,
     createdById: player.id,
     gameStatus: Status.Started,
+    isLocked: false,
   };
   await addGameToStore(gameData.id, gameData);
   await addPlayerToGameInStore(gameData.id, player);
-  updatePlayerGames(gameData.id, gameData.name, gameData.createdBy, gameData.createdById, player.id);
+  updatePlayerGames(
+    gameData.id,
+    gameData.name,
+    gameData.createdBy,
+    gameData.createdById,
+    player.id,
+  );
 
   return gameData.id;
 };
@@ -114,13 +121,16 @@ export const updateGameStatus = async (gameId: string): Promise<boolean> => {
     const dataToUpdate = {
       gameStatus: status,
     };
-    const result = await updateGameDataInStore(gameId, dataToUpdate);
-    return result;
+    return await updateGameDataInStore(gameId, dataToUpdate);
   }
   return false;
 };
 
 export const removeGame = async (gameId: string) => {
+  const game = await getGameFromStore(gameId)
+  if (game?.isLocked) {
+    return;
+  }
   await removeGameFromStore(gameId);
   removeGameFromCache(gameId);
 };

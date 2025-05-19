@@ -18,7 +18,7 @@ import { getPlayerRecentGames, getCurrentPlayerId } from '../../../service/playe
 import './RecentGames.css';
 import { removeGame } from '../../../service/games';
 import { isModerator } from '../../../utils/isModerator';
-import { AlertDialog } from '../../../components/AlertDialog/AlertDialog';
+import { AlertDialog } from '../../AlertDialog/AlertDialog';
 import { PlayerGame } from '../../../types/player';
 
 export const RecentGames = () => {
@@ -47,10 +47,7 @@ export const RecentGames = () => {
     if (!recentGames) {
       return true;
     }
-    if (recentGames && recentGames.length === 0) {
-      return true;
-    }
-    return false;
+    return recentGames && recentGames.length === 0;
   };
 
   const handleRemoveGame = async (recentGameId: string) => {

@@ -13,6 +13,7 @@ export interface Game {
   createdById: string;
   createdAt: Date;
   updatedAt?: Date;
+  isLocked?: boolean;
 }
 
 export interface NewGame {
