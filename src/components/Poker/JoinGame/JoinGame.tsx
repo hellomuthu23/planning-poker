@@ -2,7 +2,7 @@ import { Button, Card, CardActions, CardContent, CardHeader, Grow, TextField, Sn
 import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { getGame } from '../../../service/games';
-import { addPlayerToGame, isCurrentPlayerInGame } from '../../../service/players';
+import { addPlayerToGame, isCurrentPlayerInGame, removeGameFromCache } from '../../../service/players';
 import Alert from '@material-ui/lab/Alert';
 import './JoinGame.css';
 
@@ -25,6 +25,7 @@ export const JoinGame = () => {
             history.push(`/game/${joinGameId}`);
           }
         }else {
+          removeGameFromCache(joinGameId);
           setShowNotExistMessage(true);
           setTimeout(() => {
             history.push('/');
