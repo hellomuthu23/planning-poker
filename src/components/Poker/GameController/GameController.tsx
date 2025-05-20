@@ -134,7 +134,7 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
                         title={'Finish game by revealing cards'}
                         data-testid='reveal-button'
                         color='primary'
-                        disabled={game.gameStatus === 'Finished'}
+                        disabled={game.gameStatus === 'Finished' || game.gameStatus === 'Started'}
                       >
                         <VisibilityIcon fontSize='large' style={{ color: green[500] }} />
                       </IconButton>
