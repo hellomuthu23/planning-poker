@@ -70,6 +70,10 @@
   padding-left: 30px;
 }
 
+.GameControllerCardHeaderAverageContainer h6:first-child {
+  min-width: 110px;
+}
+
 .GameControllerCardTitle .MuiCardHeader-action {
   margin-left: 8px;
 }
