@@ -93,7 +93,7 @@ export const RecentGames = () => {
                         <TableCell align='left'>{recentGame.createdBy}</TableCell>
                         { recentGame.isModerator ? (
                           recentGame.isLocked ? (
-                            <TableCell align='center' onClick={(e) => e.stopPropagation()} title={'Deleting the game is prevented'}>
+                            <TableCell align='center' onClick={(e) => e.stopPropagation()} title={'Deleting the game is not allowed'}>
                               <DeleteForeverIcon style={{ color: '#bbb', filter: 'grayscale(100%)'}}
 
                                                  onClick={() => setShowGameProtected(true)} />
@@ -129,7 +129,7 @@ export const RecentGames = () => {
         transitionDuration={1000}
         onClose={() => setShowGameProtected(false)}
       >
-        <Alert severity='error'>Deleting the game is prevented!</Alert>
+        <Alert severity='error'>Deleting the game is not allowed!</Alert>
       </Snackbar>
     </>
 );

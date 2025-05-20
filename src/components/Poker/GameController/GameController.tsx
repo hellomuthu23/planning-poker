@@ -96,7 +96,7 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
                     <div onClick={() => setShowGameProtected(true)}>
                       <IconButton
                         style={{ padding: '3px', background: 'white' }}
-                        title={'Deleting the game is prevented'}
+                        title={'Deleting the game is not allowed'}
                       >
                         <Clear fontSize='small' style={{ color: grey[300] }} />
                       </IconButton>
@@ -212,7 +212,7 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
         transitionDuration={1000}
         onClose={() => setShowGameProtected(false)}
       >
-        <Alert severity='error'>Deleting the game is prevented!</Alert>
+        <Alert severity='error'>Deleting the game is not allowed!</Alert>
       </Snackbar>
     </>
   );
