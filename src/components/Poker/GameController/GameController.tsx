@@ -148,6 +148,7 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
                         data-testid='restart-button'
                         onClick={() => resetGame(game.id)}
                         title={'Start a new game'}
+                        disabled={game.gameStatus === 'Started'}
                       >
                         <RefreshIcon fontSize='large' color='error' />
                       </IconButton>

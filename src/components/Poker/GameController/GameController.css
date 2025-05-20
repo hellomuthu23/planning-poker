@@ -51,7 +51,6 @@
 }
 
 
-
 .GameControllerButton:hover:has(> button:disabled)
  {
   pointer-events: none;  /* Keine Hover-Effekte/Farbanpassung */
@@ -60,7 +59,7 @@
 
 
 .GameControllerButton button:disabled {
-  filter: grayscale(100%) brightness(1.4);
+  filter: grayscale(100%) opacity(20%);
   cursor: not-allowed;
 }
 
