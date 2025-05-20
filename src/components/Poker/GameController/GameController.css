@@ -43,8 +43,25 @@
   border-radius: 50%;
   background-color: var(--color-background);
 }
+
+
+
 .GameControllerButton:hover {
   box-shadow: rgb(171 207 248) 0 0 0 6px;
+}
+
+
+
+.GameControllerButton:hover:has(> button:disabled)
+ {
+  pointer-events: none;  /* Keine Hover-Effekte/Farbanpassung */
+  box-shadow: none;
+}
+
+
+.GameControllerButton button:disabled {
+  filter: grayscale(100%) brightness(1.4);
+  cursor: not-allowed;
 }
 
 .GameControllerCardHeaderAverageContainer {
