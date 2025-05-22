@@ -23,6 +23,7 @@ import { AlertDialog } from '../../../components/AlertDialog/AlertDialog';
 import { finishGame, removeGame, resetGame, updateStoryName } from '../../../service/games';
 import { Game, GameType } from '../../../types/game';
 import { isModerator } from '../../../utils/isModerator';
+import { isNumeric } from '../../../utils/isStringNumeric';
 import './GameController.css';
 
 interface GameControllerProps {
@@ -43,6 +44,8 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
     document.body.removeChild(dummy);
     setShowCopiedMessage(true);
   };
+  const canShowAverageForCustomGameType =
+    game.gameType === GameType.Custom && game.cards.every((card) => isNumeric(card.displayValue));
 
   const leaveGame = () => {
     history.push(`/`);
@@ -67,7 +70,7 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
                 </Typography>
                 {game.gameType !== GameType.TShirt &&
                   game.gameType !== GameType.TShirtAndNumber &&
-                  game.gameType !== GameType.Custom && (
+                  (game.gameType !== GameType.Custom || canShowAverageForCustomGameType) && (
                     <>
                       <Divider className='GameControllerDivider' orientation='vertical' flexItem />
                       <Typography variant='subtitle1'>Average:</Typography>

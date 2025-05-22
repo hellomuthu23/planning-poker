@@ -121,7 +121,11 @@ export const getRandomEmoji = () => {
 
 export const getCustomCards = (values: string[]) => {
   const customCards: CardConfig[] = customCardsTemplate;
-  values.forEach((value, index) => (customCards[index].displayValue = value));
+  const isEveryCardValueNumber = values.every((value) => !isNaN(Number(value)));
+  values.forEach((value, index) => {
+    customCards[index].displayValue = value;
+    if (isEveryCardValueNumber) customCards[index].value = Number(value);
+  });
 
   return customCards.filter(
     (card) => card.displayValue !== undefined && card.displayValue.trim() !== '',
