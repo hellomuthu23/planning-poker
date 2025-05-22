@@ -30,6 +30,12 @@ interface GameControllerProps {
   currentPlayerId: string;
 }
 
+const isNumeric = (str: string) => {
+  if (typeof str !== 'string' || str.trim() === '') return false;
+  const num = Number(str);
+  return Number.isFinite(num);
+};
+
 export const GameController: React.FC<GameControllerProps> = ({ game, currentPlayerId }) => {
   const history = useHistory();
   const [showCopiedMessage, setShowCopiedMessage] = useState(false);
@@ -43,6 +49,8 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
     document.body.removeChild(dummy);
     setShowCopiedMessage(true);
   };
+  const canShowAverageForCustomGameType =
+    game.gameType === GameType.Custom && game.cards.every((card) => isNumeric(card.displayValue));
 
   const leaveGame = () => {
     history.push(`/`);
@@ -67,7 +75,7 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
                 </Typography>
                 {game.gameType !== GameType.TShirt &&
                   game.gameType !== GameType.TShirtAndNumber &&
-                  game.gameType !== GameType.Custom && (
+                  (game.gameType !== GameType.Custom || canShowAverageForCustomGameType) && (
                     <>
                       <Divider className='GameControllerDivider' orientation='vertical' flexItem />
                       <Typography variant='subtitle1'>Average:</Typography>
