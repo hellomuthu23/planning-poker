@@ -19,9 +19,9 @@ describe('GameController component', () => {
     id: 'xyz',
     name: 'testGame',
     cards: [
-      { value: 1, displayValue: '1', color: 'red' },
-      { value: 2, displayValue: '2', color: 'blue' },
-      { value: 3, displayValue: '3', color: 'green' },
+      { value: 1, displayValue: 'A', color: 'red' },
+      { value: 2, displayValue: 'B', color: 'blue' },
+      { value: 3, displayValue: 'C', color: 'green' },
     ],
     createdBy: 'someone',
     createdAt: new Date(),
@@ -84,8 +84,25 @@ describe('GameController component', () => {
         currentPlayerId={mockCurrentPlayerId}
       />,
     );
-
+ 
     expect(screen.queryByText('Average:')).not.toBeInTheDocument();
+  });
+  it('should display game average for Custom GameType', () => {
+    const mockGameWithNumericDisplayValues = { ...mockGame };
+    mockGameWithNumericDisplayValues.cards = [
+      { value: 1, displayValue: '1', color: 'red' },
+      { value: 2, displayValue: '2', color: 'blue' },
+      { value: 3, displayValue: '3', color: 'green' },
+    ]
+
+    render(
+      <GameController
+        game={{ ...mockGameWithNumericDisplayValues, gameType: GameType.Custom }}
+        currentPlayerId={mockCurrentPlayerId}
+      />,
+    );
+    
+    expect(screen.queryByText('Average:')).toBeInTheDocument();
   });
   it('should display exit option', () => {
     render(<GameController game={mockGame} currentPlayerId={mockCurrentPlayerId} />);

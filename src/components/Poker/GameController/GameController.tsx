@@ -23,18 +23,13 @@ import { AlertDialog } from '../../../components/AlertDialog/AlertDialog';
 import { finishGame, removeGame, resetGame, updateStoryName } from '../../../service/games';
 import { Game, GameType } from '../../../types/game';
 import { isModerator } from '../../../utils/isModerator';
+import { isNumeric } from '../../../utils/isStringNumeric';
 import './GameController.css';
 
 interface GameControllerProps {
   game: Game;
   currentPlayerId: string;
 }
-
-const isNumeric = (str: string) => {
-  if (typeof str !== 'string' || str.trim() === '') return false;
-  const num = Number(str);
-  return Number.isFinite(num);
-};
 
 export const GameController: React.FC<GameControllerProps> = ({ game, currentPlayerId }) => {
   const history = useHistory();
