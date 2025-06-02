@@ -1,10 +1,7 @@
-import { Button, Card, CardActions, CardContent, CardHeader, Grow, TextField, Snackbar } from '@material-ui/core';
-import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { getGame } from '../../../service/games';
 import { addPlayerToGame, isCurrentPlayerInGame } from '../../../service/players';
-import Alert from '@material-ui/lab/Alert';
-import './JoinGame.css';
 
 export const JoinGame = () => {
   const history = useHistory();
@@ -24,11 +21,11 @@ export const JoinGame = () => {
           if (await isCurrentPlayerInGame(joinGameId)) {
             history.push(`/game/${joinGameId}`);
           }
-        }else {
+        } else {
           setShowNotExistMessage(true);
           setTimeout(() => {
             history.push('/');
-          }, 5000)
+          }, 5000);
         }
       }
     }
@@ -37,9 +34,14 @@ export const JoinGame = () => {
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
+    console.log('event', event);
+    const form = event.target as HTMLFormElement;
+    const gameId = (form.elements.namedItem('joinGameId') as HTMLInputElement)?.value;
+    const playerName = (form.elements.namedItem('playerName') as HTMLInputElement)?.value;
+
     setLoading(true);
     if (joinGameId) {
-      const res = await addPlayerToGame(joinGameId, playerName);
+      const res = await addPlayerToGame(gameId, playerName);
 
       setIsGameFound(res);
       if (res) {
@@ -50,55 +52,61 @@ export const JoinGame = () => {
   };
 
   return (
-    <Grow in={true} timeout={500}>
-      <div>
-        <form onSubmit={handleSubmit}>
-          <Card variant='outlined' className='JoinGameCard'>
-            <CardHeader
-              className='JoinGameCardHeader'
-              title='Join a Session'
-              titleTypographyProps={{ variant: 'h4' }}
-            />
-            <CardContent className='JoinGameCardContent'>
-              <TextField
-                error={!gameFound}
-                helperText={!gameFound && 'Session not found, check the ID'}
-                className='JoinGameTextField'
+    <div className='w-full'>
+      <form onSubmit={handleSubmit} className='w-full flex justify-center'>
+        <div className='w-full max-w-lg bg-white border border-gray-200 rounded-xl shadow-lg p-6'>
+          <h2 className='text-2xl font-bold mb-4 text-center'>Join a Session</h2>
+          <div className='flex flex-col gap-4'>
+            <div>
+              <label className='block text-sm font-medium mb-1'>Session ID</label>
+              <input
+                id='joinGameId'
                 required
-                id='filled-required'
-                label='Session ID'
+                type='text'
+                className={`w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                  !gameFound ? 'border-red-500' : ''
+                }`}
                 placeholder='xyz...'
-                defaultValue={joinGameId}
-                variant='outlined'
-                onChange={(event: ChangeEvent<HTMLInputElement>) => setJoinGameId(event.target.value)}
+                value={joinGameId || ''}
               />
-              <TextField
-                className='JoinGameTextField'
+              {!gameFound && (
+                <p className='text-red-600 text-xs mt-1'>Session not found, check the ID</p>
+              )}
+            </div>
+            <div>
+              <label className='block text-sm font-medium mb-1'>Your Name</label>
+              <input
                 required
-                id='filled-required'
-                label='Your Name'
+                id='playerName'
+                type='text'
+                className='w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500'
                 placeholder='Enter your name'
-                defaultValue={playerName}
-                variant='outlined'
-                onChange={(event: ChangeEvent<HTMLInputElement>) => setPlayerName(event.target.value)}
               />
-            </CardContent>
-            <CardActions className='JoinGameCardAction'>
-              <Button type='submit' variant='contained' color='primary' className='JoinGameButton' disabled={loading}>
-                Join
-              </Button>
-            </CardActions>
-          </Card>
-        </form>
-        <Snackbar
-          anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
-          open={showNotExistMessage}
-          autoHideDuration={5000}
-          onClose={() => setShowNotExistMessage(false)}
-        >
-          <Alert severity='error'>Session was deleted and doesn't exist anymore!</Alert>
-        </Snackbar>
-      </div>
-    </Grow>
+            </div>
+          </div>
+          <div className='flex justify-end mt-6'>
+            <button
+              type='submit'
+              className={`bg-blue-600 text-white px-6 py-2 rounded font-semibold shadow hover:bg-blue-700 transition ${
+                loading ? 'opacity-50 cursor-not-allowed' : ''
+              }`}
+              disabled={loading}
+            >
+              {loading ? 'Joining...' : 'Join'}
+            </button>
+          </div>
+        </div>
+      </form>
+      {showNotExistMessage && (
+        <div className='fixed top-6 right-6 z-50'>
+          <div
+            className='bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded shadow'
+            role='alert'
+          >
+            <span className='block font-bold'>Session was deleted and doesn't exist anymore!</span>
+          </div>
+        </div>
+      )}
+    </div>
   );
 };

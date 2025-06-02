@@ -1,24 +1,10 @@
-import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardHeader,
-  Checkbox,
-  FormControlLabel,
-  Grow,
-  Radio,
-  RadioGroup,
-  TextField,
-} from '@material-ui/core';
-import React, { ChangeEvent, FormEvent, useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import { animals, colors, Config, starWars, uniqueNamesGenerator } from 'unique-names-generator';
 import { addNewGame } from '../../../service/games';
 import { GameType, NewGame } from '../../../types/game';
 import { getCards, getCustomCards } from '../../Players/CardPicker/CardConfigs';
-import './CreateGame.css';
 
 const gameNameConfig: Config = {
   dictionaries: [colors, animals],
@@ -73,144 +59,163 @@ export const CreateGame = () => {
     const newCustomOptions = [...customOptions];
     newCustomOptions[index] = value;
     setCustomOptions(newCustomOptions);
-
-    // Count the number of custom options that have a value
   };
 
   const emptyGameName = () => {
     if (hasDefaults.game) {
       setGameName('');
       hasDefaults.game = false;
-      setHasDefaults(hasDefaults);
+      setHasDefaults({ ...hasDefaults });
     }
   };
   const emptyCreatorName = () => {
     if (hasDefaults.name) {
       setCreatedBy('');
       hasDefaults.name = false;
-      setHasDefaults(hasDefaults);
+      setHasDefaults({ ...hasDefaults });
     }
   };
 
   return (
-    <Grow in={true} timeout={1000}>
-      <form onSubmit={handleSubmit}>
-        <Card variant='outlined' className='CreateGameCard'>
-          <CardHeader
-            className='CreateGameCardHeader'
-            title={t('HomePage.heroSection.formNewSession.newSessionHeader')}
-            titleTypographyProps={{ variant: 'h4' }}
-          />
-          <CardContent className='CreateGameCardContent'>
-            <TextField
-              className='CreateGameTextField'
+    <form onSubmit={handleSubmit} className='w-full flex justify-center'>
+      <div className='w-full max-w-lg bg-white border border-gray-200 rounded-xl shadow-lg p-6 mt-6'>
+        <h2 className='text-2xl font-bold mb-4 text-center'>
+          {t('HomePage.heroSection.formNewSession.newSessionHeader')}
+        </h2>
+        <div className='flex flex-col gap-4'>
+          <div>
+            <label className='block text-sm font-medium mb-1'>
+              {t('HomePage.heroSection.formNewSession.sessionNameLabel')}
+            </label>
+            <input
               required
-              id='filled-required'
-              label={t('HomePage.heroSection.formNewSession.sessionNameLabel')}
+              type='text'
+              className='w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500'
               placeholder='Enter a session name'
               value={gameName || ''}
-              onClick={() => emptyGameName()}
-              variant='outlined'
-              onChange={(event: ChangeEvent<HTMLInputElement>) => setGameName(event.target.value)}
+              onClick={emptyGameName}
+              onChange={(event) => setGameName(event.target.value)}
             />
-            <TextField
-              className='CreateGameTextField'
+          </div>
+          <div>
+            <label className='block text-sm font-medium mb-1'>
+              {t('HomePage.heroSection.formNewSession.yourNameLabel')}
+            </label>
+            <input
               required
-              id='filled-required'
-              label={t('HomePage.heroSection.formNewSession.yourNameLabel')}
+              type='text'
+              className='w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500'
               placeholder='Enter your name'
               value={createdBy || ''}
-              onClick={() => emptyCreatorName()}
-              variant='outlined'
-              onChange={(event: ChangeEvent<HTMLInputElement>) => setCreatedBy(event.target.value)}
+              onClick={emptyCreatorName}
+              onChange={(event) => setCreatedBy(event.target.value)}
             />
-            <RadioGroup
-              aria-label='gender'
-              name='gender1'
-              value={gameType}
-              onChange={(
-                event: ChangeEvent<{
-                  name?: string | undefined;
-                  value: any;
-                }>,
-              ) => setGameType(event.target.value)}
-            >
-              <FormControlLabel
-                value={GameType.Fibonacci}
-                control={<Radio color='primary' size='small' />}
-                label='Fibonacci (0, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89)'
-              />
-              <FormControlLabel
-                value={GameType.ShortFibonacci}
-                control={<Radio color='primary' size='small' />}
-                label='Short Fibonacci (0, ½, 1, 2, 3, 5, 8, 13, 20, 40, 100)'
-              />
-              <FormControlLabel
-                value={GameType.TShirt}
-                control={<Radio color='primary' size='small' />}
-                label='T-Shirt (XXS, XS, S, M, L, XL, XXL)'
-              />
-              <FormControlLabel
-                value={GameType.TShirtAndNumber}
-                control={<Radio color='primary' size='small' />}
-                label='T-Shirt & Numbers (S, M, L, XL, 1, 2, 3, 4, 5)'
-              />
-              <FormControlLabel
-                value={GameType.Custom}
-                control={<Radio color='primary' size='small' />}
-                label='Custom'
-              />
-            </RadioGroup>
-            {gameType === GameType.Custom && (
-              <>
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                  {customOptions.map((option: any, index: number) => (
-                    <TextField
-                      key={index}
-                      margin='dense'
-                      id={`custom-option-${index}`}
-                      data-testid={`custom-option-${index}`}
-                      inputProps={{ maxLength: 3, style: { fontSize: '12px', padding: '10px' } }}
-                      type='text'
-                      variant='outlined'
-                      className='CreateGameCustomTextField'
-                      value={option}
-                      onChange={(event) => handleCustomOptionChange(index, event.target.value)}
-                    />
-                  ))}
-                </div>
-                {error && (
-                  <p className='CreateGameErrorMessage'>
-                    Please enter values for at least two custom option.
-                  </p>
-                )}
-              </>
-            )}
-            <FormControlLabel
-              control={
-                <Checkbox
-                  color='primary'
-                  checked={allowMembersToManageSession}
-                  onChange={() => setAllowMembersToManageSession(!allowMembersToManageSession)}
+          </div>
+          <fieldset>
+            <legend className='block text-sm font-medium mb-2'>Game Type</legend>
+            <div className='flex flex-col gap-2'>
+              <label className='inline-flex items-center'>
+                <input
+                  type='radio'
+                  className='form-radio text-blue-600'
+                  name='gameType'
+                  value={GameType.Fibonacci}
+                  checked={gameType === GameType.Fibonacci}
+                  onChange={() => setGameType(GameType.Fibonacci)}
                 />
-              }
-              label='Allow members to manage session'
+                <span className='ml-2'>Fibonacci (0, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89)</span>
+              </label>
+              <label className='inline-flex items-center'>
+                <input
+                  type='radio'
+                  className='form-radio text-blue-600'
+                  name='gameType'
+                  value={GameType.ShortFibonacci}
+                  checked={gameType === GameType.ShortFibonacci}
+                  onChange={() => setGameType(GameType.ShortFibonacci)}
+                />
+                <span className='ml-2'>Short Fibonacci (0, ½, 1, 2, 3, 5, 8, 13, 20, 40, 100)</span>
+              </label>
+              <label className='inline-flex items-center'>
+                <input
+                  type='radio'
+                  className='form-radio text-blue-600'
+                  name='gameType'
+                  value={GameType.TShirt}
+                  checked={gameType === GameType.TShirt}
+                  onChange={() => setGameType(GameType.TShirt)}
+                />
+                <span className='ml-2'>T-Shirt (XXS, XS, S, M, L, XL, XXL)</span>
+              </label>
+              <label className='inline-flex items-center'>
+                <input
+                  type='radio'
+                  className='form-radio text-blue-600'
+                  name='gameType'
+                  value={GameType.TShirtAndNumber}
+                  checked={gameType === GameType.TShirtAndNumber}
+                  onChange={() => setGameType(GameType.TShirtAndNumber)}
+                />
+                <span className='ml-2'>T-Shirt & Numbers (S, M, L, XL, 1, 2, 3, 4, 5)</span>
+              </label>
+              <label className='inline-flex items-center'>
+                <input
+                  type='radio'
+                  className='form-radio text-blue-600'
+                  name='gameType'
+                  value={GameType.Custom}
+                  checked={gameType === GameType.Custom}
+                  onChange={() => setGameType(GameType.Custom)}
+                />
+                <span className='ml-2'>Custom</span>
+              </label>
+            </div>
+          </fieldset>
+          {gameType === GameType.Custom && (
+            <>
+              <div className='flex flex-wrap gap-2 mb-2'>
+                {customOptions.map((option: any, index: number) => (
+                  <input
+                    key={index}
+                    type='text'
+                    maxLength={3}
+                    className='w-12 border rounded px-2 py-1 text-xs text-center focus:outline-none focus:ring-2 focus:ring-blue-500'
+                    value={option}
+                    onChange={(event) => handleCustomOptionChange(index, event.target.value)}
+                    data-testid={`custom-option-${index}`}
+                  />
+                ))}
+              </div>
+              {error && (
+                <p className='text-red-600 text-xs mt-1'>
+                  Please enter values for at least two custom option.
+                </p>
+              )}
+            </>
+          )}
+          <label className='inline-flex items-center mt-2'>
+            <input
+              type='checkbox'
+              className='form-checkbox text-blue-600'
+              checked={allowMembersToManageSession}
+              onChange={() => setAllowMembersToManageSession(!allowMembersToManageSession)}
             />
-          </CardContent>
-          <CardActions className='CreateGameCardAction'>
-            <Button
-              type='submit'
-              variant='contained'
-              color='primary'
-              className='CreateGameButton'
-              data-testid='loading'
-              disabled={loading}
-            >
-              Create
-            </Button>
-          </CardActions>
-        </Card>
-      </form>
-    </Grow>
+            <span className='ml-2'>Allow members to manage session</span>
+          </label>
+        </div>
+        <div className='flex justify-end mt-6'>
+          <button
+            type='submit'
+            className={`bg-blue-600 text-white px-6 py-2 rounded font-semibold shadow hover:bg-blue-700 transition ${
+              loading ? 'opacity-50 cursor-not-allowed' : ''
+            }`}
+            disabled={loading}
+            data-testid='loading'
+          >
+            {loading ? 'Creating...' : 'Create'}
+          </button>
+        </div>
+      </div>
+    </form>
   );
 };
