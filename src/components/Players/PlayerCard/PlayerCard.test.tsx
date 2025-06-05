@@ -6,7 +6,20 @@ import { Player } from '../../../types/player';
 import { Status } from '../../../types/status';
 import { PlayerCard } from './PlayerCard';
 import * as playerService from '../../../service/players';
+
+// Mock the playerService module
+jest.mock('../../../service/players', () => ({
+  removePlayer: jest.fn(),
+  isModerator: jest.fn(),
+}));
+
 describe('PlayerCard component', () => {
+  // Setup and teardown for each test
+  beforeEach(() => {
+    // Clear all mocks before each test
+    jest.clearAllMocks();
+  });
+
   const mockGame: Game = {
     id: 'xyz',
     name: 'testGame',
@@ -133,7 +146,8 @@ describe('PlayerCard component', () => {
   it('should call remove function on Remove action', () => {
     const coffeePlayer = { ...mockPlayer, status: Status.InProgress };
     const finishedGame = { ...mockGame, gameStatus: Status.Finished };
-    jest.spyOn(playerService, 'removePlayer').mockResolvedValue();
+
+    // No need to use jest.spyOn since we've already mocked the module
     render(
       <PlayerCard
         game={finishedGame}

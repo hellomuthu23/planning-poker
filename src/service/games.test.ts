@@ -32,6 +32,10 @@ jest.mock('./players', () => ({
 jest.mock('ulid', () => ({ ulid: () => '321cba' }));
 
 describe('games service', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   const mockUlid = '321cba';
   const mockId = 'fancy pants';
   const mockGame = {
