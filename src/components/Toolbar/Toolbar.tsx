@@ -1,16 +1,16 @@
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import GamesIcon from '@material-ui/icons/Games';
-import GithubIcon from '@material-ui/icons/GitHub';
-import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
-import BookOutlinedIcon from '@material-ui/icons/MenuBookOutlined';
-import MergeTypeOutlinedIcon from '@material-ui/icons/MergeTypeOutlined';
-import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 import { useTranslation } from 'react-i18next';
 
 import { useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useBreakpoint } from '../../hooks/useBreakpoint';
 import { LanguageControl } from '../LanguageControl/LanguageControl';
+import { ExampleSVG } from '../SVGs/Example';
+import { GithubSVG } from '../SVGs/Github';
+import { GuideSVG } from '../SVGs/Guide';
+import { InfoSVG } from '../SVGs/Info';
+import { JoinSVG } from '../SVGs/Join';
+import { PlusSVG } from '../SVGs/Plus';
 import { MenuItem } from './MenuItem';
 import './Toolbar.css';
 export const title = 'Planning Poker';
@@ -48,34 +48,34 @@ export const Toolbar = () => {
 
   const menuItems = [
     {
-      icon: <InfoOutlinedIcon />,
+      icon: <InfoSVG />,
       label: t('toolbar.menu.about'),
       onClick: () => handleNavigation('/about-planning-poker'),
     },
     {
-      icon: <SearchOutlinedIcon />,
+      icon: <GuideSVG />,
       label: t('toolbar.menu.guide'),
       onClick: () => handleNavigation('/guide'),
     },
     {
-      icon: <BookOutlinedIcon />,
+      icon: <ExampleSVG />,
       label: t('toolbar.menu.examples'),
       onClick: () => handleNavigation('/examples'),
     },
     {
-      icon: <AddCircleOutlineIcon />,
+      icon: <PlusSVG />,
       label: t('toolbar.menu.newSession'),
       onClick: () => handleNavigation('/'),
       testId: 'toolbar.menu.newSession',
     },
     {
-      icon: <MergeTypeOutlinedIcon />,
+      icon: <JoinSVG />,
       label: t('toolbar.menu.joinSession'),
       onClick: () => handleNavigation('/join'),
       testId: 'toolbar.menu.joinSession',
     },
     {
-      icon: <GithubIcon />,
+      icon: <GithubSVG />,
       label: 'GitHub',
       onClick: () => (window.location.href = 'https://github.com/hellomuthu23/planning-poker'),
     },

@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { Divider } from '../../components/Divider/Divider';
 import { GoogleAd } from '../../components/GoogleAd/GoogleAd';
+import { BenefitsSVG } from '../../components/SVGs/Benefits';
+import { BestPracticeSVG } from '../../components/SVGs/BestPractice';
+import { HowSVG } from '../../components/SVGs/How';
+import { WhatSVG } from '../../components/SVGs/What';
 import '../HomePage/HomePage.css';
-import Benefits from './../../images/benefits.jpg';
-import BestPractices from './../../images/best-practices.jpg';
-import How from './../../images/how.jpg';
-import What from './../../images/what.jpg';
 
 export const AboutPage = () => {
   return (
@@ -54,7 +53,7 @@ export const AboutPlanningPokerContent = () => {
           </div>
           <div className='w-full lg:w-1/2 px-4 flex justify-center'>
             <div className='HomePageContainer p-4'>
-              <LazyLoadImage alt='What' src={What} className='rounded-lg shadow-md' />
+              <WhatSVG />
             </div>
           </div>
         </div>
@@ -64,7 +63,7 @@ export const AboutPlanningPokerContent = () => {
         <div className='flex flex-col lg:flex-row w-full items-center justify-center my-8'>
           <div className='w-full lg:w-1/2 px-4 flex justify-center mb-8 lg:mb-0'>
             <div className='HomePageContainer p-4'>
-              <LazyLoadImage alt='How' src={How} className='rounded-lg shadow-md' />
+              <HowSVG />
             </div>
           </div>
           <div className='w-full lg:w-1/2 px-4'>
@@ -131,7 +130,7 @@ export const AboutPlanningPokerContent = () => {
           </div>
           <div className='w-full lg:w-1/2 px-4 flex justify-center'>
             <div className='HomePageContainer p-4'>
-              <LazyLoadImage alt='Benefits' src={Benefits} className='rounded-lg shadow-md' />
+              <BenefitsSVG />
             </div>
           </div>
         </div>
@@ -141,11 +140,7 @@ export const AboutPlanningPokerContent = () => {
         <div className='flex flex-col lg:flex-row w-full items-center justify-center my-8'>
           <div className='w-full lg:w-1/2 px-4 flex justify-center mb-8 lg:mb-0'>
             <div className='HomePageContainer p-4'>
-              <LazyLoadImage
-                alt='BestPractices'
-                src={BestPractices}
-                className='rounded-lg shadow-md'
-              />
+              <BestPracticeSVG />
             </div>
           </div>
           <div className='w-full lg:w-1/2 px-4'>

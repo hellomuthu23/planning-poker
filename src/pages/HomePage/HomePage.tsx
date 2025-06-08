@@ -8,8 +8,8 @@ import { CreateGame } from '../../components/Poker/CreateGame/CreateGame';
 import { JoinGame } from '../../components/Poker/JoinGame/JoinGame';
 import { RecentGames } from '../../components/Poker/RecentGames/RecentGames';
 import { AboutPlanningPokerContent } from '../AboutPage/AboutPage';
-import LandingImage from './../../images/background.jpg';
 import SessionControllerImage from './../../images/Session.jpg';
+import LandingImage from './../../images/background.jpg';
 import './HomePage.css';
 
 export const HomePage = () => {
