@@ -1,5 +1,5 @@
-import GamesIcon from '@material-ui/icons/Games';
 import { useTranslation } from 'react-i18next';
+import { GamesSVG } from '../SVGs/GamesSVG';
 
 import { useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
@@ -85,7 +85,7 @@ export const Toolbar = () => {
       <div className='inline-flex items-center'>
         <button className='button-ghost flex items-center' onClick={() => history.push('/')}>
           <div className='pr-1'>
-            <GamesIcon className='HeaderIcon' />
+            <GamesSVG className='HeaderIcon' />
           </div>
           <p className='md:text-2xl text-sm font-normal'>{title}</p>
         </button>

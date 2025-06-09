@@ -111,7 +111,7 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
                       strokeLinecap='round'
                       strokeLinejoin='round'
                       strokeWidth={2}
-                      d='M4 4v5h.582M20 20v-5h-.581M5.582 9A7.003 7.003 0 0112 5c3.042 0 5.824 1.824 7.418 4.582M18.418 15A7.003 7.003 0 0112 19c-3.042 0-5.824-1.824-7.418-4.582'
+                      d='M4 4v5h5M20 20v-5h-5M5.5 9A7 7 0 0112 5a7 7 0 017.5 4.5M18.5 15A7 7 0 0112 19a7 7 0 01-7.5-4.5'
                     />
                   </svg>
                 </button>
