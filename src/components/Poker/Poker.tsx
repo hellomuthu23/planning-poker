@@ -1,12 +1,11 @@
-import { CircularProgress, Typography } from '@material-ui/core';
 import { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { streamGame, streamPlayers } from '../../service/games';
 import { getCurrentPlayerId } from '../../service/players';
 import { Game } from '../../types/game';
 import { Player } from '../../types/player';
+import { Loading } from '../Loading/Loading';
 import { GameArea } from './GameArea/GameArea';
-import './Poker.css';
 
 export const Poker = () => {
   let { id } = useParams<{ id: string }>();
@@ -81,8 +80,8 @@ export const Poker = () => {
 
   if (loading) {
     return (
-      <div className='PokerLoading'>
-        <CircularProgress />
+      <div className='flex items-center justify-center p-10'>
+        <Loading />
       </div>
     );
   }
@@ -92,7 +91,7 @@ export const Poker = () => {
       {game && players && currentPlayerId ? (
         <GameArea game={game} players={players} currentPlayerId={currentPlayerId} />
       ) : (
-        <Typography>Game not found</Typography>
+        <p>Game not found</p>
       )}
     </>
   );
