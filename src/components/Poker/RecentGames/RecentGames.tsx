@@ -1,25 +1,11 @@
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Typography,
-} from '@material-ui/core';
-import { red } from '@material-ui/core/colors';
-import DeleteForeverIcon from '@material-ui/icons/DeleteForeverTwoTone';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { getPlayerRecentGames, getCurrentPlayerId } from '../../../service/players';
-import './RecentGames.css';
-import { removeGame } from '../../../service/games';
-import { isModerator } from '../../../utils/isModerator';
 import { AlertDialog } from '../../../components/AlertDialog/AlertDialog';
+import { DeleteSVG } from '../../../components/SVGs/DeleteSVG';
+import { removeGame } from '../../../service/games';
+import { getCurrentPlayerId, getPlayerRecentGames } from '../../../service/players';
 import { PlayerGame } from '../../../types/player';
+import { isModerator } from '../../../utils/isModerator';
 
 export const RecentGames = () => {
   const history = useHistory();
@@ -59,61 +45,65 @@ export const RecentGames = () => {
   };
 
   return (
-    <Card variant='outlined' className='RecentGamesCard'>
-      <CardHeader
-        className='RecentGamesCardTitle'
-        title='Recent Session'
-        titleTypographyProps={{ variant: 'h6', noWrap: true }}
-      />
-      <CardContent className='RecentGamesCardContent'>
-        {isEmptyRecentGames() && <Typography variant='body2'>No recent sessions found</Typography>}
+    <div className='border border-gray-400 rounded-md shadow-sm'>
+      <div className='text-center -mt-5 mx-auto w-[95%] bg-white border-2  border-gray-400 rounded-2xl flex items-center justify-center px-3 py-1'>
+        <h6 className='text-lg font-medium text-gray-900 truncate'>Recent Session</h6>
+      </div>
+      <div className='p-4'>
+        {isEmptyRecentGames() && <p className='text-sm text-gray-700'>No recent sessions found</p>}
         {recentGames && recentGames.length > 0 && (
-          <TableContainer className='RecentGamesTableContainer'>
-            <Table stickyHeader>
-              <TableHead>
-                <TableRow>
-                  <TableCell>Name</TableCell>
-                  <TableCell>Created By</TableCell>
-                  <TableCell></TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
+          <div className='overflow-x-auto' style={{ maxHeight: 250 }}>
+            <table className='min-w-full divide-y divide-gray-200'>
+              <thead className='bg-gray-50'>
+                <tr>
+                  <th className='sticky top-0 z-10 bg-gray-50 px-6 py-3 text-left text-xs font-bold text-gray-800 tracking-wider'>
+                    Name
+                  </th>
+                  <th className='sticky top-0 z-10 bg-gray-50 px-6 py-3 text-left text-xs font-bold text-gray-800 tracking-wider'>
+                    Created By
+                  </th>
+                  <th className='sticky top-0 z-10 bg-gray-50 px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider'></th>
+                </tr>
+              </thead>
+              <tbody className=''>
                 {recentGames.map(
                   (recentGame) =>
                     recentGame.name && (
-                      <TableRow
-                        hover
+                      <tr
                         key={recentGame.id}
-                        className='RecentGamesTableRow'
+                        className='hover:bg-gray-100 cursor-pointer border-t border-gray-200'
                         onClick={() => history.push(`/game/${recentGame.id}`)}
                       >
-                        <TableCell>{recentGame.name}</TableCell>
-                        <TableCell align='left'>{recentGame.createdBy}</TableCell>
+                        <td className='px-6 py-4 text-sm text-gray-500'>{recentGame.name}</td>
+                        <td className='px-6 py-4 text-sm text-gray-500'>{recentGame.createdBy}</td>
                         {isModerator(
                           recentGame.createdById,
                           getCurrentPlayerId(recentGame.id),
                           recentGame.isAllowMembersToManageSession,
                         ) ? (
-                          <TableCell align='center' onClick={(e) => e.stopPropagation()}>
+                          <td
+                            className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'
+                            onClick={(e) => e.stopPropagation()}
+                          >
                             <AlertDialog
-                              title='Remove recent game'
-                              message={`Are you sure? That will delete the game: ${recentGame.name} and remove all players from the session.`}
-                              onConfirm={() => handleRemoveGame(recentGame.id)}
+                              id={recentGame.id}
+                              message={`Are you sure? That will delete the session: ${recentGame.name} and remove all players from the session.`}
+                              onConfirm={(id: string) => handleRemoveGame(id)}
                             >
-                              <DeleteForeverIcon style={{ color: red[300] }} />
+                              <DeleteSVG className='h-5 w-5 text-red-500' />
                             </AlertDialog>
-                          </TableCell>
+                          </td>
                         ) : (
-                          <TableCell align='left'></TableCell>
+                          <td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'></td>
                         )}
-                      </TableRow>
+                      </tr>
                     ),
                 )}
-              </TableBody>
-            </Table>
-          </TableContainer>
+              </tbody>
+            </table>
+          </div>
         )}
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 };

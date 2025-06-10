@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { AlertDialog } from './AlertDialog';
 
 describe('AlertDialog component', () => {
@@ -8,9 +8,14 @@ describe('AlertDialog component', () => {
   beforeEach(() => {
     // eslint-disable-next-line testing-library/no-render-in-setup
     render(
-      <AlertDialog title='title test' message='message test' onConfirm={onConfirmFunction} onCancel={onCancelFunction}>
+      <AlertDialog
+        id='23'
+        message='message test'
+        onConfirm={onConfirmFunction}
+        onCancel={onCancelFunction}
+      >
         <button data-testid='alert-dialog-button'>AlertDialog button</button>
-      </AlertDialog>
+      </AlertDialog>,
     );
     const button = screen.getByTestId('alert-dialog-button');
     fireEvent.click(button);
