@@ -34,7 +34,6 @@ export const JoinGame = () => {
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
-    console.log('event', event);
     const form = event.target as HTMLFormElement;
     const gameId = (form.elements.namedItem('joinGameId') as HTMLInputElement)?.value;
     const playerName = (form.elements.namedItem('playerName') as HTMLInputElement)?.value;
@@ -63,7 +62,7 @@ export const JoinGame = () => {
                 id='joinGameId'
                 required
                 type='text'
-                className={`w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                className={`w-full border border-gray-400 rounded px-3 py-2 focus:outline-none focus:ring-1 focus:ring-blue-400 ${
                   !gameFound ? 'border-red-500' : ''
                 }`}
                 placeholder='xyz...'
@@ -79,7 +78,7 @@ export const JoinGame = () => {
                 required
                 id='playerName'
                 type='text'
-                className='w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500'
+                className='w-full border border-gray-400 rounded px-3 py-2 focus:outline-none focus:ring-1 focus:ring-blue-400'
                 placeholder='Enter your name'
               />
             </div>

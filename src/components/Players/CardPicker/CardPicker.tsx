@@ -5,7 +5,6 @@ import { Player } from '../../../types/player';
 import { Status } from '../../../types/status';
 import { GoogleAd } from '../../GoogleAd/GoogleAd';
 import { CardConfig, getCards, getRandomEmoji } from './CardConfigs';
-import './CardPicker.css';
 
 interface CardPickerProps {
   game: Game;

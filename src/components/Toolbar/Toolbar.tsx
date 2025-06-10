@@ -101,7 +101,7 @@ export const Toolbar = () => {
               onClick={toggleDropdown}
               aria-label='Toggle Menu'
             >
-              <span>Menu</span>
+              <span className='text-sm font-normal'>Menu</span>
             </button>
             {isDropdownOpen && (
               <div className='absolute right-0 mt-10 w-48 bg-white shadow-lg rounded-lg z-50 flex flex-col'>

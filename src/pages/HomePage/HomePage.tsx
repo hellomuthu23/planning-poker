@@ -22,7 +22,7 @@ export const HomePage = () => {
         {/* Hero Section */}
         <div className='flex flex-col lg:flex-row w-full max-w-7xl items-center justify-center mt-8'>
           <div className='w-full lg:w-1/2 flex flex-col items-center px-4'>
-            <h1 className='text-2xl font-bold text-center mb-4'>
+            <h1 className='text-2xl font-semibold text-center mb-4'>
               {t('HomePage.heroSection.title')}
             </h1>
             <div className='p-4'>

@@ -35,7 +35,7 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
       <div className='w-full max-w-md bg-[#e7edf3] border border-gray-200 rounded-xl shadow-lg my-6'>
         {/* Card Header */}
         <div className='flex items-center justify-between px-3 py-1 border-b border-gray-400'>
-          <div className='text-lg font-bold truncate'>{game.name}</div>
+          <div className='text-lg font-semibold truncate'>{game.name}</div>
           <div className='flex items-center gap-2'>
             <span className='text-sm font-medium'>{game.gameStatus}</span>
             <span>{getGameStatusIcon(game.gameStatus)}</span>
@@ -120,7 +120,7 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
               {/* Delete */}
               <div className='flex flex-col items-center'>
                 <AlertDialog
-                  title='Remove this session'
+                  id={game.id}
                   message='Are you sure? This will delete this session and remove all players.'
                   onConfirm={() => handleRemoveGame(game.id)}
                   data-testid='delete-button-dialog'

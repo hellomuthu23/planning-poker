@@ -79,7 +79,7 @@ export const CreateGame = () => {
   return (
     <form onSubmit={handleSubmit} className='w-full flex justify-center'>
       <div className='w-full max-w-lg bg-white border border-gray-200 rounded-xl shadow-lg p-6 mt-6'>
-        <h2 className='text-2xl font-bold mb-4 text-center'>
+        <h2 className='text-2xl font-semibold mb-4 text-center'>
           {t('HomePage.heroSection.formNewSession.newSessionHeader')}
         </h2>
         <div className='flex flex-col gap-4'>
@@ -90,7 +90,7 @@ export const CreateGame = () => {
             <input
               required
               type='text'
-              className='w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500'
+              className='w-full border border-gray-400 rounded px-3 py-2 focus:outline-none focus:ring-1 focus:ring-blue-400'
               placeholder='Enter a session name'
               value={gameName || ''}
               onClick={emptyGameName}
@@ -104,7 +104,7 @@ export const CreateGame = () => {
             <input
               required
               type='text'
-              className='w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500'
+              className='w-full border border-gray-400 rounded px-3 py-2 focus:outline-none focus:ring-1 focus:ring-blue-400'
               placeholder='Enter your name'
               value={createdBy || ''}
               onClick={emptyCreatorName}
@@ -112,7 +112,7 @@ export const CreateGame = () => {
             />
           </div>
           <fieldset>
-            <legend className='block text-sm font-medium mb-2'>Game Type</legend>
+            <legend className='block text-sm font-medium mb-2'>Session Sizing Type</legend>
             <div className='flex flex-col gap-2'>
               <label className='inline-flex items-center'>
                 <input

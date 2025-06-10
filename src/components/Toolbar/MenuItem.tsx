@@ -18,7 +18,7 @@ export const MenuItem = ({
       data-testid={testId}
     >
       <div className='pr-2'>{icon}</div>
-      <div>{label}</div>
+      <div className='text-sm font-normal'> {label}</div>
     </button>
   );
 };
