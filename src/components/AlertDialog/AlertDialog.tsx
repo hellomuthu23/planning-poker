@@ -51,6 +51,7 @@ export const AlertDialog: React.FC<AlertDialogProps> = ({
       <div onClick={handleClickOpen}>{children}</div>
       <div
         id={modalId}
+        data-testid='alert-dialog'
         className='fixed hidden cursor-default z-50 inset-0 bg-gray-900 bg-opacity-60 overflow-y-auto h-full w-full px-4 '
       >
         <div className='relative top-40 mx-auto shadow-xl rounded-md bg-white max-w-2xl'>
@@ -92,6 +93,7 @@ export const AlertDialog: React.FC<AlertDialogProps> = ({
             <h3 className='text-xl font-normal text-wrap text-gray-500 mt-5 mb-6 '>{message}</h3>
             <button
               onClick={handleConfirm}
+              data-testid='alert-dialog-confirm'
               className='cursor-pointer text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-base inline-flex items-center px-3 py-2.5 text-center mr-2'
             >
               Confirm
@@ -100,6 +102,7 @@ export const AlertDialog: React.FC<AlertDialogProps> = ({
               onClick={handleClose}
               className='cursor-pointer text-gray-900 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-cyan-200 border border-gray-200 font-medium inline-flex items-center rounded-lg text-base px-3 py-2.5 text-center'
               data-modal-toggle='delete-user-modal'
+              data-testid='alert-dialog-cancel'
             >
               Cancel
             </button>
