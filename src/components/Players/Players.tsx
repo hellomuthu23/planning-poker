@@ -11,7 +11,7 @@ interface PlayersProps {
 export const Players: React.FC<PlayersProps> = ({ game, players, currentPlayerId }) => {
   return (
     <div className='animate-grow'>
-      <div className='flex flex-wrap justify-center gap-2 py-10 w-full'>
+      <div className='flex flex-wrap justify-center gap-2 pt-8 w-full'>
         {players.map((player: Player) => (
           <PlayerCard
             key={player.id}

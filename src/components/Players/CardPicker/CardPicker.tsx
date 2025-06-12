@@ -50,7 +50,11 @@ export const CardPicker: React.FC<CardPickerProps> = ({ game, players, currentPl
                   ? 'border-dashed border-2 border-gray-500  z-10 shadow-lg scale-115'
                   : 'shadow-md scale-100'
               }
-              ${game.gameStatus === Status.Finished ? 'pointer-events-none' : ''}
+              ${
+                game.gameStatus === Status.Finished
+                  ? 'pointer-events-none opacity-50 cursor-not-allowed'
+                  : ''
+              }
             `}
               style={{
                 backgroundColor: card.color,

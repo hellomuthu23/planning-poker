@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { AlertDialog } from '../../../components/AlertDialog/AlertDialog';
-import { finishGame, removeGame, resetGame } from '../../../service/games';
+import { finishGame, removeGame, resetGame, updateStoryName } from '../../../service/games';
 import { Game, GameType } from '../../../types/game';
 import { isModerator } from '../../../utils/isModerator';
 
@@ -203,6 +203,20 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
               </svg>
             </button>
             <span className='text-xs mt-1'>Invite</span>
+          </div>
+          {/* <div className='w-full border-b border-gray-400' /> */}
+          <div className='w-full text-xs text-gray-500 mt-2'>
+            <label className='font-semibold'>Story Name:</label>
+            <input
+              placeholder='Enter story name or number'
+              className='w-full italic p-2 mt-2 border bg-white border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-400'
+              type='text'
+              data-testid='story-name-input'
+              value={game.storyName || ''}
+              onChange={(event) => {
+                updateStoryName(game.id, event.target.value || '');
+              }}
+            />
           </div>
         </div>
       </div>
