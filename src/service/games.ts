@@ -83,6 +83,19 @@ export const finishGame = async (gameId: string) => {
   }
 };
 
+export const updateStoryName = async (gameId: string, storyName: string) => {
+  const game = await getGameFromStore(gameId);
+  const players = await getPlayersFromStore(gameId);
+
+  if (game && players) {
+    const updatedGame = {
+      ...game,
+      storyName: storyName,
+    };
+    updateGame(gameId, updatedGame);
+  }
+};
+
 export const getAverage = (players: Player[]): number => {
   let values = 0;
   let numberOfPlayersPlayed = 0;

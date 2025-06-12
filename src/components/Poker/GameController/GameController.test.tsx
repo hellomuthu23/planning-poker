@@ -28,6 +28,7 @@ describe('GameController component', () => {
     average: 0,
     createdById: 'abc',
     gameStatus: Status.InProgress,
+    storyName: 'testStory',
   };
   const mockCurrentPlayerId = 'abc';
 
@@ -40,6 +41,7 @@ describe('GameController component', () => {
 
     expect(screen.getByText(`${mockGame.gameStatus} ⏱️`)).toBeInTheDocument();
   });
+
   it('should display game average value', () => {
     render(<GameController game={mockGame} currentPlayerId={mockCurrentPlayerId} />);
 
@@ -109,6 +111,17 @@ describe('GameController component', () => {
 
     userEvent.click(screen.getByTestId('exit-button'));
     expect(mockHistoryPush).toHaveBeenCalledWith('/');
+  });
+  it('should display story name', () => {
+    render(<GameController game={mockGame} currentPlayerId={mockCurrentPlayerId} />);
+    expect(screen.getByDisplayValue('testStory')).toBeInTheDocument();
+  });
+
+  it('can enter new story name', () => {
+    render(<GameController game={mockGame} currentPlayerId={mockCurrentPlayerId} />);
+    const input = screen.getByPlaceholderText('Enter story name or number') as HTMLInputElement;
+    userEvent.type(input, 'n');
+    expect(gamesService.updateStoryName).toHaveBeenCalledWith(mockGame.id, 'testStoryn');
   });
 
   describe('When Player is Moderator', () => {

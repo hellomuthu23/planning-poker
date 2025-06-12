@@ -8,6 +8,7 @@ export interface Game {
   gameStatus: Status;
   gameType?: GameType | GameType.Fibonacci;
   isAllowMembersToManageSession?: boolean;
+  storyName?: string;
   cards: CardConfig[];
   createdBy: string;
   createdById: string;

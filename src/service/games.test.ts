@@ -12,6 +12,7 @@ import {
   streamPlayers,
   updateGame,
   updateGameStatus,
+  updateStoryName,
 } from './games';
 import * as players from './players';
 
@@ -247,6 +248,17 @@ describe('games service', () => {
 
       expect(spy).toHaveBeenCalledWith(mockId, { gameStatus: Status.InProgress });
       expect(res).toBe(true);
+    });
+  });
+  describe('update the game story name', () => {
+    it('should update the game with the new story name', async () => {
+      jest.spyOn(fb, 'getGameFromStore').mockResolvedValueOnce(mockGame);
+      jest.spyOn(fb, 'getPlayersFromStore').mockResolvedValueOnce(mockPlayers);
+      const spy = jest.spyOn(fb, 'updateGameDataInStore').mockResolvedValueOnce(true);
+
+      await updateStoryName(mockId, 'User story 1');
+
+      expect(spy).toHaveBeenCalledWith(mockId, { ...mockGame, storyName: 'User story 1' });
     });
   });
 });
