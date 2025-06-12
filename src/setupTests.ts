@@ -4,6 +4,11 @@
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom';
 
+Object.assign(navigator, {
+  clipboard: {
+    writeText: jest.fn(),
+  },
+});
 // Mock the 'react-i18next' module globally for all tests
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({ t: jest.fn(), i18n: { language: 'en-US', changeLanguage: jest.fn() } }),

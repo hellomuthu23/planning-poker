@@ -1,5 +1,4 @@
 import { render, screen } from '@testing-library/react';
-import React from 'react';
 import { Game } from '../../types/game';
 import { Player } from '../../types/player';
 import { Status } from '../../types/status';

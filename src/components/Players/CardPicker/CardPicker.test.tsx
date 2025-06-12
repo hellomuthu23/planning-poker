@@ -2,14 +2,13 @@
 /* eslint-disable testing-library/no-container */
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import React from 'react';
 import * as playersService from '../../../service/players';
 import { Game, GameType } from '../../../types/game';
 import { Player } from '../../../types/player';
 import { Status } from '../../../types/status';
-import { getCards, getCustomCards } from './CardConfigs';
-import { CardPicker } from './CardPicker';
 import * as cardConfigs from './CardConfigs';
+import { getCards } from './CardConfigs';
+import { CardPicker } from './CardPicker';
 
 jest.mock('../../../service/players');
 describe('CardPicker component', () => {
@@ -148,6 +147,7 @@ describe('CardPicker component', () => {
 
   it('should not update player value when player clicks on a card and game is finished', () => {
     const currentPlayerId = mockPlayers[0].id;
+    jest.resetAllMocks();
     const updatePlayerValueSpy = jest.spyOn(playersService, 'updatePlayerValue');
     const finishedGameMock = {
       ...mockGame,

@@ -1,5 +1,4 @@
-import { Grid } from '@material-ui/core';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { deleteOldGames } from '../../service/games';
 
 export const DeleteOldGames = () => {
@@ -16,13 +15,13 @@ export const DeleteOldGames = () => {
 
   return (
     <>
-      <Grid container direction='column' justify='center' alignItems='center' spacing={2}>
-        <Grid container item sm={12} lg={11} justify='center' alignItems='center' spacing={3}>
-          <Grid item sm={12} lg={6}>
+      <div className='flex flex-col items-center justify-center space-y-2'>
+        <div className='flex items-center justify-center sm:w-full lg:w-11/12 space-x-3'>
+          <div className='sm:w-full lg:w-1/2'>
             {isDeleteInProgress ? <div>Deleting old games.....</div> : <div>Delete done!</div>}
-          </Grid>
-        </Grid>
-      </Grid>
+          </div>
+        </div>
+      </div>
     </>
   );
 };

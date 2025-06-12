@@ -64,8 +64,6 @@ const getCardColor = (game: Game, value: number | undefined): string => {
     return '#e7edf3';
   }
   const card = getCards(game.gameType).find((card) => card.value === value);
-  console.log('card', card);
-
   return card ? card.color : '#e7edf3';
 };
 

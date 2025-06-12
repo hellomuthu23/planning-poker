@@ -37,8 +37,9 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
         <div className='flex items-center justify-between px-3 py-1 border-b border-gray-400'>
           <div className='text-lg font-semibold truncate'>{game.name}</div>
           <div className='flex items-center gap-2'>
-            <span className='text-sm font-medium'>{game.gameStatus}</span>
-            <span>{getGameStatusIcon(game.gameStatus)}</span>
+            <span className='text-sm font-medium'>
+              {game.gameStatus} {getGameStatusIcon(game.gameStatus)}
+            </span>
             {game.gameType !== GameType.TShirt &&
               game.gameType !== GameType.TShirtAndNumber &&
               game.gameType !== GameType.Custom && (

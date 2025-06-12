@@ -3,9 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@material-ui/core": "^4.11.3",
-    "@material-ui/icons": "^4.11.2",
-    "@material-ui/lab": "^4.0.0-alpha.57",
     "@tailwindcss/postcss": "^4.1.6",
     "@types/react-lazy-load-image-component": "^1.6.4",
     "country-flag-icons": "^1.5.7",
@@ -29,7 +26,7 @@
     "build": "tsc && vite build",
     "serve": "vite preview",
     "start:emulator": "firebase emulators:start --only firestore --project demo",
-    "test": "react-scripts test --detectOpenHandles",
+    "test": "jest",
     "lint": "eslint .",
     "eject": "react-scripts eject"
   },
@@ -38,6 +35,19 @@
       "react-app",
       "react-app/jest"
     ]
+  },
+  "jest": {
+    "setupFilesAfterEnv": [
+      "<rootDir>/src/setupTests.ts"
+    ],
+    "moduleNameMapper": {
+      "\\.(css|less|scss|sass)$": "<rootDir>/__mocks__/styleMock.js",
+      "\\.(jpg|jpeg|png|gif|svg)$": "<rootDir>/__mocks__/fileMock.js"
+    },
+    "transform": {
+      "^.+\\.(js|jsx|ts|tsx)$": "babel-jest"
+    },
+    "testEnvironment": "jsdom"
   },
   "husky": {
     "hooks": {
@@ -62,7 +72,11 @@
     ]
   },
   "devDependencies": {
+    "@babel/core": "^7.27.4",
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@babel/preset-env": "^7.27.2",
+    "@babel/preset-react": "^7.27.1",
+    "@babel/preset-typescript": "^7.27.1",
     "@tailwindcss/vite": "^4.1.6",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^12.1.5",
@@ -73,10 +87,14 @@
     "@types/react-dom": "^17.0.0",
     "@types/react-router-dom": "^5.1.7",
     "@vitejs/plugin-react-swc": "^3.9.0",
+    "babel-jest": "^30.0.0-beta.3",
     "husky": "^6.0.0",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^30.0.0-beta.3",
     "lint-staged": "^11.0.0",
     "prettier": "^2.3.0",
     "vite": "^6.3.5",
+    "vite-plugin-environment": "^1.1.3",
     "vite-plugin-svgr": "^4.3.0",
     "vite-tsconfig-paths": "^5.1.4"
   }

@@ -67,6 +67,7 @@ export const JoinGame = () => {
                 }`}
                 placeholder='xyz...'
                 value={joinGameId || ''}
+                onChange={(e) => setJoinGameId(e.target.value)}
               />
               {!gameFound && (
                 <p className='text-red-600 text-xs mt-1'>Session not found, check the ID</p>
@@ -80,6 +81,7 @@ export const JoinGame = () => {
                 type='text'
                 className='w-full border border-gray-400 rounded px-3 py-2 focus:outline-none focus:ring-1 focus:ring-blue-400'
                 placeholder='Enter your name'
+                onChange={(e) => setPlayerName(e.target.value)}
               />
             </div>
           </div>

@@ -1,6 +1,5 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import React from 'react';
 import reactRouter from 'react-router';
 import * as gameService from '../../../service/games';
 import * as playersService from '../../../service/players';
@@ -9,6 +8,7 @@ import { JoinGame } from './JoinGame';
 
 jest.mock('../../../service/players');
 jest.mock('../../../service/games');
+
 const mockHistoryPush = jest.fn();
 describe('JoinGame component', () => {
   beforeEach(() => {
