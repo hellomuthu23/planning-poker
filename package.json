@@ -2,7 +2,6 @@
   "name": "planning-poker",
   "version": "0.1.0",
   "private": true,
-  "type": "module",
   "dependencies": {
     "@tailwindcss/postcss": "^4.1.6",
     "@types/react-lazy-load-image-component": "^1.6.4",
