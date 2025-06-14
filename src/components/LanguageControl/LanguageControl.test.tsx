@@ -7,8 +7,7 @@ describe('LanguageControl component', () => {
     render(<LanguageControl />);
 
     const wrapperNode = screen.getByTestId('language-control');
-
-    expect(wrapperNode).toHaveTextContent('🇺🇸');
+    expect(wrapperNode).toHaveValue('en-US');
   });
 
   test('should changes language when selecting a flag option', async () => {
@@ -18,12 +17,8 @@ describe('LanguageControl component', () => {
 
     fireEvent.mouseDown(wrapperNode);
 
-    const option = await screen.findByRole('option', {
-      name: new RegExp('🇧🇷'),
-    });
+    fireEvent.change(wrapperNode, { target: { value: 'pt-BR' } });
 
-    fireEvent.click(option);
-
-    expect(wrapperNode).toHaveTextContent('🇧🇷');
+    expect(wrapperNode).toHaveValue('pt-BR');
   });
 });

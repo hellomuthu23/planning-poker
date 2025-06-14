@@ -1,0 +1,22 @@
+{
+  "toolbar": {
+    "menu": {
+      "about": "Was ist Planning Poker?",
+      "guide": "Anleitung",
+      "examples": "Beispiele",
+      "newSession": "Neue Sitzung",
+      "joinSession": "Sitzung beitreten"
+    }
+  },
+  "HomePage": {
+    "heroSection": {
+      "title": "Kostenlose Planning Poker App",
+      "description": "Kostenlose/Open-Source Planning Poker Web-App zur Schätzung von User Stories für Ihre Agile/Scrum-Teams. Erstellen Sie eine Sitzung und laden Sie Ihre Teammitglieder ein, um User Stories effizient zu schätzen.",
+      "formNewSession": {
+        "newSessionHeader": "Neue Sitzung erstellen",
+        "sessionNameLabel": "Sitzungsname",
+        "yourNameLabel": "Ihr Name"
+      }
+    }
+  }
+}

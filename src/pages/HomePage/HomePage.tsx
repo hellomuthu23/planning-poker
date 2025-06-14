@@ -18,7 +18,7 @@ export const HomePage = () => {
 
   return (
     <>
-      <div className='flex flex-col items-center w-full'>
+      <div className='flex flex-col items-center w-full animate-fade-in-down'>
         {/* Hero Section */}
         <div className='flex flex-col lg:flex-row w-full max-w-7xl items-center justify-center mt-8'>
           <div className='w-full lg:w-1/2 flex flex-col items-center px-4'>

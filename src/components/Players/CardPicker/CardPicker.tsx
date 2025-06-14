@@ -28,8 +28,8 @@ export const CardPicker: React.FC<CardPickerProps> = ({ game, players, currentPl
   const cards = game.cards?.length ? game.cards : getCards(game.gameType);
 
   return (
-    <div className='w-full max-w-full animate-fade-in'>
-      <div className='flex flex-wrap justify-center gap-6 py-4'>
+    <div className='w-full max-w-full animate-fade-in-down'>
+      <div className='flex flex-wrap justify-center gap-6 py-4 '>
         {cards.map((card: CardConfig, index) => {
           const isSelected = players.find((p) => p.id === currentPlayerId)?.value === card.value;
           return (
