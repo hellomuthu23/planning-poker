@@ -5,6 +5,11 @@ jest.mock('./service/games');
 jest.mock('./repository/firebase');
 
 // eslint-disable-next-line jest/valid-describe-callback
+
+jest.mock('country-flag-emoji-polyfill', () => ({
+  polyfillCountryFlagEmojis: jest.fn(),
+}));
+
 describe('App', () =>
   it('Should display toolbar with header', () => {
     render(<App />);
