@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { Divider } from '../../components/Divider/Divider';
 import { GoogleAd } from '../../components/GoogleAd/GoogleAd';
 import { BenefitsSVG } from '../../components/SVGs/Benefits';
@@ -17,19 +16,9 @@ export const AboutPage = () => {
 };
 
 export const AboutPlanningPokerContent = () => {
-  const [show, setShow] = useState(false);
-
-  useEffect(() => {
-    setShow(true);
-  }, []);
-
   return (
     <div className='flex flex-col items-center w-full'>
-      <div
-        className={`w-full transition-all duration-700 ease-out transform ${
-          show ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-8'
-        }`}
-      >
+      <div className='animate-fade-in-down'>
         {/* What is Agile Planning Poker */}
         <div className='flex flex-col lg:flex-row w-full items-center justify-center my-8'>
           <div className='w-full lg:w-1/2 px-4 mb-8 lg:mb-0'>

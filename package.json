@@ -5,6 +5,7 @@
   "dependencies": {
     "@tailwindcss/postcss": "^4.1.6",
     "@types/react-lazy-load-image-component": "^1.6.4",
+    "country-flag-emoji-polyfill": "^0.1.8",
     "country-flag-icons": "^1.5.7",
     "firebase": "^8.3.2",
     "i18next": "^23.2.11",

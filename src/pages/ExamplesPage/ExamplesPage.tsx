@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import '../HomePage/HomePage.css';
 
 export const ExamplesPage = () => {
@@ -10,20 +9,10 @@ export const ExamplesPage = () => {
 };
 
 export const ExamplesContent = () => {
-  const [show, setShow] = useState(false);
-
-  useEffect(() => {
-    setShow(true);
-  }, []);
-
   return (
     <div className='flex flex-col items-center w-full'>
       <div className='w-full max-w-3xl flex flex-col items-center justify-center my-8'>
-        <div
-          className={`HomePageContainer transition-all duration-700 ease-out transform ${
-            show ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-8'
-          }`}
-        >
+        <div className='animate-fade-in-down'>
           <h2 className='text-2xl font-bold mb-4'>Examples of User Story Estimation</h2>
           <div className='text-base text-gray-700'>
             <p>
