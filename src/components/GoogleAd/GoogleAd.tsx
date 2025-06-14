@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 
 declare global {
   interface Window {
@@ -16,7 +16,7 @@ export const GoogleAd = () => {
     <>
       <ins
         className='adsbygoogle'
-        style={{ display: 'inline-block', width: '728px', height: '90px', margin: '30px' }}
+        style={{ display: 'block', width: '90%', height: '90px', margin: '30px' }}
         data-ad-client='ca-pub-3152802418728088'
         data-ad-slot='2256716101'
       ></ins>

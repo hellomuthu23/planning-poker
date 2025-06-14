@@ -1,0 +1,9 @@
+/*  used by loading */
+.poker-spinner-heads {
+  transform-origin: 16px 16px;
+  animation: poker-spin 1.2s linear infinite;
+}
+@keyframes poker-spin {
+  100% { transform: rotate(360deg); }
+}
+

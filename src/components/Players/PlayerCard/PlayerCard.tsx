@@ -1,14 +1,10 @@
-import { Card, CardContent, CardHeader, IconButton, Typography } from '@material-ui/core';
 import React from 'react';
+import { removePlayer } from '../../../service/players';
 import { Game } from '../../../types/game';
 import { Player } from '../../../types/player';
 import { Status } from '../../../types/status';
-import { getCards } from '../CardPicker/CardConfigs';
-import './PlayerCard.css';
-import DeleteForeverIcon from '@material-ui/icons/DeleteForeverTwoTone';
-import { red } from '@material-ui/core/colors';
-import { removePlayer } from '../../../service/players';
 import { isModerator } from '../../../utils/isModerator';
+import { getCards } from '../CardPicker/CardConfigs';
 
 interface PlayerCardProps {
   game: Game;
@@ -22,50 +18,53 @@ export const PlayerCard: React.FC<PlayerCardProps> = ({ game, player, currentPla
   };
 
   return (
-    <Card
-      variant='outlined'
-      className='PlayerCard'
+    <div
+      className='rounded shadow-lg w-25 border-gray-300 border mb-2 m-3'
       style={{
         backgroundColor: getCardColor(game, player.value),
       }}
     >
-      <CardHeader
-        className='PlayerCardTitle'
-        title={player.name}
-        titleTypographyProps={{ variant: 'subtitle2', noWrap: true, title: player.name }}
-        action={
-          isModerator(game.createdById, currentPlayerId, game.isAllowMembersToManageSession) &&
+      <div className='text-center -mt-5 mx-auto w-[95%] bg-white border-2  border-gray-400 rounded-2xl flex items-center justify-around px-3 py-1'>
+        <div className='text-center font-semibold text-sm truncate' title={player.name}>
+          {player.name}
+        </div>
+        {isModerator(game.createdById, currentPlayerId, game.isAllowMembersToManageSession) &&
           player.id !== currentPlayerId && (
-            <IconButton
+            <button
               title='Remove'
-              className='RemoveButton'
+              className='cursor-pointer  p-0.5 mt-0.5 rounded hover:bg-red-100 transition'
               onClick={() => removeUser(game.id, player.id)}
               data-testid='remove-button'
-              color='primary'
             >
-              <DeleteForeverIcon fontSize='small' style={{ color: red[300] }} />
-            </IconButton>
-          )
-        }
-      />
-      <CardContent className='PlayerCardContent'>
-        <Typography
-          variant={getCardValue(player, game)?.length < 2 ? 'h2' : 'h3'}
-          className='PlayerCardContentMiddle'
-        >
+              {/* Trash/Delete SVG Icon */}
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                className='h-4 w-4 text-red-400'
+                fill='none'
+                viewBox='0 0 24 24'
+                stroke='currentColor'
+                strokeWidth={2}
+              >
+                <path strokeLinecap='round' strokeLinejoin='round' d='M6 18L18 6M6 6l12 12' />
+              </svg>
+            </button>
+          )}
+      </div>
+      <div className='flex items-center justify-center py-6 mb-3'>
+        <span className={`${getCardValue(player, game)?.length < 2 ? 'text-4xl' : 'text-3xl'}`}>
           {getCardValue(player, game)}
-        </Typography>
-      </CardContent>
-    </Card>
+        </span>
+      </div>
+    </div>
   );
 };
 
 const getCardColor = (game: Game, value: number | undefined): string => {
   if (game.gameStatus !== Status.Finished) {
-    return 'var(--color-background-secondary)';
+    return '#e7edf3';
   }
   const card = getCards(game.gameType).find((card) => card.value === value);
-  return card ? card.color : 'var(--color-background-secondary)';
+  return card ? card.color : '#e7edf3';
 };
 
 const getCardValue = (player: Player, game: Game) => {

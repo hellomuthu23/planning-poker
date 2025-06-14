@@ -1,11 +1,9 @@
-import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+import './config/i18n';
 import './index.css';
-import './styles/styles.css';
 import reportWebVitals from './reportWebVitals';
 import './service/analytics';
-import './config/i18n';
 
 ReactDOM.render(<App />, document.getElementById('root'));
 

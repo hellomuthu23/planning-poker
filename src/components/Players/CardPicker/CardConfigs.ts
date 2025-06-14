@@ -6,7 +6,7 @@ export interface CardConfig {
   color: string;
 }
 export const fibonacciCards: CardConfig[] = [
-  { value: 0, displayValue: '0', color: 'var(--color-background-secondary)' },
+  { value: 0, displayValue: '0', color: '#e7edf3' },
   { value: 1, displayValue: '1', color: '#9EC8FE' },
   { value: 2, displayValue: '2', color: '#9EC8FE' },
   { value: 3, displayValue: '3', color: '#A3DFF2' },
@@ -17,12 +17,12 @@ export const fibonacciCards: CardConfig[] = [
   { value: 34, displayValue: '34', color: '#F4DD94' },
   { value: 55, displayValue: '55', color: '#F39893' },
   { value: 89, displayValue: '89', color: '#F39893' },
-  { value: -2, displayValue: '❓', color: 'var(--color-background-secondary)' },
-  { value: -1, displayValue: '-1', color: 'var(--color-background-secondary)' },
+  { value: -2, displayValue: '❓', color: '#e7edf3' },
+  { value: -1, displayValue: '-1', color: '#e7edf3' },
 ];
 
 export const shortFibonacciCards: CardConfig[] = [
-  { value: 0, displayValue: '0', color: 'var(--color-background-secondary)' },
+  { value: 0, displayValue: '0', color: '#e7edf3' },
   { value: 0.5, displayValue: '½', color: '#9EC8FE' },
   { value: 1, displayValue: '1', color: '#9EC8FE' },
   { value: 2, displayValue: '2', color: '#9EC8FE' },
@@ -33,20 +33,20 @@ export const shortFibonacciCards: CardConfig[] = [
   { value: 21, displayValue: '20', color: '#F4DD94' },
   { value: 34, displayValue: '40', color: '#F4DD94' },
   { value: 55, displayValue: '100', color: '#F39893' },
-  { value: -2, displayValue: '❓', color: 'var(--color-background-secondary)' },
-  { value: -1, displayValue: '-1', color: 'var(--color-background-secondary)' },
+  { value: -2, displayValue: '❓', color: '#e7edf3' },
+  { value: -1, displayValue: '-1', color: '#e7edf3' },
 ];
 
 export const tShirtCards: CardConfig[] = [
-  { value: 10, displayValue: 'XXS', color: 'var(--color-background-secondary)' },
+  { value: 10, displayValue: 'XXS', color: '#e7edf3' },
   { value: 20, displayValue: 'XS', color: '#9EC8FE' },
   { value: 30, displayValue: 'S', color: '#9EC8FE' },
   { value: 40, displayValue: 'M', color: '#A3DFF2' },
   { value: 50, displayValue: 'L', color: '#A3DFF2' },
   { value: 60, displayValue: 'XL', color: '#9DD49A' },
   { value: 70, displayValue: 'XXL', color: '#9DD49A' },
-  { value: -2, displayValue: '❓', color: 'var(--color-background-secondary)' },
-  { value: -1, displayValue: '-1', color: 'var(--color-background-secondary)' },
+  { value: -2, displayValue: '❓', color: '#e7edf3' },
+  { value: -1, displayValue: '-1', color: '#e7edf3' },
 ];
 
 export const tShirtAndNumbersCards: CardConfig[] = [
@@ -62,7 +62,7 @@ export const tShirtAndNumbersCards: CardConfig[] = [
 ];
 
 export const customCardsTemplate: CardConfig[] = [
-  { value: 0, displayValue: '0', color: 'var(--color-background-secondary)' },
+  { value: 0, displayValue: '0', color: '#e7edf3' },
   { value: 1, displayValue: '1', color: '#9EC8FE' },
   { value: 2, displayValue: '2', color: '#9EC8FE' },
   { value: 3, displayValue: '3', color: '#A3DFF2' },

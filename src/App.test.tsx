@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
-import React from 'react';
 import App from './App';
 jest.mock('./service/players');
 jest.mock('./service/games');
+jest.mock('./repository/firebase');
 
 // eslint-disable-next-line jest/valid-describe-callback
 describe('App', () =>

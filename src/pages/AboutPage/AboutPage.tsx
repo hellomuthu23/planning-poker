@@ -1,80 +1,75 @@
-import { Box, Grid, Slide, Typography } from '@material-ui/core';
-import React from 'react';
-import How from './../../images/how.jpg';
-import What from './../../images/what.jpg';
-import BestPractices from './../../images/best-practices.jpg';
-
-import Benefits from './../../images/benefits.jpg';
-
-import '../HomePage/HomePage.css';
+import { useEffect, useState } from 'react';
+import { Divider } from '../../components/Divider/Divider';
 import { GoogleAd } from '../../components/GoogleAd/GoogleAd';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { BenefitsSVG } from '../../components/SVGs/Benefits';
+import { BestPracticeSVG } from '../../components/SVGs/BestPractice';
+import { HowSVG } from '../../components/SVGs/How';
+import { WhatSVG } from '../../components/SVGs/What';
+import '../HomePage/HomePage.css';
 
 export const AboutPage = () => {
   return (
-    <>
-      <Grid container direction='column' justify='center' alignItems='center'>
-        <AboutPlanningPokerContent />
-        <GoogleAd />
-      </Grid>
-    </>
+    <div className='flex flex-col items-center w-full'>
+      <AboutPlanningPokerContent />
+      <GoogleAd />
+    </div>
   );
 };
 
 export const AboutPlanningPokerContent = () => {
+  const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    setShow(true);
+  }, []);
+
   return (
-    <>
-      <Grid container item sm={12} lg={9} justify='center' alignItems='center'>
-        <Grid item sm={12} lg={6}>
-          <Slide in={true} direction='up' timeout={2000}>
+    <div className='flex flex-col items-center w-full'>
+      <div
+        className={`w-full transition-all duration-700 ease-out transform ${
+          show ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-8'
+        }`}
+      >
+        {/* What is Agile Planning Poker */}
+        <div className='flex flex-col lg:flex-row w-full items-center justify-center my-8'>
+          <div className='w-full lg:w-1/2 px-4 mb-8 lg:mb-0'>
             <div className='HomePageContainer'>
-              <Typography variant='h5'>What is Agile Planning Poker?</Typography>
-              <br />
-              <Typography variant='body1'>
+              <h2 className='text-2xl font-bold mb-4'>What is Agile Planning Poker?</h2>
+              <p className='text-base text-gray-700'>
                 In Agile software development, accurate estimation of tasks is crucial for effective
                 planning and project success. Agile Planning Poker is a collaborative technique that
                 leverages the wisdom of the team to estimate effort, complexity, or relative size of
                 user stories or tasks. In this article, we will delve into the details of Agile
                 Planning Poker, its benefits, and how it can revolutionize the estimation process
                 for Agile teams.
-                <br></br>
+                <br />
                 Agile Planning Poker, also known as Scrum Poker, is a consensus-based estimation
                 technique used in Agile projects. It involves a team of individuals with diverse
                 expertise collectively assigning effort points or story points to user stories,
                 features, or tasks. This technique facilitates discussion, knowledge sharing, and
                 alignment among team members, ensuring a more accurate estimation process.
-              </Typography>
+              </p>
             </div>
-          </Slide>
-        </Grid>
-        <Grid item sm={12} lg={6}>
-          <Slide in={true} direction='up' timeout={2000}>
-            <div className='HomePageContainer'>
-              <Box padding={2}>
-                <LazyLoadImage alt='What' src={What}></LazyLoadImage>
-              </Box>
+          </div>
+          <div className='w-full lg:w-1/2 px-4 flex justify-center'>
+            <div className='HomePageContainer p-4'>
+              <WhatSVG />
             </div>
-          </Slide>
-        </Grid>
-      </Grid>
-      <br></br>
-      <br></br>
-      <Grid container item sm={12} lg={9} justify='center' alignItems='center'>
-        <Grid item sm={12} lg={6}>
-          <Slide in={true} direction='up' timeout={2000}>
-            <div className='HomePageContainer'>
-              <Box padding={2}>
-                <LazyLoadImage alt='How' src={How}></LazyLoadImage>
-              </Box>
+          </div>
+        </div>
+
+        <Divider />
+        {/* How Agile Planning Poker Works */}
+        <div className='flex flex-col lg:flex-row w-full items-center justify-center my-8'>
+          <div className='w-full lg:w-1/2 px-4 flex justify-center mb-8 lg:mb-0'>
+            <div className='HomePageContainer p-4'>
+              <HowSVG />
             </div>
-          </Slide>
-        </Grid>
-        <Grid item sm={12} lg={6}>
-          <Slide in={true} direction='up' timeout={2000}>
+          </div>
+          <div className='w-full lg:w-1/2 px-4'>
             <div className='HomePageContainer'>
-              <Typography variant='h5'>How Agile Planning Poker Works</Typography>
-              <br />
-              <Typography variant='body1'>
+              <h2 className='text-2xl font-bold mb-4'>How Agile Planning Poker Works</h2>
+              <p className='text-base text-gray-700'>
                 a. <b>Team Collaboration</b>: Agile Planning Poker brings together the entire Agile
                 team, including developers, testers, product owners, and scrum masters. Each team
                 member receives a deck of cards with values representing the effort or complexity of
@@ -99,20 +94,18 @@ export const AboutPlanningPokerContent = () => {
                 f. <b>Repeating the Process</b>: The Agile Planning Poker process is repeated for
                 each user story or task, allowing the team to estimate the entire backlog or sprint
                 plan collaboratively.
-              </Typography>
+              </p>
             </div>
-          </Slide>
-        </Grid>
-      </Grid>
-      <br />
-      <br />
-      <Grid container item sm={12} lg={9} justify='center' alignItems='center'>
-        <Grid item sm={12} lg={6}>
-          <Slide in={true} direction='up' timeout={2000}>
+          </div>
+        </div>
+
+        <Divider />
+        {/* Benefits of Agile Planning Poker */}
+        <div className='flex flex-col lg:flex-row w-full items-center justify-center my-8'>
+          <div className='w-full lg:w-1/2 px-4 mb-8 lg:mb-0'>
             <div className='HomePageContainer'>
-              <Typography variant='h5'>Benefits of Agile Planning Poker</Typography>
-              <br />
-              <Typography variant='body1'>
+              <h2 className='text-2xl font-bold mb-4'>Benefits of Agile Planning Poker</h2>
+              <p className='text-base text-gray-700'>
                 a. <b>Improved Accuracy</b>: Agile Planning Poker leverages the collective knowledge
                 and expertise of the team, resulting in more accurate and reliable estimations. It
                 considers different perspectives, experiences, and skill sets, leading to a
@@ -132,38 +125,28 @@ export const AboutPlanningPokerContent = () => {
                 the estimation process. It prevents lengthy debates and reduces biases by anchoring
                 individual estimations to a shared understanding, leading to quicker consensus
                 building.
-              </Typography>
+              </p>
             </div>
-          </Slide>
-        </Grid>
-        <Grid item sm={12} lg={6}>
-          <Slide in={true} direction='up' timeout={2000}>
-            <div className='HomePageContainer'>
-              <Box padding={2}>
-                <LazyLoadImage alt='Benefits' src={Benefits}></LazyLoadImage>
-              </Box>
+          </div>
+          <div className='w-full lg:w-1/2 px-4 flex justify-center'>
+            <div className='HomePageContainer p-4'>
+              <BenefitsSVG />
             </div>
-          </Slide>
-        </Grid>
-      </Grid>
-      <br />
-      <br />
-      <Grid container item sm={12} lg={9} justify='center' alignItems='center'>
-        <Grid item sm={12} lg={6}>
-          <Slide in={true} direction='up' timeout={2000}>
-            <div className='HomePageContainer'>
-              <Box padding={2}>
-                <LazyLoadImage alt='BestPractices' src={BestPractices}></LazyLoadImage>
-              </Box>
+          </div>
+        </div>
+
+        <Divider />
+        {/* Best Practices for Agile Planning Poker */}
+        <div className='flex flex-col lg:flex-row w-full items-center justify-center my-8'>
+          <div className='w-full lg:w-1/2 px-4 flex justify-center mb-8 lg:mb-0'>
+            <div className='HomePageContainer p-4'>
+              <BestPracticeSVG />
             </div>
-          </Slide>
-        </Grid>
-        <Grid item sm={12} lg={6}>
-          <Slide in={true} direction='up' timeout={2000}>
+          </div>
+          <div className='w-full lg:w-1/2 px-4'>
             <div className='HomePageContainer'>
-              <Typography variant='h5'>Best Practices for Agile Planning Poker</Typography>
-              <br />
-              <Typography variant='body1'>
+              <h2 className='text-2xl font-bold mb-4'>Best Practices for Agile Planning Poker</h2>
+              <p className='text-base text-gray-700'>
                 a. <b>Establish Consistent Estimation Units</b>: Ensure the team has a clear
                 understanding and consistency in the units used for estimation, such as story
                 points, ideal days, or t-shirt sizes.
@@ -190,20 +173,21 @@ export const AboutPlanningPokerContent = () => {
                 evolving project requirements.
                 <br />
                 <br />
-              </Typography>
+              </p>
+              <p className='text-base text-gray-700 mt-2'>
+                Agile Planning Poker is a powerful technique that enhances collaboration,
+                transparency, and accuracy in the estimation process for Agile teams. By harnessing
+                the collective knowledge and expertise of team members, it leads to more reliable
+                estimations and better planning outcomes. Embracing Agile Planning Poker enables
+                teams to effectively manage project scope, prioritize work, and deliver value to
+                stakeholders with increased confidence. Incorporate this collaborative estimation
+                technique into your Agile practices and experience the benefits of empowered
+                teamwork and improved project success.
+              </p>
             </div>
-          </Slide>
-        </Grid>
-        <Typography>
-          Agile Planning Poker is a powerful technique that enhances collaboration, transparency,
-          and accuracy in the estimation process for Agile teams. By harnessing the collective
-          knowledge and expertise of team members, it leads to more reliable estimations and better
-          planning outcomes. Embracing Agile Planning Poker enables teams to effectively manage
-          project scope, prioritize work, and deliver value to stakeholders with increased
-          confidence. Incorporate this collaborative estimation technique into your Agile practices
-          and experience the benefits of empowered teamwork and improved project success.
-        </Typography>
-      </Grid>
-    </>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };

@@ -1,9 +1,7 @@
-import { Grid, Grow } from '@material-ui/core';
 import React from 'react';
 import { Game } from '../../types/game';
 import { Player } from '../../types/player';
 import { PlayerCard } from './PlayerCard/PlayerCard';
-import './Players.css';
 
 interface PlayersProps {
   game: Game;
@@ -12,19 +10,17 @@ interface PlayersProps {
 }
 export const Players: React.FC<PlayersProps> = ({ game, players, currentPlayerId }) => {
   return (
-    <Grow in={true} timeout={800}>
-      <div className='PlayersContainer'>
-        <Grid container spacing={4} justify='center'>
-          {players.map((player: Player) => (
-            <PlayerCard
-              key={player.id}
-              game={game}
-              player={player}
-              currentPlayerId={currentPlayerId}
-            />
-          ))}
-        </Grid>
+    <div className='animate-grow'>
+      <div className='flex flex-wrap justify-center gap-2 pt-8 w-full'>
+        {players.map((player: Player) => (
+          <PlayerCard
+            key={player.id}
+            game={game}
+            player={player}
+            currentPlayerId={currentPlayerId}
+          />
+        ))}
       </div>
-    </Grow>
+    </div>
   );
 };

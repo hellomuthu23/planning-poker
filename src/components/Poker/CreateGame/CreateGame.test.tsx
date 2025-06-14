@@ -1,9 +1,8 @@
-import { render, screen, within, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { uniqueNamesGenerator } from 'unique-names-generator';
-import React from 'react';
-import { CreateGame } from './CreateGame';
 import * as gamesService from '../../../service/games';
+import { CreateGame } from './CreateGame';
 
 jest.mock('../../../service/games');
 jest.mock('react-router-dom', () => ({
@@ -188,10 +187,10 @@ describe('CreateGame component', () => {
     userEvent.click(custom);
 
     // input custom values
-    const input1 = within(screen.getByTestId('custom-option-1')).getByRole('textbox');
+    const input1 = screen.getByTestId('custom-option-1');
     userEvent.type(input1, '1');
 
-    const input2 = within(screen.getByTestId('custom-option-2')).getByRole('textbox');
+    const input2 = screen.getByTestId('custom-option-2');
     userEvent.type(input2, '2');
 
     const createButton = screen.getByText('Create');

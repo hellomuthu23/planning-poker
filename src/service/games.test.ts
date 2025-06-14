@@ -149,6 +149,7 @@ describe('games service', () => {
     });
 
     it("should not touch the DB if the game doesn't exist", async () => {
+      jest.resetAllMocks();
       jest.spyOn(fb, 'getGameFromStore').mockResolvedValueOnce(undefined);
       const updateSpy = jest.spyOn(fb, 'updateGameDataInStore');
       const playerSpy = jest.spyOn(players, 'resetPlayers');
@@ -175,6 +176,7 @@ describe('games service', () => {
     });
 
     it("should not touch the DB if the game doesn't exist", async () => {
+      jest.resetAllMocks();
       jest.spyOn(fb, 'getGameFromStore').mockResolvedValueOnce(undefined);
       jest.spyOn(fb, 'getPlayersFromStore').mockResolvedValueOnce(mockPlayers);
       const spy = jest.spyOn(fb, 'updateGameDataInStore');

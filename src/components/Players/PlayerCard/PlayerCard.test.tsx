@@ -1,11 +1,11 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import React from 'react';
+import * as playerService from '../../../service/players';
 import { Game } from '../../../types/game';
 import { Player } from '../../../types/player';
 import { Status } from '../../../types/status';
 import { PlayerCard } from './PlayerCard';
-import * as playerService from '../../../service/players';
+
 describe('PlayerCard component', () => {
   const mockGame: Game = {
     id: 'xyz',

@@ -103,7 +103,7 @@ describe('GameController component', () => {
     render(<GameController game={mockGame} currentPlayerId={mockCurrentPlayerId} />);
 
     userEvent.click(screen.getByTestId('invite-button'));
-    expect(document.execCommand).toHaveBeenCalledWith('copy');
+    expect(navigator.clipboard.writeText).toHaveBeenCalledWith('http://localhost/join/xyz');
   });
 
   it('should navigate to home page when exit button is clicked', () => {

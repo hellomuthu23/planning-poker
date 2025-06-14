@@ -1,12 +1,10 @@
-import { Card, CardContent, Grid, Grow, Slide, Typography } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { updatePlayerValue } from '../../../service/players';
 import { Game } from '../../../types/game';
 import { Player } from '../../../types/player';
 import { Status } from '../../../types/status';
-import { CardConfig, getCards, getRandomEmoji } from './CardConfigs';
-import './CardPicker.css';
 import { GoogleAd } from '../../GoogleAd/GoogleAd';
+import { CardConfig, getCards, getRandomEmoji } from './CardConfigs';
 
 interface CardPickerProps {
   game: Game;
@@ -30,86 +28,72 @@ export const CardPicker: React.FC<CardPickerProps> = ({ game, players, currentPl
   const cards = game.cards?.length ? game.cards : getCards(game.gameType);
 
   return (
-    <Grow in={true} timeout={1000}>
-      <div>
-        <div className='CardPickerContainer'>
-          <Grid container spacing={4} justify='center'>
-            {cards.map((card: CardConfig, index) => (
-              <Grid key={card.value} item xs>
-                <Slide in={true} direction={'right'} timeout={(1000 * index) / 2}>
-                  <Card
-                    id={`card-${card.displayValue}`}
-                    className='CardPicker'
-                    variant='outlined'
-                    onClick={() => playPlayer(game.id, currentPlayerId, card)}
-                    style={{
-                      ...getCardStyle(players, currentPlayerId, card),
-                      pointerEvents: getPointerEvent(game),
-                    }}
-                  >
-                    <CardContent className='CardContent'>
-                      {card.value >= 0 && (
-                        <>
-                          <Typography className='CardContentTop' variant='caption'>
-                            {card.displayValue}
-                          </Typography>
-
-                          <Typography
-                            className='CardContentMiddle'
-                            variant={card.displayValue.length < 2 ? 'h4' : 'h5'}
-                          >
-                            {card.displayValue}
-                          </Typography>
-                          <Typography className='CardContentBottom' variant='caption'>
-                            {card.displayValue}
-                          </Typography>
-                        </>
-                      )}
-                      {card.value === -1 && (
-                        <Typography className='CardContentMiddle' variant='h3'>
-                          {randomEmoji}
-                        </Typography>
-                      )}
-                      {card.value === -2 && (
-                        <Typography className='CardContentMiddle' variant='h3'>
-                          ❓
-                        </Typography>
-                      )}
-                    </CardContent>
-                  </Card>
-                </Slide>
-              </Grid>
-            ))}
-          </Grid>
-        </div>
-        <Typography variant='h6'>
-          {game.gameStatus !== Status.Finished
-            ? 'Click on the card to vote'
-            : 'Session not ready for Voting! Wait for moderator to start'}
-        </Typography>
-        <GoogleAd />
+    <div className='w-full max-w-full animate-fade-in'>
+      <div className='flex flex-wrap justify-center gap-6 py-4'>
+        {cards.map((card: CardConfig, index) => {
+          const isSelected = players.find((p) => p.id === currentPlayerId)?.value === card.value;
+          return (
+            <div
+              key={card.value}
+              id={`card-${card.displayValue}`}
+              className={`
+              cursor-pointer select-none transition-all duration-300
+              rounded shadow-md border
+              border-gray-300
+              flex flex-col items-center justify-center
+              bg-white
+              w-15 h-23
+              md:w-20 md:h-30
+              sm:w-15 sm:h-23
+              ${
+                isSelected
+                  ? 'border-dashed border-2 border-gray-500  z-10 shadow-lg scale-115'
+                  : 'shadow-md scale-100'
+              }
+              ${
+                game.gameStatus === Status.Finished
+                  ? 'pointer-events-none opacity-50 cursor-not-allowed'
+                  : ''
+              }
+            `}
+              style={{
+                backgroundColor: card.color,
+              }}
+              onClick={() => playPlayer(game.id, currentPlayerId, card)}
+            >
+              <div className='flex flex-col justify-between h-full w-full p-1'>
+                {card.value >= 0 && (
+                  <>
+                    <span className='text-xs text-gray-500 flex justify-start'>
+                      {card.displayValue}
+                    </span>
+                    <span className={`${card.displayValue.length < 2 ? 'text-4xl' : 'text-3xl'}`}>
+                      {card.displayValue}
+                    </span>
+                    <span className='flex justify-end w-full text-xs text-gray-500'>
+                      {card.displayValue}
+                    </span>
+                  </>
+                )}
+                {card.value === -1 && (
+                  <span className='flex flex-col justify-center h-full text-4xl'>
+                    {randomEmoji}
+                  </span>
+                )}
+                {card.value === -2 && (
+                  <span className='flex flex-col justify-center h-full text-4xl'>❓</span>
+                )}
+              </div>
+            </div>
+          );
+        })}
       </div>
-    </Grow>
+      <div className='text-center text-lg font-semibold my-4'>
+        {game.gameStatus !== Status.Finished
+          ? 'Click on the card to vote'
+          : 'Session not ready for Voting! Wait for moderator to start'}
+      </div>
+      <GoogleAd />
+    </div>
   );
-};
-
-const getCardStyle = (players: Player[], playerId: string, card: CardConfig) => {
-  const player = players.find((player) => player.id === playerId);
-  if (player && player.value !== undefined && player.value === card.value) {
-    return {
-      marginTop: '-15px',
-      zIndex: 5,
-      backgroundColor: card.color,
-      border: '2px dashed black',
-      boxShadow: '0 0px 12px 0 grey',
-    };
-  }
-  return { backgroundColor: card.color };
-};
-
-const getPointerEvent = (game: Game) => {
-  if (game.gameStatus === Status.Finished) {
-    return 'none';
-  }
-  return 'inherit';
 };
