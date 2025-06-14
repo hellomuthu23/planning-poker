@@ -10,7 +10,7 @@
   },
   "HomePage": {
     "heroSection": {
-      "title": "免費規劃撲克小程式 Free Planning Poker App",
+      "title": "免費規劃撲克應用程式",
       "description": "免費/開源規劃撲克 Web 應用程序，用於評估敏捷/Scrum 團隊的用戶故事。 建立一個房間並邀請您的團隊成員有效地估計用戶故事。",
       "formNewSession": {
         "newSessionHeader": "建立房間",
