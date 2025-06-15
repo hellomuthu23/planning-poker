@@ -11,12 +11,7 @@
   "HomePage": {
     "heroSection": {
       "title": "Application Planning Poker gratuite",
-      "description": "Application Web Planning Poker gratuite/open source pour estimer les user stories de vos équipes Agile/Scrum. Créez une session et invitez vos coéquipiers à estimer les user stories efficacement.",
-      "formNewSession": {
-        "newSessionHeader": "Créer une nouvelle session",
-        "sessionNameLabel": "Nom de la session",
-        "yourNameLabel": "Votre nom"
-      }
+      "description": "Application Web Planning Poker gratuite/open source pour estimer les user stories de vos équipes Agile/Scrum. Créez une session et invitez vos coéquipiers à estimer les user stories efficacement."
     }
   },
   "GameController": {
