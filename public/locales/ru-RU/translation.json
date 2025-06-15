@@ -11,12 +11,7 @@
   "HomePage": {
     "heroSection": {
       "title": "Приложение для покер планирования",
-      "description": "Бесплатное/Open Source приложение для покер планирования. Создайте комнату и пригласите членов вашей команды для эффективной оценки пользовательских историй.",
-      "formNewSession": {
-        "newSessionHeader": "Создать новую комнату",
-        "sessionNameLabel": "Название комнаты",
-        "yourNameLabel": "Ваше имя"
-      }
+      "description": "Бесплатное/Open Source приложение для покер планирования. Создайте комнату и пригласите членов вашей команды для эффективной оценки пользовательских историй."
     }
   },
   "GameController": {
@@ -36,5 +31,20 @@
   "CardPicker": {
     "ClickOnTheCardToVote": "Нажмите на карту, чтобы проголосовать",
     "SessionNotReadyForVotingWaitForModeratorToStart": "Сессия не готова к голосованию! Подождите, пока модератор начнет"
+  },
+  "CreateGame": {
+    "newSessionHeader": "Создать новую сессию",
+    "sessionNameLabel": "Название сессии",
+    "yourNameLabel": "Ваше имя",
+    "sessionSizingType": "Тип оценки сессии",
+    "fibonacci": "Фибоначчи (0, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89)",
+    "shortFibonacci": "Короткий Фибоначчи (0, ½, 1, 2, 3, 5, 8, 13, 20, 40, 100)",
+    "tShirt": "Размер футболки (XXS, XS, S, M, L, XL, XXL)",
+    "tShirtAndNumber": "Футболка и числа (S, M, L, XL, 1, 2, 3, 4, 5)",
+    "custom": "Пользовательский",
+    "pleaseEnterValues": "Пожалуйста, введите значения хотя бы для двух пользовательских опций.",
+    "allowMembersToManageSession": "Разрешить участникам управлять сессией",
+    "creating": "Создание...",
+    "create": "Создать"
   }
 }

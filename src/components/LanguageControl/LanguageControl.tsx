@@ -43,6 +43,7 @@ export const LanguageControl: React.FC = () => {
           <option value={'ru-RU'}>{getUnicodeFlagIcon('RU')} Русский</option>
           <option value={'hi-IN'}>{getUnicodeFlagIcon('IN')} हिंदी</option>
           <option value={'ta-IN'}>{getUnicodeFlagIcon('IN')} தமிழ்</option>
+          <option value={'es-ES'}>{getUnicodeFlagIcon('ES')} Español</option>
         </select>
       )}
     </>
