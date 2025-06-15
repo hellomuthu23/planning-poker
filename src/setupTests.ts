@@ -3,6 +3,9 @@
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom';
+import i18n from 'i18next';
+import { initReactI18next } from 'react-i18next';
+import en from '../public/locales/en/translation.json'; // adjust the path as needed
 
 Object.assign(navigator, {
   clipboard: {
@@ -10,6 +13,17 @@ Object.assign(navigator, {
   },
 });
 // Mock the 'react-i18next' module globally for all tests
-jest.mock('react-i18next', () => ({
-  useTranslation: () => ({ t: jest.fn(), i18n: { language: 'en-US', changeLanguage: jest.fn() } }),
-}));
+// jest.mock('react-i18next', () => ({
+//   useTranslation: () => ({ t: jest.fn(), i18n: { language: 'en-US', changeLanguage: jest.fn() } }),
+// }));
+
+i18n.use(initReactI18next).init({
+  lng: 'en', // set your default language here
+  fallbackLng: 'en',
+  resources: {
+    en: {
+      translation: en,
+    },
+  },
+  interpolation: { escapeValue: false },
+});

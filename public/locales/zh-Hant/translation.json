@@ -18,5 +18,23 @@
         "yourNameLabel": "您的稱呼"
       }
     }
+  },
+  "GameController": {
+    "average": "平均值",
+    "reveal": "揭曉",
+    "restart": "重新開始",
+    "delete": "刪除",
+    "exit": "離開",
+    "invite": "邀請",
+    "storyName": "故事名稱",
+    "enterStoryName": "輸入故事名稱或編號",
+    "inviteLinkCopied": "邀請連結已複製到剪貼簿",
+    "areYouSureDelete": "您確定嗎？這將刪除此會議並移除所有玩家。",
+    "inProgress": "進行中",
+    "finished": "已完成"
+  },
+  "CardPicker": {
+    "ClickOnTheCardToVote": "點擊卡片進行投票",
+    "SessionNotReadyForVotingWaitForModeratorToStart": "會議尚未準備好投票！請等待主持人開始"
   }
 }

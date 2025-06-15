@@ -18,5 +18,23 @@
         "yourNameLabel": "Your name"
       }
     }
+  },
+  "GameController": {
+    "average": "Average",
+    "reveal": "Reveal",
+    "restart": "Restart",
+    "delete": "Delete",
+    "exit": "Exit",
+    "invite": "Invite",
+    "storyName": "Story Name",
+    "enterStoryName": "Enter story name or number",
+    "inviteLinkCopied": "Invite Link copied to clipboard",
+    "areYouSureDelete": "Are you sure? This will delete this session and remove all players.",
+    "inProgress": "In Progress",
+    "finished": "Finished"
+  },
+  "CardPicker": {
+    "ClickOnTheCardToVote": "Click on the card to vote",
+    "SessionNotReadyForVotingWaitForModeratorToStart": "Session not ready for Voting! Wait for moderator to start"
   }
 }

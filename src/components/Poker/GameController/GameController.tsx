@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import { AlertDialog } from '../../../components/AlertDialog/AlertDialog';
 import { finishGame, removeGame, resetGame, updateStoryName } from '../../../service/games';
@@ -12,6 +13,7 @@ interface GameControllerProps {
 
 export const GameController: React.FC<GameControllerProps> = ({ game, currentPlayerId }) => {
   const history = useHistory();
+  const { t } = useTranslation();
   const [showCopiedMessage, setShowCopiedMessage] = useState(false);
 
   const copyInviteLink = () => {
@@ -45,7 +47,7 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
               game.gameType !== GameType.Custom && (
                 <>
                   <div className='mx-2 h-6 border-l border-gray-300' />
-                  <span className='text-sm font-medium'>Average:</span>
+                  <span className='text-sm font-medium'>{t('GameController.average')}:</span>
                   <span
                     className='text-sm font-bold'
                     title={`Exact: ${(game.average || 0).toFixed(2)}`}
@@ -66,7 +68,7 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
                   onClick={() => finishGame(game.id)}
                   data-testid='reveal-button'
                   className='p-2 cursor-pointer rounded-full bg-white hover:bg-green-200 transition'
-                  title='Reveal'
+                  title={t('GameController.reveal')}
                 >
                   {/* Eye Icon */}
                   <svg
@@ -90,7 +92,7 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
                     />
                   </svg>
                 </button>
-                <span className='text-xs mt-1'>Reveal</span>
+                <span className='text-xs mt-1'>{t('GameController.reveal')}</span>
               </div>
               {/* Restart */}
               <div className='flex flex-col items-center'>
@@ -98,7 +100,7 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
                   onClick={() => resetGame(game.id)}
                   data-testid='restart-button'
                   className='p-2 cursor-pointer rounded-full bg-white hover:bg-red-200 transition'
-                  title='Restart'
+                  title={t('GameController.restart')}
                 >
                   {/* Refresh Icon */}
                   <svg
@@ -116,19 +118,19 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
                     />
                   </svg>
                 </button>
-                <span className='text-xs mt-1'>Restart</span>
+                <span className='text-xs mt-1'>{t('GameController.restart')}</span>
               </div>
               {/* Delete */}
               <div className='flex flex-col items-center'>
                 <AlertDialog
                   id={game.id}
-                  message='Are you sure? This will delete this session and remove all players.'
+                  message={t('GameController.areYouSureDelete')}
                   onConfirm={() => handleRemoveGame(game.id)}
                   data-testid='delete-button-dialog'
                 >
                   <button
                     className='p-2 cursor-pointer rounded-full bg-white hover:bg-red-200 transition'
-                    title='Delete'
+                    title={t('GameController.delete')}
                   >
                     {/* Trash Icon */}
                     <svg
@@ -147,7 +149,7 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
                     </svg>
                   </button>
                 </AlertDialog>
-                <span className='text-xs mt-1'>Delete</span>
+                <span className='text-xs mt-1'>{t('GameController.delete')}</span>
               </div>
             </>
           )}
@@ -157,7 +159,7 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
               onClick={leaveGame}
               data-testid='exit-button'
               className='p-2  cursor-pointer rounded-full bg-white hover:bg-orange-100 transition'
-              title='Exit'
+              title={t('GameController.exit')}
             >
               {/* Exit Icon */}
               <svg
@@ -175,7 +177,7 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
                 />
               </svg>
             </button>
-            <span className='text-xs mt-1'>Exit</span>
+            <span className='text-xs mt-1'>{t('GameController.exit')}</span>
           </div>
           {/* Invite */}
           <div className='flex flex-col items-center' title='Copy invite link'>
@@ -183,7 +185,7 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
               onClick={copyInviteLink}
               data-testid='invite-button'
               className='p-2 cursor-pointer rounded-full bg-white hover:bg-blue-200 transition'
-              title='Invite'
+              title={t('GameController.invite')}
             >
               {/* Link Icon */}
               <svg
@@ -202,13 +204,13 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
                 <path strokeLinecap='round' strokeLinejoin='round' d='M8 12l4 4m0 0l4-4m-4 4V4' />
               </svg>
             </button>
-            <span className='text-xs mt-1'>Invite</span>
+            <span className='text-xs mt-1'>{t('GameController.invite')}</span>
           </div>
           {/* <div className='w-full border-b border-gray-400' /> */}
           <div className='w-full text-xs text-gray-500 mt-2'>
-            <label className='font-semibold'>Story Name:</label>
+            <label className='font-semibold'>{t('GameController.storyName')}:</label>
             <input
-              placeholder='Enter story name or number'
+              placeholder={t('GameController.enterStoryName')}
               className='w-full italic p-2 mt-2 border bg-white border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-400'
               type='text'
               data-testid='story-name-input'
@@ -227,7 +229,7 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
             className='bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded shadow'
             role='alert'
           >
-            <span className='block font-bold'>Invite Link copied to clipboard!</span>
+            <span className='block font-bold'>{t('GameController.inviteLinkCopied')}!</span>
           </div>
         </div>
       )}

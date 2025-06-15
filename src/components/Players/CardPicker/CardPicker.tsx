@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { updatePlayerValue } from '../../../service/players';
 import { Game } from '../../../types/game';
 import { Player } from '../../../types/player';
@@ -11,7 +12,9 @@ interface CardPickerProps {
   players: Player[];
   currentPlayerId: string;
 }
+
 export const CardPicker: React.FC<CardPickerProps> = ({ game, players, currentPlayerId }) => {
+  const { t } = useTranslation();
   const [randomEmoji, setRandomEmoji] = useState(getRandomEmoji);
   const playPlayer = (gameId: string, playerId: string, card: CardConfig) => {
     if (game.gameStatus !== Status.Finished) {
@@ -29,6 +32,11 @@ export const CardPicker: React.FC<CardPickerProps> = ({ game, players, currentPl
 
   return (
     <div className='w-full max-w-full animate-fade-in-down'>
+      <div className='text-center text-lg font-semibold my-4'>
+        {game.gameStatus !== Status.Finished
+          ? t('CardPicker.ClickOnTheCardToVote')
+          : t('CardPicker.SessionNotReadyForVotingWaitForModeratorToStart')}
+      </div>
       <div className='flex flex-wrap justify-center gap-6 py-4 '>
         {cards.map((card: CardConfig, index) => {
           const isSelected = players.find((p) => p.id === currentPlayerId)?.value === card.value;
@@ -87,11 +95,6 @@ export const CardPicker: React.FC<CardPickerProps> = ({ game, players, currentPl
             </div>
           );
         })}
-      </div>
-      <div className='text-center text-lg font-semibold my-4'>
-        {game.gameStatus !== Status.Finished
-          ? 'Click on the card to vote'
-          : 'Session not ready for Voting! Wait for moderator to start'}
       </div>
       <GoogleAd />
     </div>

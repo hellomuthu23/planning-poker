@@ -18,5 +18,23 @@
         "yourNameLabel": "Ihr Name"
       }
     }
+  },
+  "GameController": {
+    "average": "Durchschnitt",
+    "reveal": "Aufdecken",
+    "restart": "Neustarten",
+    "delete": "Löschen",
+    "exit": "Beenden",
+    "invite": "Einladen",
+    "storyName": "Story-Name",
+    "enterStoryName": "Story-Name oder Nummer eingeben",
+    "inviteLinkCopied": "Einladungslink in die Zwischenablage kopiert",
+    "areYouSureDelete": "Sind Sie sicher? Dadurch wird diese Sitzung gelöscht und alle Spieler werden entfernt.",
+    "inProgress": "In Bearbeitung",
+    "finished": "Abgeschlossen"
+  },
+  "CardPicker": {
+    "ClickOnTheCardToVote": "Klicken Sie auf die Karte, um abzustimmen",
+    "SessionNotReadyForVotingWaitForModeratorToStart": "Sitzung nicht zum Abstimmen bereit! Bitte warten Sie, bis der Moderator startet"
   }
 }
