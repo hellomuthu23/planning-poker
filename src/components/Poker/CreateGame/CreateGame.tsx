@@ -80,12 +80,12 @@ export const CreateGame = () => {
     <form onSubmit={handleSubmit} className='w-full flex justify-center'>
       <div className='w-full max-w-lg bg-white border border-gray-200 rounded-xl shadow-lg p-6 mt-6'>
         <h2 className='text-2xl font-semibold mb-4 text-center'>
-          {t('HomePage.heroSection.formNewSession.newSessionHeader')}
+          {t('CreateGame.newSessionHeader')}
         </h2>
         <div className='flex flex-col gap-4'>
           <div>
             <label className='block text-sm font-medium mb-1'>
-              {t('HomePage.heroSection.formNewSession.sessionNameLabel')}
+              {t('CreateGame.sessionNameLabel')}
             </label>
             <input
               required
@@ -99,7 +99,7 @@ export const CreateGame = () => {
           </div>
           <div>
             <label className='block text-sm font-medium mb-1'>
-              {t('HomePage.heroSection.formNewSession.yourNameLabel')}
+              {t('CreateGame.yourNameLabel')}
             </label>
             <input
               required
@@ -112,7 +112,9 @@ export const CreateGame = () => {
             />
           </div>
           <fieldset>
-            <legend className='block text-sm font-medium mb-2'>Session Sizing Type</legend>
+            <legend className='block text-sm font-medium mb-2'>
+              {t('CreateGame.sessionSizingType')}
+            </legend>
             <div className='flex flex-col gap-2'>
               <label className='inline-flex items-center'>
                 <input
@@ -123,7 +125,7 @@ export const CreateGame = () => {
                   checked={gameType === GameType.Fibonacci}
                   onChange={() => setGameType(GameType.Fibonacci)}
                 />
-                <span className='ml-2'>Fibonacci (0, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89)</span>
+                <span className='ml-2'>{t('CreateGame.fibonacci')}</span>
               </label>
               <label className='inline-flex items-center'>
                 <input
@@ -134,7 +136,7 @@ export const CreateGame = () => {
                   checked={gameType === GameType.ShortFibonacci}
                   onChange={() => setGameType(GameType.ShortFibonacci)}
                 />
-                <span className='ml-2'>Short Fibonacci (0, ½, 1, 2, 3, 5, 8, 13, 20, 40, 100)</span>
+                <span className='ml-2'>{t('CreateGame.shortFibonacci')}</span>
               </label>
               <label className='inline-flex items-center'>
                 <input
@@ -145,7 +147,7 @@ export const CreateGame = () => {
                   checked={gameType === GameType.TShirt}
                   onChange={() => setGameType(GameType.TShirt)}
                 />
-                <span className='ml-2'>T-Shirt (XXS, XS, S, M, L, XL, XXL)</span>
+                <span className='ml-2'>{t('CreateGame.tShirt')}</span>
               </label>
               <label className='inline-flex items-center'>
                 <input
@@ -156,7 +158,7 @@ export const CreateGame = () => {
                   checked={gameType === GameType.TShirtAndNumber}
                   onChange={() => setGameType(GameType.TShirtAndNumber)}
                 />
-                <span className='ml-2'>T-Shirt & Numbers (S, M, L, XL, 1, 2, 3, 4, 5)</span>
+                <span className='ml-2'>{t('CreateGame.tShirtAndNumber')}</span>
               </label>
               <label className='inline-flex items-center'>
                 <input
@@ -167,7 +169,7 @@ export const CreateGame = () => {
                   checked={gameType === GameType.Custom}
                   onChange={() => setGameType(GameType.Custom)}
                 />
-                <span className='ml-2'>Custom</span>
+                <span className='ml-2'>{t('CreateGame.custom')}</span>
               </label>
             </div>
           </fieldset>
@@ -187,9 +189,7 @@ export const CreateGame = () => {
                 ))}
               </div>
               {error && (
-                <p className='text-red-600 text-xs mt-1'>
-                  Please enter values for at least two custom option.
-                </p>
+                <p className='text-red-600 text-xs mt-1'>{t('CreateGame.pleaseEnterValues')}</p>
               )}
             </>
           )}
@@ -200,7 +200,7 @@ export const CreateGame = () => {
               checked={allowMembersToManageSession}
               onChange={() => setAllowMembersToManageSession(!allowMembersToManageSession)}
             />
-            <span className='ml-2'>Allow members to manage session</span>
+            <span className='ml-2'>{t('CreateGame.allowMembersToManageSession')}</span>
           </label>
         </div>
         <div className='flex justify-end mt-6'>
@@ -212,7 +212,7 @@ export const CreateGame = () => {
             disabled={loading}
             data-testid='loading'
           >
-            {loading ? 'Creating...' : 'Create'}
+            {loading ? t('CreateGame.creating') : t('CreateGame.create')}
           </button>
         </div>
       </div>

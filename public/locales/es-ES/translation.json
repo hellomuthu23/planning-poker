@@ -1,0 +1,55 @@
+{
+  "toolbar": {
+    "menu": {
+      "about": "¿Qué es Planning Poker?",
+      "guide": "Guía",
+      "examples": "Ejemplos",
+      "newSession": "Nueva sesión",
+      "joinSession": "Unirse a la sesión"
+    }
+  },
+  "HomePage": {
+    "heroSection": {
+      "title": "Aplicación gratuita de Planning Poker",
+      "description": "Aplicación web gratuita y de código abierto de Planning Poker para estimar historias de usuario en tus equipos Ágiles/Scrum. Crea una sesión e invita a tus compañeros de equipo para estimar historias de usuario de manera eficiente.",
+      "formNewSession": {
+        "newSessionHeader": "Crear nueva sesión",
+        "sessionNameLabel": "Nombre de la sesión",
+        "yourNameLabel": "Tu nombre"
+      }
+    }
+  },
+  "GameController": {
+    "average": "Promedio",
+    "reveal": "Revelar",
+    "restart": "Reiniciar",
+    "delete": "Eliminar",
+    "exit": "Salir",
+    "invite": "Invitar",
+    "storyName": "Nombre de la historia",
+    "enterStoryName": "Ingresa el nombre o número de la historia",
+    "inviteLinkCopied": "Enlace de invitación copiado al portapapeles",
+    "areYouSureDelete": "¿Estás seguro? Esto eliminará esta sesión y quitará a todos los jugadores.",
+    "inProgress": "En progreso",
+    "finished": "Finalizado"
+  },
+  "CardPicker": {
+    "ClickOnTheCardToVote": "Haz clic en la carta para votar",
+    "SessionNotReadyForVotingWaitForModeratorToStart": "¡La sesión no está lista para votar! Espera a que el moderador comience"
+  },
+  "CreateGame": {
+    "newSessionHeader": "Crear nueva sesión",
+    "sessionNameLabel": "Nombre de la sesión",
+    "yourNameLabel": "Tu nombre",
+    "sessionSizingType": "Tipo de estimación de sesión",
+    "fibonacci": "Fibonacci (0, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89)",
+    "shortFibonacci": "Fibonacci corto (0, ½, 1, 2, 3, 5, 8, 13, 20, 40, 100)",
+    "tShirt": "Talla de camiseta (XXS, XS, S, M, L, XL, XXL)",
+    "tShirtAndNumber": "Talla de camiseta y números (S, M, L, XL, 1, 2, 3, 4, 5)",
+    "custom": "Personalizado",
+    "pleaseEnterValues": "Por favor, ingrese valores para al menos dos opciones personalizadas.",
+    "allowMembersToManageSession": "Permitir a los miembros gestionar la sesión",
+    "creating": "Creando...",
+    "create": "Crear"
+  }
+}

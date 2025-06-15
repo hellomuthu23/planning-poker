@@ -36,5 +36,20 @@
   "CardPicker": {
     "ClickOnTheCardToVote": "वोट करने के लिए कार्ड पर क्लिक करें",
     "SessionNotReadyForVotingWaitForModeratorToStart": "सत्र मतदान के लिए तैयार नहीं है! कृपया मॉडरेटर के शुरू होने की प्रतीक्षा करें"
+  },
+  "CreateGame": {
+    "newSessionHeader": "नई सत्र बनाएं",
+    "sessionNameLabel": "सत्र का नाम",
+    "yourNameLabel": "आपका नाम",
+    "sessionSizingType": "सत्र आकार प्रकार",
+    "fibonacci": "फिबोनाच्ची (0, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89)",
+    "shortFibonacci": "संक्षिप्त फिबोनाच्ची (0, ½, 1, 2, 3, 5, 8, 13, 20, 40, 100)",
+    "tShirt": "टी-शर्ट (XXS, XS, S, M, L, XL, XXL)",
+    "tShirtAndNumber": "टी-शर्ट और नंबर (S, M, L, XL, 1, 2, 3, 4, 5)",
+    "custom": "कस्टम",
+    "pleaseEnterValues": "कृपया कम से कम दो कस्टम विकल्पों के लिए मान दर्ज करें।",
+    "allowMembersToManageSession": "सदस्यों को सत्र प्रबंधित करने की अनुमति दें",
+    "creating": "बना रहा है...",
+    "create": "बनाएं"
   }
 }

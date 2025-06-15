@@ -36,5 +36,20 @@
   "CardPicker": {
     "ClickOnTheCardToVote": "வாக்களிக்க கார்டை கிளிக் செய்யவும்",
     "SessionNotReadyForVotingWaitForModeratorToStart": "வாக்களிக்க அமர்வு தயாராக இல்லை! மோதரேட்டர் தொடங்கும் வரை காத்திருக்கவும்"
+  },
+  "CreateGame": {
+    "newSessionHeader": "புதிய அமர்வை உருவாக்கவும்",
+    "sessionNameLabel": "அமர்வு பெயர்",
+    "yourNameLabel": "உங்கள் பெயர்",
+    "sessionSizingType": "அமர்வு அளவீட்டு வகை",
+    "fibonacci": "பிபோனாச்சி (0, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89)",
+    "shortFibonacci": "சிறிய பிபோனாச்சி (0, ½, 1, 2, 3, 5, 8, 13, 20, 40, 100)",
+    "tShirt": "டி-ஷர்ட் (XXS, XS, S, M, L, XL, XXL)",
+    "tShirtAndNumber": "டி-ஷர்ட் & எண்கள் (S, M, L, XL, 1, 2, 3, 4, 5)",
+    "custom": "விருப்பம்",
+    "pleaseEnterValues": "குறைந்தது இரண்டு விருப்பங்களுக்கு மதிப்புகளை உள்ளிடவும்.",
+    "allowMembersToManageSession": "உறுப்பினர்கள் அமர்வை நிர்வகிக்க அனுமதிக்கவும்",
+    "creating": "உருவாக்கப்படுகிறது...",
+    "create": "உருவாக்கவும்"
   }
 }

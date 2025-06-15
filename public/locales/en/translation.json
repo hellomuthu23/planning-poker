@@ -36,5 +36,20 @@
   "CardPicker": {
     "ClickOnTheCardToVote": "Click on the card to vote",
     "SessionNotReadyForVotingWaitForModeratorToStart": "Session not ready for Voting! Wait for moderator to start"
+  },
+  "CreateGame": {
+    "newSessionHeader": "Create new session",
+    "sessionNameLabel": "Session name",
+    "yourNameLabel": "Your name",
+    "sessionSizingType": "Session Sizing Type",
+    "fibonacci": "Fibonacci (0, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89)",
+    "shortFibonacci": "Short Fibonacci (0, ½, 1, 2, 3, 5, 8, 13, 20, 40, 100)",
+    "tShirt": "T-Shirt (XXS, XS, S, M, L, XL, XXL)",
+    "tShirtAndNumber": "T-Shirt & Numbers (S, M, L, XL, 1, 2, 3, 4, 5)",
+    "custom": "Custom",
+    "pleaseEnterValues": "Please enter values for at least two custom option.",
+    "allowMembersToManageSession": "Allow members to manage session",
+    "creating": "Creating...",
+    "create": "Create"
   }
 }
