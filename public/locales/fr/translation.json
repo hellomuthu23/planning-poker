@@ -18,5 +18,23 @@
         "yourNameLabel": "Votre nom"
       }
     }
+  },
+  "GameController": {
+    "average": "Moyenne",
+    "reveal": "Révéler",
+    "restart": "Redémarrer",
+    "delete": "Supprimer",
+    "exit": "Quitter",
+    "invite": "Inviter",
+    "storyName": "Nom de l'histoire",
+    "enterStoryName": "Entrez le nom ou le numéro de l'histoire",
+    "inviteLinkCopied": "Lien d'invitation copié dans le presse-papiers",
+    "areYouSureDelete": "Êtes-vous sûr ? Cela supprimera cette session et retirera tous les joueurs.",
+    "inProgress": "En cours",
+    "finished": "Terminé"
+  },
+  "CardPicker": {
+    "ClickOnTheCardToVote": "Cliquez sur la carte pour voter",
+    "SessionNotReadyForVotingWaitForModeratorToStart": "La session n'est pas prête pour le vote ! Veuillez attendre que le modérateur commence"
   }
 }

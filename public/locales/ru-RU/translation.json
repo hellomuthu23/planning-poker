@@ -18,5 +18,23 @@
         "yourNameLabel": "Ваше имя"
       }
     }
+  },
+  "GameController": {
+    "average": "Среднее",
+    "reveal": "Показать",
+    "restart": "Перезапустить",
+    "delete": "Удалить",
+    "exit": "Выйти",
+    "invite": "Пригласить",
+    "storyName": "Название истории",
+    "enterStoryName": "Введите название или номер истории",
+    "inviteLinkCopied": "Ссылка приглашения скопирована в буфер обмена",
+    "areYouSureDelete": "Вы уверены? Это удалит эту сессию и удалит всех участников.",
+    "inProgress": "В процессе",
+    "finished": "Завершено"
+  },
+  "CardPicker": {
+    "ClickOnTheCardToVote": "Нажмите на карту, чтобы проголосовать",
+    "SessionNotReadyForVotingWaitForModeratorToStart": "Сессия не готова к голосованию! Подождите, пока модератор начнет"
   }
 }

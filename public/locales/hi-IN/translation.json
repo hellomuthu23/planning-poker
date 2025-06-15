@@ -1,0 +1,40 @@
+{
+  "toolbar": {
+    "menu": {
+      "about": "प्लानिंग पोकर क्या है?",
+      "guide": "मार्गदर्शिका",
+      "examples": "उदाहरण",
+      "newSession": "नई सत्र",
+      "joinSession": "सत्र में शामिल हों"
+    }
+  },
+  "HomePage": {
+    "heroSection": {
+      "title": "नि:शुल्क प्लानिंग पोकर ऐप",
+      "description": "अपने एजाइल/स्क्रम टीमों के लिए यूज़र स्टोरी का अनुमान लगाने हेतु नि:शुल्क/ओपन सोर्स प्लानिंग पोकर वेब ऐप। एक सत्र बनाएं और अपने टीम सदस्यों को यूज़र स्टोरी का कुशलतापूर्वक अनुमान लगाने के लिए आमंत्रित करें।",
+      "formNewSession": {
+        "newSessionHeader": "नई सत्र बनाएं",
+        "sessionNameLabel": "सत्र का नाम",
+        "yourNameLabel": "आपका नाम"
+      }
+    }
+  },
+  "GameController": {
+    "average": "औसत",
+    "reveal": "प्रकट करें",
+    "restart": "पुनः प्रारंभ करें",
+    "delete": "हटाएं",
+    "exit": "बाहर जाएं",
+    "invite": "आमंत्रित करें",
+    "storyName": "कहानी का नाम",
+    "enterStoryName": "कहानी का नाम या नंबर दर्ज करें",
+    "inviteLinkCopied": "आमंत्रण लिंक क्लिपबोर्ड पर कॉपी किया गया",
+    "areYouSureDelete": "क्या आप सुनिश्चित हैं? इससे यह सत्र हट जाएगा और सभी खिलाड़ी हटा दिए जाएंगे।",
+    "inProgress": "प्रगति पर है",
+    "finished": "समाप्त"
+  },
+  "CardPicker": {
+    "ClickOnTheCardToVote": "वोट करने के लिए कार्ड पर क्लिक करें",
+    "SessionNotReadyForVotingWaitForModeratorToStart": "सत्र मतदान के लिए तैयार नहीं है! कृपया मॉडरेटर के शुरू होने की प्रतीक्षा करें"
+  }
+}
