@@ -1,10 +1,17 @@
 import './Loading.css';
 
-export const Loading = () => {
+export const Loading = ({ size }: { size?: string }) => {
+  let width = 32; // SVG width
+  let height = 32; // SVG height
+  // handle small size
+  if (size === 'small') {
+    width = 16;
+    height = 16;
+  }
   return (
     <svg
-      width='75'
-      height='75'
+      width={width}
+      height={height}
       viewBox='0 0 32 32'
       fill='none'
       xmlns='http://www.w3.org/2000/svg'
