@@ -12,7 +12,6 @@ import { InfoSVG } from '../SVGs/Info';
 import { JoinSVG } from '../SVGs/Join';
 import { PlusSVG } from '../SVGs/Plus';
 import { MenuItem } from './MenuItem';
-import './Toolbar.css';
 export const title = 'Planning Poker';
 
 export const Toolbar = () => {
@@ -85,7 +84,7 @@ export const Toolbar = () => {
       <div className='inline-flex items-center'>
         <button className='button-ghost flex items-center' onClick={() => history.push('/')}>
           <div className='pr-1'>
-            <GamesSVG className='HeaderIcon' />
+            <GamesSVG />
           </div>
           <p className='md:text-2xl text-sm font-normal'>{title}</p>
         </button>

@@ -1,5 +1,3 @@
-import '../HomePage/HomePage.css';
-
 export const ExamplesPage = () => {
   return (
     <div className='flex flex-col items-center w-full'>
