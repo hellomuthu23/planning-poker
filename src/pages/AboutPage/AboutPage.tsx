@@ -4,7 +4,6 @@ import { BenefitsSVG } from '../../components/SVGs/Benefits';
 import { BestPracticeSVG } from '../../components/SVGs/BestPractice';
 import { HowSVG } from '../../components/SVGs/How';
 import { WhatSVG } from '../../components/SVGs/What';
-import '../HomePage/HomePage.css';
 
 export const AboutPage = () => {
   return (

@@ -1,5 +1,4 @@
 import { GoogleAd } from '../../components/GoogleAd/GoogleAd';
-import '../HomePage/HomePage.css';
 
 export const GuidePage = () => {
   return (

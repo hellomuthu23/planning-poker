@@ -116,61 +116,25 @@ export const CreateGame = () => {
               {t('CreateGame.sessionSizingType')}
             </legend>
             <div className='flex flex-col gap-2'>
-              <label className='inline-flex items-center'>
-                <input
-                  type='radio'
-                  className='form-radio text-blue-600'
-                  name='gameType'
-                  value={GameType.Fibonacci}
-                  checked={gameType === GameType.Fibonacci}
-                  onChange={() => setGameType(GameType.Fibonacci)}
-                />
-                <span className='ml-2'>{t('CreateGame.fibonacci')}</span>
-              </label>
-              <label className='inline-flex items-center'>
-                <input
-                  type='radio'
-                  className='form-radio text-blue-600'
-                  name='gameType'
-                  value={GameType.ShortFibonacci}
-                  checked={gameType === GameType.ShortFibonacci}
-                  onChange={() => setGameType(GameType.ShortFibonacci)}
-                />
-                <span className='ml-2'>{t('CreateGame.shortFibonacci')}</span>
-              </label>
-              <label className='inline-flex items-center'>
-                <input
-                  type='radio'
-                  className='form-radio text-blue-600'
-                  name='gameType'
-                  value={GameType.TShirt}
-                  checked={gameType === GameType.TShirt}
-                  onChange={() => setGameType(GameType.TShirt)}
-                />
-                <span className='ml-2'>{t('CreateGame.tShirt')}</span>
-              </label>
-              <label className='inline-flex items-center'>
-                <input
-                  type='radio'
-                  className='form-radio text-blue-600'
-                  name='gameType'
-                  value={GameType.TShirtAndNumber}
-                  checked={gameType === GameType.TShirtAndNumber}
-                  onChange={() => setGameType(GameType.TShirtAndNumber)}
-                />
-                <span className='ml-2'>{t('CreateGame.tShirtAndNumber')}</span>
-              </label>
-              <label className='inline-flex items-center'>
-                <input
-                  type='radio'
-                  className='form-radio text-blue-600'
-                  name='gameType'
-                  value={GameType.Custom}
-                  checked={gameType === GameType.Custom}
-                  onChange={() => setGameType(GameType.Custom)}
-                />
-                <span className='ml-2'>{t('CreateGame.custom')}</span>
-              </label>
+              {[
+                { type: GameType.Fibonacci, label: t('CreateGame.fibonacci') },
+                { type: GameType.ShortFibonacci, label: t('CreateGame.shortFibonacci') },
+                { type: GameType.TShirt, label: t('CreateGame.tShirt') },
+                { type: GameType.TShirtAndNumber, label: t('CreateGame.tShirtAndNumber') },
+                { type: GameType.Custom, label: t('CreateGame.custom') },
+              ].map(({ type, label }) => (
+                <label key={type} className='inline-flex items-center'>
+                  <input
+                    type='radio'
+                    className='form-radio text-blue-600'
+                    name='gameType'
+                    value={type}
+                    checked={gameType === type}
+                    onChange={() => setGameType(type)}
+                  />
+                  <span className='ml-2'>{label}</span>
+                </label>
+              ))}
             </div>
           </fieldset>
           {gameType === GameType.Custom && (
