@@ -5,6 +5,11 @@ import { AlertDialog } from '../../../components/AlertDialog/AlertDialog';
 import { finishGame, removeGame, resetGame, updateStoryName } from '../../../service/games';
 import { Game, GameType } from '../../../types/game';
 import { isModerator } from '../../../utils/isModerator';
+import { ExitSVG } from '../../SVGs/Exit';
+import { EyeSVG } from '../../SVGs/Eye';
+import { LinkSVG } from '../../SVGs/Link';
+import { RefreshSVG } from '../../SVGs/Refresh';
+import { TrashSVG } from '../../SVGs/Trash';
 
 interface GameControllerProps {
   game: Game;
@@ -17,20 +22,18 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
   const [showCopiedMessage, setShowCopiedMessage] = useState(false);
 
   const copyInviteLink = () => {
-    const url = `${window.location.origin}/join/${game.id}`;
-    navigator.clipboard.writeText(url);
+    navigator.clipboard.writeText(`${window.location.origin}/join/${game.id}`);
     setShowCopiedMessage(true);
     setTimeout(() => setShowCopiedMessage(false), 5000);
   };
 
-  const leaveGame = () => {
-    history.push(`/`);
-  };
-
-  const handleRemoveGame = async (recentGameId: string) => {
-    await removeGame(recentGameId);
+  const leaveGame = () => history.push(`/`);
+  const handleRemoveGame = async (id: string) => {
+    await removeGame(id);
     window.location.href = '/';
   };
+
+  const isMod = isModerator(game.createdById, currentPlayerId, game.isAllowMembersToManageSession);
 
   return (
     <div className='flex flex-col items-center w-full px-2'>
@@ -60,68 +63,27 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
         </div>
         {/* Card Content */}
         <div className='flex flex-wrap justify-center gap-6 px-2 py-8'>
-          {isModerator(game.createdById, currentPlayerId, game.isAllowMembersToManageSession) && (
+          {isMod && (
             <>
-              {/* Reveal */}
-              <div className='flex flex-col items-center'>
-                <button
-                  onClick={() => finishGame(game.id)}
-                  data-testid='reveal-button'
-                  className='p-2 cursor-pointer rounded-full bg-white hover:bg-green-200 transition'
-                  title={t('GameController.reveal')}
-                >
-                  {/* Eye Icon */}
-                  <svg
-                    xmlns='http://www.w3.org/2000/svg'
-                    className='h-9 w-9 text-green-500'
-                    fill='none'
-                    viewBox='0 0 24 24'
-                    stroke='currentColor'
-                  >
-                    <path
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                      strokeWidth={2}
-                      d='M15 12a3 3 0 11-6 0 3 3 0 016 0z'
-                    />
-                    <path
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                      strokeWidth={2}
-                      d='M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z'
-                    />
-                  </svg>
-                </button>
-                <span className='text-xs mt-1'>{t('GameController.reveal')}</span>
-              </div>
-              {/* Restart */}
-              <div className='flex flex-col items-center'>
-                <button
-                  onClick={() => resetGame(game.id)}
-                  data-testid='restart-button'
-                  className='p-2 cursor-pointer rounded-full bg-white hover:bg-red-200 transition'
-                  title={t('GameController.restart')}
-                >
-                  {/* Refresh Icon */}
-                  <svg
-                    xmlns='http://www.w3.org/2000/svg'
-                    className='h-9 w-9 text-red-500'
-                    fill='none'
-                    viewBox='0 0 24 24'
-                    stroke='currentColor'
-                  >
-                    <path
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                      strokeWidth={2}
-                      d='M4 4v5h5M20 20v-5h-5M5.5 9A7 7 0 0112 5a7 7 0 017.5 4.5M18.5 15A7 7 0 0112 19a7 7 0 01-7.5-4.5'
-                    />
-                  </svg>
-                </button>
-                <span className='text-xs mt-1'>{t('GameController.restart')}</span>
-              </div>
-              {/* Delete */}
-              <div className='flex flex-col items-center'>
+              <ControllerButton
+                onClick={() => finishGame(game.id)}
+                icon={<EyeSVG className='h-9 w-9 text-green-500' />}
+                label={t('GameController.reveal')}
+                colorClass='bg-green-200'
+                testId='reveal-button'
+              />
+              <ControllerButton
+                onClick={() => resetGame(game.id)}
+                icon={<RefreshSVG className='h-9 w-9 text-red-400' />}
+                label={t('GameController.restart')}
+                colorClass='bg-red-200'
+                testId='restart-button'
+              />
+              <ControllerButton
+                icon={<TrashSVG className='h-9 w-9 text-red-500' />}
+                label={t('GameController.delete')}
+                colorClass='bg-red-200'
+              >
                 <AlertDialog
                   id={game.id}
                   message={t('GameController.areYouSureDelete')}
@@ -132,81 +94,27 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
                     className='p-2 cursor-pointer rounded-full bg-white hover:bg-red-200 transition'
                     title={t('GameController.delete')}
                   >
-                    {/* Trash Icon */}
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      className='h-9 w-9 text-red-400'
-                      fill='none'
-                      viewBox='0 0 24 24'
-                      stroke='currentColor'
-                    >
-                      <path
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                        strokeWidth={2}
-                        d='M6 18L18 6M6 6l12 12'
-                      />
-                    </svg>
+                    <TrashSVG className='h-9 w-9 text-red-500' />
                   </button>
                 </AlertDialog>
-                <span className='text-xs mt-1'>{t('GameController.delete')}</span>
-              </div>
+              </ControllerButton>
             </>
           )}
-          {/* Exit */}
-          <div className='flex flex-col items-center'>
-            <button
-              onClick={leaveGame}
-              data-testid='exit-button'
-              className='p-2  cursor-pointer rounded-full bg-white hover:bg-orange-100 transition'
-              title={t('GameController.exit')}
-            >
-              {/* Exit Icon */}
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                className='h-9 w-9 text-orange-300'
-                fill='none'
-                viewBox='0 0 24 24'
-                stroke='currentColor'
-              >
-                <path
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                  strokeWidth={2}
-                  d='M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H7a2 2 0 01-2-2V7a2 2 0 012-2h6a2 2 0 012 2v1'
-                />
-              </svg>
-            </button>
-            <span className='text-xs mt-1'>{t('GameController.exit')}</span>
-          </div>
-          {/* Invite */}
-          <div className='flex flex-col items-center' title='Copy invite link'>
-            <button
-              onClick={copyInviteLink}
-              data-testid='invite-button'
-              className='p-2 cursor-pointer rounded-full bg-white hover:bg-blue-200 transition'
-              title={t('GameController.invite')}
-            >
-              {/* Link Icon */}
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                className='h-9 w-9 text-blue-500'
-                fill='none'
-                viewBox='0 0 24 24'
-                stroke='currentColor'
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                  d='M20 12v7a1 1 0 01-1 1H5a1 1 0 01-1-1v-7'
-                />
-                <path strokeLinecap='round' strokeLinejoin='round' d='M8 12l4 4m0 0l4-4m-4 4V4' />
-              </svg>
-            </button>
-            <span className='text-xs mt-1'>{t('GameController.invite')}</span>
-          </div>
-          {/* <div className='w-full border-b border-gray-400' /> */}
+          <ControllerButton
+            onClick={leaveGame}
+            icon={<ExitSVG className='h-9 w-9 text-orange-500' />}
+            label={t('GameController.exit')}
+            colorClass='bg-orange-100'
+            testId='exit-button'
+          />
+          <ControllerButton
+            onClick={copyInviteLink}
+            icon={<LinkSVG className='h-9 w-9 text-blue-500' />}
+            label={t('GameController.invite')}
+            colorClass='bg-blue-200'
+            testId='invite-button'
+            title='Copy invite link'
+          />
           <div className='w-full text-xs text-gray-500 mt-2'>
             <label className='font-semibold'>{t('GameController.storyName')}:</label>
             <input
@@ -215,9 +123,7 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
               type='text'
               data-testid='story-name-input'
               value={game.storyName || ''}
-              onChange={(event) => {
-                updateStoryName(game.id, event.target.value || '');
-              }}
+              onChange={(e) => updateStoryName(game.id, e.target.value || '')}
             />
           </div>
         </div>
@@ -226,7 +132,7 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
       {showCopiedMessage && (
         <div className='fixed top-6 right-6 z-50'>
           <div
-            className='bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded shadow'
+            className='bg-green-100 border border-green-200  text-gray-800 opacity-85 px-4 py-3 text-xs rounded shadow'
             role='alert'
           >
             <span className='block font-bold'>{t('GameController.inviteLinkCopied')}!</span>
@@ -236,6 +142,40 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
     </div>
   );
 };
+
+const ControllerButton = ({
+  onClick,
+  icon,
+  label,
+  colorClass,
+  testId,
+  title,
+  children,
+}: {
+  onClick?: () => void;
+  icon: React.ReactNode;
+  label: string;
+  colorClass: string;
+  testId?: string;
+  title?: string;
+  children?: React.ReactNode;
+}) => (
+  <div className='flex flex-col items-center'>
+    {children ? (
+      children
+    ) : (
+      <button
+        onClick={onClick}
+        data-testid={testId}
+        className={`p-2 cursor-pointer rounded-full bg-white hover:${colorClass} transition`}
+        title={title || label}
+      >
+        {icon}
+      </button>
+    )}
+    <span className='text-xs mt-1'>{label}</span>
+  </div>
+);
 
 const getGameStatusIcon = (gameStatus: string) => {
   switch (gameStatus) {

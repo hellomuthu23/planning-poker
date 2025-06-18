@@ -43,6 +43,7 @@ describe('LanguageControl component', () => {
     expect(screen.getByText(/English/)).toBeInTheDocument();
     expect(screen.getByText(/Français/)).toBeInTheDocument();
     expect(screen.getByText(/Deutsch/)).toBeInTheDocument();
+    expect(screen.getByText(/Dutch/)).toBeInTheDocument();
     expect(screen.getByText(/Português/)).toBeInTheDocument();
     expect(screen.getByText(/繁體中文/)).toBeInTheDocument();
     expect(screen.getByText(/Русский/)).toBeInTheDocument();

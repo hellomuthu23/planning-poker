@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { AlertDialog } from '../../../components/AlertDialog/AlertDialog';
-import { DeleteSVG } from '../../../components/SVGs/DeleteSVG';
 import { removeGame } from '../../../service/games';
 import { getCurrentPlayerId, getPlayerRecentGames } from '../../../service/players';
 import { PlayerGame } from '../../../types/player';
 import { isModerator } from '../../../utils/isModerator';
+import { DeleteSVG } from '../../SVGs/DeleteSVG';
 
 export const RecentGames = () => {
   const history = useHistory();
@@ -90,7 +90,7 @@ export const RecentGames = () => {
                               message={`Are you sure? That will delete the session: ${recentGame.name} and remove all players from the session.`}
                               onConfirm={(id: string) => handleRemoveGame(id)}
                             >
-                              <DeleteSVG className='h-5 w-5 text-red-500' />
+                              <DeleteSVG className='h-5 w-5 text-red-400' />
                             </AlertDialog>
                           </td>
                         ) : (

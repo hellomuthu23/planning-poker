@@ -35,9 +35,10 @@ export const LanguageControl: React.FC = () => {
           className='bg-white w-20 text-xs cursor-pointer text-gray-700 hover:border-gray-500  focus:outline-none focus:shadow-outline text-ellipsis'
           data-testid='language-control'
         >
-          <option value={'en-US'}>{getUnicodeFlagIcon('GB')} English</option>
+          <option value={'en-US'}>{getUnicodeFlagIcon('US')} English</option>
           <option value={'fr-FR'}>{getUnicodeFlagIcon('FR')} Français</option>
           <option value={'de-DE'}>{getUnicodeFlagIcon('DE')} Deutsch</option>
+          <option value={'nl-NL'}>{getUnicodeFlagIcon('NL')} Dutch</option>
           <option value={'pt-BR'}>{getUnicodeFlagIcon('BR')} Português</option>
           <option value={'zh-Hant'}>{getUnicodeFlagIcon('HK')} 繁體中文</option>
           <option value={'ru-RU'}>{getUnicodeFlagIcon('RU')} Русский</option>
