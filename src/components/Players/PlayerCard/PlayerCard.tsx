@@ -4,6 +4,7 @@ import { Game } from '../../../types/game';
 import { Player } from '../../../types/player';
 import { Status } from '../../../types/status';
 import { isModerator } from '../../../utils/isModerator';
+import { TrashSVG } from '../../SVGs/Trash';
 import { getCards } from '../CardPicker/CardConfigs';
 
 interface PlayerCardProps {
@@ -36,17 +37,7 @@ export const PlayerCard: React.FC<PlayerCardProps> = ({ game, player, currentPla
               onClick={() => removeUser(game.id, player.id)}
               data-testid='remove-button'
             >
-              {/* Trash/Delete SVG Icon */}
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                className='h-4 w-4 text-red-400'
-                fill='none'
-                viewBox='0 0 24 24'
-                stroke='currentColor'
-                strokeWidth={2}
-              >
-                <path strokeLinecap='round' strokeLinejoin='round' d='M6 18L18 6M6 6l12 12' />
-              </svg>
+              <TrashSVG className='h-4 w-4 text-red-400' />
             </button>
           )}
       </div>
