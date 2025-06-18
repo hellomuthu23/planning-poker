@@ -1,0 +1,50 @@
+{
+  "toolbar": {
+    "menu": {
+      "about": "Wat is planning poker?",
+      "guide": "Gids",
+      "examples": "Voorbeelden",
+      "newSession": "Nieuwe sessie",
+      "joinSession": "Deelnemen aan sessie"
+    }
+  },
+  "HomePage": {
+    "heroSection": {
+      "title": "Gratis Planning Poker App",
+      "description": "Gratis / Open source Planning Poker webapp om user stories te schatten voor je Agile/Scrum teams. Maak een sessie aan en nodig je teamleden uit om efficiënt user stories te schatten."
+    }
+  },
+  "GameController": {
+    "average": "Gemiddelde",
+    "reveal": "Onthullen",
+    "restart": "Herstarten",
+    "delete": "Verwijderen",
+    "exit": "Afsluiten",
+    "invite": "Uitnodigen",
+    "storyName": "Naam van het verhaal",
+    "enterStoryName": "Voer de naam of het nummer van het verhaal in",
+    "inviteLinkCopied": "Uitnodigingslink gekopieerd naar klembord",
+    "areYouSureDelete": "Weet je het zeker? Dit verwijdert deze sessie en verwijdert alle spelers.",
+    "inProgress": "Bezig",
+    "finished": "Voltooid"
+  },
+  "CardPicker": {
+    "ClickOnTheCardToVote": "Klik op de kaart om te stemmen",
+    "SessionNotReadyForVotingWaitForModeratorToStart": "Sessie nog niet klaar om te stemmen! Wacht tot de moderator begint"
+  },
+  "CreateGame": {
+    "newSessionHeader": "Nieuwe sessie aanmaken",
+    "sessionNameLabel": "Sessienaam",
+    "yourNameLabel": "Jouw naam",
+    "sessionSizingType": "Type sessie-inschatting",
+    "fibonacci": "Fibonacci (0, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89)",
+    "shortFibonacci": "Korte Fibonacci (0, ½, 1, 2, 3, 5, 8, 13, 20, 40, 100)",
+    "tShirt": "T-Shirt (XXS, XS, S, M, L, XL, XXL)",
+    "tShirtAndNumber": "T-Shirt & Nummers (S, M, L, XL, 1, 2, 3, 4, 5)",
+    "custom": "Aangepast",
+    "pleaseEnterValues": "Voer waarden in voor minstens twee aangepaste opties.",
+    "allowMembersToManageSession": "Sta leden toe de sessie te beheren",
+    "creating": "Bezig met aanmaken...",
+    "create": "Aanmaken"
+  }
+}

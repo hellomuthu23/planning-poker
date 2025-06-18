@@ -38,6 +38,7 @@ export const LanguageControl: React.FC = () => {
           <option value={'en-US'}>{getUnicodeFlagIcon('US')} English</option>
           <option value={'fr-FR'}>{getUnicodeFlagIcon('FR')} Français</option>
           <option value={'de-DE'}>{getUnicodeFlagIcon('DE')} Deutsch</option>
+          <option value={'nl-NL'}>{getUnicodeFlagIcon('NL')} Dutch</option>
           <option value={'pt-BR'}>{getUnicodeFlagIcon('BR')} Português</option>
           <option value={'zh-Hant'}>{getUnicodeFlagIcon('HK')} 繁體中文</option>
           <option value={'ru-RU'}>{getUnicodeFlagIcon('RU')} Русский</option>
