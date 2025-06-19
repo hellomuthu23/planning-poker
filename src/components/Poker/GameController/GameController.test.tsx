@@ -45,7 +45,7 @@ describe('GameController component', () => {
   it('should display game average value', () => {
     render(<GameController game={mockGame} currentPlayerId={mockCurrentPlayerId} />);
 
-    expect(screen.getByText(mockGame.average)).toBeInTheDocument();
+    expect(screen.getByText((mockGame.average || 0).toFixed(2))).toBeInTheDocument();
   });
   it('should display game average for non TShirtGameType', () => {
     render(

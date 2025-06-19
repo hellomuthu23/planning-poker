@@ -52,10 +52,10 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
                   <div className='mx-2 h-6 border-l border-gray-300' />
                   <span className='text-sm font-medium'>{t('GameController.average')}:</span>
                   <span
-                    className='text-sm font-bold'
-                    title={`Exact: ${(game.average || 0).toFixed(2)}`}
+                    className='text-sm font-semibold text-blue-400  underline'
+                    title={`Rounded: ${Math.round(game.average) || 0}`}
                   >
-                    {Math.round(game.average) || 0}
+                    {(game.average || 0).toFixed(2)}
                   </span>
                 </>
               )}
