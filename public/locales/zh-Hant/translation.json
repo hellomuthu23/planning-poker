@@ -15,6 +15,7 @@
     }
   },
   "GameController": {
+    "autoReveal": "自動顯示",
     "average": "平均值",
     "reveal": "揭曉",
     "restart": "重新開始",

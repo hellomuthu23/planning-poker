@@ -9,6 +9,7 @@ export interface Game {
   gameType?: GameType | GameType.Fibonacci;
   isAllowMembersToManageSession?: boolean;
   storyName?: string;
+  autoReveal?: boolean;
   cards: CardConfig[];
   createdBy: string;
   createdById: string;

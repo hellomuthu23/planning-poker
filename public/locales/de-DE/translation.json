@@ -15,6 +15,7 @@
     }
   },
   "GameController": {
+    "autoReveal": "Automatisch aufdecken",
     "average": "Durchschnitt",
     "reveal": "Aufdecken",
     "restart": "Neustarten",

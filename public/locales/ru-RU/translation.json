@@ -15,6 +15,7 @@
     }
   },
   "GameController": {
+    "autoReveal": "Автоматическое раскрытие",
     "average": "Среднее",
     "reveal": "Показать",
     "restart": "Перезапустить",

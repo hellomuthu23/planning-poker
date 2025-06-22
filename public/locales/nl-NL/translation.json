@@ -15,6 +15,7 @@
     }
   },
   "GameController": {
+    "autoReveal": "Automatisch onthullen",
     "average": "Gemiddelde",
     "reveal": "Onthullen",
     "restart": "Herstarten",

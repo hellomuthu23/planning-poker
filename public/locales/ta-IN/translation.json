@@ -15,6 +15,7 @@
     }
   },
   "GameController": {
+    "autoReveal": "தானாக வெளிப்படுத்தல்",
     "average": "சராசரி",
     "reveal": "வெளிப்படுத்து",
     "restart": "மீள்தொடங்கு",

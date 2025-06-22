@@ -65,7 +65,7 @@ export const resetGame = async (gameId: string) => {
       average: 0,
       gameStatus: Status.Started,
     };
-    updateGame(gameId, updatedGame);
+    await updateGame(gameId, updatedGame);
     await resetPlayers(gameId);
   }
 };
@@ -79,7 +79,7 @@ export const finishGame = async (gameId: string) => {
       average: getAverage(players),
       gameStatus: Status.Finished,
     };
-    updateGame(gameId, updatedGame);
+    await updateGame(gameId, updatedGame);
   }
 };
 
