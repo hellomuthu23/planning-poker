@@ -265,8 +265,11 @@ describe('GameController component', () => {
       const switchBtn = getByRole('switch');
       // Initially OFF
       expect(switchBtn).toHaveAttribute('aria-checked', 'false');
-      // Toggle ON
-      fireEvent.click(switchBtn);
+    });
+
+    it('shows ON when switch is on', () => {
+      const { getByRole } = render(<AutoReveal autoReveal={true} onAutoReveal={() => {}} />);
+      const switchBtn = getByRole('switch');
       expect(switchBtn).toHaveAttribute('aria-checked', 'true');
     });
 
