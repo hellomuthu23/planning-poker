@@ -15,6 +15,7 @@
     }
   },
   "GameController": {
+    "autoReveal": "स्वतः प्रकट करें",
     "average": "औसत",
     "reveal": "प्रकट करें",
     "restart": "पुनः प्रारंभ करें",
