@@ -4,7 +4,13 @@ import * as gamesService from '../../../service/games';
 import { Game, GameType } from '../../../types/game';
 import { Player } from '../../../types/player';
 import { Status } from '../../../types/status';
-import { AutoReveal, GameController } from './GameController';
+import { CardConfig } from '../../Players/CardPicker/CardConfigs';
+import {
+  areAllFinishedPlayersDisplayValuesNumeric,
+  AutoReveal,
+  GameController,
+  getAverage,
+} from './GameController';
 
 jest.mock('../../../service/games');
 const mockHistoryPush = jest.fn();
@@ -58,61 +64,6 @@ describe('GameController component', () => {
     expect(screen.getByText(`${mockGame.gameStatus} ⏱️`)).toBeInTheDocument();
   });
 
-  it('should display game average value', () => {
-    render(
-      <GameController
-        game={mockGame}
-        currentPlayerId={mockCurrentPlayerId}
-        players={mockPlayers}
-      />,
-    );
-
-    expect(screen.getByText((mockGame.average || 0).toFixed(2))).toBeInTheDocument();
-  });
-  it('should display game average for non TShirtGameType', () => {
-    render(
-      <GameController
-        game={{ ...mockGame, gameType: GameType.ShortFibonacci }}
-        currentPlayerId={mockCurrentPlayerId}
-        players={mockPlayers}
-      />,
-    );
-
-    expect(screen.getByText('Average:')).toBeInTheDocument();
-  });
-  it('should not display game average for TShirt GameType', () => {
-    render(
-      <GameController
-        game={{ ...mockGame, gameType: GameType.TShirt }}
-        currentPlayerId={mockCurrentPlayerId}
-        players={mockPlayers}
-      />,
-    );
-
-    expect(screen.queryByText('Average:')).not.toBeInTheDocument();
-  });
-  it('should not display game average for TShirt & Numbers GameType', () => {
-    render(
-      <GameController
-        game={{ ...mockGame, gameType: GameType.TShirtAndNumber }}
-        currentPlayerId={mockCurrentPlayerId}
-        players={mockPlayers}
-      />,
-    );
-
-    expect(screen.queryByText('Average:')).not.toBeInTheDocument();
-  });
-  it('should not display game average for Custom GameType', () => {
-    render(
-      <GameController
-        game={{ ...mockGame, gameType: GameType.Custom }}
-        currentPlayerId={mockCurrentPlayerId}
-        players={mockPlayers}
-      />,
-    );
-
-    expect(screen.queryByText('Average:')).not.toBeInTheDocument();
-  });
   it('should display exit option', () => {
     render(
       <GameController
@@ -251,6 +202,196 @@ describe('GameController component', () => {
     });
   });
 
+  describe('Average value', () => {
+    it('should display game average for non TShirtGameType', () => {
+      render(
+        <GameController
+          game={{ ...mockGame, gameType: GameType.ShortFibonacci }}
+          currentPlayerId={mockCurrentPlayerId}
+          players={mockPlayers}
+        />,
+      );
+
+      expect(screen.getByText('Average:')).toBeInTheDocument();
+    });
+    it('should not display game average for TShirt GameType', () => {
+      render(
+        <GameController
+          game={{ ...mockGame, gameType: GameType.TShirt }}
+          currentPlayerId={mockCurrentPlayerId}
+          players={mockPlayers}
+        />,
+      );
+
+      expect(screen.queryByText('Average:')).not.toBeInTheDocument();
+    });
+    it('should not display game average for TShirt & Numbers GameType', () => {
+      render(
+        <GameController
+          game={{ ...mockGame, gameType: GameType.TShirtAndNumber }}
+          currentPlayerId={mockCurrentPlayerId}
+          players={mockPlayers}
+        />,
+      );
+
+      expect(screen.queryByText('Average:')).not.toBeInTheDocument();
+    });
+
+    it('shows EMPTY as average when game is not finished', () => {
+      render(
+        <GameController
+          game={{ ...mockGame, gameType: GameType.ShortFibonacci, gameStatus: Status.InProgress }}
+          currentPlayerId={mockCurrentPlayerId}
+          players={mockPlayers}
+        />,
+      );
+      expect(screen.getByText('-')).toBeInTheDocument();
+    });
+
+    it('shows N/A as average if not all finished players have numeric values', () => {
+      const playersWithNonNumeric: Player[] = [
+        { id: 'abc', name: 'Player1', value: 1, emoji: '☕', status: Status.Finished },
+        { id: 'def', name: 'Player2', value: 2, emoji: '😀', status: Status.Finished },
+      ];
+      const customCards: CardConfig[] = [
+        { value: 1, displayValue: '1', color: 'red' },
+        { value: 2, displayValue: 'X', color: 'blue' },
+      ];
+      const mockGameWithCustomCards: Game = { ...mockGame, cards: customCards };
+      render(
+        <GameController
+          game={{
+            ...mockGameWithCustomCards,
+            gameType: GameType.Custom,
+            gameStatus: Status.Finished,
+          }}
+          currentPlayerId={mockCurrentPlayerId}
+          players={playersWithNonNumeric}
+        />,
+      );
+      expect(screen.getByText('N/A')).toBeInTheDocument();
+    });
+
+    it('shows average value and info icon when all finished players have numeric values and game is finished', () => {
+      const finishedPlayers: Player[] = [
+        { id: 'abc', name: 'Player1', value: 1, emoji: '😀', status: Status.Finished },
+        { id: 'def', name: 'Player2', value: 2, emoji: '😃', status: Status.Finished },
+      ];
+      const customCards: CardConfig[] = [
+        { value: 1, displayValue: '2', color: 'red' },
+        { value: 2, displayValue: '4', color: 'blue' },
+      ];
+      const mockGameWithCustomCards: Game = { ...mockGame, cards: customCards };
+
+      render(
+        <GameController
+          game={{
+            ...mockGameWithCustomCards,
+            gameType: GameType.Custom,
+            gameStatus: Status.Finished,
+          }}
+          currentPlayerId={mockCurrentPlayerId}
+          players={finishedPlayers}
+        />,
+      );
+      // Average is (2+4)/2 = 3.00
+      expect(screen.getByText('3.00')).toBeInTheDocument();
+      // Tooltip text should be present in the DOM (even if hidden)
+      expect(screen.getByText(/Rounded Average/i)).toBeInTheDocument();
+    });
+
+    it('areAllFinishedPlayersDisplayValuesNumeric returns true for all numeric values', () => {
+      const cards = [
+        { value: 1, displayValue: '1', color: 'red' },
+        { value: 2, displayValue: '2', color: 'blue' },
+      ];
+      const players: Player[] = [
+        { id: '1', name: 'A', value: 1, emoji: '', status: Status.Finished },
+        { id: '2', name: 'B', value: 2, emoji: '', status: Status.Finished },
+      ];
+      expect(
+        areAllFinishedPlayersDisplayValuesNumeric(
+          { ...mockGame, gameType: GameType.Custom, cards: cards },
+          players,
+        ),
+      ).toBe(true);
+    });
+
+    it('areAllFinishedPlayersDisplayValuesNumeric returns false if any finished player has non-numeric value', () => {
+      const cards = [
+        { value: 1, displayValue: '1', color: 'red' },
+        { value: 2, displayValue: 'coffee', color: 'brown' },
+      ];
+      const players: Player[] = [
+        { id: '1', name: 'A', value: 1, emoji: '', status: Status.Finished },
+        { id: '2', name: 'B', value: 2, emoji: '', status: Status.Finished },
+      ];
+      expect(
+        areAllFinishedPlayersDisplayValuesNumeric(
+          { ...mockGame, gameType: GameType.Custom, cards: cards },
+          players,
+        ),
+      ).toBe(false);
+    });
+
+    it('areAllFinishedPlayersDisplayValuesNumeric returns true for Custom gameType with numeric displayValues', () => {
+      const cards = [
+        { value: 1, displayValue: '1', color: 'red' },
+        { value: 2, displayValue: '2', color: 'blue' },
+      ];
+      const players: Player[] = [
+        { id: '1', name: 'A', value: 1, emoji: '', status: Status.Finished },
+        { id: '2', name: 'B', value: 2, emoji: '', status: Status.Finished },
+      ];
+      expect(
+        areAllFinishedPlayersDisplayValuesNumeric(
+          { ...mockGame, gameType: GameType.Custom, cards: cards },
+          players,
+        ),
+      ).toBe(true);
+    });
+
+    it('areAllFinishedPlayersDisplayValuesNumeric returns false for Custom gameType with non-numeric displayValues', () => {
+      const cards = [
+        { value: 1, displayValue: 'coffee', color: 'brown' },
+        { value: 2, displayValue: '2', color: 'blue' },
+      ];
+      const players: Player[] = [
+        { id: '1', name: 'A', value: 1, emoji: '', status: Status.Finished },
+        { id: '2', name: 'B', value: 2, emoji: '', status: Status.Finished },
+      ];
+      expect(
+        areAllFinishedPlayersDisplayValuesNumeric(
+          { ...mockGame, gameType: GameType.Custom, cards: cards },
+          players,
+        ),
+      ).toBe(false);
+    });
+    it('should provide the average of players votes', () => {
+      const players: Player[] = [
+        { id: '1', name: 'A', value: 4, emoji: '', status: Status.Finished },
+        { id: '2', name: 'B', value: 1, emoji: '', status: Status.Finished },
+        { id: 'dumpty', name: 'Humpty', value: 2, emoji: 'egg', status: Status.Finished },
+      ];
+      const expected = (4 + 1 + 2) / 3;
+
+      const res = getAverage(mockGame, players);
+
+      expect(res).toEqual(Number(expected.toFixed(2)));
+    });
+
+    it('should not calculate players who have not finished', () => {
+      const players: Player[] = [
+        { id: '1', name: 'A', value: 4, emoji: '', status: Status.Finished },
+        { id: '2', name: 'B', value: 1, emoji: '', status: Status.Finished },
+        { id: 'dumpty', name: 'Humpty', value: 2, emoji: 'egg', status: Status.InProgress },
+      ];
+      const expected = (4 + 1) / 2;
+      const res = getAverage(mockGame, players);
+
+      expect(res).toEqual(Number(expected.toFixed(2)));
+    });
+  });
   describe('AutoReveal', () => {
     it('renders the auto reveal switch', () => {
       const { getByRole, getByText } = render(
