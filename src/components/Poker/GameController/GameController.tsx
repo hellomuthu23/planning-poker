@@ -75,14 +75,12 @@ export const GameController: React.FC<GameControllerProps> = ({
         {/* Card Header */}
 
         <div className='flex items-center justify-between px-3 py-1 border-b border-gray-400'>
-          <div className='text-lg font-semibold truncate'>{game.name}</div>
-          <div className='flex items-center gap-2'>
-            <div className='mx-2 h-6 border-l border-gray-400' />
-            <span className='text-sm font-medium'>
-              {game.gameStatus} {getGameStatusIcon(game.gameStatus)}
-            </span>
-            <AverageComponent game={game} players={players} />
-          </div>
+          <div className='text-lg font-semibold truncate flex-1/3'>{game.name}</div>
+          <div className='mx-2 h-6 border-l border-gray-400' />
+          <span className='text-sm font-medium'>
+            {game.gameStatus} {getGameStatusIcon(game.gameStatus)}
+          </span>
+          <AverageComponent game={game} players={players} />
         </div>
         {isMod && (
           <div
@@ -277,9 +275,8 @@ const AverageComponent: React.FC<{ game: Game; players: Player[] }> = ({ game, p
     <>
       <div className='mx-2 h-6 border-l border-gray-400' />
       <span className='text-sm font-medium'>{t('GameController.average')}:</span>
-      <span className='px-2 py-1 text-xs rounded-full bg-blue-100 text-gray-700 font-bold shadow-sm border border-gray-200 mx-2 inline-flex items-center relative'>
+      <span className='px-2 py-1 ml-1 text-xs rounded-full bg-blue-100 text-gray-700 font-bold shadow-sm border border-gray-200 inline-flex items-center relative'>
         {average}
-
         {average !== EMPTY && average !== NOT_APPLICABLE && (
           <>
             <span className='relative group ml-1'>
