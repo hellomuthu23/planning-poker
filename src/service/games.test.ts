@@ -4,7 +4,6 @@ import { Status } from '../types/status';
 import {
   addNewGame,
   finishGame,
-  getAverage,
   getGame,
   getGameStatus,
   resetGame,
@@ -184,23 +183,6 @@ describe('games service', () => {
       await finishGame(mockId);
 
       expect(spy).toHaveBeenCalledTimes(0);
-    });
-  });
-
-  describe('get the average vote', () => {
-    it("should provide the average of players' votes", () => {
-      const expected =
-        (finishedPlayers[0].value + finishedPlayers[1].value + finishedPlayers[2].value) / 3;
-
-      const res = getAverage(finishedPlayers);
-
-      expect(res).toEqual(Number(expected.toFixed(2)));
-    });
-
-    it('should not calculate players who have not finished', () => {
-      const res = getAverage(mockPlayers);
-
-      expect(res).toEqual(mockPlayers[0].value);
     });
   });
 

@@ -76,7 +76,6 @@ export const finishGame = async (gameId: string) => {
 
   if (game && players) {
     const updatedGame = {
-      average: getAverage(players),
       gameStatus: Status.Finished,
     };
     await updateGame(gameId, updatedGame);
@@ -94,18 +93,6 @@ export const updateStoryName = async (gameId: string, storyName: string) => {
     };
     updateGame(gameId, updatedGame);
   }
-};
-
-export const getAverage = (players: Player[]): number => {
-  let values = 0;
-  let numberOfPlayersPlayed = 0;
-  players.forEach((player) => {
-    if (player.status === Status.Finished && player.value && player.value >= 0) {
-      values = values + player.value;
-      numberOfPlayersPlayed++;
-    }
-  });
-  return Math.round((values / numberOfPlayersPlayed) * 100) / 100;
 };
 
 export const getGameStatus = (players: Player[]): Status => {
