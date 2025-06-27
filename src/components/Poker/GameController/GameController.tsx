@@ -124,7 +124,7 @@ export const GameController: React.FC<GameControllerProps> = ({
                   data-testid='delete-button-dialog'
                 >
                   <button
-                    className='p-2 cursor-pointer rounded-full bg-white hover:bg-red-200 transition'
+                    className='p-2 cursor-pointer rounded-full bg-white dark:bg-gray-900 hover:bg-red-200 transition'
                     title={t('GameController.delete')}
                   >
                     <TrashSVG className='h-9 w-9 text-red-500' />
@@ -135,9 +135,9 @@ export const GameController: React.FC<GameControllerProps> = ({
           )}
           <ControllerButton
             onClick={leaveGame}
-            icon={<ExitSVG className='h-9 w-9 text-orange-500' />}
+            icon={<ExitSVG className='h-9 w-9 text-orange-500 ' />}
             label={t('GameController.exit')}
-            colorClass='bg-orange-100'
+            colorClass='bg-red-200'
             testId='exit-button'
           />
           <ControllerButton
@@ -205,7 +205,7 @@ const ControllerButton = ({
         key={testId}
         onClick={onClick}
         data-testid={testId}
-        className={`p-2 cursor-pointer rounded-full bg-white hover:${colorClass} transition`}
+        className={`p-2 cursor-pointer rounded-full bg-white dark:bg-gray-900 hover:${colorClass} transition`}
         title={title || label}
       >
         {icon}
