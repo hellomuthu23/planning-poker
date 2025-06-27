@@ -14,7 +14,9 @@ describe('JoinGame component', () => {
   beforeEach(() => {
     jest.spyOn(reactRouter, 'useHistory').mockReturnValue({ push: mockHistoryPush } as any);
     jest.spyOn(reactRouter, 'useParams').mockReturnValue({ id: '' });
+    localStorage.clear();
   });
+
   it('should display correct text fields', () => {
     jest.spyOn(playersService, 'isCurrentPlayerInGame').mockResolvedValue(false);
 
@@ -24,6 +26,14 @@ describe('JoinGame component', () => {
     expect(screen.getByPlaceholderText('Enter your name')).toBeInTheDocument();
   });
 
+  it('should pre-fill the name field from localStorage', () => {
+    localStorage.setItem('recentPlayerName', 'Alice');
+    jest.spyOn(playersService, 'isCurrentPlayerInGame').mockResolvedValue(false);
+
+    render(<JoinGame />);
+    expect(screen.getByPlaceholderText('Enter your name')).toHaveValue('Alice');
+  });
+
   it('should display join button', () => {
     jest.spyOn(playersService, 'isCurrentPlayerInGame').mockResolvedValue(false);
     render(<JoinGame />);
@@ -31,6 +41,7 @@ describe('JoinGame component', () => {
     expect(screen.getByRole('button')).toBeInTheDocument();
     expect(screen.getByRole('button')).toHaveTextContent('Join');
   });
+
   it('should be able to join a session', async () => {
     jest.spyOn(playersService, 'addPlayerToGame').mockResolvedValue(true);
     jest.spyOn(playersService, 'isCurrentPlayerInGame').mockResolvedValue(false);
@@ -50,6 +61,8 @@ describe('JoinGame component', () => {
 
     expect(playersService.addPlayerToGame).toHaveBeenCalledWith('gameId', 'Rock');
     await waitFor(() => expect(mockHistoryPush).toHaveBeenCalledWith('/game/gameId'));
+    // Check that the name is saved to localStorage
+    expect(localStorage.getItem('recentPlayerName')).toBe('Rock');
   });
 
   it('should automatically join the game when player has already joined', async () => {
@@ -63,6 +76,7 @@ describe('JoinGame component', () => {
 
     await waitFor(() => expect(mockHistoryPush).toHaveBeenCalledWith('/game/abc'));
   });
+
   it('should not automatically join the game when player it not in the game', async () => {
     const gameId = 'abc';
     jest.spyOn(reactRouter, 'useParams').mockReturnValue({ id: gameId });

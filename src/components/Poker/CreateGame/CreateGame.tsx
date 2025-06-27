@@ -18,7 +18,9 @@ const userNameConfig: Config = {
 export const CreateGame = () => {
   const history = useHistory();
   const [gameName, setGameName] = useState(uniqueNamesGenerator(gameNameConfig));
-  const [createdBy, setCreatedBy] = useState(uniqueNamesGenerator(userNameConfig));
+  const [createdBy, setCreatedBy] = useState(
+    localStorage.getItem('recentPlayerName') || uniqueNamesGenerator(userNameConfig),
+  );
   const [gameType, setGameType] = useState(GameType.Fibonacci);
   const [hasDefaults, setHasDefaults] = useState({ game: true, name: true });
   const [loading, setLoading] = useState(false);
@@ -50,6 +52,7 @@ export const CreateGame = () => {
     };
     const newGameId = await addNewGame(game);
     if (newGameId) {
+      localStorage.setItem('recentPlayerName', createdBy);
       setLoading(false);
     }
     history.push(`/game/${newGameId}`);

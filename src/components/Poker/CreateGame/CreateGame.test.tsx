@@ -18,6 +18,10 @@ jest.mock('unique-names-generator', () => ({
   Config: jest.fn(),
 }));
 describe('CreateGame component', () => {
+  beforeEach(() => {
+    localStorage.clear();
+  });
+
   it('should display correct text fields', () => {
     render(<CreateGame />);
 
@@ -54,6 +58,12 @@ describe('CreateGame component', () => {
     expect(userName).toHaveValue('');
   });
 
+  it('should pre-fill the name field from localStorage', () => {
+    localStorage.setItem('recentPlayerName', 'Alice');
+
+    render(<CreateGame />);
+    expect(screen.getByPlaceholderText('Enter your name')).toHaveValue('Alice');
+  });
   it('should be able to create new session', async () => {
     render(<CreateGame />);
     const sessionName = screen.getByPlaceholderText('Enter a session name');

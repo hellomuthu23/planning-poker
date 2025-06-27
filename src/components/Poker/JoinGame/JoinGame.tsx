@@ -8,7 +8,9 @@ export const JoinGame = () => {
   let { id } = useParams<{ id: string }>();
 
   const [joinGameId, setJoinGameId] = useState(id);
-  const [playerName, setPlayerName] = useState('');
+  const [playerName, setPlayerName] = useState(
+    () => localStorage.getItem('recentPlayerName') || '',
+  );
   const [gameFound, setIsGameFound] = useState(true);
   const [showNotExistMessage, setShowNotExistMessage] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -40,6 +42,7 @@ export const JoinGame = () => {
 
     setLoading(true);
     if (joinGameId) {
+      localStorage.setItem('recentPlayerName', playerName); // Save name to localStorage
       const res = await addPlayerToGame(gameId, playerName);
 
       setIsGameFound(res);
@@ -81,6 +84,7 @@ export const JoinGame = () => {
                 type='text'
                 className='w-full border border-gray-400 rounded px-3 py-2 focus:outline-none focus:ring-1 focus:ring-blue-400'
                 placeholder='Enter your name'
+                value={playerName}
                 onChange={(e) => setPlayerName(e.target.value)}
               />
             </div>
