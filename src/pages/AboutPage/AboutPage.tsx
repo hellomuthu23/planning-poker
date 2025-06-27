@@ -23,7 +23,7 @@ export const AboutPlanningPokerContent = () => {
           <div className='w-full lg:w-1/2 px-4 mb-8 lg:mb-0'>
             <div className='HomePageContainer'>
               <h2 className='text-2xl font-bold mb-4'>What is Agile Planning Poker?</h2>
-              <p className='text-base text-gray-700'>
+              <p className='text-base'>
                 In Agile software development, accurate estimation of tasks is crucial for effective
                 planning and project success. Agile Planning Poker is a collaborative technique that
                 leverages the wisdom of the team to estimate effort, complexity, or relative size of
@@ -57,7 +57,7 @@ export const AboutPlanningPokerContent = () => {
           <div className='w-full lg:w-1/2 px-4'>
             <div className='HomePageContainer'>
               <h2 className='text-2xl font-bold mb-4'>How Agile Planning Poker Works</h2>
-              <p className='text-base text-gray-700'>
+              <p className='text-base'>
                 a. <b>Team Collaboration</b>: Agile Planning Poker brings together the entire Agile
                 team, including developers, testers, product owners, and scrum masters. Each team
                 member receives a deck of cards with values representing the effort or complexity of
@@ -93,7 +93,7 @@ export const AboutPlanningPokerContent = () => {
           <div className='w-full lg:w-1/2 px-4 mb-8 lg:mb-0'>
             <div className='HomePageContainer'>
               <h2 className='text-2xl font-bold mb-4'>Benefits of Agile Planning Poker</h2>
-              <p className='text-base text-gray-700'>
+              <p className='text-base'>
                 a. <b>Improved Accuracy</b>: Agile Planning Poker leverages the collective knowledge
                 and expertise of the team, resulting in more accurate and reliable estimations. It
                 considers different perspectives, experiences, and skill sets, leading to a
@@ -134,7 +134,7 @@ export const AboutPlanningPokerContent = () => {
           <div className='w-full lg:w-1/2 px-4'>
             <div className='HomePageContainer'>
               <h2 className='text-2xl font-bold mb-4'>Best Practices for Agile Planning Poker</h2>
-              <p className='text-base text-gray-700'>
+              <p className='text-base'>
                 a. <b>Establish Consistent Estimation Units</b>: Ensure the team has a clear
                 understanding and consistency in the units used for estimation, such as story
                 points, ideal days, or t-shirt sizes.
@@ -162,7 +162,7 @@ export const AboutPlanningPokerContent = () => {
                 <br />
                 <br />
               </p>
-              <p className='text-base text-gray-700 mt-2'>
+              <p className='text-base mt-2'>
                 Agile Planning Poker is a powerful technique that enhances collaboration,
                 transparency, and accuracy in the estimation process for Agile teams. By harnessing
                 the collective knowledge and expertise of team members, it leads to more reliable

@@ -50,12 +50,13 @@ export const CardPicker: React.FC<CardPickerProps> = ({ game, players, currentPl
               border-gray-300
               flex flex-col items-center justify-center
               bg-white
+              text-gray-800
               w-15 h-23
               md:w-20 md:h-30
               sm:w-15 sm:h-23
               ${
                 isSelected
-                  ? 'border-dashed border-2 border-gray-500  z-10 shadow-lg scale-115'
+                  ? 'border-dashed border-2 border-gray-800 z-10 shadow-lg scale-115'
                   : 'shadow-md scale-100'
               }
               ${
@@ -72,13 +73,13 @@ export const CardPicker: React.FC<CardPickerProps> = ({ game, players, currentPl
               <div className='flex flex-col justify-between h-full w-full p-1'>
                 {card.value >= 0 && (
                   <>
-                    <span className='text-xs text-gray-500 flex justify-start'>
+                    <span className='text-xs text-gray-800 flex justify-start'>
                       {card.displayValue}
                     </span>
                     <span className={`${card.displayValue.length < 2 ? 'text-4xl' : 'text-3xl'}`}>
                       {card.displayValue}
                     </span>
-                    <span className='flex justify-end w-full text-xs text-gray-500'>
+                    <span className='flex justify-end w-full text-xs text-gray-800'>
                       {card.displayValue}
                     </span>
                   </>

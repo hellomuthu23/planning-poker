@@ -71,12 +71,12 @@ export const GameController: React.FC<GameControllerProps> = ({
 
   return (
     <div className='flex flex-col items-center w-full px-2'>
-      <div className='w-full max-w-md bg-[#e7edf3] border border-gray-200 rounded-xl shadow-lg my-5'>
+      <div className='w-full max-w-md bg-gray-200 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg my-5'>
         {/* Card Header */}
 
-        <div className='flex items-center justify-between px-3 py-1 border-b border-gray-400'>
+        <div className='flex items-center justify-between px-3 py-1 border-b border-gray-400 dark:border-gray-600'>
           <div className='text-lg font-semibold truncate flex-1/3'>{game.name}</div>
-          <div className='mx-2 h-6 border-l border-gray-400' />
+          <div className='mx-2 h-6 border-l border-gray-400 dark:border-gray-600' />
           <span className='text-sm font-medium'>
             {game.gameStatus} {getGameStatusIcon(game.gameStatus)}
           </span>
@@ -115,6 +115,7 @@ export const GameController: React.FC<GameControllerProps> = ({
                 icon={<TrashSVG className='h-9 w-9 text-red-500' />}
                 label={t('GameController.delete')}
                 colorClass='bg-red-200'
+                testId='delete-button'
               >
                 <AlertDialog
                   id={game.id}
@@ -123,7 +124,7 @@ export const GameController: React.FC<GameControllerProps> = ({
                   data-testid='delete-button-dialog'
                 >
                   <button
-                    className='p-2 cursor-pointer rounded-full bg-white hover:bg-red-200 transition'
+                    className='p-2 cursor-pointer rounded-full bg-white dark:bg-gray-900 hover:bg-red-200 transition'
                     title={t('GameController.delete')}
                   >
                     <TrashSVG className='h-9 w-9 text-red-500' />
@@ -134,9 +135,9 @@ export const GameController: React.FC<GameControllerProps> = ({
           )}
           <ControllerButton
             onClick={leaveGame}
-            icon={<ExitSVG className='h-9 w-9 text-orange-500' />}
+            icon={<ExitSVG className='h-9 w-9 text-orange-500 ' />}
             label={t('GameController.exit')}
-            colorClass='bg-orange-100'
+            colorClass='bg-red-200'
             testId='exit-button'
           />
           <ControllerButton
@@ -147,11 +148,11 @@ export const GameController: React.FC<GameControllerProps> = ({
             testId='invite-button'
             title='Copy invite link'
           />
-          <div className='w-full text-xs text-gray-500 mt-2'>
+          <div className='w-full text-xs mt-2'>
             <label className='font-semibold'>{t('GameController.storyName')}:</label>
             <input
               placeholder={t('GameController.enterStoryName')}
-              className='w-full italic p-2 mt-2 border bg-white border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-400'
+              className='w-full italic p-2 mt-2 border bg-white dark:bg-gray-900 border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-400'
               type='text'
               data-testid='story-name-input'
               value={game.storyName || ''}
@@ -197,9 +198,14 @@ const ControllerButton = ({
       children
     ) : (
       <button
+        type='button'
+        role='button'
+        aria-label={label}
+        id={testId}
+        key={testId}
         onClick={onClick}
         data-testid={testId}
-        className={`p-2 cursor-pointer rounded-full bg-white hover:${colorClass} transition`}
+        className={`p-2 cursor-pointer rounded-full bg-white dark:bg-gray-900 hover:${colorClass} transition`}
         title={title || label}
       >
         {icon}
@@ -227,7 +233,7 @@ export const AutoReveal: React.FC<AutoRevealProps> = ({ autoReveal, onAutoReveal
           aria-checked={autoReveal}
           onClick={() => onAutoReveal(!autoReveal)}
           className={`relative inline-flex h-4 w-8 items-center rounded-full transition-colors focus:outline-none ${
-            autoReveal ? 'bg-green-500' : 'bg-gray-300'
+            autoReveal ? 'bg-green-500' : 'bg-gray-300 dark:bg-gray-600'
           }`}
           style={{ minWidth: '2rem' }}
         >
@@ -273,17 +279,17 @@ const AverageComponent: React.FC<{ game: Game; players: Player[] }> = ({ game, p
 
   return (
     <>
-      <div className='mx-2 h-6 border-l border-gray-400' />
+      <div className='mx-2 h-6 border-l border-gray-400 dark:border-gray-600' />
       <span className='text-sm font-medium'>{t('GameController.average')}:</span>
-      <span className='px-2 py-1 ml-1 text-xs rounded-full bg-blue-100 text-gray-700 font-bold shadow-sm border border-gray-200 inline-flex items-center relative'>
+      <span className='px-2 py-1 ml-1 text-xs rounded-full bg-blue-100 dark:bg-blue-900 font-bold shadow-sm border border-gray-200 inline-flex items-center relative'>
         {average}
         {average !== EMPTY && average !== NOT_APPLICABLE && (
           <>
             <span className='relative group ml-1'>
               <span className='cursor-pointer group ml-1 flex'>
-                <InfoSVG className='h-4 w-4 text-gray-600' />
+                <InfoSVG className='h-4 w-4 text-gray-600 dark:text-gray-300' />
               </span>
-              <span className='absolute left-1/2 top-full mt-2 z-10 -translate-x-1/2 w-max min-w-[80px] rounded bg-white bg-opacity-90 px-2 py-1 text-xs text-gray-800 font-semibold border border-gray-200 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none'>
+              <span className='absolute left-1/2 top-full mt-2 z-10 -translate-x-1/2 w-max min-w-[80px] rounded bg-white dark:bg-gray-900 bg-opacity-90 px-2 py-1 text-xs font-semibold border border-gray-200 dark:border-gray-700 shadow-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none'>
                 {`Rounded Average : ${Math.round(gameAverage) || 0}`}
               </span>
             </span>

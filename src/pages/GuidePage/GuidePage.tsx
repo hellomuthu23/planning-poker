@@ -17,7 +17,7 @@ export const GuideContent = () => {
           <h2 className='text-2xl font-bold mb-4'>
             Guidelines on estimating user stories in Agile
           </h2>
-          <div className='text-base text-gray-700'>
+          <div className='text-base'>
             <p>
               1. <b>Understand the User Story</b>:<br />
               Before estimating, ensure that the team has a clear understanding of the user story.

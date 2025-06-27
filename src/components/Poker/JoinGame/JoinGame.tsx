@@ -42,7 +42,7 @@ export const JoinGame = () => {
 
     setLoading(true);
     if (joinGameId) {
-      localStorage.setItem('recentPlayerName', playerName); // Save name to localStorage
+      localStorage.setItem('recentPlayerName', playerName);
       const res = await addPlayerToGame(gameId, playerName);
 
       setIsGameFound(res);
@@ -56,7 +56,7 @@ export const JoinGame = () => {
   return (
     <div className='w-full'>
       <form onSubmit={handleSubmit} className='w-full flex justify-center'>
-        <div className='w-full max-w-lg bg-white border border-gray-200 rounded-xl shadow-lg p-6'>
+        <div className='w-full max-w-lg  border border-gray-200 dark:border-gray-800 rounded-xl shadow-lg p-6'>
           <h2 className='text-2xl font-bold mb-4 text-center'>Join a Session</h2>
           <div className='flex flex-col gap-4'>
             <div>
@@ -65,7 +65,7 @@ export const JoinGame = () => {
                 id='joinGameId'
                 required
                 type='text'
-                className={`w-full border border-gray-400 rounded px-3 py-2 focus:outline-none focus:ring-1 focus:ring-blue-400 ${
+                className={`w-full border border-gray-400 dark:border-gray-700 rounded px-3 py-2 focus:outline-none focus:ring-1 focus:ring-blue-400 ${
                   !gameFound ? 'border-red-500' : ''
                 }`}
                 placeholder='xyz...'
@@ -82,7 +82,7 @@ export const JoinGame = () => {
                 required
                 id='playerName'
                 type='text'
-                className='w-full border border-gray-400 rounded px-3 py-2 focus:outline-none focus:ring-1 focus:ring-blue-400'
+                className='w-full border border-gray-400 dark:border-gray-700 rounded px-3 py-2 focus:outline-none focus:ring-1 focus:ring-blue-400'
                 placeholder='Enter your name'
                 value={playerName}
                 onChange={(e) => setPlayerName(e.target.value)}

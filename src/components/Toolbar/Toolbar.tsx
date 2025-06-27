@@ -10,7 +10,9 @@ import { GithubSVG } from '../SVGs/Github';
 import { GuideSVG } from '../SVGs/Guide';
 import { InfoSVG } from '../SVGs/Info';
 import { JoinSVG } from '../SVGs/Join';
+import { MenuSVG } from '../SVGs/Menu';
 import { PlusSVG } from '../SVGs/Plus';
+import { ThemeControl } from '../ThemeControl/ThemeControl';
 import { MenuItem } from './MenuItem';
 export const title = 'Planning Poker';
 
@@ -80,7 +82,7 @@ export const Toolbar = () => {
     },
   ];
   return (
-    <div className='flex w-full items-center bg-base-100 shadow-sm'>
+    <div className='flex w-full items-center shadow-sm dark:shadow-gray-800'>
       <div className='inline-flex items-center'>
         <button className='button-ghost flex items-center' onClick={() => history.push('/')}>
           <div className='pr-1'>
@@ -94,16 +96,17 @@ export const Toolbar = () => {
       <div className='inline-flex items-center justify-end flex-1'>
         {screenSize === 'md' || screenSize === 'sm' || screenSize === 'xs' ? (
           <div className='flex relative' ref={dropdownRef}>
+            <ThemeControl />
             <LanguageControl />
             <button
               className='button-ghost flex items-center'
               onClick={toggleDropdown}
               aria-label='Toggle Menu'
             >
-              <span className='text-sm font-normal'>Menu</span>
+              <MenuSVG />
             </button>
             {isDropdownOpen && (
-              <div className='absolute right-0 mt-10 w-48 bg-white shadow-lg rounded-lg z-50 flex flex-col'>
+              <div className='absolute right-0 mt-10 w-48 bg-white dark:bg-gray-800 shadow-lg rounded-lg z-50 flex flex-col'>
                 {menuItems.map((item, index) => (
                   <MenuItem
                     icon={item.icon}
@@ -127,7 +130,7 @@ export const Toolbar = () => {
                 testId={item.testId}
               />
             ))}
-
+            <ThemeControl />
             <LanguageControl />
           </>
         )}
