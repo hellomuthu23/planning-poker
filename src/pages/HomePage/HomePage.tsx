@@ -75,9 +75,7 @@ const HeroSection = () => {
             src={LandingImage}
           />
         </div>
-        <p className='text-base text-center text-gray-600 mb-4'>
-          {t('HomePage.heroSection.description')}
-        </p>
+        <p className='text-base text-center mb-4'>{t('HomePage.heroSection.description')}</p>
       </Column>
       <Column className='flex flex-col items-center'>
         <div className='w-full max-w-md'>{isJoin ? <JoinGame /> : <CreateGame />}</div>
@@ -97,7 +95,7 @@ const RecentGamesSection = () => {
       </Column>
       <Column>
         <div className='p-6 flex flex-col items-center justify-center'>
-          <p className='text-base text-gray-600'>
+          <p className='text-base'>
             {t(
               'HomePage.recentSessions',
               'Here is your recent Planning/Refinement sessions, click on the session name to join the session again.',
@@ -118,7 +116,7 @@ const UIDesignSection = () => {
           <h2 className='text-xl font-semibold mb-2'>
             {t('HomePage.uiDesignTitle', 'Intuitive UI Design')}
           </h2>
-          <p className='text-base text-gray-600'>
+          <p className='text-base'>
             {t(
               'HomePage.uiDesignDesc',
               "Beautiful design for voting the story points, showing team members voting status with emojis(👍 - Voting Done, 🤔 - Yet to Vote). Once the card values are revealed, the card color helps to understand if the team's voting is sync or not. Session Moderator has full control on revealing story points and restarting the session.",

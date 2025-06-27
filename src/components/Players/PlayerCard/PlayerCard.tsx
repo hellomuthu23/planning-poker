@@ -20,12 +20,12 @@ export const PlayerCard: React.FC<PlayerCardProps> = ({ game, player, currentPla
 
   return (
     <div
-      className='rounded shadow-lg w-25 border-gray-300 border mb-2 m-3'
+      className='rounded shadow-lg w-25 bg-gray-200 dark:bg-gray-800 border-gray-300 dark:border-gray-600 border mb-2 m-3'
       style={{
         backgroundColor: getCardColor(game, player.value),
       }}
     >
-      <div className='text-center -mt-5 mx-auto w-[95%] bg-white border-2  border-gray-400 rounded-2xl flex items-center justify-around px-3 py-1'>
+      <div className='text-center -mt-5 mx-auto w-[95%] bg-white dark:bg-gray-900 border-2  border-gray-400 dark:border-gray-700 rounded-2xl flex items-center justify-around px-3 py-1'>
         <div className='text-center font-semibold text-sm truncate' title={player.name}>
           {player.name}
         </div>
@@ -41,7 +41,7 @@ export const PlayerCard: React.FC<PlayerCardProps> = ({ game, player, currentPla
             </button>
           )}
       </div>
-      <div className='flex items-center justify-center py-6 mb-3'>
+      <div className='flex items-center justify-center text-gray-800 py-6 mb-3'>
         <span className={`${getCardValue(player, game)?.length < 2 ? 'text-4xl' : 'text-3xl'}`}>
           {getCardValue(player, game)}
         </span>
@@ -51,11 +51,11 @@ export const PlayerCard: React.FC<PlayerCardProps> = ({ game, player, currentPla
 };
 
 const getCardColor = (game: Game, value: number | undefined): string => {
-  if (game.gameStatus !== Status.Finished) {
-    return '#e7edf3';
+  if (game.gameStatus == Status.Finished) {
+    const card = getCards(game.gameType).find((card) => card.value === value);
+    return card ? card.color : '';
   }
-  const card = getCards(game.gameType).find((card) => card.value === value);
-  return card ? card.color : '#e7edf3';
+  return '';
 };
 
 const getCardValue = (player: Player, game: Game) => {

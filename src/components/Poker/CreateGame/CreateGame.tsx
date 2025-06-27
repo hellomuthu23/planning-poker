@@ -81,7 +81,7 @@ export const CreateGame = () => {
 
   return (
     <form onSubmit={handleSubmit} className='w-full flex justify-center'>
-      <div className='w-full max-w-lg bg-white border border-gray-200 rounded-xl shadow-lg p-6 mt-6'>
+      <div className='w-full max-w-lg border border-gray-200 dark:border-gray-800 rounded-xl shadow-lg p-6 mt-6'>
         <h2 className='text-2xl font-semibold mb-4 text-center'>
           {t('CreateGame.newSessionHeader')}
         </h2>
@@ -93,7 +93,7 @@ export const CreateGame = () => {
             <input
               required
               type='text'
-              className='w-full border border-gray-400 rounded px-3 py-2 focus:outline-none focus:ring-1 focus:ring-blue-400'
+              className='w-full border border-gray-400 dark:border-gray-700 rounded px-3 py-2 focus:outline-none focus:ring-1 focus:ring-blue-400'
               placeholder='Enter a session name'
               value={gameName || ''}
               onClick={emptyGameName}
@@ -107,7 +107,7 @@ export const CreateGame = () => {
             <input
               required
               type='text'
-              className='w-full border border-gray-400 rounded px-3 py-2 focus:outline-none focus:ring-1 focus:ring-blue-400'
+              className='w-full border border-gray-400 dark:border-gray-700 rounded px-3 py-2 focus:outline-none focus:ring-1 focus:ring-blue-400'
               placeholder='Enter your name'
               value={createdBy || ''}
               onClick={emptyCreatorName}

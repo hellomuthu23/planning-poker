@@ -46,23 +46,23 @@ export const RecentGames = () => {
 
   return (
     <div className='border border-gray-400 rounded-md shadow-sm'>
-      <div className='text-center -mt-5 mx-auto w-[95%] bg-white border-2  border-gray-400 rounded-2xl flex items-center justify-center px-3 py-1'>
-        <h6 className='text-lg font-medium text-gray-900 truncate'>Recent Session</h6>
+      <div className='text-center -mt-5 mx-auto w-[95%] border-2 bg-white dark:bg-gray-800 border-gray-400 rounded-2xl flex items-center justify-center px-3 py-1'>
+        <h6 className='text-lg font-medium  truncate'>Recent Session</h6>
       </div>
       <div className='p-4'>
-        {isEmptyRecentGames() && <p className='text-sm text-gray-700'>No recent sessions found</p>}
+        {isEmptyRecentGames() && <p className='text-sm'>No recent sessions found</p>}
         {recentGames && recentGames.length > 0 && (
           <div className='overflow-x-auto' style={{ maxHeight: 250 }}>
             <table className='min-w-full divide-y divide-gray-200'>
               <thead className='bg-gray-50'>
                 <tr>
-                  <th className='sticky top-0 z-10 bg-gray-50 px-6 py-3 text-left text-xs font-bold text-gray-800 tracking-wider'>
+                  <th className='sticky top-0 z-10 bg-gray-50 dark:bg-gray-800 px-6 py-3 text-left text-xs font-bold tracking-wider'>
                     Name
                   </th>
-                  <th className='sticky top-0 z-10 bg-gray-50 px-6 py-3 text-left text-xs font-bold text-gray-800 tracking-wider'>
+                  <th className='sticky top-0 z-10 bg-gray-50 dark:bg-gray-800 px-6 py-3 text-left text-xs font-bold  tracking-wider'>
                     Created By
                   </th>
-                  <th className='sticky top-0 z-10 bg-gray-50 px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider'></th>
+                  <th className='sticky top-0 z-10 bg-gray-50 dark:bg-gray-800 px-6 py-3 text-left text-xs font-medium  tracking-wider'></th>
                 </tr>
               </thead>
               <tbody className=''>
@@ -71,18 +71,18 @@ export const RecentGames = () => {
                     recentGame.name && (
                       <tr
                         key={recentGame.id}
-                        className='hover:bg-gray-100 cursor-pointer border-t border-gray-200'
+                        className='hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer border-t border-gray-200'
                         onClick={() => history.push(`/game/${recentGame.id}`)}
                       >
-                        <td className='px-6 py-4 text-sm text-gray-500'>{recentGame.name}</td>
-                        <td className='px-6 py-4 text-sm text-gray-500'>{recentGame.createdBy}</td>
+                        <td className='px-6 py-4 text-sm'>{recentGame.name}</td>
+                        <td className='px-6 py-4 text-sm'>{recentGame.createdBy}</td>
                         {isModerator(
                           recentGame.createdById,
                           getCurrentPlayerId(recentGame.id),
                           recentGame.isAllowMembersToManageSession,
                         ) ? (
                           <td
-                            className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'
+                            className='px-6 py-4 whitespace-nowrap text-sm'
                             onClick={(e) => e.stopPropagation()}
                           >
                             <AlertDialog

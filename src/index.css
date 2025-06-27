@@ -1,6 +1,9 @@
 @import "tailwindcss";
 @import './styles/button.css';
 
+@custom-variant dark (&:where(.dark, .dark *));
+
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont,'Twemoji Country Flags', 'Segoe UI', 'Roboto', 'Oxygen',

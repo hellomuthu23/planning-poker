@@ -52,9 +52,9 @@ export const AlertDialog: React.FC<AlertDialogProps> = ({
       <div
         id={modalId}
         data-testid='alert-dialog'
-        className='fixed hidden cursor-default z-50 inset-0 bg-gray-900 bg-opacity-60 overflow-y-auto h-full w-full px-4 '
+        className='fixed hidden cursor-default z-50 inset-0 bg-gray-800/80 overflow-y-auto h-full w-full px-4 '
       >
-        <div className='relative top-40 mx-auto shadow-xl rounded-md bg-white max-w-2xl'>
+        <div className='relative top-40 mx-auto bg-white dark:bg-gray-900 shadow-xl rounded-md max-w-2xl'>
           <div className='flex justify-end p-2'>
             <button
               onClick={handleClose}
@@ -90,7 +90,7 @@ export const AlertDialog: React.FC<AlertDialogProps> = ({
                 d='M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z'
               ></path>
             </svg>
-            <h3 className='text-xl font-normal text-wrap text-gray-500 mt-5 mb-6 '>{message}</h3>
+            <h3 className='text-xl font-normal text-wrap mt-5 mb-6 '>{message}</h3>
             <button
               onClick={handleConfirm}
               data-testid='alert-dialog-confirm'

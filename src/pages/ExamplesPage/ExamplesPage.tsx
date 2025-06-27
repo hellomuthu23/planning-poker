@@ -12,7 +12,7 @@ export const ExamplesContent = () => {
       <div className='w-full max-w-3xl flex flex-col items-center justify-center my-8'>
         <div className='animate-fade-in-down'>
           <h2 className='text-2xl font-bold mb-4'>Examples of User Story Estimation</h2>
-          <div className='text-base text-gray-700'>
+          <div className='text-base'>
             <p>
               <b>User Story:</b> As a user, I want to be able to log in to the application using my
               email and password.
