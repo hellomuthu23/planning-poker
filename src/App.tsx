@@ -15,10 +15,10 @@ polyfillCountryFlagEmojis();
 
 function App() {
   return (
-    <div className='bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100 h-screen'>
+    <div className='bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100 min-h-screen'>
       <Suspense
         fallback={
-          <div className='text-center items-center justify-center flex h-screen'>
+          <div className='text-center items-center justify-center flex'>
             <Loading />
           </div>
         }
