@@ -23,4 +23,4 @@ EXPOSE 4000
 EXPOSE 3000
 
 # Start both the React app and Firebase Emulator
-CMD ["sh", "-c", "firebase emulators:start --only firestore --project demo & REACT_APP_USE_EMULATOR=true & npx serve -s build -l 3000"]
+CMD ["sh", "-c", "firebase emulators:start --only firestore --project demo & VITE_USE_FIRESTORE_EMULATOR=true & npx serve -s build -l 3000"]
