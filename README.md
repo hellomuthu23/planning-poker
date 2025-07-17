@@ -1,4 +1,3 @@
-
 <h1 align="center">Planning Poker App</h1>
 
 Free / Open source Scrum/Agile Planning Poker Web App to estimate user stories for the Agile/Scrum teams. Create session and invite team members to estimate user stories efficiently. Intuitive UI/UX for voting the story points, showing team members voting status with emojis(👍 - Voting Done, 🤔 - Yet to Vote). Session Moderator has full control on revealing story points and restarting the session.
@@ -54,26 +53,26 @@ Pre-req
 
 1. Clone the repo
 
-    ```bash
-    git clone https://github.com/hellomuthu23/planning-poker.git
-    ```
+   ```bash
+   git clone https://github.com/hellomuthu23/planning-poker.git
+   ```
 
 2. Run `yarn` command to install the required npm package.
 3. Install the Firebase CLI
 
-    ```bash
-    RUN npm install -g firebase-tool
-    ```
+   ```bash
+   npm install -g firebase-tools
+   ```
 
 4. Start the firebase db emulator
 
-    ```bash
-    npm run start:emulator
-    ```
+   ```bash
+   npm run start:emulator
+   ```
 
 5. Copy `.env.example` file as `.env` file and make sure `REACT_APP_USE_FIRESTORE_EMULATOR` is set to `true`
-7. Run `yarn start` to start the app.
-6. Access the app at `http://localhost:3000`.
+6. Run `yarn start` to start the app.
+7. Access the app at `http://localhost:3000`.
 
 ## Creating docker container
 
@@ -89,9 +88,9 @@ pre-req
 
 2. Build docker image
 
-    ```bash
-    docker build -t planning-poker .
-    ```
+   ```bash
+   docker build -t planning-poker .
+   ```
 
 3. Running the container
 
