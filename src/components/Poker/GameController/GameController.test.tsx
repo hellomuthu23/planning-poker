@@ -248,7 +248,7 @@ describe('GameController component', () => {
       expect(screen.getByText('-')).toBeInTheDocument();
     });
 
-    it('shows N/A as average if not all finished players have numeric values', () => {
+    it('shows as average if one finished players have numeric values', () => {
       const playersWithNonNumeric: Player[] = [
         { id: 'abc', name: 'Player1', value: 1, emoji: '☕', status: Status.Finished },
         { id: 'def', name: 'Player2', value: 2, emoji: '😀', status: Status.Finished },
@@ -269,7 +269,7 @@ describe('GameController component', () => {
           players={playersWithNonNumeric}
         />,
       );
-      expect(screen.getByText('N/A')).toBeInTheDocument();
+      expect(screen.getByText('1.00')).toBeInTheDocument();
     });
 
     it('shows average value and info icon when all finished players have numeric values and game is finished', () => {

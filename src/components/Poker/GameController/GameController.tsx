@@ -273,9 +273,9 @@ const AverageComponent: React.FC<{ game: Game; players: Player[] }> = ({ game, p
   const gameAverage = getAverage(game, players);
   let average = game.gameStatus === Status.Finished && gameAverage ? gameAverage.toFixed(2) : EMPTY;
 
-  if (!areAllFinishedPlayersDisplayValuesNumeric(game, players)) {
-    average = NOT_APPLICABLE;
-  }
+  // if (!areAllFinishedPlayersDisplayValuesNumeric(game, players)) {
+  //   average = NOT_APPLICABLE;
+  // }
 
   return (
     <>
