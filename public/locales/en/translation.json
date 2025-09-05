@@ -1,9 +1,6 @@
 {
   "toolbar": {
     "menu": {
-      "about": "What is planning poker?",
-      "guide": "Guide",
-      "examples": "Examples",
       "newSession": "New session",
       "joinSession": "Join session"
     }

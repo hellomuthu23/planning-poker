@@ -1,3 +1,11 @@
 .button-ghost {
   @apply bg-transparent font-medium py-2 px-4 rounded-lg cursor-pointer hover:bg-gray-100 hover:dark:bg-gray-800;
 }
+
+.special-color {
+  background-color: rgb(15, 70, 50);
+}
+
+.special-color-border {
+  border-color: rgb(15, 70, 50);
+}

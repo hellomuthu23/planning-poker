@@ -49,21 +49,6 @@ export const Toolbar = () => {
 
   const menuItems = [
     {
-      icon: <InfoSVG />,
-      label: t('toolbar.menu.about'),
-      onClick: () => handleNavigation('/about-planning-poker'),
-    },
-    {
-      icon: <GuideSVG />,
-      label: t('toolbar.menu.guide'),
-      onClick: () => handleNavigation('/guide'),
-    },
-    {
-      icon: <ExampleSVG />,
-      label: t('toolbar.menu.examples'),
-      onClick: () => handleNavigation('/examples'),
-    },
-    {
       icon: <PlusSVG />,
       label: t('toolbar.menu.newSession'),
       onClick: () => handleNavigation('/'),
@@ -74,19 +59,14 @@ export const Toolbar = () => {
       label: t('toolbar.menu.joinSession'),
       onClick: () => handleNavigation('/join'),
       testId: 'toolbar.menu.joinSession',
-    },
-    {
-      icon: <GithubSVG />,
-      label: 'GitHub',
-      onClick: () => (window.location.href = 'https://github.com/hellomuthu23/planning-poker'),
-    },
+    }
   ];
   return (
-    <div className='flex w-full items-center shadow-sm dark:shadow-gray-800'>
+    <div className='text-gray-100 flex w-full items-center shadow-sm special-color'>
       <div className='inline-flex items-center'>
         <button className='button-ghost flex items-center' onClick={() => history.push('/')}>
           <div className='pr-1'>
-            <GamesSVG />
+       
           </div>
           <p className='md:text-2xl text-sm font-normal'>{title}</p>
         </button>
@@ -97,7 +77,6 @@ export const Toolbar = () => {
         {screenSize === 'md' || screenSize === 'sm' || screenSize === 'xs' ? (
           <div className='flex relative' ref={dropdownRef}>
             <ThemeControl />
-            <LanguageControl />
             <button
               className='button-ghost flex items-center'
               onClick={toggleDropdown}
@@ -131,7 +110,6 @@ export const Toolbar = () => {
               />
             ))}
             <ThemeControl />
-            <LanguageControl />
           </>
         )}
       </div>

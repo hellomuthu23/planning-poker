@@ -173,7 +173,7 @@ export const CreateGame = () => {
         <div className='flex justify-end mt-6'>
           <button
             type='submit'
-            className={`bg-blue-600 text-white px-6 py-2 rounded font-semibold shadow hover:bg-blue-700 transition ${
+            className={`special-color text-white px-6 py-2 rounded font-semibold shadow hover:bg-blue-700 transition ${
               loading ? 'opacity-50 cursor-not-allowed' : ''
             }`}
             disabled={loading}
