@@ -3,9 +3,9 @@
 
 name: Deploy to Firebase
 'on':
-  push:
-    branches:
-      - master
+  pull_request: 
+  workflow_dispatch: 
+    
 env:
   VITE_FB_API_KEY: '${{ secrets.REACT_APP_FB_API_KEY }}'
   VITE_FB_AUTH_DOMAIN: '${{ secrets.REACT_APP_FB_AUTH_DOMAIN }}'
