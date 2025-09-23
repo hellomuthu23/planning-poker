@@ -5,13 +5,13 @@ import { Game } from '../types/game';
 import { Player } from '../types/player';
 
 const firebaseConfig = {
-  apiKey: process.env.VITE_FB_API_KEY,
-  authDomain: process.env.VITE_FB_AUTH_DOMAIN,
-  projectId: process.env.VITE_FB_PROJECT_ID,
-  storageBucket: process.env.VITE_FB_STORAGE_BUCKET,
-  messagingSenderId: process.env.VITE_FB_MESSAGING_SENDER_ID,
-  appId: process.env.VITE_FB_APP_ID,
-  measurementId: process.env.VITE_FB_MEASUREMENT_ID,
+  apiKey: 'AIzaSyDynbX3QT9x8e8qMtTsD6vnVMD6wHXe4Ug',
+  authDomain: 'planning-poker-b946f.firebaseapp.com',
+  projectId: 'planning-poker-b946f',
+  storageBucket: 'planning-poker-b946f.appspot.com',
+  messagingSenderId: '905950444049',
+  appId: '1:905950444049:web:e3e56171532bfe47b20fb0',
+  measurementId: 'G-LEK1503CC0',
 };
 
 // Initialize Firebase

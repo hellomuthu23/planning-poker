@@ -6,6 +6,8 @@ export const TimerProgress: React.FC<{
   currentSeconds?: number;
   totalSeconds?: number;
 }> = ({ timerInProgress, currentSeconds = 0, totalSeconds = 300 }) => {
+  const audio = new Audio('/timer-notification.mp3');
+
   const getMinutesandSeconds = (time: number) => {
     const minutes = Math.floor(time / 60);
     const seconds = Math.floor(time - minutes * 60);
@@ -14,40 +16,55 @@ export const TimerProgress: React.FC<{
 
   const [_totalSeconds, setTotalSeconds] = useState(totalSeconds);
   const [_currentSeconds, setCurrentSeconds] = useState(currentSeconds);
-  const [_timerInProgress, setTimerInprogress] = useState(timerInProgress);
   const [percentage, setPercentage] = useState(100);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const minutesUpdated = useRef(0);
   const secondsUpdated = useRef(0);
+  const [isPaused, setPaused] = useState(true);
+
+  const startTimer = () => {
+    setPaused(false);
+    intervalRef.current = setInterval(() => {
+      setCurrentSeconds((prevTime) => {
+        const updated = prevTime + 1;
+        if (updated === _totalSeconds) {
+          setPercentage(100);
+          clearInterval(intervalRef.current as NodeJS.Timeout);
+          setPaused(true);
+          intervalRef.current = null;
+          audio.play();
+          return 0;
+        }
+        setPercentage(100 - (updated / _totalSeconds) * 100);
+        return updated;
+      });
+    }, 1000);
+  };
+
+  const pauseTimer = () => {
+    setPaused(true);
+    clearInterval(intervalRef.current as NodeJS.Timeout);
+  };
 
   useEffect(() => {
-    if (_timerInProgress) {
-      intervalRef.current = setInterval(() => {
-        setCurrentSeconds((prevTime) => {
-          const updated = prevTime + 1;
-          if (updated === _totalSeconds) {
-            setTimerInprogress(false);
-            setPercentage(100);
-            return 0;
-          }
-          setPercentage(100 - Math.round(updated / _totalSeconds));
-          return updated;
-        });
-      }, 1000);
-    } else if (!_timerInProgress) {
+    if (timerInProgress) {
+      startTimer();
+    } else if (!timerInProgress) {
       clearInterval(intervalRef.current as NodeJS.Timeout);
     }
     return () => {
       clearInterval(intervalRef.current as NodeJS.Timeout);
     };
-  }, [_timerInProgress]);
+  }, [timerInProgress]);
 
   const onAddSeconds = () => {
     setTotalSeconds((prev) => prev + 60);
   };
 
   const onReduceSeconds = () => {
-    setTotalSeconds((prev) => prev - 60);
+    if (_totalSeconds - 60 > 30) {
+      setTotalSeconds((prev) => prev - 60);
+    }
   };
 
   const [minutes, seconds] = getMinutesandSeconds(_totalSeconds);
@@ -70,15 +87,13 @@ export const TimerProgress: React.FC<{
     setTotalSeconds(minutesUpdated.current * 60 + secondsUpdated.current);
   };
 
-  const handleStartPause = () => {
-    setTimerInprogress((prevIsRunning) => !prevIsRunning);
-  };
-
   const handleReset = () => {
-    setTimerInprogress(false);
+    setPaused(true);
+    setPercentage(100);
     setCurrentSeconds(0);
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
+      intervalRef.current = null;
     }
   };
 
@@ -90,22 +105,22 @@ export const TimerProgress: React.FC<{
             <div title={minutes + ' Minutes' + ', ' + seconds + ' Seconds'} className='text-4xl'>
               <input
                 type='text'
-                value={_timerInProgress ? runningMinutesFormated : minutesFormated}
+                value={intervalRef.current ? runningMinutesFormated : minutesFormated}
                 maxLength={3}
                 pattern='[0-9]*'
                 className='w-[2.5rem] border-none focus:outline-none'
                 onChange={onMinutesChange}
-                disabled={_timerInProgress}
+                disabled={!!intervalRef.current}
               ></input>
               :
               <input
                 type='text'
-                value={_timerInProgress ? runningSecondsFormated : secondsFormated}
+                value={intervalRef.current ? runningSecondsFormated : secondsFormated}
                 maxLength={3}
                 pattern='[0-9]*'
                 className='w-[2.5rem] border-none focus:outline-none'
                 onChange={onSecondsChange}
-                disabled={_timerInProgress}
+                disabled={!!intervalRef.current}
               ></input>
             </div>
           </div>
@@ -114,14 +129,13 @@ export const TimerProgress: React.FC<{
         <div className='flex space-x-2'>
           <button
             title='Stop'
-            className='p-2 border-2 border-gray-400 h-8 w-8 flex items-center justify-center text-gray-400'
-            disabled={!_timerInProgress}
+            className='p-2 border-2 border-gray-400 h-8 w-8 flex items-center justify-center text-gray-400 pointer'
             onClick={handleReset}
           >
             {'\u23F9'}
           </button>
           <div className='flex-grow w-full'>
-            {!_timerInProgress && (
+            {!intervalRef.current && (
               <div className='flex' role='group'>
                 <button
                   type='button'
@@ -139,23 +153,23 @@ export const TimerProgress: React.FC<{
                 </button>
               </div>
             )}
-            {_timerInProgress && <button onClick={onAddSeconds}>+1 min</button>}
           </div>
 
-          {!_timerInProgress && (
+          {(!intervalRef.current || isPaused) && (
             <button
               title='Play'
               className='p-2 border-2 border-gray-400 h-8 w-8 flex items-center justify-center text-gray-400'
-              onClick={handleStartPause}
+              onClick={startTimer}
+              disabled={_totalSeconds == 0}
             >
               {'\u25B6'}
             </button>
           )}
-          {_timerInProgress && (
+          {intervalRef.current && !isPaused && (
             <button
               title='Pause'
               className='p-2 border-2 border-gray-400 h-8 w-8 flex items-center justify-center text-gray-400'
-              onClick={handleStartPause}
+              onClick={pauseTimer}
             >
               {'\u23F8'}
             </button>
