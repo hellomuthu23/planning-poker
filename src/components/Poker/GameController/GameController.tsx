@@ -19,6 +19,7 @@ import { InfoSVG } from '../../SVGs/Info';
 import { LinkSVG } from '../../SVGs/Link';
 import { RefreshSVG } from '../../SVGs/Refresh';
 import { TrashSVG } from '../../SVGs/Trash';
+import { Timer } from './Timer/TimerInput/Timer';
 
 interface GameControllerProps {
   game: Game;
@@ -75,7 +76,8 @@ export const GameController: React.FC<GameControllerProps> = ({
         {/* Card Header */}
 
         <div className='flex items-center justify-between px-3 py-1 border-b border-gray-400 dark:border-gray-600'>
-          <div className='text-lg font-semibold truncate flex-1/3'>{game.name}</div>
+          <div className='text-lg font-semibold truncate flex-grow'>{game.name}</div>
+          {isMod && <Timer />}
           <div className='mx-2 h-6 border-l border-gray-400 dark:border-gray-600' />
           <span className='text-sm font-medium'>
             {game.gameStatus} {getGameStatusIcon(game.gameStatus)}
@@ -176,7 +178,7 @@ export const GameController: React.FC<GameControllerProps> = ({
   );
 };
 
-const ControllerButton = ({
+export const ControllerButton = ({
   onClick,
   icon,
   label,
