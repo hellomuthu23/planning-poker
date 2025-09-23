@@ -20,7 +20,11 @@ export const Timer: React.FC<{
       </button>
 
       {_showTimer && (
-        <TimerProgress currentSeconds={currentSeconds} timerInProgress={timerInprogress} />
+        <TimerProgress
+          currentSeconds={currentSeconds}
+          timerInProgress={timerInprogress}
+          onTimerClose={onTimerClose}
+        />
       )}
     </>
   );

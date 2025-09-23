@@ -5,7 +5,8 @@ export const TimerProgress: React.FC<{
   timerInProgress: boolean;
   currentSeconds?: number;
   totalSeconds?: number;
-}> = ({ timerInProgress, currentSeconds = 0, totalSeconds = 300 }) => {
+  onTimerClose: () => void;
+}> = ({ timerInProgress, currentSeconds = 0, totalSeconds = 300, onTimerClose }) => {
   const audio = new Audio('/timer-notification.mp3');
 
   const getMinutesandSeconds = (time: number) => {
@@ -99,6 +100,13 @@ export const TimerProgress: React.FC<{
 
   return (
     <div className='absolute top-13 right-2 shadow-xl rounded-lg bg-white p-4 w-[15rem] h-fit border-gray-200 border-1'>
+      <div
+        className='absolute top-3 right-3 cursor-pointer'
+        title='Close Timer'
+        onClick={onTimerClose}
+      >
+        X
+      </div>
       <div className='flex h-full w-full justify-center items-center space-y-2 flex-col'>
         <CircularProgressBar percentage={percentage}>
           <div className='flex space-x-2 items-center text-lg'>
@@ -125,10 +133,10 @@ export const TimerProgress: React.FC<{
             </div>
           </div>
         </CircularProgressBar>
-        <hr className='h-px my-2 bg-gray-200 border-0 dark:bg-gray-700'></hr>
+        <hr className='h-px my-3 bg-gray-200 border-0 dark:bg-gray-700 w-full'></hr>
         <div className='flex space-x-2'>
           <button
-            title='Stop'
+            title='Reset Timer'
             className='p-2 border-2 border-gray-400 h-8 w-8 flex items-center justify-center text-gray-400 pointer'
             onClick={handleReset}
           >
@@ -141,6 +149,7 @@ export const TimerProgress: React.FC<{
                   type='button'
                   className='p-2 py-2 border border-gray-200 h-8 w-8 flex items-center justify-center text-xl align-middle'
                   onClick={onReduceSeconds}
+                  title='Minus 1 minute'
                 >
                   -
                 </button>
@@ -148,6 +157,7 @@ export const TimerProgress: React.FC<{
                   type='button'
                   className='p-2 py-2 border border-gray-200 h-8 w-8 flex items-center justify-center text-xl align-middle'
                   onClick={onAddSeconds}
+                  title='Add 1 minute'
                 >
                   +
                 </button>
@@ -157,7 +167,7 @@ export const TimerProgress: React.FC<{
 
           {(!intervalRef.current || isPaused) && (
             <button
-              title='Play'
+              title='Start Timer'
               className='p-2 border-2 border-gray-400 h-8 w-8 flex items-center justify-center text-gray-400'
               onClick={startTimer}
               disabled={_totalSeconds == 0}
@@ -167,7 +177,7 @@ export const TimerProgress: React.FC<{
           )}
           {intervalRef.current && !isPaused && (
             <button
-              title='Pause'
+              title='Pause Timer'
               className='p-2 border-2 border-gray-400 h-8 w-8 flex items-center justify-center text-gray-400'
               onClick={pauseTimer}
             >

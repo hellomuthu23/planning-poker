@@ -14,7 +14,7 @@ const CircularProgressBar: FC<Props> = (props) => {
   const dashOffset = dashArray - (dashArray * (percentage || 0)) / 100;
 
   return (
-    <div className='relative h-fit'>
+    <div className='relative h-fit bg-white'>
       <svg width={sqSize} height={sqSize} viewBox={viewBox}>
         <circle
           className='fill-none stroke-gray-200'
