@@ -1,190 +1,211 @@
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import CircularProgressBar from '../../../../elements/CircularProgressBar';
 
+const getMinutesAndSeconds = (time: number) => [Math.floor(time / 60), time % 60];
+
+const audio = typeof Audio !== 'undefined' ? new Audio('/timer-notification.mp3') : null;
+
 export const TimerProgress: React.FC<{
-  timerInProgress: boolean;
+  isMod: boolean;
+  timerInProgress?: boolean;
   currentSeconds?: number;
   totalSeconds?: number;
   onTimerClose: () => void;
-}> = ({ timerInProgress, currentSeconds = 0, totalSeconds = 300, onTimerClose }) => {
-  const audio = new Audio('/timer-notification.mp3');
-
-  const getMinutesandSeconds = (time: number) => {
-    const minutes = Math.floor(time / 60);
-    const seconds = Math.floor(time - minutes * 60);
-    return [minutes, seconds];
-  };
-
-  const [_totalSeconds, setTotalSeconds] = useState(totalSeconds);
-  const [_currentSeconds, setCurrentSeconds] = useState(currentSeconds);
-  const [percentage, setPercentage] = useState(100);
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
-  const minutesUpdated = useRef(0);
-  const secondsUpdated = useRef(0);
+  onTimerStateUpdate: (update: {
+    currentSeconds: number;
+    totalSeconds: number;
+    timerInProgress: boolean;
+    soundOn: boolean;
+  }) => void;
+}> = ({
+  timerInProgress = false,
+  currentSeconds = 0,
+  totalSeconds = 300,
+  onTimerClose,
+  isMod,
+  onTimerStateUpdate,
+}) => {
+  const [total, setTotal] = useState(totalSeconds);
+  const [current, setCurrent] = useState(currentSeconds);
   const [isPaused, setPaused] = useState(true);
+  const [inProgress, setInProgress] = useState(timerInProgress);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const [_soundOn, setSoundOn] = useState(true);
+
+  // Calculate percentage only when needed
+  const percentage = total > 0 ? 100 - (current / total) * 100 : 100;
+
+  // Timer logic
+  useEffect(() => {
+    if (inProgress && !isPaused) {
+      intervalRef.current = setInterval(() => {
+        setCurrent((prev) => {
+          if (prev + 1 >= total) {
+            clearInterval(intervalRef.current as NodeJS.Timeout);
+            setPaused(true);
+            setInProgress(false);
+            if (audio && _soundOn) audio.play();
+            return 0;
+          }
+          return prev + 1;
+        });
+      }, 1000);
+    }
+    return () => clearInterval(intervalRef.current as NodeJS.Timeout);
+  }, [inProgress, isPaused, total, _soundOn]);
+
+  useEffect(() => {
+    if (isMod) {
+      onTimerStateUpdate({
+        totalSeconds: total,
+        currentSeconds: current,
+        timerInProgress: inProgress,
+        soundOn: _soundOn,
+      });
+    }
+  }, [current, total, inProgress, _soundOn]);
 
   const startTimer = () => {
     setPaused(false);
-    intervalRef.current = setInterval(() => {
-      setCurrentSeconds((prevTime) => {
-        const updated = prevTime + 1;
-        if (updated === _totalSeconds) {
-          setPercentage(100);
-          clearInterval(intervalRef.current as NodeJS.Timeout);
-          setPaused(true);
-          intervalRef.current = null;
-          audio.play();
-          return 0;
-        }
-        setPercentage(100 - (updated / _totalSeconds) * 100);
-        return updated;
-      });
-    }, 1000);
+    setInProgress(true);
   };
 
   const pauseTimer = () => {
     setPaused(true);
+    setInProgress(false);
     clearInterval(intervalRef.current as NodeJS.Timeout);
-  };
-
-  useEffect(() => {
-    if (timerInProgress) {
-      startTimer();
-    } else if (!timerInProgress) {
-      clearInterval(intervalRef.current as NodeJS.Timeout);
-    }
-    return () => {
-      clearInterval(intervalRef.current as NodeJS.Timeout);
-    };
-  }, [timerInProgress]);
-
-  const onAddSeconds = () => {
-    setTotalSeconds((prev) => prev + 60);
-  };
-
-  const onReduceSeconds = () => {
-    if (_totalSeconds - 60 > 30) {
-      setTotalSeconds((prev) => prev - 60);
-    }
-  };
-
-  const [minutes, seconds] = getMinutesandSeconds(_totalSeconds);
-  const minutesFormated = minutes.toString().padStart(2, '0');
-  const secondsFormated = seconds.toString().padStart(2, '0');
-
-  const [runningMinutes, runningSeconds] = getMinutesandSeconds(_totalSeconds - _currentSeconds);
-  const runningMinutesFormated = runningMinutes.toString().padStart(2, '0');
-  const runningSecondsFormated = runningSeconds.toString().padStart(2, '0');
-
-  const onMinutesChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const minutes = Number(event.target.value.slice(-2));
-    minutesUpdated.current = minutes;
-    setTotalSeconds(minutesUpdated.current * 60 + secondsUpdated.current);
-  };
-
-  const onSecondsChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const seconds = Number(event.target.value.slice(-2));
-    secondsUpdated.current = seconds;
-    setTotalSeconds(minutesUpdated.current * 60 + secondsUpdated.current);
   };
 
   const handleReset = () => {
     setPaused(true);
-    setPercentage(100);
-    setCurrentSeconds(0);
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-      intervalRef.current = null;
-    }
+    setCurrent(0);
+    setInProgress(false);
+    clearInterval(intervalRef.current as NodeJS.Timeout);
   };
+
+  const onAddSeconds = () => setTotal((prev) => prev + 60);
+  const onReduceSeconds = () => setTotal((prev) => (prev - 60 > 30 ? prev - 60 : prev));
+
+  const onMinutesChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const minutes = Number(event.target.value.slice(-2));
+    setTotal(minutes * 60 + (total % 60));
+  };
+
+  const onSecondsChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const seconds = Number(event.target.value.slice(-2));
+    setTotal(Math.floor(total / 60) * 60 + seconds);
+  };
+
+  const [minutes, seconds] = getMinutesAndSeconds(total);
+  const [runningMinutes, runningSeconds] = getMinutesAndSeconds(total - current);
 
   return (
     <div className='absolute top-13 right-2 shadow-xl rounded-lg bg-white p-4 w-[15rem] h-fit border-gray-200 border-1'>
-      <div
-        className='absolute top-3 right-3 cursor-pointer'
-        title='Close Timer'
-        onClick={onTimerClose}
+      <button
+        title={_soundOn ? 'Mute sound' : 'Unmute sound'}
+        className='absolute top-3 left-3 p-1 cursor-pointer'
+        onClick={() => {
+          if (isMod) setSoundOn((s) => !s);
+        }}
       >
-        X
-      </div>
+        {_soundOn ? '🔊' : '🔇'}
+      </button>
+      {isMod && (
+        <div
+          className='absolute top-3 right-3 cursor-pointer'
+          title='Close Timer'
+          onClick={onTimerClose}
+        >
+          X
+        </div>
+      )}
       <div className='flex h-full w-full justify-center items-center space-y-2 flex-col'>
         <CircularProgressBar percentage={percentage}>
           <div className='flex space-x-2 items-center text-lg'>
-            <div title={minutes + ' Minutes' + ', ' + seconds + ' Seconds'} className='text-4xl'>
+            <div title={`${minutes} Minutes, ${seconds} Seconds`} className='text-4xl'>
               <input
                 type='text'
-                value={intervalRef.current ? runningMinutesFormated : minutesFormated}
+                value={
+                  intervalRef.current && inProgress
+                    ? runningMinutes.toString().padStart(2, '0')
+                    : minutes.toString().padStart(2, '0')
+                }
                 maxLength={3}
                 pattern='[0-9]*'
                 className='w-[2.5rem] border-none focus:outline-none'
                 onChange={onMinutesChange}
-                disabled={!!intervalRef.current}
-              ></input>
+                disabled={!!intervalRef.current && inProgress}
+              />
               :
               <input
                 type='text'
-                value={intervalRef.current ? runningSecondsFormated : secondsFormated}
+                value={
+                  intervalRef.current && inProgress
+                    ? runningSeconds.toString().padStart(2, '0')
+                    : seconds.toString().padStart(2, '0')
+                }
                 maxLength={3}
                 pattern='[0-9]*'
                 className='w-[2.5rem] border-none focus:outline-none'
                 onChange={onSecondsChange}
-                disabled={!!intervalRef.current}
-              ></input>
+                disabled={!!intervalRef.current && inProgress}
+              />
             </div>
           </div>
         </CircularProgressBar>
-        <hr className='h-px my-3 bg-gray-200 border-0 dark:bg-gray-700 w-full'></hr>
-        <div className='flex space-x-2'>
-          <button
-            title='Reset Timer'
-            className='p-2 border-2 border-gray-400 h-8 w-8 flex items-center justify-center text-gray-400 pointer'
-            onClick={handleReset}
-          >
-            {'\u23F9'}
-          </button>
-          <div className='flex-grow w-full'>
-            {!intervalRef.current && (
-              <div className='flex' role='group'>
-                <button
-                  type='button'
-                  className='p-2 py-2 border border-gray-200 h-8 w-8 flex items-center justify-center text-xl align-middle'
-                  onClick={onReduceSeconds}
-                  title='Minus 1 minute'
-                >
-                  -
-                </button>
-                <button
-                  type='button'
-                  className='p-2 py-2 border border-gray-200 h-8 w-8 flex items-center justify-center text-xl align-middle'
-                  onClick={onAddSeconds}
-                  title='Add 1 minute'
-                >
-                  +
-                </button>
-              </div>
+        <hr className='h-px my-3 bg-gray-200 border-0 dark:bg-gray-700 w-full' />
+        {isMod && (
+          <div className='flex space-x-2 w-full'>
+            <button
+              title='Reset Timer'
+              className='p-2 border-2 border-gray-400 h-8 w-8 flex items-center justify-center text-gray-400 pointer'
+              onClick={handleReset}
+            >
+              {'\u23F9'}
+            </button>
+            <div className='flex-grow w-full'>
+              {!inProgress && (
+                <div className='flex justify-center items-center gap-x-2 w-full h-12' role='group'>
+                  <button
+                    type='button'
+                    className='p-2 border border-gray-200 h-8 w-8 flex items-center justify-center text-xl'
+                    onClick={onReduceSeconds}
+                    title='Minus 1 minute'
+                  >
+                    -
+                  </button>
+                  <button
+                    type='button'
+                    className='p-2 border border-gray-200 h-8 w-8 flex items-center justify-center text-xl'
+                    onClick={onAddSeconds}
+                    title='Add 1 minute'
+                  >
+                    +
+                  </button>
+                </div>
+              )}
+            </div>
+            {(!inProgress || isPaused) && (
+              <button
+                title='Start Timer'
+                className='p-2 border-2 border-gray-400 h-8 w-8 flex items-center justify-center text-gray-400'
+                onClick={startTimer}
+                disabled={total === 0}
+              >
+                {'\u25B6'}
+              </button>
+            )}
+            {inProgress && !isPaused && (
+              <button
+                title='Pause Timer'
+                className='p-2 border-2 border-gray-400 h-8 w-8 flex items-center justify-center text-gray-400'
+                onClick={pauseTimer}
+              >
+                {'\u23F8'}
+              </button>
             )}
           </div>
-
-          {(!intervalRef.current || isPaused) && (
-            <button
-              title='Start Timer'
-              className='p-2 border-2 border-gray-400 h-8 w-8 flex items-center justify-center text-gray-400'
-              onClick={startTimer}
-              disabled={_totalSeconds == 0}
-            >
-              {'\u25B6'}
-            </button>
-          )}
-          {intervalRef.current && !isPaused && (
-            <button
-              title='Pause Timer'
-              className='p-2 border-2 border-gray-400 h-8 w-8 flex items-center justify-center text-gray-400'
-              onClick={pauseTimer}
-            >
-              {'\u23F8'}
-            </button>
-          )}
-        </div>
+        )}
       </div>
     </div>
   );
