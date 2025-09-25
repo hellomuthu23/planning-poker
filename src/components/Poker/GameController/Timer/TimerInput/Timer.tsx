@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react';
 import { ClockSVG } from '../../../../SVGs/Clock';
 import { TimerProgress } from '../TimerProgressPopup/TimerProgressPopup';
-import { on } from 'node:events';
 export const Timer: React.FC<{
-  isMod: boolean;
-  showTimer?: boolean;
-  timerInprogress?: boolean;
-  currentSeconds?: number;
-  totalSeconds?: number;
-}> = ({ showTimer, timerInprogress, currentSeconds, totalSeconds, isMod }) => {
-  const [_showTimer, setShowTimer] = useState(showTimer);
+  timerProps: {
+    isMod?: boolean;
+    timerInProgress?: boolean;
+    currentSeconds?: number;
+    totalSeconds?: number;
+    soundOn?: boolean;
+  };
+}> = ({ timerProps }) => {
+  const [_showTimer, setShowTimer] = useState(false);
 
   const onTimerClose = () => {
     setShowTimer((prev) => !prev);
@@ -17,20 +18,21 @@ export const Timer: React.FC<{
 
   return (
     <>
-      {isMod && (
+      {timerProps.isMod && (
         <button onClick={onTimerClose} title='Timer' className='cursor-pointer'>
           <ClockSVG className={`h-6 w-6 ${_showTimer ? 'text-green-500' : 'text-grey-500'}`} />
         </button>
       )}
 
-      {(_showTimer || timerInprogress) && (
+      {(_showTimer || timerProps.timerInProgress) && (
         <TimerProgress
-          currentSeconds={currentSeconds}
-          totalSeconds={totalSeconds}
-          timerInProgress={timerInprogress}
+          currentSeconds={timerProps.currentSeconds}
+          totalSeconds={timerProps.totalSeconds}
+          timerInProgress={timerProps.timerInProgress}
           onTimerClose={onTimerClose}
-          isMod={isMod}
+          isMod={timerProps.isMod}
           onTimerStateUpdate={(update) => console.log(update)}
+          soundOn={timerProps.soundOn}
         />
       )}
     </>

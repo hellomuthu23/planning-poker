@@ -6,10 +6,11 @@ const getMinutesAndSeconds = (time: number) => [Math.floor(time / 60), time % 60
 const audio = typeof Audio !== 'undefined' ? new Audio('/timer-notification.mp3') : null;
 
 export const TimerProgress: React.FC<{
-  isMod: boolean;
+  isMod?: boolean;
   timerInProgress?: boolean;
   currentSeconds?: number;
   totalSeconds?: number;
+  soundOn?: boolean;
   onTimerClose: () => void;
   onTimerStateUpdate: (update: {
     currentSeconds: number;
@@ -24,13 +25,14 @@ export const TimerProgress: React.FC<{
   onTimerClose,
   isMod,
   onTimerStateUpdate,
+  soundOn = true,
 }) => {
   const [total, setTotal] = useState(totalSeconds);
   const [current, setCurrent] = useState(currentSeconds);
-  const [isPaused, setPaused] = useState(true);
+  const [isPaused, setPaused] = useState(false);
   const [inProgress, setInProgress] = useState(timerInProgress);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
-  const [_soundOn, setSoundOn] = useState(true);
+  const [_soundOn, setSoundOn] = useState(soundOn);
 
   // Calculate percentage only when needed
   const percentage = total > 0 ? 100 - (current / total) * 100 : 100;
@@ -52,7 +54,7 @@ export const TimerProgress: React.FC<{
       }, 1000);
     }
     return () => clearInterval(intervalRef.current as NodeJS.Timeout);
-  }, [inProgress, isPaused, total, _soundOn]);
+  }, [inProgress, isPaused, total, _soundOn, timerInProgress]);
 
   useEffect(() => {
     if (isMod) {
@@ -89,11 +91,13 @@ export const TimerProgress: React.FC<{
   const onMinutesChange = (event: ChangeEvent<HTMLInputElement>) => {
     const minutes = Number(event.target.value.slice(-2));
     setTotal(minutes * 60 + (total % 60));
+    setCurrent(0);
   };
 
   const onSecondsChange = (event: ChangeEvent<HTMLInputElement>) => {
     const seconds = Number(event.target.value.slice(-2));
     setTotal(Math.floor(total / 60) * 60 + seconds);
+    setCurrent(0);
   };
 
   const [minutes, seconds] = getMinutesAndSeconds(total);
@@ -153,58 +157,60 @@ export const TimerProgress: React.FC<{
             </div>
           </div>
         </CircularProgressBar>
-        <hr className='h-px my-3 bg-gray-200 border-0 dark:bg-gray-700 w-full' />
         {isMod && (
-          <div className='flex space-x-2 w-full'>
-            <button
-              title='Reset Timer'
-              className='p-2 border-2 border-gray-400 h-8 w-8 flex items-center justify-center text-gray-400 pointer'
-              onClick={handleReset}
-            >
-              {'\u23F9'}
-            </button>
-            <div className='flex-grow w-full'>
-              {!inProgress && (
-                <div className='flex justify-center items-center gap-x-2 w-full h-12' role='group'>
-                  <button
-                    type='button'
-                    className='p-2 border border-gray-200 h-8 w-8 flex items-center justify-center text-xl'
-                    onClick={onReduceSeconds}
-                    title='Minus 1 minute'
-                  >
-                    -
-                  </button>
-                  <button
-                    type='button'
-                    className='p-2 border border-gray-200 h-8 w-8 flex items-center justify-center text-xl'
-                    onClick={onAddSeconds}
-                    title='Add 1 minute'
-                  >
-                    +
-                  </button>
-                </div>
+          <>
+            <hr className='h-px my-3 bg-gray-200 border-0 dark:bg-gray-700 w-full' />
+            <div className='flex space-x-2 w-full'>
+              <button
+                title='Reset Timer'
+                className='p-2 border-2 border-gray-400 h-8 w-8 flex items-center justify-center text-gray-400 pointer hover:text-gray-600 hover:border-gray-600'
+                onClick={handleReset}
+              >
+                {'\u23F9'}
+              </button>
+              <div className='flex-grow w-full'>
+                {!inProgress && (
+                  <div className='flex justify-center items-center gap-x-2 w-full h-8' role='group'>
+                    <button
+                      type='button'
+                      className='p-2 border-2 border-gray-200 h-8 w-8 flex items-center justify-center text-xl hover:text-gray-600 hover:border-gray-600 line-height-0'
+                      onClick={onReduceSeconds}
+                      title='Minus 1 minute'
+                    >
+                      -
+                    </button>
+                    <button
+                      type='button'
+                      className='p-2 border-2 border-gray-200 h-8 w-8 flex items-center justify-center text-xl hover:text-gray-600 hover:border-gray-600 line-height-0'
+                      onClick={onAddSeconds}
+                      title='Add 1 minute'
+                    >
+                      +
+                    </button>
+                  </div>
+                )}
+              </div>
+              {(!inProgress || isPaused) && (
+                <button
+                  title='Start Timer'
+                  className='p-2 border-2 border-gray-400 h-8 w-8 flex items-center justify-center text-gray-400 hover:text-gray-600 hover:border-gray-600'
+                  onClick={startTimer}
+                  disabled={total === 0}
+                >
+                  {'\u25B6'}
+                </button>
+              )}
+              {inProgress && !isPaused && (
+                <button
+                  title='Pause Timer'
+                  className='p-2 border-2 border-gray-400 h-8 w-8 flex items-center justify-center text-gray-400'
+                  onClick={pauseTimer}
+                >
+                  {'\u23F8'}
+                </button>
               )}
             </div>
-            {(!inProgress || isPaused) && (
-              <button
-                title='Start Timer'
-                className='p-2 border-2 border-gray-400 h-8 w-8 flex items-center justify-center text-gray-400'
-                onClick={startTimer}
-                disabled={total === 0}
-              >
-                {'\u25B6'}
-              </button>
-            )}
-            {inProgress && !isPaused && (
-              <button
-                title='Pause Timer'
-                className='p-2 border-2 border-gray-400 h-8 w-8 flex items-center justify-center text-gray-400'
-                onClick={pauseTimer}
-              >
-                {'\u23F8'}
-              </button>
-            )}
-          </div>
+          </>
         )}
       </div>
     </div>
