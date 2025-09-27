@@ -71,17 +71,19 @@ export const GameController: React.FC<GameControllerProps> = ({
   const isMod = isModerator(game.createdById, currentPlayerId, game.isAllowMembersToManageSession);
   const timerProps: {
     isMod?: boolean;
-    timerInProgress?: boolean;
+    timerVisible?: boolean;
+    timerPaused?: boolean;
     currentSeconds?: number;
     totalSeconds?: number;
     soundOn?: boolean;
   } = { isMod: isMod };
   if (!isMod) {
     timerProps.isMod = false;
-    //timerProps.timerInProgress = false;
-    // timerProps.currentSeconds = 200;
+    //timerProps.timerVisible = false;
+    //timerProps.currentSeconds = 200;
     //timerProps.totalSeconds = 300;
     //timerProps.soundOn = false;
+    //timerProps.timerPaused = false;
   }
 
   return (
