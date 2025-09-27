@@ -80,6 +80,7 @@ export const TimerProgress: React.FC<TimerProps> = ({
     setCurrent(0);
     setInProgress(false);
     clearInterval(intervalRef.current as NodeJS.Timeout);
+    intervalRef.current = null;
   }, []);
   const onAddSeconds = useCallback(() => setTotal((prev) => prev + 60), []);
   const onReduceSeconds = useCallback(
@@ -110,9 +111,18 @@ export const TimerProgress: React.FC<TimerProps> = ({
   return (
     <div className='absolute top-13 right-2 shadow-xl rounded-lg bg-white p-4 w-[15rem] h-fit border-gray-200 border-1'>
       <button
-        title={_soundOn ? 'Mute sound' : 'Unmute sound'}
-        className='absolute top-3 left-3 p-1 cursor-pointer'
+        title={
+          _soundOn
+            ? isMod
+              ? 'Mute sound'
+              : 'Sound Enabled'
+            : isMod
+            ? 'Unmute sound'
+            : 'Sound Disabled'
+        }
+        className={`absolute top-3 left-3 p-1 ${isMod ? 'cursor-pointer' : ''}`}
         onClick={() => isMod && setSoundOn((s) => !s)}
+        type='button'
       >
         {_soundOn ? '🔊' : '🔇'}
       </button>
@@ -127,12 +137,19 @@ export const TimerProgress: React.FC<TimerProps> = ({
       )}
       <div className='flex h-full w-full justify-center items-center space-y-2 flex-col'>
         <CircularProgressBar percentage={percentage}>
-          <div className='flex space-x-2 items-center text-lg'>
-            <div title={`${minutes} Minutes, ${seconds} Seconds`} className='text-4xl'>
+          <div className='text-4xl flex flex-col items-center space-y-2'>
+            <div
+              title={
+                isMod
+                  ? `Set Time: ${minutes} Minutes, ${seconds} Seconds.\nReset to edit`
+                  : `Running Time: ${runningMinutes} Minutes, ${runningSeconds} Seconds.`
+              }
+              className='flex items-center space-x-1 flex-grow'
+            >
               <input
                 type='text'
                 value={
-                  intervalRef.current && inProgress
+                  (intervalRef.current && inProgress) || !isMod
                     ? runningMinutes.toString().padStart(2, '0')
                     : minutes.toString().padStart(2, '0')
                 }
@@ -146,7 +163,7 @@ export const TimerProgress: React.FC<TimerProps> = ({
               <input
                 type='text'
                 value={
-                  intervalRef.current && inProgress
+                  (intervalRef.current && inProgress) || !isMod
                     ? runningSeconds.toString().padStart(2, '0')
                     : seconds.toString().padStart(2, '0')
                 }
@@ -157,6 +174,18 @@ export const TimerProgress: React.FC<TimerProps> = ({
                 disabled={!!intervalRef.current || inProgress}
               />
             </div>
+            {isMod && !inProgress && (
+              <div
+                title={`Running Time: ${minutes - runningMinutes} Minutes, ${
+                  seconds - runningSeconds
+                } Seconds.`}
+                className='text-2xl'
+              >
+                <span>{(minutes - runningMinutes).toString().padStart(2, '0')}</span>
+                <span>:</span>
+                <span>{(seconds - runningSeconds).toString().padStart(2, '0')}</span>
+              </div>
+            )}
           </div>
         </CircularProgressBar>
         {isMod && (
@@ -167,6 +196,7 @@ export const TimerProgress: React.FC<TimerProps> = ({
                 title='Reset Timer'
                 className='p-2 border-2 border-gray-400 h-8 w-8 flex items-center justify-center text-gray-400 pointer hover:text-gray-600 hover:border-gray-600'
                 onClick={handleReset}
+                type='button'
               >
                 {'\u23F9'}
               </button>
@@ -198,6 +228,7 @@ export const TimerProgress: React.FC<TimerProps> = ({
                   className='p-2 border-2 border-gray-400 h-8 w-8 flex items-center justify-center text-gray-400 hover:text-gray-600 hover:border-gray-600'
                   onClick={startTimer}
                   disabled={total === 0}
+                  type='button'
                 >
                   {'\u25B6'}
                 </button>
@@ -207,6 +238,7 @@ export const TimerProgress: React.FC<TimerProps> = ({
                   title='Pause Timer'
                   className='p-2 border-2 border-gray-400 h-8 w-8 flex items-center justify-center text-gray-400'
                   onClick={pauseTimer}
+                  type='button'
                 >
                   {'\u23F8'}
                 </button>

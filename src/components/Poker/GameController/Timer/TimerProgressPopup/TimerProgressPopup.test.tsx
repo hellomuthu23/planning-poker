@@ -40,12 +40,20 @@ describe('TimerProgress', () => {
     expect(screen.getByTestId('circular-progress-bar')).toBeInTheDocument();
   });
 
-  it('toggles sound icon', () => {
+  it('toggles sound icon only for mod', () => {
     render(<TimerProgress {...baseProps} />);
     const soundBtn = screen.getByTitle('Mute sound');
     expect(soundBtn).toHaveTextContent('🔊');
     fireEvent.click(soundBtn);
     expect(screen.getByTitle('Unmute sound')).toHaveTextContent('🔇');
+  });
+
+  it('shows non-clickable sound icon for non-mod', () => {
+    render(<TimerProgress {...baseProps} isMod={false} />);
+    const soundBtn = screen.getByTitle('Sound Enabled');
+    expect(soundBtn).toHaveTextContent('🔊');
+    fireEvent.click(soundBtn);
+    expect(screen.getByTitle('Sound Enabled')).toHaveTextContent('🔊');
   });
 
   it('calls onTimerClose when close button clicked', () => {
