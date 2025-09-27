@@ -17,6 +17,7 @@ type TimerProps = {
 };
 
 const getMinutesAndSeconds = (time: number) => [Math.floor(time / 60), time % 60];
+
 const audio = typeof Audio !== 'undefined' ? new Audio('/timer-notification.mp3') : null;
 
 export const TimerProgress: React.FC<TimerProps> = ({
@@ -107,6 +108,7 @@ export const TimerProgress: React.FC<TimerProps> = ({
   const [minutes, seconds] = getMinutesAndSeconds(total);
   const [runningMinutes, runningSeconds] = getMinutesAndSeconds(total - current);
   const percentage = total > 0 ? 100 - (current / total) * 100 : 100;
+  const [currentMinutesRunning, currentSecondsRunning] = getMinutesAndSeconds(current);
 
   return (
     <div className='absolute top-13 right-2 shadow-xl rounded-lg bg-white p-4 w-[15rem] h-fit border-gray-200 border-1'>
@@ -176,14 +178,12 @@ export const TimerProgress: React.FC<TimerProps> = ({
             </div>
             {isMod && !inProgress && (
               <div
-                title={`Running Time: ${minutes - runningMinutes} Minutes, ${
-                  seconds - runningSeconds
-                } Seconds.`}
+                title={`Running Time: ${currentMinutesRunning} Minutes, ${currentSecondsRunning} Seconds.`}
                 className='text-2xl'
               >
-                <span>{(minutes - runningMinutes).toString().padStart(2, '0')}</span>
+                <span>{currentMinutesRunning.toString().padStart(2, '0')}</span>
                 <span>:</span>
-                <span>{(seconds - runningSeconds).toString().padStart(2, '0')}</span>
+                <span>{currentSecondsRunning.toString().padStart(2, '0')}</span>
               </div>
             )}
           </div>
