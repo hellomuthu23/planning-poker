@@ -1,6 +1,13 @@
 import { CardConfig } from '../components/Players/CardPicker/CardConfigs';
 import { Status } from './status';
 
+export interface TimerProps {
+  currentSeconds?: number;
+  totalSeconds?: number;
+  soundOn?: boolean;
+  timerVisible?: boolean;
+  timerPaused?: boolean;
+}
 export interface Game {
   id: string;
   name: string;
@@ -15,6 +22,7 @@ export interface Game {
   createdById: string;
   createdAt: Date;
   updatedAt?: Date;
+  timerProps?: TimerProps;
 }
 
 export interface NewGame {

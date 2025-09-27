@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import { AlertDialog } from '../../../components/AlertDialog/AlertDialog';
@@ -9,7 +9,7 @@ import {
   updateGame,
   updateStoryName,
 } from '../../../service/games';
-import { Game, GameType } from '../../../types/game';
+import { Game, GameType, TimerProps } from '../../../types/game';
 import { Player } from '../../../types/player';
 import { Status } from '../../../types/status';
 import { isModerator } from '../../../utils/isModerator';
@@ -56,6 +56,13 @@ export const GameController: React.FC<GameControllerProps> = ({
     updateGame(game.id, { autoReveal: value });
   };
 
+  const onUpdatedTimerProps = useCallback(
+    (timer: TimerProps) => {
+      updateGame(game.id, { timerProps: timer });
+    },
+    [game.id],
+  );
+
   const copyInviteLink = () => {
     navigator.clipboard.writeText(`${window.location.origin}/join/${game.id}`);
     setShowCopiedMessage(true);
@@ -76,14 +83,14 @@ export const GameController: React.FC<GameControllerProps> = ({
     currentSeconds?: number;
     totalSeconds?: number;
     soundOn?: boolean;
-  } = { isMod: isMod };
+  } = { isMod: isMod, timerVisible: game.timerProps?.timerVisible };
   if (!isMod) {
     timerProps.isMod = false;
-    //timerProps.timerVisible = false;
-    //timerProps.currentSeconds = 200;
-    //timerProps.totalSeconds = 300;
-    //timerProps.soundOn = false;
-    //timerProps.timerPaused = false;
+    timerProps.timerVisible = game.timerProps?.timerVisible;
+    timerProps.timerPaused = game.timerProps?.timerPaused;
+    timerProps.currentSeconds = game.timerProps?.currentSeconds;
+    timerProps.totalSeconds = game.timerProps?.totalSeconds;
+    timerProps.soundOn = game.timerProps?.soundOn;
   }
 
   return (
@@ -93,7 +100,7 @@ export const GameController: React.FC<GameControllerProps> = ({
 
         <div className='flex items-center justify-between px-3 py-1 border-b border-gray-400 dark:border-gray-600'>
           <div className='text-lg font-semibold truncate flex-grow'>{game.name}</div>
-          <Timer timerProps={timerProps} />
+          <Timer timerProps={timerProps} onTimerUpdate={(props) => onUpdatedTimerProps(props)} />
           <div className='mx-2 h-6 border-l border-gray-400 dark:border-gray-600' />
           <span className='text-sm font-medium'>
             {game.gameStatus} {getGameStatusIcon(game.gameStatus)}
