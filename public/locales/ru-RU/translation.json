@@ -27,7 +27,17 @@
     "inviteLinkCopied": "Ссылка приглашения скопирована в буфер обмена",
     "areYouSureDelete": "Вы уверены? Это удалит эту сессию и удалит всех участников.",
     "inProgress": "В процессе",
-    "finished": "Завершено"
+    "finished": "Завершено",
+    "Timer": {
+      "soundDisabledMod": "Включить звук",
+      "soundEnabledMod": "Отключить звук",
+      "soundDisabledPlayer": "Звук отключён",
+      "soundEnabledPlayer": "Звук включён",
+      "startTimer": "Запустить таймер",
+      "resetTimer": "Сбросить таймер",
+      "pauseTimer": "Пауза таймера",
+      "closeTimer": "Закрыть таймер"
+    }
   },
   "CardPicker": {
     "ClickOnTheCardToVote": "Нажмите на карту, чтобы проголосовать",

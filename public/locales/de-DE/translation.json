@@ -27,7 +27,17 @@
     "inviteLinkCopied": "Einladungslink in die Zwischenablage kopiert",
     "areYouSureDelete": "Sind Sie sicher? Dadurch wird diese Sitzung gelöscht und alle Spieler werden entfernt.",
     "inProgress": "In Bearbeitung",
-    "finished": "Abgeschlossen"
+    "finished": "Abgeschlossen",
+    "Timer": {
+      "soundDisabledMod": "Ton aktivieren",
+      "soundEnabledMod": "Ton deaktivieren",
+      "soundDisabledPlayer": "Ton deaktiviert",
+      "soundEnabledPlayer": "Ton aktiviert",
+      "startTimer": "Timer starten",
+      "resetTimer": "Timer zurücksetzen",
+      "pauseTimer": "Timer pausieren",
+      "closeTimer": "Timer schließen"
+    }
   },
   "CardPicker": {
     "ClickOnTheCardToVote": "Klicken Sie auf die Karte, um abzustimmen",

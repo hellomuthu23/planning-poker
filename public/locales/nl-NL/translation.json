@@ -27,7 +27,17 @@
     "inviteLinkCopied": "Uitnodigingslink gekopieerd naar klembord",
     "areYouSureDelete": "Weet je het zeker? Dit verwijdert deze sessie en verwijdert alle spelers.",
     "inProgress": "Bezig",
-    "finished": "Voltooid"
+    "finished": "Voltooid",
+    "Timer": {
+      "soundDisabledMod": "Geluid inschakelen",
+      "soundEnabledMod": "Geluid uitschakelen",
+      "soundDisabledPlayer": "Geluid uitgeschakeld",
+      "soundEnabledPlayer": "Geluid ingeschakeld",
+      "startTimer": "Timer starten",
+      "resetTimer": "Timer resetten",
+      "pauseTimer": "Timer pauzeren",
+      "closeTimer": "Timer sluiten"
+    }
   },
   "CardPicker": {
     "ClickOnTheCardToVote": "Klik op de kaart om te stemmen",

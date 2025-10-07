@@ -27,7 +27,14 @@
     "inviteLinkCopied": "Lien d'invitation copié dans le presse-papiers",
     "areYouSureDelete": "Êtes-vous sûr ? Cela supprimera cette session et retirera tous les joueurs.",
     "inProgress": "En cours",
-    "finished": "Terminé"
+    "finished": "Terminé",
+    "Timer": {
+      "soundDisabledMod": "Activer le son",
+      "soundEnabledMod": "Désactiver le son",
+      "soundDisabledPlayer": "Son désactivé",
+      "soundEnabledPlayer": "Son activé",
+      "closeTimer": "Fermer le minuteur"
+    }
   },
   "CardPicker": {
     "ClickOnTheCardToVote": "Cliquez sur la carte pour voter",

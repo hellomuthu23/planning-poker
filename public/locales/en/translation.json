@@ -27,7 +27,17 @@
     "inviteLinkCopied": "Invite Link copied to clipboard",
     "areYouSureDelete": "Are you sure? This will delete this session and remove all players.",
     "inProgress": "In Progress",
-    "finished": "Finished"
+    "finished": "Finished",
+    "Timer": {
+      "soundDisabledMod": "Enable sound",
+      "soundEnabledMod": "Disable sound",
+      "soundDisabledPlayer": "Sound Disabled",
+      "soundEnabledPlayer": "Sound Enabled",
+      "startTimer": "Start Timer",
+      "resetTimer": "Reset Timer",
+      "pauseTimer": "Pause Timer",
+      "closeTimer": "Close Timer"
+    }
   },
   "CardPicker": {
     "ClickOnTheCardToVote": "Click on the card to vote",

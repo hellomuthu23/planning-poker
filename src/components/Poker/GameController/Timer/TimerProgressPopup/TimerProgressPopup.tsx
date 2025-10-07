@@ -1,5 +1,6 @@
 import { ChangeEvent, useEffect, useRef, useState, useCallback } from 'react';
 import CircularProgressBar from '../../../../elements/CircularProgressBar';
+import { useTranslation } from 'react-i18next';
 
 type TimerProps = {
   isMod?: boolean;
@@ -34,6 +35,8 @@ export const TimerProgress: React.FC<TimerProps> = ({
   const [inProgress, setInProgress] = useState(!isMod && !timerPaused);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const [_soundOn, setSoundOn] = useState(soundOn);
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (!isMod) {
@@ -116,11 +119,11 @@ export const TimerProgress: React.FC<TimerProps> = ({
         title={
           _soundOn
             ? isMod
-              ? 'Mute sound'
-              : 'Sound Enabled'
+              ? t('GameController.Timer.soundEnabledMod')
+              : t('GameController.Timer.soundEnabledPlayer')
             : isMod
-            ? 'Unmute sound'
-            : 'Sound Disabled'
+            ? t('GameController.Timer.soundDisabledMod')
+            : t('GameController.Timer.soundDisabledPlayer')
         }
         className={`absolute top-3 left-3 p-1 ${isMod ? 'cursor-pointer' : ''}`}
         onClick={() => isMod && setSoundOn((s) => !s)}
@@ -131,7 +134,7 @@ export const TimerProgress: React.FC<TimerProps> = ({
       {isMod && (
         <div
           className='absolute top-3 right-3 cursor-pointer'
-          title='Close Timer'
+          title={t('GameController.Timer.closeTimer')}
           onClick={onTimerClose}
         >
           X
@@ -193,7 +196,7 @@ export const TimerProgress: React.FC<TimerProps> = ({
             <hr className='h-px my-3 bg-gray-200 border-0 dark:bg-gray-700 w-full' />
             <div className='flex space-x-2 w-full'>
               <button
-                title='Reset Timer'
+                title={t('GameController.Timer.resetTimer')}
                 className='p-2 border-2 border-gray-400 h-8 w-8 flex items-center justify-center text-gray-400 pointer hover:text-gray-600 hover:border-gray-600'
                 onClick={handleReset}
                 type='button'
@@ -224,7 +227,7 @@ export const TimerProgress: React.FC<TimerProps> = ({
               </div>
               {!inProgress && (
                 <button
-                  title='Start Timer'
+                  title={t('GameController.Timer.startTimer')}
                   className='p-2 border-2 border-gray-400 h-8 w-8 flex items-center justify-center text-gray-400 hover:text-gray-600 hover:border-gray-600'
                   onClick={startTimer}
                   disabled={total === 0}
@@ -235,7 +238,7 @@ export const TimerProgress: React.FC<TimerProps> = ({
               )}
               {inProgress && (
                 <button
-                  title='Pause Timer'
+                  title={t('GameController.Timer.pauseTimer')}
                   className='p-2 border-2 border-gray-400 h-8 w-8 flex items-center justify-center text-gray-400'
                   onClick={pauseTimer}
                   type='button'

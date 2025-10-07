@@ -27,7 +27,17 @@
     "inviteLinkCopied": "அழைப்பு இணைப்பு கிளிப்போர்டுக்கு நகலெடுக்கப்பட்டது",
     "areYouSureDelete": "நீங்கள் உறுதியாக இருக்கிறீர்களா? இது இந்த அமர்வை அழித்து அனைத்து வீரர்களையும் நீக்கும்.",
     "inProgress": "நடந்து கொண்டிருக்கிறது",
-    "finished": "முடிந்தது"
+    "finished": "முடிந்தது",
+    "Timer": {
+      "soundDisabledMod": "ஒலி இயக்கவும்",
+      "soundEnabledMod": "ஒலி முடக்கவும்",
+      "soundDisabledPlayer": "ஒலி முடக்கப்பட்டுள்ளது",
+      "soundEnabledPlayer": "ஒலி இயக்கப்பட்டுள்ளது",
+      "startTimer": "டைமரை தொடங்கவும்",
+      "resetTimer": "டைமரை மீட்டமைக்கவும்",
+      "pauseTimer": "டைமரை இடைநிறுத்தவும்",
+      "closeTimer": "டைமரை மூடவும்"
+    }
   },
   "CardPicker": {
     "ClickOnTheCardToVote": "வாக்களிக்க கார்டை கிளிக் செய்யவும்",
