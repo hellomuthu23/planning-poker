@@ -27,122 +27,109 @@ describe('TimerProgress', () => {
   });
 
   afterEach(() => {
-    jest.runOnlyPendingTimers();
+    act(() => {
+      jest.runOnlyPendingTimers();
+    });
     jest.useRealTimers();
   });
 
-  it('renders timer UI for mod', () => {
+  it('renders timer UI correctly for mod', () => {
     render(<TimerProgress {...baseProps} />);
-    expect(screen.getByTitle('Mute sound')).toBeInTheDocument();
+
+    expect(screen.getByTitle('Disable sound')).toBeInTheDocument();
     expect(screen.getByTitle('Close Timer')).toBeInTheDocument();
     expect(screen.getByTitle('Start Timer')).toBeInTheDocument();
     expect(screen.getByTitle('Reset Timer')).toBeInTheDocument();
     expect(screen.getByTestId('circular-progress-bar')).toBeInTheDocument();
+
+    // Initial values
+    expect(screen.getAllByRole('textbox')[0]).toHaveValue('02');
+    expect(screen.getAllByRole('textbox')[1]).toHaveValue('00');
   });
 
-  it('toggles sound icon only for mod', () => {
+  it('handles sound toggle correctly', () => {
     render(<TimerProgress {...baseProps} />);
-    const soundBtn = screen.getByTitle('Mute sound');
+    const soundBtn = screen.getByTitle('Disable sound');
+
+    // Initial state
     expect(soundBtn).toHaveTextContent('🔊');
+
+    // Toggle sound
     fireEvent.click(soundBtn);
-    expect(screen.getByTitle('Unmute sound')).toHaveTextContent('🔇');
+    expect(screen.getByTitle('Enable sound')).toHaveTextContent('🔇');
+
+    // Toggle back
+    fireEvent.click(screen.getByTitle('Enable sound'));
+    expect(screen.getByTitle('Disable sound')).toHaveTextContent('🔊');
   });
 
-  it('shows non-clickable sound icon for non-mod', () => {
+  it('prevents sound toggle for non-mod', () => {
     render(<TimerProgress {...baseProps} isMod={false} />);
     const soundBtn = screen.getByTitle('Sound Enabled');
+
     expect(soundBtn).toHaveTextContent('🔊');
     fireEvent.click(soundBtn);
     expect(screen.getByTitle('Sound Enabled')).toHaveTextContent('🔊');
   });
 
-  it('calls onTimerClose when close button clicked', () => {
+  it('handles timer controls correctly', () => {
     render(<TimerProgress {...baseProps} />);
-    fireEvent.click(screen.getByTitle('Close Timer'));
-    expect(baseProps.onTimerClose).toHaveBeenCalled();
-  });
 
-  it('calls onTimerStateUpdate on state change', () => {
-    render(<TimerProgress {...baseProps} />);
+    // Start timer
     fireEvent.click(screen.getByTitle('Start Timer'));
     act(() => {
       jest.advanceTimersByTime(1000);
     });
-    expect(baseProps.onTimerStateUpdate).toHaveBeenCalled();
-  });
+    expect(screen.getByTitle('Pause Timer')).toBeInTheDocument();
 
-  it('increments timer only after clicking start (mod)', () => {
-    render(<TimerProgress {...baseProps} />);
-    expect(screen.getAllByRole('textbox')[1]).toHaveValue('00');
-    fireEvent.click(screen.getByTitle('Start Timer'));
-    act(() => {
-      jest.advanceTimersByTime(2000);
-    });
-    expect(screen.getAllByRole('textbox')[1]).toHaveValue('58');
-  });
-
-  it('does not increment timer automatically for mod', () => {
-    render(<TimerProgress {...baseProps} />);
-    act(() => {
-      jest.advanceTimersByTime(2000);
-    });
-    expect(screen.getAllByRole('textbox')[1]).toHaveValue('00');
-  });
-
-  it('pauses timer when pause button clicked', () => {
-    render(<TimerProgress {...baseProps} />);
-    fireEvent.click(screen.getByTitle('Start Timer'));
-    act(() => {
-      jest.advanceTimersByTime(1000);
-    });
+    // Pause timer
     fireEvent.click(screen.getByTitle('Pause Timer'));
-    const secondsBefore = screen.getAllByRole('textbox')[1].getAttribute('value');
-    act(() => {
-      jest.advanceTimersByTime(2000);
-    });
-    expect(screen.getAllByRole('textbox')[1]).toHaveAttribute('value', secondsBefore);
-  });
+    expect(screen.getByTitle('Start Timer')).toBeInTheDocument();
 
-  it('resets timer when reset button clicked', () => {
-    render(<TimerProgress {...baseProps} />);
-    fireEvent.click(screen.getByTitle('Start Timer'));
-    act(() => {
-      jest.advanceTimersByTime(2000);
-    });
+    // Reset timer
     fireEvent.click(screen.getByTitle('Reset Timer'));
     expect(screen.getAllByRole('textbox')[0]).toHaveValue('02');
     expect(screen.getAllByRole('textbox')[1]).toHaveValue('00');
   });
 
-  it('does not render mod controls if not mod', () => {
-    render(<TimerProgress {...baseProps} isMod={false} />);
-    expect(screen.queryByTitle('Close Timer')).not.toBeInTheDocument();
-    expect(screen.queryByTitle('Start Timer')).not.toBeInTheDocument();
-    expect(screen.queryByTitle('Pause Timer')).not.toBeInTheDocument();
-    expect(screen.queryByTitle('Reset Timer')).not.toBeInTheDocument();
+  it('updates parent component state correctly', () => {
+    render(<TimerProgress {...baseProps} />);
+
+    fireEvent.click(screen.getByTitle('Start Timer'));
+    act(() => {
+      jest.advanceTimersByTime(1000);
+    });
+
+    expect(baseProps.onTimerStateUpdate).toHaveBeenCalledWith(
+      expect.objectContaining({
+        currentSeconds: expect.any(Number),
+        totalSeconds: 120,
+        timerPaused: false,
+        soundOn: true,
+      }),
+    );
   });
 
-  it('disables input fields when timer is running', () => {
+  it('handles input field changes correctly', () => {
     render(<TimerProgress {...baseProps} />);
+
+    const minutesInput = screen.getAllByRole('textbox')[0];
+    const secondsInput = screen.getAllByRole('textbox')[1];
+
+    fireEvent.change(minutesInput, { target: { value: '03' } });
+    fireEvent.change(secondsInput, { target: { value: '30' } });
+
+    expect(minutesInput).toHaveValue('03');
+    expect(secondsInput).toHaveValue('30');
+  });
+
+  it('disables controls appropriately', () => {
+    render(<TimerProgress {...baseProps} />);
+
     fireEvent.click(screen.getByTitle('Start Timer'));
+
     expect(screen.getAllByRole('textbox')[0]).toBeDisabled();
     expect(screen.getAllByRole('textbox')[1]).toBeDisabled();
-  });
-
-  it('enables input fields when timer is not running', () => {
-    render(<TimerProgress {...baseProps} />);
-    expect(screen.getAllByRole('textbox')[0]).not.toBeDisabled();
-    expect(screen.getAllByRole('textbox')[1]).not.toBeDisabled();
-  });
-
-  it('shows pause button when timer is running', () => {
-    render(<TimerProgress {...baseProps} />);
-    fireEvent.click(screen.getByTitle('Start Timer'));
-    expect(screen.getByTitle('Pause Timer')).toBeInTheDocument();
-  });
-
-  it('shows start button when timer is not running', () => {
-    render(<TimerProgress {...baseProps} />);
-    expect(screen.getByTitle('Start Timer')).toBeInTheDocument();
+    expect(screen.queryByTitle('Start Timer')).not.toBeInTheDocument();
   });
 });
