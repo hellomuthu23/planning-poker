@@ -97,7 +97,9 @@ export const CardPicker: React.FC<CardPickerProps> = ({ game, players, currentPl
           );
         })}
       </div>
-      <GoogleAd />
+      <div className='flex justify-center'>
+        <GoogleAd />
+      </div>
     </div>
   );
 };
