@@ -51,6 +51,7 @@ export const CardPicker: React.FC<CardPickerProps> = ({ game, players, currentPl
               flex flex-col items-center justify-center
               bg-white
               text-gray-800
+              hover:scale-115
               w-15 h-23
               md:w-20 md:h-30
               sm:w-15 sm:h-23
