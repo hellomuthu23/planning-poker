@@ -27,7 +27,17 @@
     "inviteLinkCopied": "आमंत्रण लिंक क्लिपबोर्ड पर कॉपी किया गया",
     "areYouSureDelete": "क्या आप सुनिश्चित हैं? इससे यह सत्र हट जाएगा और सभी खिलाड़ी हटा दिए जाएंगे।",
     "inProgress": "प्रगति पर है",
-    "finished": "समाप्त"
+    "finished": "समाप्त",
+    "Timer": {
+      "soundDisabledMod": "ध्वनि सक्षम करें",
+      "soundEnabledMod": "ध्वनि अक्षम करें",
+      "soundDisabledPlayer": "ध्वनि अक्षम है",
+      "soundEnabledPlayer": "ध्वनि सक्षम है",
+      "startTimer": "टाइमर शुरू करें",
+      "resetTimer": "टाइमर रीसेट करें",
+      "pauseTimer": "टाइमर रोकें",
+      "closeTimer": "टाइमर बंद करें"
+    }
   },
   "CardPicker": {
     "ClickOnTheCardToVote": "वोट करने के लिए कार्ड पर क्लिक करें",

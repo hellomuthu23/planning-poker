@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import { AlertDialog } from '../../../components/AlertDialog/AlertDialog';
@@ -9,7 +9,7 @@ import {
   updateGame,
   updateStoryName,
 } from '../../../service/games';
-import { Game, GameType } from '../../../types/game';
+import { Game, GameType, TimerProps } from '../../../types/game';
 import { Player } from '../../../types/player';
 import { Status } from '../../../types/status';
 import { isModerator } from '../../../utils/isModerator';
@@ -19,6 +19,7 @@ import { InfoSVG } from '../../SVGs/Info';
 import { LinkSVG } from '../../SVGs/Link';
 import { RefreshSVG } from '../../SVGs/Refresh';
 import { TrashSVG } from '../../SVGs/Trash';
+import { Timer } from './Timer/TimerInput/Timer';
 
 interface GameControllerProps {
   game: Game;
@@ -55,6 +56,13 @@ export const GameController: React.FC<GameControllerProps> = ({
     updateGame(game.id, { autoReveal: value });
   };
 
+  const onUpdatedTimerProps = useCallback(
+    (timer: TimerProps) => {
+      updateGame(game.id, { timerProps: timer });
+    },
+    [game.id],
+  );
+
   const copyInviteLink = () => {
     navigator.clipboard.writeText(`${window.location.origin}/join/${game.id}`);
     setShowCopiedMessage(true);
@@ -68,6 +76,22 @@ export const GameController: React.FC<GameControllerProps> = ({
   };
 
   const isMod = isModerator(game.createdById, currentPlayerId, game.isAllowMembersToManageSession);
+  const timerProps: {
+    isMod?: boolean;
+    timerVisible?: boolean;
+    timerPaused?: boolean;
+    currentSeconds?: number;
+    totalSeconds?: number;
+    soundOn?: boolean;
+  } = { isMod: isMod, timerVisible: game.timerProps?.timerVisible };
+  if (!isMod) {
+    timerProps.isMod = false;
+    timerProps.timerVisible = game.timerProps?.timerVisible;
+    timerProps.timerPaused = game.timerProps?.timerPaused;
+    timerProps.currentSeconds = game.timerProps?.currentSeconds;
+    timerProps.totalSeconds = game.timerProps?.totalSeconds;
+    timerProps.soundOn = game.timerProps?.soundOn;
+  }
 
   return (
     <div className='flex flex-col items-center w-full px-2'>
@@ -75,7 +99,8 @@ export const GameController: React.FC<GameControllerProps> = ({
         {/* Card Header */}
 
         <div className='flex items-center justify-between px-3 py-1 border-b border-gray-400 dark:border-gray-600'>
-          <div className='text-lg font-semibold truncate flex-1/3'>{game.name}</div>
+          <div className='text-lg font-semibold truncate flex-grow'>{game.name}</div>
+          <Timer timerProps={timerProps} onTimerUpdate={(props) => onUpdatedTimerProps(props)} />
           <div className='mx-2 h-6 border-l border-gray-400 dark:border-gray-600' />
           <span className='text-sm font-medium'>
             {game.gameStatus} {getGameStatusIcon(game.gameStatus)}
@@ -176,7 +201,7 @@ export const GameController: React.FC<GameControllerProps> = ({
   );
 };
 
-const ControllerButton = ({
+export const ControllerButton = ({
   onClick,
   icon,
   label,

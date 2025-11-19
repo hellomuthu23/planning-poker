@@ -27,7 +27,17 @@
     "inviteLinkCopied": "Enlace de invitación copiado al portapapeles",
     "areYouSureDelete": "¿Estás seguro? Esto eliminará esta sesión y quitará a todos los jugadores.",
     "inProgress": "En progreso",
-    "finished": "Finalizado"
+    "finished": "Finalizado",
+    "Timer": {
+      "soundDisabledMod": "Activar sonido",
+      "soundEnabledMod": "Desactivar sonido",
+      "soundDisabledPlayer": "Sonido desactivado",
+      "soundEnabledPlayer": "Sonido activado",
+      "startTimer": "Iniciar temporizador",
+      "resetTimer": "Restablecer temporizador",
+      "pauseTimer": "Pausar temporizador",
+      "closeTimer": "Cerrar temporizador"
+    }
   },
   "CardPicker": {
     "ClickOnTheCardToVote": "Haz clic en la carta para votar",

@@ -27,7 +27,17 @@
     "inviteLinkCopied": "邀請連結已複製到剪貼簿",
     "areYouSureDelete": "您確定嗎？這將刪除此會議並移除所有玩家。",
     "inProgress": "進行中",
-    "finished": "已完成"
+    "finished": "已完成",
+    "Timer": {
+      "soundDisabledMod": "啟用聲音",
+      "soundEnabledMod": "停用聲音",
+      "soundDisabledPlayer": "聲音已停用",
+      "soundEnabledPlayer": "聲音已啟用",
+      "startTimer": "開始計時器",
+      "resetTimer": "重設計時器",
+      "pauseTimer": "暫停計時器",
+      "closeTimer": "關閉計時器"
+    }
   },
   "CardPicker": {
     "ClickOnTheCardToVote": "點擊卡片進行投票",
