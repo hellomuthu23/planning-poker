@@ -114,7 +114,7 @@ export const TimerProgress: React.FC<TimerProps> = ({
   const [currentMinutesRunning, currentSecondsRunning] = getMinutesAndSeconds(current);
 
   return (
-    <div className='absolute top-13 right-2 shadow-xl rounded-lg bg-white p-4 w-[15rem] h-fit border-gray-200 border-1'>
+    <div className='absolute top-13 right-2 shadow-xl rounded-lg bg-white p-4 w-[15rem] h-fit border-gray-200 border-1 dark:bg-gray-800 dark:border-gray-700 z-10'>
       <button
         title={
           _soundOn
@@ -149,7 +149,7 @@ export const TimerProgress: React.FC<TimerProps> = ({
                   ? `Set Time: ${minutes} Minutes, ${seconds} Seconds.\nReset to edit`
                   : `Running Time: ${runningMinutes} Minutes, ${runningSeconds} Seconds.`
               }
-              className='flex items-center space-x-1 flex-grow'
+              className='flex items-center space-x-1 flex-grow dark:text-white'
             >
               <input
                 type='text'
@@ -164,7 +164,7 @@ export const TimerProgress: React.FC<TimerProps> = ({
                 onChange={onMinutesChange}
                 disabled={!!intervalRef.current || inProgress}
               />
-              :
+              <span className='pb-[0.3rem]'>:</span>
               <input
                 type='text'
                 value={
@@ -182,7 +182,7 @@ export const TimerProgress: React.FC<TimerProps> = ({
             {isMod && !inProgress && (
               <div
                 title={`Running Time: ${currentMinutesRunning} Minutes, ${currentSecondsRunning} Seconds.`}
-                className='text-2xl'
+                className='text-2xl dark:text-white'
               >
                 <span>{currentMinutesRunning.toString().padStart(2, '0')}</span>
                 <span>:</span>
@@ -195,61 +195,76 @@ export const TimerProgress: React.FC<TimerProps> = ({
           <>
             <hr className='h-px my-3 bg-gray-200 border-0 dark:bg-gray-700 w-full' />
             <div className='flex space-x-2 w-full'>
-              <button
+              <TimerControlButton
                 title={t('GameController.Timer.resetTimer')}
-                className='p-2 border-2 border-gray-400 h-8 w-8 flex items-center justify-center text-gray-400 pointer hover:text-gray-600 hover:border-gray-600'
-                onClick={handleReset}
-                type='button'
+                callback={handleReset}
+                className='text-gray-400'
               >
                 {'\u23F9'}
-              </button>
+              </TimerControlButton>
               <div className='flex-grow w-full'>
                 {!inProgress && (
                   <div className='flex justify-center items-center gap-x-2 w-full h-8' role='group'>
-                    <button
-                      type='button'
-                      className='p-2 border-2 border-gray-200 h-8 w-8 flex items-center justify-center text-xl hover:text-gray-600 hover:border-gray-600'
-                      onClick={onReduceSeconds}
-                      title='Minus 1 minute'
-                    >
+                    <TimerControlButton callback={onReduceSeconds} title='Minus 1 minute'>
                       -
-                    </button>
-                    <button
-                      type='button'
-                      className='p-2 border-2 border-gray-200 h-8 w-8 flex items-center justify-center text-xl hover:text-gray-600 hover:border-gray-600'
-                      onClick={onAddSeconds}
-                      title='Add 1 minute'
-                    >
+                    </TimerControlButton>
+                    <TimerControlButton callback={onAddSeconds} title='Add 1 minute'>
                       +
-                    </button>
+                    </TimerControlButton>
                   </div>
                 )}
               </div>
               {!inProgress && (
-                <button
+                <TimerControlButton
                   title={t('GameController.Timer.startTimer')}
-                  className='p-2 border-2 border-gray-400 h-8 w-8 flex items-center justify-center text-gray-400 hover:text-gray-600 hover:border-gray-600'
-                  onClick={startTimer}
+                  callback={startTimer}
                   disabled={total === 0}
-                  type='button'
+                  className='text-gray-400'
                 >
                   {'\u25B6'}
-                </button>
+                </TimerControlButton>
               )}
               {inProgress && (
-                <button
+                <TimerControlButton
                   title={t('GameController.Timer.pauseTimer')}
-                  className='p-2 border-2 border-gray-400 h-8 w-8 flex items-center justify-center text-gray-400'
-                  onClick={pauseTimer}
-                  type='button'
+                  callback={pauseTimer}
+                  className='text-gray-400'
                 >
                   {'\u23F8'}
-                </button>
+                </TimerControlButton>
               )}
             </div>
           </>
         )}
       </div>
     </div>
+  );
+};
+
+type TimerControlButtonProps = {
+  title: string;
+  callback: () => void;
+  children?: React.ReactNode;
+  disabled?: boolean;
+  className?: string;
+};
+
+export const TimerControlButton: React.FC<TimerControlButtonProps> = ({
+  title,
+  callback,
+  children,
+  disabled = false,
+  className = '',
+}) => {
+  return (
+    <button
+      title={title}
+      className={`p-2 border-2 border-gray-200 h-8 w-8 flex items-center justify-center text-xl hover:text-gray-600 hover:border-gray-600 pb-[0.7rem] ${className} dark:border-gray-700 dark:hover:border-gray-500 dark:hover:text-gray-300`}
+      onClick={callback}
+      type='button'
+      disabled={disabled}
+    >
+      {children}
+    </button>
   );
 };
