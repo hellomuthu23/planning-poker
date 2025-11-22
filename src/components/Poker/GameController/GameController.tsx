@@ -126,20 +126,20 @@ export const GameController: React.FC<GameControllerProps> = ({
                 onClick={() => finishGame(game.id)}
                 icon={<EyeSVG className='h-9 w-9 text-green-500' />}
                 label={t('GameController.reveal')}
-                colorClass='bg-green-200'
+                className='hover:bg-green-200'
                 testId='reveal-button'
               />
               <ControllerButton
                 onClick={() => resetGame(game.id)}
                 icon={<RefreshSVG className='h-9 w-9 text-red-400' />}
                 label={t('GameController.restart')}
-                colorClass='bg-red-200'
+                className='hover:bg-red-200'
                 testId='restart-button'
               />
               <ControllerButton
                 icon={<TrashSVG className='h-9 w-9 text-red-500' />}
                 label={t('GameController.delete')}
-                colorClass='bg-red-200'
+                className='hover:bg-red-200'
                 testId='delete-button'
               >
                 <AlertDialog
@@ -162,14 +162,14 @@ export const GameController: React.FC<GameControllerProps> = ({
             onClick={leaveGame}
             icon={<ExitSVG className='h-9 w-9 text-orange-500 ' />}
             label={t('GameController.exit')}
-            colorClass='bg-red-200'
+            className='hover:bg-red-200'
             testId='exit-button'
           />
           <ControllerButton
             onClick={copyInviteLink}
             icon={<LinkSVG className='h-9 w-9 text-blue-500' />}
             label={t('GameController.invite')}
-            colorClass='bg-blue-200'
+            className='hover:bg-blue-200'
             testId='invite-button'
             title='Copy invite link'
           />
@@ -205,7 +205,7 @@ export const ControllerButton = ({
   onClick,
   icon,
   label,
-  colorClass,
+  className,
   testId,
   title,
   children,
@@ -213,7 +213,7 @@ export const ControllerButton = ({
   onClick?: () => void;
   icon: React.ReactNode;
   label: string;
-  colorClass: string;
+  className: string;
   testId?: string;
   title?: string;
   children?: React.ReactNode;
@@ -230,7 +230,7 @@ export const ControllerButton = ({
         key={testId}
         onClick={onClick}
         data-testid={testId}
-        className={`p-2 cursor-pointer rounded-full bg-white dark:bg-gray-900 hover:${colorClass} transition`}
+        className={`p-2 cursor-pointer rounded-full bg-white dark:bg-gray-900 ${className} transition`}
         title={title || label}
       >
         {icon}
