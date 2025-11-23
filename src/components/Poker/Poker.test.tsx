@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import { onSnapshot as onSnapshotOriginal } from 'firebase/firestore';
 import reactRouter from 'react-router';
 import * as gamesService from '../../service/games';
 import * as playersService from '../../service/players';
@@ -16,22 +17,40 @@ const mockHistory = {
   goBack: jest.fn(),
   block: () => mockUnblock,
 };
+// Mock Firestore onSnapshot to avoid validating real Query/DocRef types in tests
+jest.mock('firebase/firestore', () => {
+  const actual = jest.requireActual('firebase/firestore');
+  return {
+    ...actual,
+    onSnapshot: jest.fn(),
+  };
+});
+
+const onSnapshot = onSnapshotOriginal as unknown as jest.Mock;
+
 describe('Poker component', () => {
   beforeEach(() => {
-    jest.spyOn(reactRouter, 'useParams').mockReturnValue({ Id: 'zz' } as any);
+    // Ensure we return the correct param key expected by the component
+    jest.spyOn(reactRouter, 'useParams').mockReturnValue({ id: 'zz' } as any);
     jest.spyOn(reactRouter, 'useHistory').mockReturnValue(mockHistory as any);
+    onSnapshot.mockReset();
   });
   it('should display game not found', async () => {
-    jest.spyOn(gamesService, 'streamGame').mockImplementation(() => {
-      return {
-        onSnapshot: jest.fn((success) => success({ exists: false })),
-      } as any;
-    });
-    jest.spyOn(gamesService, 'streamPlayers').mockImplementation(() => {
-      return {
-        onSnapshot: jest.fn(() => Promise.resolve(true)),
-      } as any;
-    });
+    // First onSnapshot call for game -> not found
+    onSnapshot
+      .mockImplementationOnce((ref: any, cb: (snap: any) => void) => {
+        cb({ exists: () => false });
+        return jest.fn(); // unsubscribe
+      })
+      // Second onSnapshot call for players -> empty list
+      .mockImplementationOnce((ref: any, cb: (snap: any) => void) => {
+        cb({ forEach: (_: any) => {} });
+        return jest.fn();
+      });
+
+    // streamGame/streamPlayers can return any placeholder; they are only passed to onSnapshot
+    jest.spyOn(gamesService, 'streamGame').mockReturnValue({} as any);
+    jest.spyOn(gamesService, 'streamPlayers').mockReturnValue({} as any);
     render(<Poker />);
     await screen.findByText('Game not found');
   });
@@ -55,16 +74,25 @@ describe('Poker component', () => {
         value: 0,
       },
     ] as Player[];
-    jest.spyOn(gamesService, 'streamGame').mockImplementation(() => {
-      return {
-        onSnapshot: jest.fn((success) => success({ exists: true, data: () => mockGame })),
-      } as any;
-    });
-    jest.spyOn(gamesService, 'streamPlayers').mockImplementation(() => {
-      return {
-        onSnapshot: jest.fn((success) => success({ exists: true, forEach: () => mockPlayers })),
-      } as any;
-    });
+    // First call -> game snapshot
+    onSnapshot
+      .mockImplementationOnce((ref: any, cb: (snap: any) => void) => {
+        cb({ exists: () => true, data: () => mockGame });
+        return jest.fn();
+      })
+      // Second call -> players snapshot
+      .mockImplementationOnce((ref: any, cb: (snap: any) => void) => {
+        const snapshot = {
+          forEach: (iterCb: (doc: any) => void) => {
+            mockPlayers.forEach((p) => iterCb({ data: () => p }));
+          },
+        };
+        cb(snapshot);
+        return jest.fn();
+      });
+
+    jest.spyOn(gamesService, 'streamGame').mockReturnValue({} as any);
+    jest.spyOn(gamesService, 'streamPlayers').mockReturnValue({} as any);
 
     jest.spyOn(playersService, 'getCurrentPlayerId').mockReturnValue('xx');
     render(<Poker />);
@@ -96,17 +124,24 @@ describe('Poker component', () => {
       },
     ] as Player[];
 
-    jest.spyOn(gamesService, 'streamGame').mockImplementation(() => {
-      return {
-        onSnapshot: jest.fn((success) => success({ exists: true, data: () => mockGame })),
-      } as any;
-    });
+    // Mock snapshots
+    onSnapshot
+      .mockImplementationOnce((ref: any, cb: (snap: any) => void) => {
+        cb({ exists: () => true, data: () => mockGame });
+        return jest.fn();
+      })
+      .mockImplementationOnce((ref: any, cb: (snap: any) => void) => {
+        const snapshot = {
+          forEach: (iterCb: (doc: any) => void) => {
+            mockPlayers.forEach((p) => iterCb({ data: () => p }));
+          },
+        };
+        cb(snapshot);
+        return jest.fn();
+      });
 
-    jest.spyOn(gamesService, 'streamPlayers').mockImplementation(() => {
-      return {
-        onSnapshot: jest.fn((success) => success({ exists: true, forEach: () => mockPlayers })),
-      } as any;
-    });
+    jest.spyOn(gamesService, 'streamGame').mockReturnValue({} as any);
+    jest.spyOn(gamesService, 'streamPlayers').mockReturnValue({} as any);
 
     jest.spyOn(playersService, 'getCurrentPlayerId').mockReturnValue('xx');
 
@@ -114,7 +149,7 @@ describe('Poker component', () => {
     const confirmSpy = jest.spyOn(window, 'confirm').mockReturnValue(true);
 
     // Mock history.block
-    let blockCallback: (location: any, action: string) => void;
+    let blockCallback: (location: any, action: string) => any;
     const unblockMock = jest.fn();
     const mockHistory = {
       push: jest.fn(),

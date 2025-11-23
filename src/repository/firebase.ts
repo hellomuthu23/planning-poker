@@ -1,7 +1,20 @@
-import firebase from 'firebase/app';
-import 'firebase/firestore';
+import { initializeApp } from 'firebase/app';
+import {
+  collection,
+  connectFirestoreEmulator,
+  deleteDoc,
+  doc,
+  getDoc,
+  getDocs,
+  getFirestore,
+  query,
+  setDoc,
+  updateDoc,
+  where,
+} from 'firebase/firestore';
 import { Game } from '../types/game';
 import { Player } from '../types/player';
+
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FB_API_KEY,
   authDomain: process.env.REACT_APP_FB_AUTH_DOMAIN,
@@ -13,40 +26,42 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-const gamesCollectionName = 'games';
-const playersCollectionName = 'players';
-const db = firebase.firestore();
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
 // Use Firestore Emulator if the environment variable is set
 if (process.env.REACT_APP_USE_FIRESTORE_EMULATOR === 'true') {
   console.log('Using Firestore Emulator');
   // application host name
   const emulatorHost = window.location.hostname;
-  db.useEmulator(emulatorHost, 8080); // Point to the Firestore Emulator
+  connectFirestoreEmulator(db, emulatorHost, 8080);
 }
 
+const gamesCollectionName = 'games';
+const playersCollectionName = 'players';
+
 export const addGameToStore = async (gameId: string, data: any) => {
-  await db.collection(gamesCollectionName).doc(gameId).set(data);
+  await setDoc(doc(db, gamesCollectionName, gameId), data);
   return true;
 };
 
 export const getGameFromStore = async (id: string): Promise<Game | undefined> => {
-  const response = db.collection(gamesCollectionName).doc(id);
-  const result = await response.get();
-  let game = undefined;
-  if (result.exists) {
-    game = result.data();
+  const docRef = doc(db, gamesCollectionName, id);
+  const docSnap = await getDoc(docRef);
+
+  if (docSnap.exists()) {
+    return docSnap.data() as Game;
   }
-  return game as Game;
+  return undefined;
 };
 
 export const getPlayersFromStore = async (gameId: string): Promise<Player[]> => {
-  const db = firebase.firestore();
-  const response = db.collection(gamesCollectionName).doc(gameId).collection(playersCollectionName);
-  const results = await response.get();
-  let players: Player[] = [];
-  results.forEach((result) => players.push(result.data() as Player));
+  const q = collection(db, gamesCollectionName, gameId, playersCollectionName);
+  const querySnapshot = await getDocs(q);
+  const players: Player[] = [];
+  querySnapshot.forEach((doc) => {
+    players.push(doc.data() as Player);
+  });
   return players;
 };
 
@@ -54,76 +69,59 @@ export const getPlayerFromStore = async (
   gameId: string,
   playerId: string,
 ): Promise<Player | undefined> => {
-  const db = firebase.firestore();
-  const response = db
-    .collection(gamesCollectionName)
-    .doc(gameId)
-    .collection(playersCollectionName)
-    .doc(playerId);
-  const result = await response.get();
-  let player = undefined;
-  if (result.exists) {
-    player = result.data();
+  const docRef = doc(db, gamesCollectionName, gameId, playersCollectionName, playerId);
+  const docSnap = await getDoc(docRef);
+
+  if (docSnap.exists()) {
+    return docSnap.data() as Player;
   }
-  return player as Player;
+  return undefined;
 };
 
 export const streamData = (id: string) => {
-  return db.collection(gamesCollectionName).doc(id);
+  return doc(db, gamesCollectionName, id);
 };
+
 export const streamPlayersFromStore = (id: string) => {
-  return db.collection(gamesCollectionName).doc(id).collection(playersCollectionName);
+  return collection(db, gamesCollectionName, id, playersCollectionName);
 };
 
 export const updateGameDataInStore = async (gameId: string, data: any): Promise<boolean> => {
-  const db = firebase.firestore();
-  await db.collection(gamesCollectionName).doc(gameId).update(data);
+  const docRef = doc(db, gamesCollectionName, gameId);
+  await updateDoc(docRef, data);
   return true;
 };
 
 export const addPlayerToGameInStore = async (gameId: string, player: Player) => {
-  await db
-    .collection(gamesCollectionName)
-    .doc(gameId)
-    .collection(playersCollectionName)
-    .doc(player.id)
-    .set(player);
+  const docRef = doc(db, gamesCollectionName, gameId, playersCollectionName, player.id);
+  await setDoc(docRef, player);
   return true;
 };
 
 export const removePlayerFromGameInStore = async (gameId: string, playerId: string) => {
-  await db
-    .collection(gamesCollectionName)
-    .doc(gameId)
-    .collection(playersCollectionName)
-    .doc(playerId)
-    .delete();
+  const docRef = doc(db, gamesCollectionName, gameId, playersCollectionName, playerId);
+  await deleteDoc(docRef);
   return true;
 };
 
 export const updatePlayerInStore = async (gameId: string, player: Player) => {
-  await db
-    .collection(gamesCollectionName)
-    .doc(gameId)
-    .collection(playersCollectionName)
-    .doc(player.id)
-    .update(player);
-
+  const docRef = doc(db, gamesCollectionName, gameId, playersCollectionName, player.id);
+  await updateDoc(docRef, player as any);
   return true;
 };
 
 export const removeGameFromStore = async (gameId: string) => {
-  await db.collection(gamesCollectionName).doc(gameId).delete();
-  await db
-    .collection(gamesCollectionName)
-    .doc(gameId)
-    .collection(playersCollectionName)
-    .get()
-    .then((res) => {
-      res.forEach((element) => {
-        element.ref.delete();
-      });
-    });
+  await deleteDoc(doc(db, gamesCollectionName, gameId));
+
+  const playersRef = collection(db, gamesCollectionName, gameId, playersCollectionName);
+  const querySnapshot = await getDocs(playersRef);
+
+  const deletePromises: Promise<void>[] = [];
+  querySnapshot.forEach((doc) => {
+    deletePromises.push(deleteDoc(doc.ref));
+  });
+
+  await Promise.all(deletePromises);
   return true;
 };
 
@@ -131,34 +129,28 @@ export const removeOldGameFromStore = async () => {
   const monthsToDelete = 6;
   const dateObj = new Date();
   const requiredDate = new Date(dateObj.setMonth(dateObj.getMonth() - monthsToDelete));
-  const games = await db
-    .collection(gamesCollectionName)
-    .where('createdAt', '<', requiredDate)
-    .get();
+
+  const q = query(collection(db, gamesCollectionName), where('createdAt', '<', requiredDate));
+  const games = await getDocs(q);
 
   console.log('Games length', games.docs.length);
   if (games.docs.length > 0) {
     const data = games.docs[0].data();
     console.log(data);
     console.log(games.docs[games.docs.length - 1].data());
+    // Note: toDate() works if the data is a Firestore Timestamp
     console.log(data.createdAt.toDate().toString());
     console.log(games.docs[games.docs.length - 1].data().createdAt.toDate().toString());
-    const gamesCollection: any = [];
 
-    games.forEach((game) => {
-      gamesCollection.push(game);
-    });
-    for (let game of gamesCollection) {
-      console.log('Deleting:', game.data().name);
-      const players = await game.ref.collection(playersCollectionName).get();
-      const playersCollection: any = [];
-      players.forEach((player: Player) => {
-        playersCollection.push(player);
-      });
-      for (let player of playersCollection) {
-        await player.ref.delete();
+    for (const gameDoc of games.docs) {
+      console.log('Deleting:', gameDoc.data().name);
+      const playersRef = collection(db, gamesCollectionName, gameDoc.id, playersCollectionName);
+      const playersSnap = await getDocs(playersRef);
+
+      for (const playerDoc of playersSnap.docs) {
+        await deleteDoc(playerDoc.ref);
       }
-      await game.ref.delete();
+      await deleteDoc(gameDoc.ref);
       console.log('deleted');
     }
   }

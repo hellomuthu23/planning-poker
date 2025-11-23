@@ -1,4 +1,5 @@
 import { CircularProgress, Typography } from '@material-ui/core';
+import { onSnapshot } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { streamGame, streamPlayers } from '../../service/games';
@@ -46,9 +47,9 @@ export const Poker = () => {
       setIsLoading(true);
     }
 
-    streamGame(id).onSnapshot((snapshot) => {
+    const unsubscribeGame = onSnapshot(streamGame(id), (snapshot) => {
       if (effectCleanup) {
-        if (snapshot.exists) {
+        if (snapshot.exists()) {
           const data = snapshot.data();
           if (data) {
             setGame(data as Game);
@@ -60,7 +61,7 @@ export const Poker = () => {
       }
     });
 
-    streamPlayers(id).onSnapshot((snapshot) => {
+    const unsubscribePlayers = onSnapshot(streamPlayers(id), (snapshot) => {
       if (effectCleanup) {
         const players: Player[] = [];
         snapshot.forEach((snapshot) => {
@@ -76,6 +77,8 @@ export const Poker = () => {
 
     return () => {
       effectCleanup = false;
+      unsubscribeGame();
+      unsubscribePlayers();
     };
   }, [id, history]);
 
