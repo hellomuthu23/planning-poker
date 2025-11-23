@@ -35,6 +35,7 @@ Free / Open source Scrum/Agile Planning Poker Web App to estimate user stories f
 10. Dark Theme Support
 11. Multiple language support
 12. Mobile/Tablet screen support
+13. Timer 
 
 ## Tech Stack
 
@@ -113,10 +114,9 @@ pre-req
 
 ## Pending features open to development
 
-1. Add timer
-2. Export options
-3. Preserve history of voting and show it in session
-4. Ask AI Option
+1. Export options
+2. Preserve history of voting and show it in session
+3. Ask AI Option
 
 ## Tech Debts
 
