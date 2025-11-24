@@ -101,17 +101,17 @@ describe('GameController component', () => {
     expect(screen.getByText('Invite')).toBeInTheDocument();
   });
 
-  it('should copy invite link to clipboard', () => {
+  it('should copy invite link to clipboard', async () => {
     render(<GameController game={mockGame} currentPlayerId={mockCurrentPlayerId} />);
 
-    userEvent.click(screen.getByTestId('invite-button'));
+    await userEvent.click(screen.getByTestId('invite-button'));
     expect(document.execCommand).toHaveBeenCalledWith('copy');
   });
 
-  it('should navigate to home page when exit button is clicked', () => {
+  it('should navigate to home page when exit button is clicked', async () => {
     render(<GameController game={mockGame} currentPlayerId={mockCurrentPlayerId} />);
 
-    userEvent.click(screen.getByTestId('exit-button'));
+    await userEvent.click(screen.getByTestId('exit-button'));
     expect(mockHistoryPush).toHaveBeenCalledWith('/');
   });
 
@@ -126,14 +126,14 @@ describe('GameController component', () => {
 
       expect(screen.getByText('Restart')).toBeInTheDocument();
     });
-    it('should reveal cards when player click on Reveal button', () => {
+    it('should reveal cards when player click on Reveal button', async () => {
       render(<GameController game={mockGame} currentPlayerId={mockCurrentPlayerId} />);
-      userEvent.click(screen.getByTestId('reveal-button'));
+      await userEvent.click(screen.getByTestId('reveal-button'));
       expect(gamesService.finishGame).toHaveBeenCalled();
     });
-    it('should restart game when player click on Restart button', () => {
+    it('should restart game when player click on Restart button', async () => {
       render(<GameController game={mockGame} currentPlayerId={mockCurrentPlayerId} />);
-      userEvent.click(screen.getByTestId('restart-button'));
+      await userEvent.click(screen.getByTestId('restart-button'));
       expect(gamesService.resetGame).toHaveBeenCalled();
     });
   });

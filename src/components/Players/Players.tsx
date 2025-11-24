@@ -1,4 +1,4 @@
-import { Grow } from '@material-ui/core';
+import { Grow } from '@mui/material';
 import React from 'react';
 import { Game } from '../../types/game';
 import { Player } from '../../types/player';

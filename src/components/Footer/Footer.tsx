@@ -1,5 +1,5 @@
-import { Divider, Link, Slide, Typography } from '@material-ui/core';
-import CopyrightIcon from '@material-ui/icons/Copyright';
+import { Divider, Link, Slide, Typography } from '@mui/material';
+import CopyrightIcon from '@mui/icons-material/Copyright';
 import React from 'react';
 import './Footer.css';
 

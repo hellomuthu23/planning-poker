@@ -1,4 +1,5 @@
-import { Grid, Slide, Typography } from '@material-ui/core';
+import { Slide, Typography } from '@mui/material';
+import Grid from '@mui/material/Grid';
 import React from 'react';
 
 import '../HomePage/HomePage.css';
@@ -6,7 +7,7 @@ import '../HomePage/HomePage.css';
 export const GuidePage = () => {
   return (
     <>
-      <Grid container direction='column' justify='center' alignItems='center'>
+      <Grid container direction='column' justifyContent='center' alignItems='center'>
         <GuideContent />
       </Grid>
     </>
@@ -16,7 +17,7 @@ export const GuidePage = () => {
 export const GuideContent = () => {
   return (
     <>
-      <Grid container item sm={12} lg={9} justify='center' alignItems='center'>
+      <Grid container size={{ xs: 12, sm: 12, lg: 9 }} justifyContent='center' alignItems='center'>
         <Slide in={true} direction='up' timeout={1000}>
           <div className='HomePageContainer'>
             <Typography variant='h5'>Guidelines on estimating user stories in Agile</Typography>

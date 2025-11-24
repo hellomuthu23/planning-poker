@@ -1,15 +1,15 @@
-import { Card, CardContent, CardHeader, IconButton, Typography } from '@material-ui/core';
+import { Card, CardContent, CardHeader, IconButton, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { Game } from '../../../types/game';
 import { Player } from '../../../types/player';
 import { Status } from '../../../types/status';
 import { getCards } from '../CardPicker/CardConfigs';
 import './PlayerCard.css';
-import DeleteForeverIcon from '@material-ui/icons/DeleteForeverTwoTone';
-import EditIcon from '@material-ui/icons/Edit';
-import SaveIcon from '@material-ui/icons/Save';
-import HighlightOffIcon from '@material-ui/icons/HighlightOff';
-import { blue, red } from '@material-ui/core/colors';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForeverTwoTone';
+import EditIcon from '@mui/icons-material/Edit';
+import SaveIcon from '@mui/icons-material/Save';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import { blue, red } from '@mui/material/colors';
 import { removePlayer, updatePlayerName } from '../../../service/players';
 import { isModerator } from '../../../utils/isModerator';
 
@@ -88,7 +88,7 @@ export const PlayerCard: React.FC<PlayerCardProps> = ({ game, player, currentPla
             player.name
           )
         }
-        titleTypographyProps={{ variant: 'subtitle2', noWrap: true, title: player.name }}
+        slotProps={{ title: { variant: 'subtitle2', noWrap: true, title: player.name } }}
         action={
           (isModerator(game.createdById, currentPlayerId, game.isAllowMembersToManageSession) &&
           player.id !== currentPlayerId && (

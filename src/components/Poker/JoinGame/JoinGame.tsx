@@ -8,7 +8,7 @@ import {
   Grow,
   Snackbar,
   TextField,
-} from '@material-ui/core';
+} from '@mui/material';
 import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { getGame } from '../../../service/games';
@@ -17,7 +17,7 @@ import {
   isCurrentPlayerInGame,
   removeGameFromCache,
 } from '../../../service/players';
-import Alert from '@material-ui/lab/Alert';
+import Alert from '@mui/material/Alert';
 import './JoinGame.css';
 
 export const JoinGame = () => {
@@ -73,7 +73,7 @@ export const JoinGame = () => {
               <CardHeader
                 className='JoinGameCardHeader'
                 title='Join a Session'
-                titleTypographyProps={{ variant: 'h4' }}
+                slotProps={{ title: { variant: 'h4' } }}
               />
               <CardContent className='JoinGameCardContent'>
                 <TextField
@@ -122,7 +122,7 @@ export const JoinGame = () => {
         anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
         open={showNotExistMessage}
         autoHideDuration={5000}
-        TransitionComponent={Fade}
+        slotProps={{ transition: Fade }}
         transitionDuration={1000}
         onClose={() => setShowNotExistMessage(false)}
       >

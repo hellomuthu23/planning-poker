@@ -42,15 +42,15 @@ describe('JoinGame component', () => {
     vi.spyOn(playersService, 'isCurrentPlayerInGame').mockResolvedValue(false);
     render(<JoinGame />);
     const sessionID = screen.getByPlaceholderText('xyz...');
-    userEvent.clear(sessionID);
-    userEvent.type(sessionID, 'gameId');
+    await userEvent.clear(sessionID);
+    await userEvent.type(sessionID, 'gameId');
 
     const userName = screen.getByPlaceholderText('Enter your name');
-    userEvent.type(userName, 'Rock');
+    await userEvent.type(userName, 'Rock');
 
     const joinButton = screen.getByText('Join');
 
-    userEvent.click(joinButton);
+    await userEvent.click(joinButton);
 
     expect(playersService.addPlayerToGame).toHaveBeenCalled();
 

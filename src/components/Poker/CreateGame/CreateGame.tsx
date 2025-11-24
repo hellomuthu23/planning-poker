@@ -10,7 +10,7 @@ import {
   Radio,
   RadioGroup,
   TextField,
-} from '@material-ui/core';
+} from '@mui/material';
 import React, { ChangeEvent, FormEvent, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
@@ -89,7 +89,7 @@ export const CreateGame = () => {
           <CardHeader
             className='CreateGameCardHeader'
             title={t('HomePage.heroSection.formNewSession.newSessionHeader')}
-            titleTypographyProps={{ variant: 'h4' }}
+            slotProps={{ title: { variant: 'h4' } }}
           />
           <CardContent className='CreateGameCardContent'>
             <TextField
@@ -162,7 +162,9 @@ export const CreateGame = () => {
                       margin='dense'
                       id={`custom-option-${index}`}
                       data-testid={`custom-option-${index}`}
-                      inputProps={{ maxLength: 3, style: { fontSize: '12px', padding: '10px' } }}
+                      slotProps={{
+                        htmlInput: { maxLength: 3, style: { fontSize: '12px', padding: '10px' } },
+                      }}
                       type='text'
                       variant='outlined'
                       className='CreateGameCustomTextField'

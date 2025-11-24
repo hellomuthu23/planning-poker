@@ -3,6 +3,32 @@
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom';
+import ReactDOM from 'react-dom';
+
+// Polyfill for React 19 - ReactDOM.findDOMNode removed
+// Material-UI v4 still uses this deprecated API
+if (!(ReactDOM as any).findDOMNode) {
+  (ReactDOM as any).findDOMNode = (instance: any) => {
+    if (!instance) return null;
+    if (instance.nodeType === 1) return instance;
+    // Create a mock DOM element for testing purposes
+    return {
+      nodeType: 1,
+      scrollTop: 0,
+      scrollLeft: 0,
+      offsetHeight: 0,
+      offsetWidth: 0,
+      style: {},
+      classList: {
+        add: () => {},
+        remove: () => {},
+        contains: () => false,
+      },
+      addEventListener: () => {},
+      removeEventListener: () => {},
+    };
+  };
+}
 
 // Vitest is our runner. Provide a Jest-compatible global shim so existing
 // test files that use `jest.*` still work without changes.
@@ -53,7 +79,7 @@ vi.mock('react-router-dom', async () => {
 });
 
 // Stabilize Material-UI useMediaQuery to avoid theme/breakpoints null errors
-vi.mock('@material-ui/core/useMediaQuery', () => ({
+vi.mock('@mui/material/useMediaQuery', () => ({
   __esModule: true,
   default: () => false,
 }));

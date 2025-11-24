@@ -1,4 +1,5 @@
-import { Card, CardContent, Grid, Grow, Slide, Typography } from '@material-ui/core';
+import { Card, CardContent, Grow, Slide, Typography } from '@mui/material';
+import Grid from '@mui/material/Grid';
 import React, { useEffect, useState } from 'react';
 import { updatePlayerValue } from '../../../service/players';
 import { Game } from '../../../types/game';
@@ -37,9 +38,9 @@ export const CardPicker: React.FC<CardPickerProps> = ({ game, players, currentPl
             : 'Session not ready for Voting! Wait for moderator to press "Restart" button to start voting.'}
         </Typography>
         <div className='CardPickerContainer'>
-          <Grid container spacing={4} justify='center'>
+          <Grid container spacing={4} justifyContent='center'>
             {cards.map((card: CardConfig, index) => (
-              <Grid key={card.value} item xs>
+              <Grid key={card.value} size="auto">
                 <Slide in={true} direction={'right'} timeout={(200 * index) / 2}>
                   <Card
                     id={`card-${card.displayValue}`}

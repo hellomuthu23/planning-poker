@@ -9,9 +9,9 @@ import {
   TableHead,
   TableRow,
   Typography,
-} from '@material-ui/core';
-import { red } from '@material-ui/core/colors';
-import DeleteForeverIcon from '@material-ui/icons/DeleteForeverTwoTone';
+} from '@mui/material';
+import { red } from '@mui/material/colors';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForeverTwoTone';
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { getPlayerRecentGames } from '../../../service/players';
@@ -19,7 +19,7 @@ import './RecentGames.css';
 import { removeGame } from '../../../service/games';
 import { AlertDialog } from '../../AlertDialog/AlertDialog';
 import { PlayerGame } from '../../../types/player';
-import Alert from '@material-ui/lab/Alert';
+import Alert from '@mui/material/Alert';
 
 
 export const RecentGames = () => {
@@ -65,7 +65,7 @@ export const RecentGames = () => {
       <CardHeader
         className='RecentGamesCardTitle'
         title='Recent Session'
-        titleTypographyProps={{ variant: 'h6', noWrap: true }}
+        slotProps={{ title: { variant: 'h6', noWrap: true }}}
       />
       <CardContent className='RecentGamesCardContent'>
         {isEmptyRecentGames() && <Typography variant='body2'>No recent sessions found</Typography>}
@@ -125,7 +125,7 @@ export const RecentGames = () => {
         anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
         open={showGameProtected}
         autoHideDuration={5000}
-        TransitionComponent={Fade}
+        slotProps={{ transition: Fade }}
         transitionDuration={1000}
         onClose={() => setShowGameProtected(false)}
       >

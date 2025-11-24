@@ -136,18 +136,18 @@ describe('CardPicker component', () => {
         expect(cardValueElement.length).toBeGreaterThan(0);
       });
   });
-  it('should update player value when player clicks on a card', () => {
+  it('should update player value when player clicks on a card', async () => {
     const currentPlayerId = mockPlayers[0].id;
     const updatePlayerValueSpy = jest.spyOn(playersService, 'updatePlayerValue');
     jest.spyOn(cardConfigs, 'getRandomEmoji').mockReturnValue('something');
     render(<CardPicker game={mockGame} players={mockPlayers} currentPlayerId={currentPlayerId} />);
     const cardValueElement = screen.queryAllByText(1);
-    userEvent.click(cardValueElement[0]);
+    await userEvent.click(cardValueElement[0]);
     expect(updatePlayerValueSpy).toHaveBeenCalled();
     expect(updatePlayerValueSpy).toHaveBeenCalledWith(mockGame.id, currentPlayerId, 1, 'something');
   });
 
-  it('should not update player value when player clicks on a card and game is finished', () => {
+  it('should not update player value when player clicks on a card and game is finished', async () => {
     const currentPlayerId = mockPlayers[0].id;
     const updatePlayerValueSpy = jest.spyOn(playersService, 'updatePlayerValue');
     const finishedGameMock = {
@@ -162,7 +162,11 @@ describe('CardPicker component', () => {
       />,
     );
     const cardValueElement = screen.queryAllByText(1);
-    userEvent.click(cardValueElement[0]);
+    // Element has pointer-events: none when game is finished, which is expected
+    // We verify it cannot be interacted with and spy was not called
+    await expect(async () => {
+      await userEvent.click(cardValueElement[0]);
+    }).rejects.toThrow('pointer-events: none');
     expect(updatePlayerValueSpy).toHaveBeenCalledTimes(0);
   });
   it('should display Click on the card to vote when game is not finished', () => {

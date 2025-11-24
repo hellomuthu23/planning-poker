@@ -8,13 +8,13 @@ import {
   IconButton,
   Snackbar,
   Typography,
-} from '@material-ui/core';
-import { blue, green, grey, orange } from '@material-ui/core/colors';
-import RefreshIcon from '@material-ui/icons/Autorenew';
-import ExitToApp from '@material-ui/icons/ExitToApp';
-import LinkIcon from '@material-ui/icons/Link';
-import VisibilityIcon from '@material-ui/icons/Visibility';
-import Alert from '@material-ui/lab/Alert';
+} from '@mui/material';
+import { blue, green, grey, orange } from '@mui/material/colors';
+import RefreshIcon from '@mui/icons-material/Autorenew';
+import ExitToApp from '@mui/icons-material/ExitToApp';
+import LinkIcon from '@mui/icons-material/Link';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import Alert from '@mui/material/Alert';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { AlertDialog } from '../../AlertDialog/AlertDialog';
@@ -23,7 +23,7 @@ import { finishGame, removeGame, resetGame } from '../../../service/games';
 import { Game, GameType } from '../../../types/game';
 import { isModerator } from '../../../utils/isModerator';
 import './GameController.css';
-import { Clear } from '@material-ui/icons';
+import { Clear } from '@mui/icons-material';
 
 interface GameControllerProps {
   game: Game;
@@ -62,7 +62,7 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
           <Card variant='outlined' className='GameControllerCard'>
             <CardHeader
               title={game.name}
-              titleTypographyProps={{ variant: 'h6' }}
+              slotProps={{ title: { variant: 'h6' } }}
               action={
                 <div
                   className={
@@ -198,7 +198,7 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
         anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
         open={showCopiedMessage}
         autoHideDuration={5000}
-        TransitionComponent={Fade}
+        slotProps={{ transition: Fade }}
         transitionDuration={1000}
         onClose={() => setShowCopiedMessage(false)}
       >
@@ -208,7 +208,7 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
         anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
         open={showGameProtected}
         autoHideDuration={5000}
-        TransitionComponent={Fade}
+        slotProps={{ transition: Fade }}
         transitionDuration={1000}
         onClose={() => setShowGameProtected(false)}
       >

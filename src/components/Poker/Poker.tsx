@@ -1,4 +1,4 @@
-import { CircularProgress, Typography } from '@material-ui/core';
+import { CircularProgress, Typography } from '@mui/material';
 import { onSnapshot } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';

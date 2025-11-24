@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import { vi } from 'vitest';
-import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 // Mock router BEFORE importing the component so hooks are intercepted
 const mockHistoryPush = vi.fn();
@@ -20,7 +20,7 @@ vi.mock('react-router-dom', async () => {
 
 import { Toolbar } from './Toolbar';
 
-const theme = createMuiTheme();
+const theme = createTheme();
 const renderWithTheme = (component: React.ReactElement) => {
   return render(<ThemeProvider theme={theme}>{component}</ThemeProvider>);
 };
@@ -53,28 +53,28 @@ describe('Toolbar component', () => {
     const newSession = screen.getByTestId('toolbar.menu.joinSession');
     expect(newSession).toBeInTheDocument();
   });
-  it('should navigate to Home page when New Session button is clicked', () => {
+  it('should navigate to Home page when New Session button is clicked', async () => {
     renderWithTheme(<Toolbar />);
     const newSession = screen.getByTestId('toolbar.menu.newSession');
-    userEvent.click(newSession);
+    await userEvent.click(newSession);
     expect(mockHistoryPush).toBeCalledWith('/');
   });
-  it('should navigate to Join session page when Join Session button is clicked', () => {
+  it('should navigate to Join session page when Join Session button is clicked', async () => {
     renderWithTheme(<Toolbar />);
     const newSession = screen.getByTestId('toolbar.menu.joinSession');
-    userEvent.click(newSession);
+    await userEvent.click(newSession);
     expect(mockHistoryPush).toBeCalledWith('/join');
   });
-  it('should navigate to home page when Title is clicked clicked', () => {
+  it('should navigate to home page when Title is clicked clicked', async () => {
     renderWithTheme(<Toolbar />);
     const title = screen.getByText('Planning Poker');
-    userEvent.click(title);
+    await userEvent.click(title);
     expect(mockHistoryPush).toBeCalledWith('/');
   });
-  it('should navigate to github page when Github icon is clicked clicked', () => {
+  it('should navigate to github page when Github icon is clicked clicked', async () => {
     const view = renderWithTheme(<Toolbar />);
     const title = view.container.querySelector('#github-button') as HTMLElement;
-    userEvent.click(title);
+    await userEvent.click(title);
     expect(window.location.href).toEqual('https://github.com/rfoerthe/planning-poker');
   });
 });

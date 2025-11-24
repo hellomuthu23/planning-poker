@@ -7,18 +7,18 @@ describe('LanguageControl component', () => {
     render(<LanguageControl />);
 
     const wrapperNode = screen.getByTestId('language-control');
-    const button = await within(wrapperNode).findByRole('button');
+    const combobox = await within(wrapperNode).findByRole('combobox');
 
-    expect(button).toHaveTextContent('🇺🇸');
+    expect(combobox).toHaveTextContent('🇺🇸');
   });
 
   test('should changes language when selecting a flag option', async () => {
     render(<LanguageControl />);
 
     const wrapperNode = screen.getByTestId('language-control');
-    const button = await within(wrapperNode).findByRole('button');
+    const combobox = await within(wrapperNode).findByRole('combobox');
 
-    fireEvent.mouseDown(button);
+    fireEvent.mouseDown(combobox);
 
     const option = await screen.findByRole('option', {
       name: new RegExp('🇧🇷'),
@@ -26,6 +26,6 @@ describe('LanguageControl component', () => {
 
     fireEvent.click(option);
 
-    expect(button).toHaveTextContent('🇧🇷');
+    expect(combobox).toHaveTextContent('🇧🇷');
   });
 });

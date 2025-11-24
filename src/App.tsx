@@ -1,5 +1,5 @@
-import { CssBaseline } from '@material-ui/core';
-import { StylesProvider, ThemeProvider } from '@material-ui/core/styles';
+import { CssBaseline } from '@mui/material';
+import { StyledEngineProvider, ThemeProvider } from '@mui/material/styles';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Toolbar } from './components/Toolbar/Toolbar';
 import DeleteOldGames from './pages/DeleteOldGames/DeleteOldGames';
@@ -17,7 +17,7 @@ function App() {
   return (
     <div className='LightTheme'>
       <ThemeProvider theme={theme}>
-        <StylesProvider injectFirst>
+        <StyledEngineProvider injectFirst>
           <CssBaseline />
           <Router>
             <Toolbar />
@@ -51,7 +51,7 @@ function App() {
                 the EU-U.S. Data Privacy Framework, thus ensuring a level of protection appropriate to European data protection standards.</p>
             </CookieConsent>
           </Router>
-        </StylesProvider>
+        </StyledEngineProvider>
       </ThemeProvider>
     </div>
   );

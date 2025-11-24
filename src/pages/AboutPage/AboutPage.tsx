@@ -1,4 +1,5 @@
-import { Box, Grid, Slide, Typography } from '@material-ui/core';
+import { Box, Slide, Typography } from '@mui/material';
+import Grid from '@mui/material/Grid';
 import React from 'react';
 import How from './../../images/how.jpg';
 import What from './../../images/what.jpg';
@@ -12,7 +13,7 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 export const AboutPage = () => {
   return (
     <>
-      <Grid container direction='column' justify='center' alignItems='center'>
+      <Grid container direction='column' justifyContent='center' alignItems='center'>
         <AboutPlanningPokerContent />
       </Grid>
     </>
@@ -22,8 +23,8 @@ export const AboutPage = () => {
 export const AboutPlanningPokerContent = () => {
   return (
     <>
-      <Grid container item sm={12} lg={9} justify='center' alignItems='center'>
-        <Grid item sm={12} lg={6}>
+      <Grid container size={{ xs: 12, sm: 12, lg: 9 }} justifyContent='center' alignItems='center'>
+        <Grid size={{ xs: 12, sm: 12, lg: 6 }}>
           <Slide in={true} direction='up' timeout={1000}>
             <div className='HomePageContainer'>
               <Typography variant='h5'>What is Agile Planning Poker?</Typography>
@@ -45,7 +46,7 @@ export const AboutPlanningPokerContent = () => {
             </div>
           </Slide>
         </Grid>
-        <Grid item sm={12} lg={6}>
+        <Grid size={{ xs: 12, sm: 12, lg: 6 }}>
           <Slide in={true} direction='up' timeout={1000}>
             <div className='HomePageContainer'>
               <Box padding={2}>
@@ -57,8 +58,8 @@ export const AboutPlanningPokerContent = () => {
       </Grid>
       <br></br>
       <br></br>
-      <Grid container item sm={12} lg={9} justify='center' alignItems='center'>
-        <Grid item sm={12} lg={6}>
+      <Grid container size={{ xs: 12, sm: 12, lg: 9 }} justifyContent='center' alignItems='center'>
+        <Grid size={{ xs: 12, sm: 12, lg: 6 }}>
           <Slide in={true} direction='up' timeout={1000}>
             <div className='HomePageContainer'>
               <Box padding={2}>
@@ -67,7 +68,7 @@ export const AboutPlanningPokerContent = () => {
             </div>
           </Slide>
         </Grid>
-        <Grid item sm={12} lg={6}>
+        <Grid size={{ xs: 12, sm: 12, lg: 6 }}>
           <Slide in={true} direction='up' timeout={1000}>
             <div className='HomePageContainer'>
               <Typography variant='h5'>How Agile Planning Poker Works</Typography>
@@ -104,8 +105,8 @@ export const AboutPlanningPokerContent = () => {
       </Grid>
       <br />
       <br />
-      <Grid container item sm={12} lg={9} justify='center' alignItems='center'>
-        <Grid item sm={12} lg={6}>
+      <Grid container size={{ xs: 12, sm: 12, lg: 9 }} justifyContent='center' alignItems='center'>
+        <Grid size={{ xs: 12, sm: 12, lg: 6 }}>
           <Slide in={true} direction='up' timeout={1000}>
             <div className='HomePageContainer'>
               <Typography variant='h5'>Benefits of Agile Planning Poker</Typography>
@@ -134,7 +135,7 @@ export const AboutPlanningPokerContent = () => {
             </div>
           </Slide>
         </Grid>
-        <Grid item sm={12} lg={6}>
+        <Grid size={{ xs: 12, sm: 12, lg: 6 }}>
           <Slide in={true} direction='up' timeout={1000}>
             <div className='HomePageContainer'>
               <Box padding={2}>
@@ -146,8 +147,8 @@ export const AboutPlanningPokerContent = () => {
       </Grid>
       <br />
       <br />
-      <Grid container item sm={12} lg={9} justify='center' alignItems='center'>
-        <Grid item sm={12} lg={6}>
+      <Grid container size={{ xs: 12, sm: 12, lg: 9 }} justifyContent='center' alignItems='center'>
+        <Grid size={{ xs: 12, sm: 12, lg: 6 }}>
           <Slide in={true} direction='up' timeout={1000}>
             <div className='HomePageContainer'>
               <Box padding={2}>
@@ -156,7 +157,7 @@ export const AboutPlanningPokerContent = () => {
             </div>
           </Slide>
         </Grid>
-        <Grid item sm={12} lg={6}>
+        <Grid size={{ xs: 12, sm: 12, lg: 6 }}>
           <Slide in={true} direction='up' timeout={1000}>
             <div className='HomePageContainer'>
               <Typography variant='h5'>Best Practices for Agile Planning Poker</Typography>
