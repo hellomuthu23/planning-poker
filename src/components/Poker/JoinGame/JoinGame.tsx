@@ -10,7 +10,7 @@ import {
   TextField,
 } from '@mui/material';
 import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { getGame } from '../../../service/games';
 import {
   addPlayerToGame,
@@ -21,7 +21,7 @@ import Alert from '@mui/material/Alert';
 import './JoinGame.css';
 
 export const JoinGame = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   let { id } = useParams<{ id: string }>();
 
   const [joinGameId, setJoinGameId] = useState(id);
@@ -36,13 +36,13 @@ export const JoinGame = () => {
         if (await getGame(joinGameId)) {
           setIsGameFound(true);
           if (await isCurrentPlayerInGame(joinGameId)) {
-            history.push(`/game/${joinGameId}`);
+            navigate(`/game/${joinGameId}`);
           }
         } else {
           removeGameFromCache(joinGameId);
           setShowNotExistMessage(true);
           setTimeout(() => {
-            history.push('/');
+            navigate('/');
           }, 5000);
         }
       }
@@ -59,7 +59,7 @@ export const JoinGame = () => {
       setIsGameFound(res);
       setLoading(false);
       if (res) {
-        history.push(`/game/${joinGameId}`);
+        navigate(`/game/${joinGameId}`);
       }
     }
   };

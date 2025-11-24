@@ -8,13 +8,7 @@ import { Player } from '../../types/player';
 import { Status } from '../../types/status';
 import { Poker } from './Poker';
 
-const mockHistoryPush = vi.fn();
-const mockUnblock = vi.fn();
-const mockHistory = {
-  push: mockHistoryPush,
-  goBack: vi.fn(),
-  block: () => mockUnblock,
-};
+const mockNavigate = vi.fn();
 
 vi.mock('../../service/players');
 vi.mock('react-router-dom', async () => {
@@ -22,7 +16,7 @@ vi.mock('react-router-dom', async () => {
   return {
     ...actual,
     useParams: () => ({ id: 'zz' }),
-    useHistory: () => mockHistory,
+    useNavigate: () => mockNavigate,
   };
 });
 

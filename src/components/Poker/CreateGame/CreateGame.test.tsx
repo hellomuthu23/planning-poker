@@ -5,15 +5,13 @@ import { vi } from 'vitest';
 import { CreateGame } from './CreateGame';
 import * as gamesService from '../../../service/games';
 
-const mockHistoryPush = vi.fn();
+const mockNavigate = vi.fn();
 vi.mock('../../../service/games');
 vi.mock('react-router-dom', async () => {
   const actual = await vi.importActual('react-router-dom');
   return {
     ...actual,
-    useHistory: () => ({
-      push: mockHistoryPush,
-    }),
+    useNavigate: () => mockNavigate,
   };
 });
 vi.mock('unique-names-generator', () => ({

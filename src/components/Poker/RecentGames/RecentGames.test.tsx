@@ -6,13 +6,13 @@ import * as playersService from '../../../service/players';
 import { RecentGames } from './RecentGames';
 import { PlayerGame } from '../../../types/player';
 
-const mockHistoryPush = vi.fn();
+const mockNavigate = vi.fn();
 vi.mock('../../../service/players');
 vi.mock('react-router-dom', async () => {
   const actual = await vi.importActual('react-router-dom');
   return {
     ...actual,
-    useHistory: () => ({ push: mockHistoryPush }),
+    useNavigate: () => mockNavigate,
   };
 });
 
@@ -52,6 +52,6 @@ describe('RecentGames component', () => {
 
     await screen.findByText(mockGames[0].name);
     userEvent.click(screen.getByText(mockGames[0].name));
-    await waitFor(() => expect(mockHistoryPush).toHaveBeenCalledWith('/game/abc'));
+    await waitFor(() => expect(mockNavigate).toHaveBeenCalledWith('/game/abc'));
   });
 });

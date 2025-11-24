@@ -1,7 +1,7 @@
 import { Box, Divider, Slide, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import React from 'react';
-import { useRouteMatch } from 'react-router-dom';
+import { useMatch } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { CreateGame } from '../../components/Poker/CreateGame/CreateGame';
 import { JoinGame } from '../../components/Poker/JoinGame/JoinGame';
@@ -14,7 +14,7 @@ import { Footer } from '../../components/Footer/Footer';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 export const HomePage = () => {
-  const isJoin = useRouteMatch('/join');
+  const isJoin = useMatch('/join');
   const { t } = useTranslation();
 
   return (

@@ -7,14 +7,12 @@ import { vi } from 'vitest';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 // Mock router BEFORE importing the component so hooks are intercepted
-const mockHistoryPush = vi.fn();
+const mockNavigate = vi.fn();
 vi.mock('react-router-dom', async () => {
   const actual = await vi.importActual('react-router-dom');
   return {
     ...actual,
-    useHistory: () => ({
-      push: mockHistoryPush,
-    }),
+    useNavigate: () => mockNavigate,
   };
 });
 
@@ -57,19 +55,19 @@ describe('Toolbar component', () => {
     renderWithTheme(<Toolbar />);
     const newSession = screen.getByTestId('toolbar.menu.newSession');
     await userEvent.click(newSession);
-    expect(mockHistoryPush).toBeCalledWith('/');
+    expect(mockNavigate).toBeCalledWith('/');
   });
   it('should navigate to Join session page when Join Session button is clicked', async () => {
     renderWithTheme(<Toolbar />);
     const newSession = screen.getByTestId('toolbar.menu.joinSession');
     await userEvent.click(newSession);
-    expect(mockHistoryPush).toBeCalledWith('/join');
+    expect(mockNavigate).toBeCalledWith('/join');
   });
   it('should navigate to home page when Title is clicked clicked', async () => {
     renderWithTheme(<Toolbar />);
     const title = screen.getByText('Planning Poker');
     await userEvent.click(title);
-    expect(mockHistoryPush).toBeCalledWith('/');
+    expect(mockNavigate).toBeCalledWith('/');
   });
   it('should navigate to github page when Github icon is clicked clicked', async () => {
     const view = renderWithTheme(<Toolbar />);

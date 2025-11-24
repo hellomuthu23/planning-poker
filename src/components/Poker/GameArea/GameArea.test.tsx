@@ -1,9 +1,14 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
 import { Game } from '../../../types/game';
 import { Player } from '../../../types/player';
 import { Status } from '../../../types/status';
 import { GameArea } from './GameArea';
+
+const renderWithRouter = (component: React.ReactElement) => {
+  return render(<BrowserRouter future={{ v7_startTransition: true, }}>{component}</BrowserRouter>);
+};
 
 describe('GameArea component', () => {
   const mockGame: Game = {
@@ -26,7 +31,7 @@ describe('GameArea component', () => {
   ];
   const mockCurrentPlayerId = mockPlayers[0].id;
   it('should display players', () => {
-    render(
+    renderWithRouter(
       <GameArea game={mockGame} players={mockPlayers} currentPlayerId={mockCurrentPlayerId} />,
     );
 
@@ -36,13 +41,13 @@ describe('GameArea component', () => {
   });
 
   it('should display game controller with name', () => {
-    render(
+    renderWithRouter(
       <GameArea game={mockGame} players={mockPlayers} currentPlayerId={mockCurrentPlayerId} />,
     );
     expect(screen.getByText(mockGame.name)).toBeInTheDocument();
   });
   it('should display card picker', () => {
-    render(
+    renderWithRouter(
       <GameArea game={mockGame} players={mockPlayers} currentPlayerId={mockCurrentPlayerId} />,
     );
 

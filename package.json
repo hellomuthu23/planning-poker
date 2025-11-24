@@ -18,7 +18,7 @@
     "react-dom": "19.2",
     "react-i18next": "^13.0.2",
     "react-lazy-load-image-component": "^1.6.3",
-    "react-router-dom": "^5.2.0",
+    "react-router-dom": "^6.30.2",
     "typescript": "5.0.4",
     "ulid": "^2.3.0",
     "unique-names-generator": "^4.7.1"

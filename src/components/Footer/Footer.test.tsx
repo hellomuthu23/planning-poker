@@ -3,15 +3,13 @@ import React from 'react';
 import { vi } from 'vitest';
 import { Footer } from './Footer';
 
-const mockHistoryPush = vi.fn();
+const mockNavigate = vi.fn();
 
 vi.mock('react-router-dom', async () => {
   const actual = await vi.importActual('react-router-dom');
   return {
     ...actual,
-    useHistory: () => ({
-      push: mockHistoryPush,
-    }),
+    useNavigate: () => mockNavigate,
   };
 });
 

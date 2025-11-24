@@ -16,7 +16,7 @@ import LinkIcon from '@mui/icons-material/Link';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import Alert from '@mui/material/Alert';
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { AlertDialog } from '../../AlertDialog/AlertDialog';
 import { InfoDialog } from '../../InfoDialog/InfoDialog';
 import { finishGame, removeGame, resetGame } from '../../../service/games';
@@ -31,7 +31,7 @@ interface GameControllerProps {
 }
 
 export const GameController: React.FC<GameControllerProps> = ({ game, currentPlayerId }) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const [showCopiedMessage, setShowCopiedMessage] = useState(false);
   const [showGameProtected, setShowGameProtected] = useState(false);
   const copyInviteLink = () => {
@@ -47,7 +47,7 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
   };
 
   const leaveGame = () => {
-    history.push(`/`);
+    navigate(`/`);
   };
 
   const handleRemoveGame = async (recentGameId: string) => {

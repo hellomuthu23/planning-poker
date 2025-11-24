@@ -13,14 +13,14 @@ import {
 } from '@mui/material';
 import React, { ChangeEvent, FormEvent, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { addNewGame } from '../../../service/games';
 import { GameType, NewGame } from '../../../types/game';
 import { getCards, getCustomCards } from '../../Players/CardPicker/CardConfigs';
 import './CreateGame.css';
 
 export const CreateGame = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const [gameName, setGameName] = useState("");
   const [createdBy, setCreatedBy] = useState("");
   const [gameType, setGameType] = useState(GameType.ShortFibonacci);
@@ -56,7 +56,7 @@ export const CreateGame = () => {
     if (newGameId) {
       setLoading(false);
     }
-    history.push(`/game/${newGameId}`);
+    navigate(`/game/${newGameId}`);
   };
 
   const handleCustomOptionChange = (index: number, value: string) => {

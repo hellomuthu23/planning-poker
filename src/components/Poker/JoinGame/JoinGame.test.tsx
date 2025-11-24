@@ -5,14 +5,14 @@ import { vi } from 'vitest';
 import * as playersService from '../../../service/players';
 import { JoinGame } from './JoinGame';
 
-const mockHistoryPush = vi.fn();
+const mockNavigate = vi.fn();
 vi.mock('../../../service/players');
 vi.mock('../../../service/games');
 vi.mock('react-router-dom', async () => {
   const actual = await vi.importActual('react-router-dom');
   return {
     ...actual,
-    useHistory: () => ({ push: mockHistoryPush }),
+    useNavigate: () => mockNavigate,
     useParams: () => ({ id: '' }),
   };
 });
@@ -55,6 +55,6 @@ describe('JoinGame component', () => {
     expect(playersService.addPlayerToGame).toHaveBeenCalled();
 
     expect(playersService.addPlayerToGame).toHaveBeenCalledWith('gameId', 'Rock');
-    await waitFor(() => expect(mockHistoryPush).toHaveBeenCalledWith('/game/gameId'));
+    await waitFor(() => expect(mockNavigate).toHaveBeenCalledWith('/game/gameId'));
   });
 });

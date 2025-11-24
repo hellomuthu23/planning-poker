@@ -1,6 +1,6 @@
 import { CssBaseline } from '@mui/material';
 import { StyledEngineProvider, ThemeProvider } from '@mui/material/styles';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Toolbar } from './components/Toolbar/Toolbar';
 import DeleteOldGames from './pages/DeleteOldGames/DeleteOldGames';
 import { GamePage } from './pages/GamePage/GamePage';
@@ -21,15 +21,15 @@ function App() {
           <CssBaseline />
           <Router>
             <Toolbar />
-            <Switch>
-              <Route path='/game/:id' component={GamePage} />
-              <Route path='/delete-old-games' component={DeleteOldGames} />
-              <Route path='/join/:id' component={JoinPage} />
-              <Route path='/about-planning-poker' component={AboutPage} />
-              <Route path='/examples' component={ExamplesPage} />
-              <Route path='/guide' component={GuidePage} />
-              <Route exact path='/*' component={HomePage} />
-            </Switch>
+            <Routes>
+              <Route path='/game/:id' element={<GamePage />} />
+              <Route path='/delete-old-games' element={<DeleteOldGames />} />
+              <Route path='/join/:id' element={<JoinPage />} />
+              <Route path='/about-planning-poker' element={<AboutPage />} />
+              <Route path='/examples' element={<ExamplesPage />} />
+              <Route path='/guide' element={<GuidePage />} />
+              <Route path='/*' element={<HomePage />} />
+            </Routes>
             <CookieConsent location="bottom" cookieName="planning-poker-privacy" expires={90} overlay>
               <h1>Privacy Information and Data Usage</h1>
               <h3>Use of Cookies and Browser Local Storage</h3>

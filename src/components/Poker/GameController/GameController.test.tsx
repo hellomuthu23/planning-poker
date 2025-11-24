@@ -6,15 +6,13 @@ import { Game, GameType } from '../../../types/game';
 import { Status } from '../../../types/status';
 import { GameController } from './GameController';
 
-const mockHistoryPush = vi.fn();
+const mockNavigate = vi.fn();
 vi.mock('../../../service/games');
 vi.mock('react-router-dom', async () => {
   const actual = await vi.importActual('react-router-dom');
   return {
     ...actual,
-    useHistory: () => ({
-      push: mockHistoryPush,
-    }),
+    useNavigate: () => mockNavigate,
   };
 });
 document.execCommand = vi.fn();
@@ -112,7 +110,7 @@ describe('GameController component', () => {
     render(<GameController game={mockGame} currentPlayerId={mockCurrentPlayerId} />);
 
     await userEvent.click(screen.getByTestId('exit-button'));
-    expect(mockHistoryPush).toHaveBeenCalledWith('/');
+    expect(mockNavigate).toHaveBeenCalledWith('/');
   });
 
   describe('When Player is Moderator', () => {
