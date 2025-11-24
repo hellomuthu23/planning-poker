@@ -10,7 +10,7 @@ import {
   TextField,
 } from '@mui/material';
 import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router';
 import { getGame } from '../../../service/games';
 import {
   addPlayerToGame,

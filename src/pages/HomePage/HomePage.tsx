@@ -1,7 +1,7 @@
 import { Box, Divider, Slide, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import React from 'react';
-import { useMatch } from 'react-router-dom';
+import { useMatch } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { CreateGame } from '../../components/Poker/CreateGame/CreateGame';
 import { JoinGame } from '../../components/Poker/JoinGame/JoinGame';

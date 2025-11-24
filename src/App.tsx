@@ -1,6 +1,6 @@
 import { CssBaseline } from '@mui/material';
 import { StyledEngineProvider, ThemeProvider } from '@mui/material/styles';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router';
 import { Toolbar } from './components/Toolbar/Toolbar';
 import DeleteOldGames from './pages/DeleteOldGames/DeleteOldGames';
 import { GamePage } from './pages/GamePage/GamePage';

@@ -11,7 +11,7 @@ import BookOutlinedIcon from '@mui/icons-material/MenuBookOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import PolicyOutlinedIcon from '@mui/icons-material/PolicyOutlined';
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import './Toolbar.css';
 import { useTranslation } from 'react-i18next';
 export const title = 'Planning Poker';

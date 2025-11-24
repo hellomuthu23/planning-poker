@@ -13,7 +13,7 @@ import {
 import { red } from '@mui/material/colors';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForeverTwoTone';
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { getPlayerRecentGames } from '../../../service/players';
 import './RecentGames.css';
 import { removeGame } from '../../../service/games';

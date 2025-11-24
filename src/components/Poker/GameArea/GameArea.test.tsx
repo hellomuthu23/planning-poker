@@ -1,13 +1,13 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router';
 import { Game } from '../../../types/game';
 import { Player } from '../../../types/player';
 import { Status } from '../../../types/status';
 import { GameArea } from './GameArea';
 
 const renderWithRouter = (component: React.ReactElement) => {
-  return render(<BrowserRouter future={{ v7_startTransition: true, }}>{component}</BrowserRouter>);
+  return render(<BrowserRouter>{component}</BrowserRouter>);
 };
 
 describe('GameArea component', () => {

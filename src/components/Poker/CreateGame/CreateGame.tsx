@@ -13,7 +13,7 @@ import {
 } from '@mui/material';
 import React, { ChangeEvent, FormEvent, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { addNewGame } from '../../../service/games';
 import { GameType, NewGame } from '../../../types/game';
 import { getCards, getCustomCards } from '../../Players/CardPicker/CardConfigs';

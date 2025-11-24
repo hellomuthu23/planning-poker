@@ -68,10 +68,10 @@ if (!(window as any).matchMedia) {
   });
 }
 
-// Provide safe defaults for react-router-dom where harmless.
+// Provide safe defaults for react-router where harmless.
 // Do NOT mock useHistory here so individual tests can control and assert navigation.
-vi.mock('react-router-dom', async () => {
-  const actual: any = await vi.importActual('react-router-dom');
+vi.mock('react-router', async () => {
+  const actual: any = await vi.importActual('react-router');
   return {
     ...actual,
     useParams: () => ({ id: 'test-id' }),

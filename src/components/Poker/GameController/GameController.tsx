@@ -16,7 +16,7 @@ import LinkIcon from '@mui/icons-material/Link';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import Alert from '@mui/material/Alert';
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { AlertDialog } from '../../AlertDialog/AlertDialog';
 import { InfoDialog } from '../../InfoDialog/InfoDialog';
 import { finishGame, removeGame, resetGame } from '../../../service/games';

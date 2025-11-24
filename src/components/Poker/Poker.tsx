@@ -1,7 +1,7 @@
 import { CircularProgress, Typography } from '@mui/material';
 import { onSnapshot } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router';
 import { streamGame, streamPlayers } from '../../service/games';
 import { getCurrentPlayerId } from '../../service/players';
 import { Game } from '../../types/game';
