@@ -1,19 +1,23 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { vi } from 'vitest';
 import * as gamesService from '../../../service/games';
 import { Game, GameType } from '../../../types/game';
 import { Status } from '../../../types/status';
 import { GameController } from './GameController';
 
-jest.mock('../../../service/games');
-const mockHistoryPush = jest.fn();
-
-jest.mock('react-router-dom', () => ({
-  useHistory: () => ({
-    push: mockHistoryPush,
-  }),
-}));
-document.execCommand = jest.fn();
+const mockHistoryPush = vi.fn();
+vi.mock('../../../service/games');
+vi.mock('react-router-dom', async () => {
+  const actual = await vi.importActual('react-router-dom');
+  return {
+    ...actual,
+    useHistory: () => ({
+      push: mockHistoryPush,
+    }),
+  };
+});
+document.execCommand = vi.fn();
 describe('GameController component', () => {
   const mockGame: Game = {
     id: 'xyz',

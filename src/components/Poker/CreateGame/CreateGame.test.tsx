@@ -1,21 +1,27 @@
 import { render, screen, within, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
+import { vi } from 'vitest';
 import { CreateGame } from './CreateGame';
 import * as gamesService from '../../../service/games';
 
-jest.mock('../../../service/games');
-jest.mock('react-router-dom', () => ({
-  useHistory: () => ({
-    push: jest.fn(),
-  }),
-}));
-jest.mock('unique-names-generator', () => ({
+const mockHistoryPush = vi.fn();
+vi.mock('../../../service/games');
+vi.mock('react-router-dom', async () => {
+  const actual = await vi.importActual('react-router-dom');
+  return {
+    ...actual,
+    useHistory: () => ({
+      push: mockHistoryPush,
+    }),
+  };
+});
+vi.mock('unique-names-generator', () => ({
   starWars: ['Jabba'],
   colors: ['red'],
   animals: ['kangaroo'],
-  uniqueNamesGenerator: jest.fn(),
-  Config: jest.fn(),
+  uniqueNamesGenerator: vi.fn(),
+  Config: vi.fn(),
 }));
 describe('CreateGame component', () => {
   it('should display correct text fields', () => {

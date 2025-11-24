@@ -1,8 +1,10 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
+import { vi } from 'vitest';
 import App from './App';
-jest.mock('./service/players');
-jest.mock('./service/games');
+
+vi.mock('./service/players');
+vi.mock('./service/games');
 
 // eslint-disable-next-line jest/valid-describe-callback
 describe('App', () =>

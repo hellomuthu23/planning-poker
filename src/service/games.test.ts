@@ -1,3 +1,4 @@
+import { vi } from 'vitest';
 import {
   addNewGame,
   streamGame,
@@ -15,20 +16,20 @@ import * as players from './players';
 import { Status } from '../types/status';
 import { GameType } from '../types/game';
 
-jest.mock('../repository/firebase', () => ({
-  addGameToStore: jest.fn(),
-  addPlayerToGameInStore: jest.fn(),
-  streamData: jest.fn(),
-  streamPlayersFromStore: jest.fn(),
-  getGameFromStore: jest.fn(),
-  updateGameDataInStore: jest.fn(),
-  getPlayersFromStore: jest.fn(),
+vi.mock('ulid', () => ({ ulid: () => '321cba' }));
+vi.mock('../repository/firebase', () => ({
+  addGameToStore: vi.fn(),
+  addPlayerToGameInStore: vi.fn(),
+  streamData: vi.fn(),
+  streamPlayersFromStore: vi.fn(),
+  getGameFromStore: vi.fn(),
+  updateGameDataInStore: vi.fn(),
+  getPlayersFromStore: vi.fn(),
 }));
-jest.mock('./players', () => ({
-  resetPlayers: jest.fn(),
-  updatePlayerGames: jest.fn(),
+vi.mock('./players', () => ({
+  resetPlayers: vi.fn(),
+  updatePlayerGames: vi.fn(),
 }));
-jest.mock('ulid', () => ({ ulid: () => '321cba' }));
 
 describe('games service', () => {
   const mockUlid = '321cba';
@@ -85,9 +86,9 @@ describe('games service', () => {
       gameStatus: Status.Started,
       isLocked: false,
     };
-    const gameSpy = jest.spyOn(fb, 'addGameToStore');
-    const playerSpy = jest.spyOn(fb, 'addPlayerToGameInStore');
-    const updateSpy = jest.spyOn(players, 'updatePlayerGames');
+    const gameSpy = vi.spyOn(fb, 'addGameToStore');
+    const playerSpy = vi.spyOn(fb, 'addPlayerToGameInStore');
+    const updateSpy = vi.spyOn(players, 'updatePlayerGames');
 
     const id = await addNewGame(fakeGame);
 
@@ -104,7 +105,7 @@ describe('games service', () => {
   });
 
   it("should request the given game's stream", () => {
-    const spy = jest.spyOn(fb, 'streamData');
+    const spy = vi.spyOn(fb, 'streamData');
 
     streamGame(mockId);
 
@@ -112,7 +113,7 @@ describe('games service', () => {
   });
 
   it("should request the given player's stream", () => {
-    const spy = jest.spyOn(fb, 'streamPlayersFromStore');
+    const spy = vi.spyOn(fb, 'streamPlayersFromStore');
 
     streamPlayers(mockId);
 
@@ -120,7 +121,7 @@ describe('games service', () => {
   });
 
   it('should get the game from the DB', () => {
-    const spy = jest.spyOn(fb, 'getGameFromStore');
+    const spy = vi.spyOn(fb, 'getGameFromStore');
 
     getGame(mockId);
 
@@ -128,7 +129,7 @@ describe('games service', () => {
   });
 
   it('should update the game in the DB', () => {
-    const spy = jest.spyOn(fb, 'updateGameDataInStore');
+    const spy = vi.spyOn(fb, 'updateGameDataInStore');
 
     updateGame(mockId, 'banana');
 
@@ -138,9 +139,9 @@ describe('games service', () => {
   describe('reset the game', () => {
     it('should update the game and reset the players', async () => {
       const expectGame = { average: 0, gameStatus: Status.Started };
-      jest.spyOn(fb, 'getGameFromStore').mockResolvedValueOnce(mockGame);
-      const updateSpy = jest.spyOn(fb, 'updateGameDataInStore');
-      const playerSpy = jest.spyOn(players, 'resetPlayers');
+      vi.spyOn(fb, 'getGameFromStore').mockResolvedValueOnce(mockGame);
+      const updateSpy = vi.spyOn(fb, 'updateGameDataInStore');
+      const playerSpy = vi.spyOn(players, 'resetPlayers');
 
       await resetGame(mockId);
 
@@ -149,9 +150,9 @@ describe('games service', () => {
     });
 
     it("should not touch the DB if the game doesn't exist", async () => {
-      jest.spyOn(fb, 'getGameFromStore').mockResolvedValueOnce(undefined);
-      const updateSpy = jest.spyOn(fb, 'updateGameDataInStore');
-      const playerSpy = jest.spyOn(players, 'resetPlayers');
+      vi.spyOn(fb, 'getGameFromStore').mockResolvedValueOnce(undefined);
+      const updateSpy = vi.spyOn(fb, 'updateGameDataInStore');
+      const playerSpy = vi.spyOn(players, 'resetPlayers');
 
       await resetGame(mockId);
 
@@ -162,9 +163,9 @@ describe('games service', () => {
 
   describe('finish the game', () => {
     it('update the game with the average and finished status', async () => {
-      jest.spyOn(fb, 'getGameFromStore').mockResolvedValueOnce(mockGame);
-      jest.spyOn(fb, 'getPlayersFromStore').mockResolvedValueOnce(mockPlayers);
-      const spy = jest.spyOn(fb, 'updateGameDataInStore');
+      vi.spyOn(fb, 'getGameFromStore').mockResolvedValueOnce(mockGame);
+      vi.spyOn(fb, 'getPlayersFromStore').mockResolvedValueOnce(mockPlayers);
+      const spy = vi.spyOn(fb, 'updateGameDataInStore');
 
       await finishGame(mockId);
 
@@ -175,9 +176,9 @@ describe('games service', () => {
     });
 
     it("should not touch the DB if the game doesn't exist", async () => {
-      jest.spyOn(fb, 'getGameFromStore').mockResolvedValueOnce(undefined);
-      jest.spyOn(fb, 'getPlayersFromStore').mockResolvedValueOnce(mockPlayers);
-      const spy = jest.spyOn(fb, 'updateGameDataInStore');
+      vi.spyOn(fb, 'getGameFromStore').mockResolvedValueOnce(undefined);
+      vi.spyOn(fb, 'getPlayersFromStore').mockResolvedValueOnce(mockPlayers);
+      const spy = vi.spyOn(fb, 'updateGameDataInStore');
 
       await finishGame(mockId);
 
@@ -221,7 +222,7 @@ describe('games service', () => {
 
   describe('update the game status', () => {
     it("should not touch the DB if the game doesn't exist", async () => {
-      jest.spyOn(fb, 'getGameFromStore').mockResolvedValueOnce(undefined);
+      vi.spyOn(fb, 'getGameFromStore').mockResolvedValueOnce(undefined);
 
       const res = await updateGameStatus(mockId);
 
@@ -229,9 +230,9 @@ describe('games service', () => {
     });
 
     it('should return false if there are no players in the game in the DB', async () => {
-      jest.spyOn(fb, 'getGameFromStore').mockResolvedValueOnce(mockGame);
+      vi.spyOn(fb, 'getGameFromStore').mockResolvedValueOnce(mockGame);
       // @ts-ignore
-      jest.spyOn(fb, 'getPlayersFromStore').mockResolvedValueOnce(undefined);
+      vi.spyOn(fb, 'getPlayersFromStore').mockResolvedValueOnce(undefined);
 
       const res = await updateGameStatus(mockId);
 
@@ -239,9 +240,9 @@ describe('games service', () => {
     });
 
     it('should update the game with the new status', async () => {
-      jest.spyOn(fb, 'getGameFromStore').mockResolvedValueOnce(mockGame);
-      jest.spyOn(fb, 'getPlayersFromStore').mockResolvedValueOnce(mockPlayers);
-      const spy = jest.spyOn(fb, 'updateGameDataInStore').mockResolvedValueOnce(true);
+      vi.spyOn(fb, 'getGameFromStore').mockResolvedValueOnce(mockGame);
+      vi.spyOn(fb, 'getPlayersFromStore').mockResolvedValueOnce(mockPlayers);
+      const spy = vi.spyOn(fb, 'updateGameDataInStore').mockResolvedValueOnce(true);
 
       const res = await updateGameStatus(mockId);
 

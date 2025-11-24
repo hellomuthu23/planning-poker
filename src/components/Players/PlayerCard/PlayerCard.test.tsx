@@ -1,3 +1,4 @@
+import { vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
@@ -133,7 +134,7 @@ describe('PlayerCard component', () => {
   it('should call remove function on Remove action', () => {
     const coffeePlayer = { ...mockPlayer, status: Status.InProgress };
     const finishedGame = { ...mockGame, gameStatus: Status.Finished };
-    jest.spyOn(playerService, 'removePlayer').mockResolvedValue();
+    vi.spyOn(playerService, 'removePlayer').mockResolvedValue();
     render(
       <PlayerCard
         game={finishedGame}

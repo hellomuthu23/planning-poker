@@ -1,4 +1,4 @@
 #!/bin/bash
 git pull
-rm -rf build/*
+rm -rf dist/*
 yarn install && npx update-browserslist-db@latest && yarn build && docker build -t planning-poker:latest .

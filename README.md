@@ -55,21 +55,10 @@ Pre-req
     ```
 
 2. Run `yarn` command to install the required npm package.
-3. Install the Firebase CLI
 
-    ```bash
-    RUN npm install -g firebase-tool
-    ```
-
-4. Start the firebase db emulator
-
-    ```bash
-    npm run start:emulator
-    ```
-
-5. Copy `.env.example` file as `.env` file and make sure `REACT_APP_USE_FIRESTORE_EMULATOR` is set to `true`
-7. Run `yarn start` to start the app.
-6. Access the app at `http://localhost:3000`.
+3. Copy `.env.example` file as `.env` file and make sure `REACT_APP_USE_FIRESTORE_EMULATOR` is set to `true`
+4. Run `yarn dev` to start the app.
+5. Access the app at `http://localhost:5173`.
 
 ## Creating docker container
 
@@ -96,7 +85,7 @@ pre-req
    ```
 
 4. Wait for both emulator and app to start
-5. Access the app from local container using <http://localhost:3000>
+5. Access the app from local container using <http://localhost:5173>
 
 ## Development Guidelines
 

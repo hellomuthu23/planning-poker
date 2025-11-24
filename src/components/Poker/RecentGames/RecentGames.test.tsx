@@ -1,17 +1,24 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
-import reactRouter from 'react-router';
+import { vi } from 'vitest';
 import * as playersService from '../../../service/players';
 import { RecentGames } from './RecentGames';
 import { PlayerGame } from '../../../types/player';
 
-jest.mock('../../../service/players');
-const mockHistoryPush = jest.fn();
+const mockHistoryPush = vi.fn();
+vi.mock('../../../service/players');
+vi.mock('react-router-dom', async () => {
+  const actual = await vi.importActual('react-router-dom');
+  return {
+    ...actual,
+    useHistory: () => ({ push: mockHistoryPush }),
+  };
+});
 
 describe('RecentGames component', () => {
   beforeEach(() => {
-    jest.spyOn(reactRouter, 'useHistory').mockReturnValue({ push: mockHistoryPush } as any);
+    vi.clearAllMocks();
   });
   it('should display no recent session when no games found in user local storage', async () => {
     render(<RecentGames />);
@@ -22,7 +29,7 @@ describe('RecentGames component', () => {
       { id: 'abv', name: 'avengers', createdById: 'IronManId', createdBy: 'IronMan', playerId: 'abv' },
       { id: 'xyz', name: 'endgame', createdById: 'SpiderManId', createdBy: 'SpiderMan', playerId: 'abc' },
     ];
-    jest.spyOn(playersService, 'getPlayerRecentGames').mockResolvedValue(mockGames);
+    vi.spyOn(playersService, 'getPlayerRecentGames').mockResolvedValue(mockGames);
 
     render(<RecentGames />);
 
@@ -39,7 +46,7 @@ describe('RecentGames component', () => {
       { id: 'abc', name: 'avengers', createdById: 'IronManId', createdBy: 'IronMan', playerId: 'abc' },
       { id: 'xyz', name: 'endgame', createdById: 'SpiderManId', createdBy: 'SpiderMan', playerId: 'aaa' },
     ];
-    jest.spyOn(playersService, 'getPlayerRecentGames').mockResolvedValue(mockGames);
+    vi.spyOn(playersService, 'getPlayerRecentGames').mockResolvedValue(mockGames);
 
     render(<RecentGames />);
 

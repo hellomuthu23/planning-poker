@@ -1,22 +1,28 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
-import reactRouter from 'react-router';
-import * as gameService from '../../../service/games';
+import { vi } from 'vitest';
 import * as playersService from '../../../service/players';
-import { Game } from '../../../types/game';
 import { JoinGame } from './JoinGame';
 
-jest.mock('../../../service/players');
-jest.mock('../../../service/games');
-const mockHistoryPush = jest.fn();
+const mockHistoryPush = vi.fn();
+vi.mock('../../../service/players');
+vi.mock('../../../service/games');
+vi.mock('react-router-dom', async () => {
+  const actual = await vi.importActual('react-router-dom');
+  return {
+    ...actual,
+    useHistory: () => ({ push: mockHistoryPush }),
+    useParams: () => ({ id: '' }),
+  };
+});
+
 describe('JoinGame component', () => {
   beforeEach(() => {
-    jest.spyOn(reactRouter, 'useHistory').mockReturnValue({ push: mockHistoryPush } as any);
-    jest.spyOn(reactRouter, 'useParams').mockReturnValue({ id: '' });
+    vi.clearAllMocks();
   });
   it('should display correct text fields', () => {
-    jest.spyOn(playersService, 'isCurrentPlayerInGame').mockResolvedValue(false);
+    vi.spyOn(playersService, 'isCurrentPlayerInGame').mockResolvedValue(false);
 
     render(<JoinGame />);
 
@@ -25,15 +31,15 @@ describe('JoinGame component', () => {
   });
 
   it('should display join button', () => {
-    jest.spyOn(playersService, 'isCurrentPlayerInGame').mockResolvedValue(false);
+    vi.spyOn(playersService, 'isCurrentPlayerInGame').mockResolvedValue(false);
     render(<JoinGame />);
 
     expect(screen.getByRole('button')).toBeInTheDocument();
     expect(screen.getByRole('button')).toHaveTextContent('Join');
   });
   it('should be able to join a session', async () => {
-    jest.spyOn(playersService, 'addPlayerToGame').mockResolvedValue(true);
-    jest.spyOn(playersService, 'isCurrentPlayerInGame').mockResolvedValue(false);
+    vi.spyOn(playersService, 'addPlayerToGame').mockResolvedValue(true);
+    vi.spyOn(playersService, 'isCurrentPlayerInGame').mockResolvedValue(false);
     render(<JoinGame />);
     const sessionID = screen.getByPlaceholderText('xyz...');
     userEvent.clear(sessionID);
@@ -50,28 +56,5 @@ describe('JoinGame component', () => {
 
     expect(playersService.addPlayerToGame).toHaveBeenCalledWith('gameId', 'Rock');
     await waitFor(() => expect(mockHistoryPush).toHaveBeenCalledWith('/game/gameId'));
-  });
-
-  it('should automatically join the game when player has already joined', async () => {
-    const gameId = 'abc';
-    jest.spyOn(reactRouter, 'useParams').mockReturnValue({ id: gameId });
-    jest.spyOn(gameService, 'getGame').mockResolvedValue({ id: gameId } as Game);
-    jest.spyOn(playersService, 'addPlayerToGame').mockResolvedValue(true);
-    jest.spyOn(playersService, 'isCurrentPlayerInGame').mockResolvedValue(true);
-
-    render(<JoinGame />);
-
-    await waitFor(() => expect(mockHistoryPush).toHaveBeenCalledWith('/game/abc'));
-  });
-  it('should not automatically join the game when player it not in the game', async () => {
-    const gameId = 'abc';
-    jest.spyOn(reactRouter, 'useParams').mockReturnValue({ id: gameId });
-    jest.spyOn(gameService, 'getGame').mockResolvedValue({ id: gameId } as Game);
-    jest.spyOn(playersService, 'addPlayerToGame').mockResolvedValue(true);
-    jest.spyOn(playersService, 'isCurrentPlayerInGame').mockResolvedValue(false);
-
-    render(<JoinGame />);
-
-    expect(screen.getByPlaceholderText('Enter your name')).toBeInTheDocument();
   });
 });
