@@ -33,6 +33,18 @@ describe('GameController component', () => {
   };
   const mockCurrentPlayerId = 'abc';
 
+  beforeEach(() => {
+    Object.assign(navigator, {
+      clipboard: {
+        writeText: vi.fn().mockResolvedValue(undefined),
+      },
+    });
+    Object.defineProperty(window, 'isSecureContext', {
+      value: true,
+      writable: true,
+    });
+  });
+
   it('should display game name', () => {
     render(<GameController game={mockGame} currentPlayerId={mockCurrentPlayerId} />);
     expect(screen.getByText(mockGame.name)).toBeInTheDocument();
@@ -103,7 +115,7 @@ describe('GameController component', () => {
     render(<GameController game={mockGame} currentPlayerId={mockCurrentPlayerId} />);
 
     await userEvent.click(screen.getByTestId('invite-button'));
-    expect(document.execCommand).toHaveBeenCalledWith('copy');
+    expect(navigator.clipboard.writeText).toHaveBeenCalledWith(expect.stringContaining('/join/'));
   });
 
   it('should navigate to home page when exit button is clicked', async () => {
