@@ -10,7 +10,7 @@ import { GameArea } from './GameArea/GameArea';
 import './Poker.css';
 
 export const Poker = () => {
-  let { id } = useParams<{ id: string }>();
+  let { id } = useParams<{ id: string }>() as { id: string };
   const navigate = useNavigate();
   const [game, setGame] = useState<Game | undefined>(undefined);
   const [players, setPlayers] = useState<Player[] | undefined>(undefined);

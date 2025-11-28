@@ -34,15 +34,15 @@ export const GameController: React.FC<GameControllerProps> = ({ game, currentPla
   const navigate = useNavigate();
   const [showCopiedMessage, setShowCopiedMessage] = useState(false);
   const [showGameProtected, setShowGameProtected] = useState(false);
-  const copyInviteLink = () => {
-    const dummy = document.createElement('input');
+  const copyInviteLink = async () => {
     const url = `${window.location.origin}/join/${game.id}`;
-    document.body.appendChild(dummy);
-    dummy.value = url;
-    dummy.select();
-    document.execCommand('copy');
-    document.body.removeChild(dummy);
-    setShowCopiedMessage(true);
+
+    try {
+      await navigator.clipboard.writeText(url);
+      setShowCopiedMessage(true);
+    } catch (err) {
+      console.error('Failed to copy: ', err);
+    }
     return url;
   };
 
