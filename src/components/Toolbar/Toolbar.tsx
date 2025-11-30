@@ -28,7 +28,10 @@ export const Toolbar = () => {
           <div className='HeaderContainer'>
             <div className='HeaderLeftContainer' onClick={() => navigate('/')}>
               <GamesIcon className='HeaderIcon' />
-              <Typography variant={isSmallScreen ? 'subtitle1' : 'h5'} color='inherit' noWrap>
+              <Typography variant={isSmallScreen ? 'subtitle1' : 'h5'}
+                          color='inherit'
+                          noWrap
+                          title={`Version: ${import.meta.env.PACKAGE_VERSION}`}>
                 {title}
               </Typography>
             </div>

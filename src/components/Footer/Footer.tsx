@@ -20,6 +20,11 @@ export const Footer = () => {
               </Typography>
               </Link>
             </div>
+            <div className='FooterItemContainer'>
+              <Typography color='textSecondary' variant='body2'>
+                v{import.meta.env.PACKAGE_VERSION}
+              </Typography>
+            </div>
           </div>
         </div>
       </Slide>
