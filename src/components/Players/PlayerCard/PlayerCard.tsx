@@ -25,19 +25,21 @@ export const PlayerCard: React.FC<PlayerCardProps> = ({ game, player, currentPla
         backgroundColor: getCardColor(game, player.value),
       }}
     >
-      <div className='text-center -mt-5 mx-auto w-[95%] bg-white dark:bg-gray-900 border-2  border-gray-400 dark:border-gray-700 rounded-2xl flex items-center justify-around px-3 py-1'>
-        <div className='text-center font-semibold text-sm truncate' title={player.name}>
-          {player.name}
+      <div className='relative text-center -mt-5 mx-auto w-[95%] bg-white dark:bg-gray-900 border-2  border-gray-400 dark:border-gray-700 rounded-2xl flex items-center justify-center px-3 py-1'>
+        <div className='min-h-11 w-full flex items-center justify-center' title={player.name}>
+          <div className='text-center font-semibold text-sm leading-tight break-words line-clamp-2'>
+            {player.name}
+          </div>
         </div>
         {isModerator(game.createdById, currentPlayerId, game.isAllowMembersToManageSession) &&
           player.id !== currentPlayerId && (
             <button
               title='Remove'
-              className='cursor-pointer  p-0.5 mt-0.5 rounded hover:bg-red-100 transition'
+              className='cursor-pointer absolute -top-2 -right-2 h-5 w-5 flex items-center justify-center rounded-full bg-white dark:bg-gray-900 hover:bg-red-100 dark:hover:bg-red-950 shadow-md border-2 border-red-400 transition'
               onClick={() => removeUser(game.id, player.id)}
               data-testid='remove-button'
             >
-              <TrashSVG className='h-4 w-4 text-red-400' />
+              <TrashSVG className='h-3 w-3 text-red-400' />
             </button>
           )}
       </div>
