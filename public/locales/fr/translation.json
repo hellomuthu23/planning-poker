@@ -26,6 +26,8 @@
     "enterStoryName": "Entrez le nom ou le numéro de l'histoire",
     "inviteLinkCopied": "Lien d'invitation copié dans le presse-papiers",
     "areYouSureDelete": "Êtes-vous sûr ? Cela supprimera cette session et retirera tous les joueurs.",
+    "notStarted": "Non commencé",
+    "started": "Commencé",
     "inProgress": "En cours",
     "finished": "Terminé",
     "Timer": {

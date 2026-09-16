@@ -103,7 +103,7 @@ export const GameController: React.FC<GameControllerProps> = ({
           <Timer timerProps={timerProps} onTimerUpdate={(props) => onUpdatedTimerProps(props)} />
           <div className='mx-2 h-6 border-l border-gray-400 dark:border-gray-600' />
           <span className='text-sm font-medium'>
-            {game.gameStatus} {getGameStatusIcon(game.gameStatus)}
+            {getGameStatusText(game.gameStatus, t)} {getGameStatusIcon(game.gameStatus)}
           </span>
           <AverageComponent game={game} players={players} />
         </div>
@@ -273,11 +273,26 @@ export const AutoReveal: React.FC<AutoRevealProps> = ({ autoReveal, onAutoReveal
   );
 };
 
-const getGameStatusIcon = (gameStatus: string) => {
+const getGameStatusText = (gameStatus: Status, t: (key: string) => string) => {
   switch (gameStatus) {
-    case 'In Progress':
+    case Status.NotStarted:
+      return t('GameController.notStarted');
+    case Status.Started:
+      return t('GameController.started');
+    case Status.InProgress:
+      return t('GameController.inProgress');
+    case Status.Finished:
+      return t('GameController.finished');
+    default:
+      return gameStatus;
+  }
+};
+
+const getGameStatusIcon = (gameStatus: Status) => {
+  switch (gameStatus) {
+    case Status.InProgress:
       return '⏱️';
-    case 'Finished':
+    case Status.Finished:
       return '🎉';
     default:
       return '🚀';
