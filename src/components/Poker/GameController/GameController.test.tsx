@@ -4,7 +4,7 @@ import * as gamesService from '../../../service/games';
 import { Game, GameType } from '../../../types/game';
 import { Player } from '../../../types/player';
 import { Status } from '../../../types/status';
-import { CardConfig } from '../../Players/CardPicker/CardConfigs';
+import { CardConfig, getCards } from '../../Players/CardPicker/CardConfigs';
 import {
   areAllFinishedPlayersDisplayValuesNumeric,
   AutoReveal,
@@ -390,6 +390,18 @@ describe('GameController component', () => {
       const res = getAverage(mockGame, players);
 
       expect(res).toEqual(Number(expected.toFixed(2)));
+    });
+
+    it('should compute the correct average for ShortFibonacci cards showing 20/40/100', () => {
+      const shortFibonacciGame: Game = { ...mockGame, gameType: GameType.ShortFibonacci };
+      const twentyCard = getCards(GameType.ShortFibonacci).find((c) => c.displayValue === '20')!;
+      const players: Player[] = [
+        { id: '1', name: 'A', value: twentyCard.value, emoji: '', status: Status.Finished },
+      ];
+
+      const res = getAverage(shortFibonacciGame, players);
+
+      expect(res).toEqual(20);
     });
   });
   describe('AutoReveal', () => {
