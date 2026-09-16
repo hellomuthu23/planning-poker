@@ -30,9 +30,9 @@ export const shortFibonacciCards: CardConfig[] = [
   { value: 5, displayValue: '5', color: '#A3DFF2' },
   { value: 8, displayValue: '8', color: '#9DD49A' },
   { value: 13, displayValue: '13', color: '#9DD49A' },
-  { value: 21, displayValue: '20', color: '#F4DD94' },
-  { value: 34, displayValue: '40', color: '#F4DD94' },
-  { value: 55, displayValue: '100', color: '#F39893' },
+  { value: 20, displayValue: '20', color: '#F4DD94' },
+  { value: 40, displayValue: '40', color: '#F4DD94' },
+  { value: 100, displayValue: '100', color: '#F39893' },
   { value: -2, displayValue: '❓', color: '#e7edf3' },
   { value: -1, displayValue: '-1', color: '#e7edf3' },
 ];
