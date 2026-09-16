@@ -1,5 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import i18n from 'i18next';
+import deDE from '../../../../public/locales/de-DE/translation.json';
 import * as gamesService from '../../../service/games';
 import { Game, GameType } from '../../../types/game';
 import { Player } from '../../../types/player';
@@ -52,16 +54,46 @@ describe('GameController component', () => {
     );
     expect(screen.getByText(mockGame.name)).toBeInTheDocument();
   });
-  it('should display game status', () => {
-    render(
-      <GameController
-        game={mockGame}
-        currentPlayerId={mockCurrentPlayerId}
-        players={mockPlayers}
-      />,
+  describe('game status translation', () => {
+    afterEach(async () => {
+      await i18n.changeLanguage('en');
+    });
+
+    it.each([
+      { status: Status.NotStarted, expectedText: 'Not Started', expectedIcon: '🚀' },
+      { status: Status.Started, expectedText: 'Started', expectedIcon: '🚀' },
+      { status: Status.InProgress, expectedText: 'In Progress', expectedIcon: '⏱️' },
+      { status: Status.Finished, expectedText: 'Finished', expectedIcon: '🎉' },
+    ])(
+      'should display translated status text and icon for $status',
+      ({ status, expectedText, expectedIcon }) => {
+        render(
+          <GameController
+            game={{ ...mockGame, gameStatus: status }}
+            currentPlayerId={mockCurrentPlayerId}
+            players={mockPlayers}
+          />,
+        );
+
+        expect(screen.getByText(`${expectedText} ${expectedIcon}`)).toBeInTheDocument();
+      },
     );
 
-    expect(screen.getByText(`${mockGame.gameStatus} ⏱️`)).toBeInTheDocument();
+    it('should display status text in the currently selected language, not the raw status value', async () => {
+      i18n.addResourceBundle('de', 'translation', deDE, true, true);
+      await i18n.changeLanguage('de');
+
+      render(
+        <GameController
+          game={{ ...mockGame, gameStatus: Status.InProgress }}
+          currentPlayerId={mockCurrentPlayerId}
+          players={mockPlayers}
+        />,
+      );
+
+      expect(screen.getByText('In Bearbeitung ⏱️')).toBeInTheDocument();
+      expect(screen.queryByText(`${Status.InProgress} ⏱️`)).not.toBeInTheDocument();
+    });
   });
 
   it('should display exit option', () => {

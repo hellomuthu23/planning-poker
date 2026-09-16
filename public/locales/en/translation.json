@@ -26,6 +26,8 @@
     "enterStoryName": "Enter story name or number",
     "inviteLinkCopied": "Invite Link copied to clipboard",
     "areYouSureDelete": "Are you sure? This will delete this session and remove all players.",
+    "notStarted": "Not Started",
+    "started": "Started",
     "inProgress": "In Progress",
     "finished": "Finished",
     "Timer": {

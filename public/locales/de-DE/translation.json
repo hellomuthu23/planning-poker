@@ -26,6 +26,8 @@
     "enterStoryName": "Story-Name oder Nummer eingeben",
     "inviteLinkCopied": "Einladungslink in die Zwischenablage kopiert",
     "areYouSureDelete": "Sind Sie sicher? Dadurch wird diese Sitzung gelöscht und alle Spieler werden entfernt.",
+    "notStarted": "Nicht gestartet",
+    "started": "Gestartet",
     "inProgress": "In Bearbeitung",
     "finished": "Abgeschlossen",
     "Timer": {

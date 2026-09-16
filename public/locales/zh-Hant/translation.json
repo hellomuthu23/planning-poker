@@ -26,6 +26,8 @@
     "enterStoryName": "輸入故事名稱或編號",
     "inviteLinkCopied": "邀請連結已複製到剪貼簿",
     "areYouSureDelete": "您確定嗎？這將刪除此會議並移除所有玩家。",
+    "notStarted": "尚未開始",
+    "started": "已開始",
     "inProgress": "進行中",
     "finished": "已完成",
     "Timer": {

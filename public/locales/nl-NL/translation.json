@@ -26,6 +26,8 @@
     "enterStoryName": "Voer de naam of het nummer van het verhaal in",
     "inviteLinkCopied": "Uitnodigingslink gekopieerd naar klembord",
     "areYouSureDelete": "Weet je het zeker? Dit verwijdert deze sessie en verwijdert alle spelers.",
+    "notStarted": "Niet gestart",
+    "started": "Gestart",
     "inProgress": "Bezig",
     "finished": "Voltooid",
     "Timer": {
