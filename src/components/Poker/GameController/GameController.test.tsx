@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import i18n from 'i18next';
 import deDE from '../../../../public/locales/de-DE/translation.json';
@@ -56,7 +56,9 @@ describe('GameController component', () => {
   });
   describe('game status translation', () => {
     afterEach(async () => {
-      await i18n.changeLanguage('en');
+      await act(async () => {
+        await i18n.changeLanguage('en');
+      });
     });
 
     it.each([
@@ -81,7 +83,9 @@ describe('GameController component', () => {
 
     it('should display status text in the currently selected language, not the raw status value', async () => {
       i18n.addResourceBundle('de', 'translation', deDE, true, true);
-      await i18n.changeLanguage('de');
+      await act(async () => {
+        await i18n.changeLanguage('de');
+      });
 
       render(
         <GameController
