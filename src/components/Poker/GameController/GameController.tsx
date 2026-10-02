@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import { AlertDialog } from '../../../components/AlertDialog/AlertDialog';
@@ -35,6 +35,18 @@ export const GameController: React.FC<GameControllerProps> = ({
   const history = useHistory();
   const { t } = useTranslation();
   const [showCopiedMessage, setShowCopiedMessage] = useState(false);
+
+  // ponytail: the story name is written to firestore on every keystroke and comes back
+  // async, so rendering the remote value directly re-set the input to a stale string and
+  // pushed the caret to the end. Keep a local copy while the field is focused, and let
+  // remote updates (other players editing) back in once it isn't.
+  const [storyName, setStoryName] = useState(game.storyName || '');
+  const isEditingStoryName = useRef(false);
+  useEffect(() => {
+    if (!isEditingStoryName.current) {
+      setStoryName(game.storyName || '');
+    }
+  }, [game.storyName]);
 
   useEffect(() => {
     if (
@@ -180,8 +192,13 @@ export const GameController: React.FC<GameControllerProps> = ({
               className='w-full italic p-2 mt-2 border bg-white dark:bg-gray-900 border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-400'
               type='text'
               data-testid='story-name-input'
-              value={game.storyName || ''}
-              onChange={(e) => updateStoryName(game.id, e.target.value || '')}
+              value={storyName}
+              onFocus={() => (isEditingStoryName.current = true)}
+              onBlur={() => (isEditingStoryName.current = false)}
+              onChange={(e) => {
+                setStoryName(e.target.value);
+                updateStoryName(game.id, e.target.value);
+              }}
             />
           </div>
         </div>
