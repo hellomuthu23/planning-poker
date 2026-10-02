@@ -173,6 +173,54 @@ describe('GameController component', () => {
     expect(gamesService.updateStoryName).toHaveBeenCalledWith(mockGame.id, 'testStoryn');
   });
 
+  it('keeps the caret where it was when a stale story name update comes back from the db', () => {
+    const { rerender } = render(
+      <GameController
+        game={mockGame}
+        currentPlayerId={mockCurrentPlayerId}
+        players={mockPlayers}
+      />,
+    );
+    const input = screen.getByTestId('story-name-input') as HTMLInputElement;
+
+    // type an 'X' at the very start of the existing story name
+    input.focus();
+    fireEvent.change(input, { target: { value: 'XtestStory' } });
+    input.setSelectionRange(1, 1);
+
+    // the db write is async, so the next snapshot still carries the old story name
+    rerender(
+      <GameController
+        game={mockGame}
+        currentPlayerId={mockCurrentPlayerId}
+        players={mockPlayers}
+      />,
+    );
+
+    expect(input.value).toBe('XtestStory');
+    expect(input.selectionStart).toBe(1);
+  });
+
+  it('picks up story name changes made by other players', () => {
+    const { rerender } = render(
+      <GameController
+        game={mockGame}
+        currentPlayerId={mockCurrentPlayerId}
+        players={mockPlayers}
+      />,
+    );
+
+    rerender(
+      <GameController
+        game={{ ...mockGame, storyName: 'storyFromSomeoneElse' }}
+        currentPlayerId={mockCurrentPlayerId}
+        players={mockPlayers}
+      />,
+    );
+
+    expect(screen.getByDisplayValue('storyFromSomeoneElse')).toBeInTheDocument();
+  });
+
   describe('When Player is Moderator', () => {
     it('should display reveal option', () => {
       render(
